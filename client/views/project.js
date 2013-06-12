@@ -9,6 +9,9 @@ Template.project.helpers({
     return Projects.findOne(Session.get('currentProjectId'));
   },
   allMilestones: function() {
-    return Milestones.find();
+    return Milestones.find({
+      teamId: Session.get('currentTeamId'),
+      projectId: Session.get('currentProjectId')
+    });
   }
 });

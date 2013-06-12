@@ -6,10 +6,10 @@ Meteor.publish('teamProjects', function(teamId) {
   return Projects.find({teamId: teamId});
 });
 
-Meteor.publish('projectMilestones', function(projectId) {
-  return Milestones.find({projectId: projectId});
+Meteor.publish('teamMilestones', function(teamId) {
+  return Milestones.find({teamId: teamId});
 });
 
-Meteor.publish('milestoneIssues', function(milestoneId) {
-  return Issues.find({milestoneId: milestoneId});
+Meteor.publish('teamIssues', function(teamId) {
+  return Issues.find({teamId: teamId});
 });

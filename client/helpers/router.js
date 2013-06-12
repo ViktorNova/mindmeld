@@ -1,21 +1,12 @@
-function clearCurrentSessionVars() {
-  Session.set('currentTeamId', null);
-  Session.set('currentProjectId', null);
-  Session.set('currentMilestoneId', null);
-  Session.set('currentIssueId', null);
-};
-
 Meteor.Router.add({
   '/': {
     to: 'home',
     and: function() {
-      clearCurrentSessionVars();
     }
   },
   '/:teamCode': {
     to: 'team',
     and: function(teamCode) { 
-      clearCurrentSessionVars();
       var team = Teams.findOne({code: teamCode});
       if (team) {
         Session.set('currentTeamId', team._id);
@@ -25,7 +16,6 @@ Meteor.Router.add({
   '/:teamCode/:projectCode': {
     to: 'project',
     and: function(teamCode, projectCode) { 
-      clearCurrentSessionVars();
       var team = Teams.findOne({code: teamCode});
       if (team) {
         Session.set('currentTeamId', team._id);
@@ -39,7 +29,6 @@ Meteor.Router.add({
   '/:teamCode/:projectCode/:milestoneIndex': {
     to: 'milestone',
     and: function(teamCode, projectCode, milestoneIndex) {
-      clearCurrentSessionVars();
       var team = Teams.findOne({code: teamCode});
       if (team) {
         Session.set('currentTeamId', team._id);
@@ -58,7 +47,6 @@ Meteor.Router.add({
   '/:teamCode/:projectCode/:milestoneIndex/:issueCode': {
     to: 'issue',
     and: function(teamCode, projectCode, milestoneIndex, issueCode) {
-      clearCurrentSessionVars();
       var team = Teams.findOne({code: teamCode});
       if (team) {
         Session.set('currentTeamId', team._id);

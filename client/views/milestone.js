@@ -15,6 +15,10 @@ Template.milestone.helpers({
     return Milestones.findOne(Session.get('currentMilestoneId'));
   },
   allIssues: function() {
-    return Issues.find();
+    return Issues.find({
+      teamId: Session.get('currentTeamId'),
+      projectId: Session.get('currentProjectId'),
+      milestoneId: Session.get('currentMilestoneId')
+    });
   }
 });
