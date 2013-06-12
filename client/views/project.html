@@ -1,0 +1,9 @@
+<template name="project">
+  {{#with currentProject}}
+    <h1><a href="{{teamPath teamCode}}">{{teamName}}</a> / 
+      <a href="{{projectPath teamCode code}}">{{name}}</a></h1>
+  {{/with}}
+  {{#each allMilestones}}
+    {{> milestoneList}}
+  {{/each}}
+</template>

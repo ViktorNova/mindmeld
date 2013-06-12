@@ -1,0 +1,8 @@
+<template name="team">
+  {{#with currentTeam}}
+    <h1><a href="{{teamPath code}}">{{name}}</a></h1>
+  {{/with}}
+  {{#each allProjects}}
+    {{> projectList}}
+  {{/each}}
+</template>

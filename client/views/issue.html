@@ -1,0 +1,12 @@
+<template name="issue">
+  {{#with currentIssue}}
+    <h1>
+      <a href="{{teamPath teamCode}}">{{teamName}}</a> / 
+      <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> / 
+      <a href="{{milestonePath teamCode projectCode milestoneIndex}}">
+        Milestone {{milestoneIndex}}
+      </a> / 
+      <a href="{{issuePath teamCode projectCode milestoneIndex code}}">{{name}}</a>
+    </h1>
+  {{/with}}
+</template>

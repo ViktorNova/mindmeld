@@ -1,0 +1,12 @@
+<template name="milestone">
+  {{#with currentMilestone}}
+    <h1>
+      <a href="{{teamPath teamCode}}">{{teamName}}</a> / 
+      <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> / 
+      <a href="{{milestonePath teamCode projectCode index}}">Milestone {{index}}</a>
+    </h1>
+  {{/with}}
+  {{#each allIssues}}
+    {{> issueList}}
+  {{/each}}
+</template>
