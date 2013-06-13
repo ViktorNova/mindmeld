@@ -1,0 +1,6 @@
+<template name="myIssues">
+<h2>My Issues</h2>
+{{#each issuesIBelongTo}}
+  {{> issueListWithTeamAndProjectAndMilestone}}
+{{/each}}
+</template>

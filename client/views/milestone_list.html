@@ -1,5 +1,13 @@
 <template name="milestoneList">
 <div class="item">
-  <h2><a href="{{milestonePath teamCode projectCode index}}">Milestone {{index}}</a></h2>
+  <a href="{{milestonePath teamCode projectCode index}}">Milestone {{index}}</a>
+</div>
+</template>
+
+<template name="milestoneListWithTeamAndProject">
+<div class="item">
+  <a href="{{milestonePath teamCode projectCode index}}">
+    {{teamName}} / {{projectName}} / Milestone {{index}}
+  </a>
 </div>
 </template>

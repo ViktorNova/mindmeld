@@ -1,5 +1,11 @@
 <template name="projectList">
 <div class="item">
-  <h2><a href="{{projectPath teamCode code}}">{{name}}</a></h2>
+  <a href="{{projectPath teamCode code}}">{{name}}</a>
+</div>
+</template>
+
+<template name="projectListWithTeam">
+<div class="item">
+  <a href="{{projectPath teamCode code}}">{{teamName}} / {{name}}</a>
 </div>
 </template>
