@@ -1,16 +1,24 @@
 <template name="home">
-  <div class="container">
-    <div class="span3">
-      {{> myTeams}}
+  {{#if isLoggedIn}}
+    <div class="container">
+      <div class="span3">
+        {{> myTeams}}
+      </div>
+      <div class="span3">
+        {{> myProjects}}
+      </div>
+      <div class="span3">
+        {{> myMilestones}}
+      </div>
+      <div class="span3">
+        {{> myIssues}}
+      </div>
     </div>
-    <div class="span3">
-      {{> myProjects}}
+  {{else}}
+    <div class="container">
+      <div class="hero-unit">
+        <h1>Home</h1>
+      </div>
     </div>
-    <div class="span3">
-      {{> myMilestones}}
-    </div>
-    <div class="span3">
-      {{> myIssues}}
-    </div>
-  </div>
+  {{/if}}
 </template>
