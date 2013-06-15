@@ -23,11 +23,10 @@ Template.issueForm.events({
           Meteor.Router.to('issue', error.details)
       } else {
           console.log(issue);
-          Meteor.Router.to('issue', 
+          Meteor.Router.to('milestone', 
             Meteor.userFunctions.teamCode.call(issue),
             Meteor.userFunctions.projectCode.call(issue),
-            Meteor.userFunctions.milestoneIndex.call(issue),
-            issue.code);
+            Meteor.userFunctions.milestoneIndex.call(issue));
       }
     });
   }

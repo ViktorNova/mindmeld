@@ -1,40 +1,45 @@
 <template name="milestone">
   {{> milestoneHeader}}
-  {{> milestoneAddIssue}}
-  {{> milestoneBody}}
+  <div class="row">
+    {{> notifications}}
+    {{> milestoneAddIssue}}
+    {{> milestoneBody}}
+  </div>
 </template>
 
 <template name="newIssue">
   {{> milestoneHeader}}
-  {{> issueForm}}
-  {{> milestoneBody}}
+  <div class="row">
+    {{> notifications}}
+    {{> issueForm}}
 </template>  
 
 
 <template name="milestoneHeader">
   {{#with currentMilestone}}
-    <div class="span12">
-      <h1>
-        <a href="{{teamPath teamCode}}">{{teamName}}</a> / 
-        <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> / 
-        <a href="{{milestonePath teamCode projectCode index}}">Milestone {{index}}</a>
-      </h1>
+    <div class="row">
+      <div class="span12">
+        <h1>
+          <a href="{{teamPath teamCode}}">{{teamName}}</a> / 
+          <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> / 
+          <a href="{{milestonePath teamCode projectCode index}}">Milestone {{index}}</a>
+        </h1>
+      </div>
     </div>
   {{/with}}
 </template>
 
 <template name="milestoneAddIssue">
   {{#with currentMilestone}}
-    <div class="span6 pull-right">
-      <div class="pull-right">
-        <a href="{{newIssuePath teamCode projectCode index}}">Create issue</a>
-      </div>
+    <div class="span9">
+      <a class="pull-right" href="{{newIssuePath teamCode projectCode index}}"><h3>Create issue</h3></a>
     </div>
   {{/with}}
 </template>
 
 <template name="milestoneBody">
-  <div class="span6 pull-right">
+  <div class="span9 pull-right">
+    <h2>Issues</h2>
     {{#each allIssues}}
       {{> issueList}}
     {{/each}}

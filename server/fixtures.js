@@ -134,98 +134,134 @@ if (Teams.find().count() === 0) {
   });
   
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM1Id,
     code: 'issueOne',
-    title: 'Issue One'
+    title: 'Issue One',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
 
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM1Id,
     code: 'issueTwo',
-    title: 'Issue Two'
+    title: 'Issue Two',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
   
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM2Id,
     code: 'issueThree',
-    title: 'Issue Three'
+    title: 'Issue Three',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
   
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM2Id,
     code: 'issueFour',
-    title: 'Issue Four'
+    title: 'Issue Four',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
 
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM3Id,
     code: 'issueFive',
-    title: 'Issue Five'
+    title: 'Issue Five',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
   
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM3Id,
     code: 'issueSix',
-    title: 'Issue Six'
+    title: 'Issue Six',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
   
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM1Id,
     code: 'issueSeven',
-    title: 'Issue Seven'
+    title: 'Issue Seven',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
 
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM1Id,
     code: 'issueEight',
-    title: 'Issue Eight'
+    title: 'Issue Eight',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
   
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM2Id,
     code: 'issueNine',
-    title: 'Issue Nine'
+    title: 'Issue Nine',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
   
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM2Id,
     code: 'issueTen',
-    title: 'Issue Ten'
+    title: 'Issue Ten',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
 
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM3Id,
     code: 'issueEleven',
-    title: 'Issue Eleven'
+    title: 'Issue Eleven',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
   
   Issues.insert({
+    createdUserId: 'JrvzK876e5PBHKc2T',
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM3Id,
     code: 'issueTwelve',
-    title: 'Issue Twelve'
+    title: 'Issue Twelve',
+    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
   });
 } 

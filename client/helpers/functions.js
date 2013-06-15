@@ -17,6 +17,12 @@ Meteor.userFunctions = {
   currentMilestone: function() {
     return Milestones.findOne(Session.get('currentMilestoneId'));
   },
+  currentIssue: function() {
+    return Issues.findOne(Session.get('currentIssueId'));
+  },
+  ownerUsername: function() {
+    return Meteor.users.findOne(this.ownerUserId).username + "A";
+  },
   allIssues: function() {
     return Issues.find({
       teamId: Session.get('currentTeamId'),
@@ -26,9 +32,6 @@ Meteor.userFunctions = {
   },
   members: function() {
     return Meteor.users.find();
-    // var team = Teams.findOne(this.teamId);
-    // console.log("team members" + team.members.length);
-    // return Meteor.users.find({_id: {$in: team.members}});
   },
   userId: function() {
     return Meteor.userId();
