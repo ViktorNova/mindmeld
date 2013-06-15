@@ -98,170 +98,206 @@ if (Teams.find().count() === 0) {
   });
 
   var daysFutureM1Id = Milestones.insert({
+    dueDate: new Date('2013-06-15 17:00:00'),
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
-    index: 1
+    code: 'milestoneOne',
+    name: 'Milestone One',
+    detail: "Cosby sweater beard YOLO pariatur disrupt pop-up, lomo eu mlkshk aesthetic Godard sint Neutra scenester. Artisan consectetur deep v twee. Small batch mustache aute, cornhole Williamsburg non Banksy YOLO gentrify single-origin coffee fashion axe mollit. Williamsburg sapiente semiotics, shoreditch small batch selfies forage next level fingerstache hella deserunt selvage et tousled exercitation. Wes Anderson semiotics butcher sint cupidatat, bicycle rights scenester Carles Neutra occupy asymmetrical labore. Vinyl Tonx quinoa, iPhone art party do Cosby sweater four loko aliqua cillum bitters organic authentic consequat. YOLO mustache chambray, fashion axe banh mi Odd Future ethical ea est you probably haven't heard of them nulla gluten-free."
   });
 
   var daysFutureM2Id = Milestones.insert({
+    dueDate: new Date('2013-06-15 17:00:00'),
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
-    index: 2
+    code: 'milestoneTwo',
+    name: 'Milestone Two',
+    detail: "Cosby sweater beard YOLO pariatur disrupt pop-up, lomo eu mlkshk aesthetic Godard sint Neutra scenester. Artisan consectetur deep v twee. Small batch mustache aute, cornhole Williamsburg non Banksy YOLO gentrify single-origin coffee fashion axe mollit. Williamsburg sapiente semiotics, shoreditch small batch selfies forage next level fingerstache hella deserunt selvage et tousled exercitation. Wes Anderson semiotics butcher sint cupidatat, bicycle rights scenester Carles Neutra occupy asymmetrical labore. Vinyl Tonx quinoa, iPhone art party do Cosby sweater four loko aliqua cillum bitters organic authentic consequat. YOLO mustache chambray, fashion axe banh mi Odd Future ethical ea est you probably haven't heard of them nulla gluten-free."
   });
 
   var daysFutureM3Id = Milestones.insert({
+    dueDate: new Date('2013-06-15 17:00:00'),
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
-    index: 3
+    code: 'milestoneThree',
+    name: 'Milestone Three',
+    detail: "Cosby sweater beard YOLO pariatur disrupt pop-up, lomo eu mlkshk aesthetic Godard sint Neutra scenester. Artisan consectetur deep v twee. Small batch mustache aute, cornhole Williamsburg non Banksy YOLO gentrify single-origin coffee fashion axe mollit. Williamsburg sapiente semiotics, shoreditch small batch selfies forage next level fingerstache hella deserunt selvage et tousled exercitation. Wes Anderson semiotics butcher sint cupidatat, bicycle rights scenester Carles Neutra occupy asymmetrical labore. Vinyl Tonx quinoa, iPhone art party do Cosby sweater four loko aliqua cillum bitters organic authentic consequat. YOLO mustache chambray, fashion axe banh mi Odd Future ethical ea est you probably haven't heard of them nulla gluten-free."
   });
 
   var xtinctionAgendaM1Id = Milestones.insert({
+    dueDate: new Date('2013-06-15 17:00:00'),
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
-    index: 1
+    code: 'milestoneFour',
+    name: 'Milestone Four',
+    detail: "Cosby sweater beard YOLO pariatur disrupt pop-up, lomo eu mlkshk aesthetic Godard sint Neutra scenester. Artisan consectetur deep v twee. Small batch mustache aute, cornhole Williamsburg non Banksy YOLO gentrify single-origin coffee fashion axe mollit. Williamsburg sapiente semiotics, shoreditch small batch selfies forage next level fingerstache hella deserunt selvage et tousled exercitation. Wes Anderson semiotics butcher sint cupidatat, bicycle rights scenester Carles Neutra occupy asymmetrical labore. Vinyl Tonx quinoa, iPhone art party do Cosby sweater four loko aliqua cillum bitters organic authentic consequat. YOLO mustache chambray, fashion axe banh mi Odd Future ethical ea est you probably haven't heard of them nulla gluten-free."
   });
 
   var xtinctionAgendaM2Id = Milestones.insert({
+    dueDate: new Date('2013-06-15 17:00:00'),
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
-    index: 2
+    code: 'milestoneFive',
+    name: 'Milestone Five',
+    detail: "Cosby sweater beard YOLO pariatur disrupt pop-up, lomo eu mlkshk aesthetic Godard sint Neutra scenester. Artisan consectetur deep v twee. Small batch mustache aute, cornhole Williamsburg non Banksy YOLO gentrify single-origin coffee fashion axe mollit. Williamsburg sapiente semiotics, shoreditch small batch selfies forage next level fingerstache hella deserunt selvage et tousled exercitation. Wes Anderson semiotics butcher sint cupidatat, bicycle rights scenester Carles Neutra occupy asymmetrical labore. Vinyl Tonx quinoa, iPhone art party do Cosby sweater four loko aliqua cillum bitters organic authentic consequat. YOLO mustache chambray, fashion axe banh mi Odd Future ethical ea est you probably haven't heard of them nulla gluten-free."
   });
 
   var xtinctionAgendaM3Id = Milestones.insert({
+    dueDate: new Date('2013-06-15 17:00:00'),
+    ownerUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
-    index: 3
+    code: 'milestoneSix',
+    name: 'Milestone Six',
+    detail: "Cosby sweater beard YOLO pariatur disrupt pop-up, lomo eu mlkshk aesthetic Godard sint Neutra scenester. Artisan consectetur deep v twee. Small batch mustache aute, cornhole Williamsburg non Banksy YOLO gentrify single-origin coffee fashion axe mollit. Williamsburg sapiente semiotics, shoreditch small batch selfies forage next level fingerstache hella deserunt selvage et tousled exercitation. Wes Anderson semiotics butcher sint cupidatat, bicycle rights scenester Carles Neutra occupy asymmetrical labore. Vinyl Tonx quinoa, iPhone art party do Cosby sweater four loko aliqua cillum bitters organic authentic consequat. YOLO mustache chambray, fashion axe banh mi Odd Future ethical ea est you probably haven't heard of them nulla gluten-free."
   });
   
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM1Id,
     code: 'issueOne',
-    title: 'Issue One',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue One',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
 
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM1Id,
     code: 'issueTwo',
-    title: 'Issue Two',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Two',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
   
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM2Id,
     code: 'issueThree',
-    title: 'Issue Three',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Three',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
   
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM2Id,
     code: 'issueFour',
-    title: 'Issue Four',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Four',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
 
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM3Id,
     code: 'issueFive',
-    title: 'Issue Five',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Five',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
   
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM3Id,
     code: 'issueSix',
-    title: 'Issue Six',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Six',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
   
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM1Id,
     code: 'issueSeven',
-    title: 'Issue Seven',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Seven',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
 
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM1Id,
     code: 'issueEight',
-    title: 'Issue Eight',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Eight',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
   
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM2Id,
     code: 'issueNine',
-    title: 'Issue Nine',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Nine',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
   
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM2Id,
     code: 'issueTen',
-    title: 'Issue Ten',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Ten',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
 
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM3Id,
     code: 'issueEleven',
-    title: 'Issue Eleven',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Eleven',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
   
   Issues.insert({
     createdUserId: 'JrvzK876e5PBHKc2T',
     ownerUserId: 'JrvzK876e5PBHKc2T',
+    assigneeUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM3Id,
     code: 'issueTwelve',
-    title: 'Issue Twelve',
-    detail: 'Issue detail goes in here. It should be a long, detailed description, but I can not think of anything right now.'
+    name: 'Issue Twelve',
+    detail: "Chillwave enim direct trade, blog consequat ethnic iPhone leggings 8-bit twee ad reprehenderit readymade. Gentrify seitan aute semiotics. Kogi deserunt pork belly four loko eu placeat, you probably haven't heard of them Echo Park freegan Bushwick Truffaut. Bicycle rights sapiente actually, vegan raw denim cliche polaroid magna pug Bushwick. Ugh tote bag next level, american apparel plaid butcher craft beer ethical excepteur shoreditch swag sunt beard dreamcatcher odio. Twee laboris gluten-free salvia church-key photo booth, Pinterest ex tofu laborum bicycle rights magna nihil stumptown. Cardigan adipisicing authentic, Echo Park culpa messenger bag plaid ex excepteur McSweeney's tofu minim ugh letterpress esse. Nostrud ullamco in, tousled organic try-hard pour-over laboris sapiente church-key. Whatever Bushwick adipisicing, keffiyeh tempor id Banksy fashion axe raw denim placeat High Life semiotics narwhal. Fingerstache semiotics odio pork belly excepteur try-hard, cardigan single-origin coffee. Forage duis actually, proident Schlitz locavore nihil Vice cliche. Aute Austin semiotics thundercats, single-origin coffee squid sriracha non sunt Wes Anderson Schlitz. Banh mi VHS +1 ullamco, fixie Vice sriracha Echo Park food truck. Carles yr chillwave, lo-fi mumblecore nostrud whatever kale chips try-hard banh mi sustainable vero american apparel. Viral chambray Wes Anderson selfies dolor. Tattooed nisi anim, mixtape reprehenderit consequat messenger bag narwhal single-origin coffee Carles fixie thundercats. Keytar narwhal post-ironic DIY next level readymade. Mumblecore placeat irony consequat. Brooklyn pug disrupt pitchfork, id vero culpa four loko kogi shoreditch chillwave DIY nisi. Meh semiotics fap hoodie forage sed officia. Cillum Bushwick typewriter kogi single-origin coffee try-hard. Et swag helvetica Williamsburg mlkshk, esse mumblecore direct trade aliquip DIY hashtag Vice sapiente. Bitters vero american apparel, whatever 3 wolf moon roof party flannel enim commodo. Consectetur tote bag chillwave forage. Tofu adipisicing pork belly, nesciunt disrupt bicycle rights sed tousled ethnic. Retro food truck velit pariatur, vinyl Wes Anderson literally YOLO nulla leggings aute four loko 3 wolf moon. Hella 3 wolf moon irony plaid, ethnic culpa Schlitz duis four loko gluten-free fap reprehenderit butcher. Selvage deep v tote bag tempor, Schlitz Pinterest pour-over brunch literally et."
   });
 } 

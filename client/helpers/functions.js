@@ -11,8 +11,26 @@ Meteor.userFunctions = {
   projectName: function() {
     return Projects.findOne(this.projectId).name;
   },
-  milestoneIndex: function() {
-    return Milestones.findOne(this.milestoneId).index;
+  milestoneCode: function() {
+    return Milestones.findOne(this.milestoneId).code;
+  },
+  milestoneName: function() {
+    return Milestones.findOne(this.milestoneId).name;
+  },
+  issueCode: function() {
+    return Issues.findOne(this.issueId).code;    
+  },
+  issueName: function() {
+    return Issues.findOne(this.issueId).name;
+  },
+  issueDueDate: function() {
+    return Milestones.findOne(this.milestoneId).dueDate;
+  },
+  currentTeam: function() {
+    return Teams.findOne(Session.get('currentTeamId'));
+  },
+  currentProject: function() {
+    return Projects.findOne(Session.get('currentProjectId'));
   },
   currentMilestone: function() {
     return Milestones.findOne(Session.get('currentMilestoneId'));
@@ -21,7 +39,10 @@ Meteor.userFunctions = {
     return Issues.findOne(Session.get('currentIssueId'));
   },
   ownerUsername: function() {
-    return Meteor.users.findOne(this.ownerUserId).username + "A";
+    return Meteor.users.findOne(this.ownerUserId).username;
+  },
+  assigneeUsername: function() {
+    return Meteor.users.findOne(this.assigneeUserId).username;
   },
   allIssues: function() {
     return Issues.find({
@@ -34,6 +55,9 @@ Meteor.userFunctions = {
     return Meteor.users.find();
   },
   userId: function() {
+    return Meteor.userId();
+  },
+  isLoggedIn: function() {
     return Meteor.userId();
   }
 };

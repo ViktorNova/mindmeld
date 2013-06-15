@@ -26,9 +26,9 @@ Meteor.Router.add({
       }
     }
   },
-  '/:teamCode/:projectCode/:milestoneIndex': {
+  '/:teamCode/:projectCode/:milestoneCode': {
     to: 'milestone',
-    and: function(teamCode, projectCode, milestoneIndex) {
+    and: function(teamCode, projectCode, milestoneCode) {
       var team = Teams.findOne({code: teamCode});
       if (team) {
         Session.set('currentTeamId', team._id);
@@ -36,7 +36,7 @@ Meteor.Router.add({
         if (project) {
           Session.set('currentProjectId', project._id);
           var milestone = Milestones.findOne({teamId: team._id, 
-            projectId: project._id, index: parseInt(milestoneIndex)});
+            projectId: project._id, code: milestoneCode});
           if (milestone) {
             Session.set('currentMilestoneId', milestone._id);
           }
@@ -44,9 +44,9 @@ Meteor.Router.add({
       }
     }
   },
-  '/:teamCode/:projectCode/:milestoneIndex/:issueCode': {
+  '/:teamCode/:projectCode/:milestoneCode/:issueCode': {
     to: 'issue',
-    and: function(teamCode, projectCode, milestoneIndex, issueCode) {
+    and: function(teamCode, projectCode, milestoneCode, issueCode) {
       var team = Teams.findOne({code: teamCode});
       if (team) {
         Session.set('currentTeamId', team._id);
@@ -54,7 +54,7 @@ Meteor.Router.add({
         if (project) {
           Session.set('currentProjectId', project._id);
           var milestone = Milestones.findOne({teamId: team._id, 
-            projectId: project._id, index: parseInt(milestoneIndex)});
+            projectId: project._id, code: milestoneCode});
           if (milestone) {
             Session.set('currentMilestoneId', milestone._id);
             var issue = Issues.findOne({teamId: team._id, projectId: project._id, 
@@ -67,9 +67,9 @@ Meteor.Router.add({
       }
     }
   },
-  '/:teamCode/:projectCode/:milestoneIndex/issue/new': {
-    to: 'newIssue',
-    and: function(teamCode, projectCode, milestoneIndex) {
+  '/:teamCode/:projectCode/:milestoneCode/issue/create': {
+    to: 'createIssue',
+    and: function(teamCode, projectCode, milestoneCode) {
       var team = Teams.findOne({code: teamCode});
       if (team) {
         Session.set('currentTeamId', team._id);
@@ -77,7 +77,7 @@ Meteor.Router.add({
         if (project) {
           Session.set('currentProjectId', project._id);
           var milestone = Milestones.findOne({teamId: team._id, 
-            projectId: project._id, index: parseInt(milestoneIndex)});
+            projectId: project._id, code: milestoneCode});
           if (milestone) {
             Session.set('currentMilestoneId', milestone._id);
           }

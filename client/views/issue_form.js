@@ -8,7 +8,7 @@ Template.issueForm.events({
       teamId: $(event.target).find('[name=teamId]').val(),
       projectId: $(event.target).find('[name=projectId]').val(),
       milestoneId: $(event.target).find('[name=milestoneId]').val(),
-      title: $(event.target).find('[name=title]').val(),
+      name: $(event.target).find('[name=name]').val(),
       detail: $(event.target).find('[name=detail]').val(),
       ownerUserId: $(event.target).find('[name=owner]').val(),
       assigneeUserId: $(event.target).find('[name=assignee]').val()
@@ -22,11 +22,10 @@ Template.issueForm.events({
         if (error.error == 302)
           Meteor.Router.to('issue', error.details)
       } else {
-          console.log(issue);
           Meteor.Router.to('milestone', 
             Meteor.userFunctions.teamCode.call(issue),
             Meteor.userFunctions.projectCode.call(issue),
-            Meteor.userFunctions.milestoneIndex.call(issue));
+            Meteor.userFunctions.milestoneCode.call(issue));
       }
     });
   }

@@ -2,16 +2,16 @@
   {{> milestoneHeader}}
   <div class="row">
     {{> notifications}}
-    {{> milestoneAddIssue}}
     {{> milestoneBody}}
   </div>
 </template>
 
-<template name="newIssue">
+<template name="createIssue">
   {{> milestoneHeader}}
   <div class="row">
     {{> notifications}}
     {{> issueForm}}
+  </div>
 </template>  
 
 
@@ -22,7 +22,7 @@
         <h1>
           <a href="{{teamPath teamCode}}">{{teamName}}</a> / 
           <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> / 
-          <a href="{{milestonePath teamCode projectCode index}}">Milestone {{index}}</a>
+          <a href="{{milestonePath teamCode projectCode index}}">{{name}}</a>
         </h1>
       </div>
     </div>
@@ -31,17 +31,44 @@
 
 <template name="milestoneAddIssue">
   {{#with currentMilestone}}
-    <div class="span9">
-      <a class="pull-right" href="{{newIssuePath teamCode projectCode index}}"><h3>Create issue</h3></a>
-    </div>
+    <button id="createIssue" class="btn pull-right">Create Issue</button>
   {{/with}}
 </template>
 
 <template name="milestoneBody">
   <div class="span9 pull-right">
+    {{#with currentMilestone}}
+    <div class="row">
+      <div class="span9">
+        <h2>{{name}}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <form class="form-inline span9">
+        <div class="input-prepend">
+          <span class="add-on">Owner</span>
+          <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{ownerUsername}}" />
+        </div>
+        <div class="input-prepend">
+          <span class="add-on">Due Date</span>
+          <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{dueDate}}" />
+        </div>
+          {{#if isLoggedIn}}
+            {{> milestoneAddIssue}}
+          {{/if}}
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="span9">{{detail}}</div>
+    </div>
+
     <h2>Issues</h2>
     {{#each allIssues}}
       {{> issueList}}
     {{/each}}
+
+    {{/with}}
   </div>
 </template>
