@@ -1,0 +1,54 @@
+<template name="issueForm">
+{{#with currentMilestone}}  
+    <div class="span6 pull-right">
+      <form id="newIssue" class="form-horizontal">
+        <h2>Create Issue</h2>
+        <input type="hidden" name="createdBy" value="{{userId}}" />
+        <input type="hidden" name="teamId" value="{{teamId}}" />
+        <input type="hidden" name="projectId" value="{{projectId}}" />
+        <input type="hidden" name="milestoneId" value="{{_id}}" />
+        <div class="control-group">
+          <label class="control-label" for="title">Title</label>
+          <div class="controls">
+            <input name="title" type="text" maxlength="80" placeholder="title" />
+          </div>
+        </div>
+        <div class="control-group controls-row">
+          <label class="control-label" for="detail">Detail</label>
+          <div class="controls">
+            <textarea name="detail" rows="8"></textarea>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="owner">Owner</label>
+          <div class="controls">
+            <select name="owner">
+              {{#each members}}
+                {{> member}}
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="member">Assignee</label>
+          <div class="controls">
+            <select name="assignee">
+              <option value="">Select an assignee</option>
+              {{#each members}}
+                {{> member}}
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="button" class="btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  {{/with}}
+</template>
+
+<template name="member">
+  <option value="{{_id}}">{{username}}</option>
+</template>

@@ -66,5 +66,23 @@ Meteor.Router.add({
         }
       }
     }
+  },
+  '/:teamCode/:projectCode/:milestoneIndex/issue/new': {
+    to: 'newIssue',
+    and: function(teamCode, projectCode, milestoneIndex) {
+      var team = Teams.findOne({code: teamCode});
+      if (team) {
+        Session.set('currentTeamId', team._id);
+        var project = Projects.findOne({teamId: team._id, code: projectCode});
+        if (project) {
+          Session.set('currentProjectId', project._id);
+          var milestone = Milestones.findOne({teamId: team._id, 
+            projectId: project._id, index: parseInt(milestoneIndex)});
+          if (milestone) {
+            Session.set('currentMilestoneId', milestone._id);
+          }
+        }
+      }
+    }
   }
 });

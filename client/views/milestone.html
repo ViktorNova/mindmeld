@@ -1,12 +1,42 @@
 <template name="milestone">
+  {{> milestoneHeader}}
+  {{> milestoneAddIssue}}
+  {{> milestoneBody}}
+</template>
+
+<template name="newIssue">
+  {{> milestoneHeader}}
+  {{> issueForm}}
+  {{> milestoneBody}}
+</template>  
+
+
+<template name="milestoneHeader">
   {{#with currentMilestone}}
-    <h1>
-      <a href="{{teamPath teamCode}}">{{teamName}}</a> / 
-      <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> / 
-      <a href="{{milestonePath teamCode projectCode index}}">Milestone {{index}}</a>
-    </h1>
+    <div class="span12">
+      <h1>
+        <a href="{{teamPath teamCode}}">{{teamName}}</a> / 
+        <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> / 
+        <a href="{{milestonePath teamCode projectCode index}}">Milestone {{index}}</a>
+      </h1>
+    </div>
   {{/with}}
-  {{#each allIssues}}
-    {{> issueList}}
-  {{/each}}
+</template>
+
+<template name="milestoneAddIssue">
+  {{#with currentMilestone}}
+    <div class="span6 pull-right">
+      <div class="pull-right">
+        <a href="{{newIssuePath teamCode projectCode index}}">Create issue</a>
+      </div>
+    </div>
+  {{/with}}
+</template>
+
+<template name="milestoneBody">
+  <div class="span6 pull-right">
+    {{#each allIssues}}
+      {{> issueList}}
+    {{/each}}
+  </div>
 </template>
