@@ -88,18 +88,20 @@ if (Teams.find().count() === 0) {
   var daysFutureId = Projects.insert({
     name: 'Days of Future Past',
     code: 'daysfuture',
-    teamId: weaponXId
+    teamId: weaponXId,
+    detail: "Cred meh cardigan +1 fingerstache, brunch Schlitz keytar disrupt keffiyeh. Voluptate cray sriracha pug flannel. Adipisicing commodo small batch farm-to-table, dolore Truffaut lo-fi quis sriracha culpa single-origin coffee VHS incididunt. Meh wayfarers aute, dreamcatcher in Pinterest Wes Anderson actually Terry Richardson elit semiotics magna ex roof party. Hashtag wolf beard, ad mumblecore Austin plaid pour-over pariatur master cleanse. Vice plaid Neutra, Schlitz VHS deep v Carles 90's proident disrupt. Terry Richardson Tonx aliquip duis, artisan assumenda excepteur Portland retro sriracha ethical pug."
   });
 
   var xtinctionAgendaId = Projects.insert({
     name: 'The X-tinction Agenda',
     code: 'xtinctionagenda',
-    teamId: weaponXId
+    teamId: weaponXId,
+    detail: "Cred meh cardigan +1 fingerstache, brunch Schlitz keytar disrupt keffiyeh. Voluptate cray sriracha pug flannel. Adipisicing commodo small batch farm-to-table, dolore Truffaut lo-fi quis sriracha culpa single-origin coffee VHS incididunt. Meh wayfarers aute, dreamcatcher in Pinterest Wes Anderson actually Terry Richardson elit semiotics magna ex roof party. Hashtag wolf beard, ad mumblecore Austin plaid pour-over pariatur master cleanse. Vice plaid Neutra, Schlitz VHS deep v Carles 90's proident disrupt. Terry Richardson Tonx aliquip duis, artisan assumenda excepteur Portland retro sriracha ethical pug."
   });
 
   var daysFutureM1Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    ownerUserId: 'JrvzK876e5PBHKc2T',
+    createdUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     code: 'milestoneOne',
@@ -109,7 +111,7 @@ if (Teams.find().count() === 0) {
 
   var daysFutureM2Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    ownerUserId: 'JrvzK876e5PBHKc2T',
+    createdUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     code: 'milestoneTwo',
@@ -119,7 +121,7 @@ if (Teams.find().count() === 0) {
 
   var daysFutureM3Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    ownerUserId: 'JrvzK876e5PBHKc2T',
+    createdUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     code: 'milestoneThree',
@@ -129,7 +131,7 @@ if (Teams.find().count() === 0) {
 
   var xtinctionAgendaM1Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    ownerUserId: 'JrvzK876e5PBHKc2T',
+    createdUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     code: 'milestoneFour',
@@ -139,7 +141,7 @@ if (Teams.find().count() === 0) {
 
   var xtinctionAgendaM2Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    ownerUserId: 'JrvzK876e5PBHKc2T',
+    createdUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     code: 'milestoneFive',
@@ -149,7 +151,7 @@ if (Teams.find().count() === 0) {
 
   var xtinctionAgendaM3Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    ownerUserId: 'JrvzK876e5PBHKc2T',
+    createdUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     code: 'milestoneSix',

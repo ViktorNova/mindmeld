@@ -1,9 +1,64 @@
 <template name="project">
+  {{> projectHeader}}
+  <div class="row">
+    {{> notifications}}
+    {{> projectBody}}
+  </div>
+</template>
+
+<template name="createMilestone">
+  {{> projectHeader}}
+  <div class="row">
+    {{> notifications}}
+    {{> milestoneForm}}
+  </div>
+</template>
+
+<template name="projectHeader">
   {{#with currentProject}}
-    <h1><a href="{{teamPath teamCode}}">{{teamName}}</a> / 
-      <a href="{{projectPath teamCode code}}">{{name}}</a></h1>
+  <div class="row">
+    <div class="span12">
+      <h1>
+        <a href="{{teamPath teamCode}}">{{teamName}}</a> / 
+        <a href="{{projectPath teamCode code}}">{{name}}</a>
+      </h1>
+    </div>
+  </div>
   {{/with}}
-  {{#each allMilestones}}
-    {{> milestoneList}}
-  {{/each}}
+</template>
+
+<template name="projectAddMilestone">
+  {{#with currentProject}}
+    <button id="createMilestone" class="btn pull-right">Create Milestone</button>
+  {{/with}}
+</template>
+
+<template name="projectBody">
+  <div class="span9 pull-right">
+    {{#with currentProject}}
+      <div class="row">
+        <div class="span9">
+          <h2>{{name}}</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <form class="form-inline span9">
+            {{#if isLoggedIn}}
+              {{> projectAddMilestone}}
+            {{/if}}
+        </form>
+      </div>
+
+      <div class="row">
+        <div class="span9">{{detail}}</div>
+      </div>
+
+      <h2>Milestones</h2>
+      {{#each allMilestones}}
+        {{> milestoneList}}
+      {{/each}}
+
+    {{/with}}
+  </div>
 </template>

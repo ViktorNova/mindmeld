@@ -38,11 +38,20 @@ Meteor.userFunctions = {
   currentIssue: function() {
     return Issues.findOne(Session.get('currentIssueId'));
   },
+  createdUsername: function() {
+    return Meteor.users.findOne(this.createdUserId).username;
+  },
   ownerUsername: function() {
     return Meteor.users.findOne(this.ownerUserId).username;
   },
   assigneeUsername: function() {
     return Meteor.users.findOne(this.assigneeUserId).username;
+  },
+  allMilestones: function() {
+    return Milestones.find({
+      teamId: Session.get('currentTeamId'),
+      projectId: Session.get('currentProjectId')
+    });
   },
   allIssues: function() {
     return Issues.find({
@@ -59,5 +68,8 @@ Meteor.userFunctions = {
   },
   isLoggedIn: function() {
     return Meteor.userId();
+  },
+  currentDateTime: function() {
+    return moment().format();
   }
 };

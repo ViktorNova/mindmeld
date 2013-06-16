@@ -1,7 +1,7 @@
 Issues = new Meteor.Collection('issues');
 
 Meteor.methods({
-	insert: function(issueAttributes) {
+	insertIssue: function(issueAttributes) {
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to create an issue");

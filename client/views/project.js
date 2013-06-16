@@ -1,17 +1,14 @@
-Template.project.helpers({
-  teamCode: function() {
-    return Teams.findOne(this.teamId).code;
-  },
-  teamName: function() {
-    return Teams.findOne(this.teamId).name;
-  },
-  currentProject: function() {
-    return Projects.findOne(Session.get('currentProjectId'));
-  },
-  allMilestones: function() {
-    return Milestones.find({
-      teamId: Session.get('currentTeamId'),
-      projectId: Session.get('currentProjectId')
-    });
+Template.project.helpers(Meteor.userFunctions);
+Template.createMilestone.helpers(Meteor.userFunctions);
+Template.projectHeader.helpers(Meteor.userFunctions);
+Template.projectAddMilestone.helpers(Meteor.userFunctions);
+Template.projectBody.helpers(Meteor.userFunctions);
+
+Template.projectAddMilestone.events({
+  'click #createMilestone': function(event) {
+    event.preventDefault();
+    Meteor.Router.to('createMilestone', 
+      Meteor.userFunctions.teamCode.call(this),
+      this.code);
   }
 });

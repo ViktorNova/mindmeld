@@ -26,6 +26,19 @@ Meteor.Router.add({
       }
     }
   },
+  '/:teamCode/:projectCode/milestone/create': {
+    to: 'createMilestone',
+    and: function(teamCode, projectCode) {
+      var team = Teams.findOne({code: teamCode});
+      if (team) {
+        Session.set('currentTeamId', team._id);
+        var project = Projects.findOne({teamId: team._id, code: projectCode});
+        if (project) {
+          Session.set('currentProjectId', project._id);
+        }
+      }
+    }
+  },
   '/:teamCode/:projectCode/:milestoneCode': {
     to: 'milestone',
     and: function(teamCode, projectCode, milestoneCode) {

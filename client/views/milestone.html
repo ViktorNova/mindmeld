@@ -38,36 +38,32 @@
 <template name="milestoneBody">
   <div class="span9 pull-right">
     {{#with currentMilestone}}
-    <div class="row">
-      <div class="span9">
-        <h2>{{name}}</h2>
+      <div class="row">
+        <div class="span9">
+          <h2>{{name}}</h2>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <form class="form-inline span9">
-        <div class="input-prepend">
-          <span class="add-on">Owner</span>
-          <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{ownerUsername}}" />
-        </div>
-        <div class="input-prepend">
-          <span class="add-on">Due Date</span>
-          <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{dueDate}}" />
-        </div>
-          {{#if isLoggedIn}}
-            {{> milestoneAddIssue}}
-          {{/if}}
-      </form>
-    </div>
+      <div class="row">
+        <form class="form-inline span9">
+          <div class="input-prepend">
+            <span class="add-on">Due Date</span>
+            <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{dueDate}}" />
+          </div>
+            {{#if isLoggedIn}}
+              {{> milestoneAddIssue}}
+            {{/if}}
+        </form>
+      </div>
 
-    <div class="row">
-      <div class="span9">{{detail}}</div>
-    </div>
+      <div class="row">
+        <div class="span9">{{detail}}</div>
+      </div>
 
-    <h2>Issues</h2>
-    {{#each allIssues}}
-      {{> issueList}}
-    {{/each}}
+      <h2>Issues</h2>
+      {{#each allIssues}}
+        {{> issueList}}
+      {{/each}}
 
     {{/with}}
   </div>
