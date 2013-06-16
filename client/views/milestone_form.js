@@ -9,7 +9,7 @@ Template.milestoneForm.events({
       projectId: $(event.target).find('[name=projectId]').val(),
       name: $(event.target).find('[name=name]').val(),
       detail: $(event.target).find('[name=detail]').val(),
-      dueDate: moment($(event.target).find('[name=dueDate]').val())
+      dueDate: moment($(event.target).find('[name=dueDate]').val()).toDate()
     }
 
     Meteor.call('insertMilestone', milestone, function(error, milestone) {
