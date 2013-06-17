@@ -1,7 +1,7 @@
 Deps.autorun(function() {
   Meteor.subscribe('teams', Meteor.userId());
-  Meteor.subscribe('teamProjects', Meteor.userId());
-  Meteor.subscribe('teamMilestones', Meteor.userId());
-  Meteor.subscribe('teamIssues', Meteor.userId());
-  Meteor.subscribe('teamMembers', Meteor.userId());
+  Meteor.subscribe('teamProjects', Meteor.userId(), Session.get('currentTeamId'));
+  Meteor.subscribe('teamMilestones', Meteor.userId(), Session.get('currentTeamId'));
+  Meteor.subscribe('teamIssues', Meteor.userId(), Session.get('currentTeamId'));
+  Meteor.subscribe('teamMembers', Meteor.userId(), Session.get('currentTeamId'));
 });
