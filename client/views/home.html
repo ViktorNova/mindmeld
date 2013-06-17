@@ -1,24 +1,71 @@
 <template name="home">
   {{#if isLoggedIn}}
-    <div class="container">
-      <div class="span3">
-        {{> myTeams}}
+    {{> homeHeader}}
+    <div class="row">
+      {{> notifications}}
+      {{> homeBody}}
+    </div>
+  {{else}}
+    {{> public}}
+  {{/if}}
+</template>
+
+<template name="public">
+  <div class="container">
+    <div class="hero-unit">
+      <h1>Home</h1>
+    </div>
+  </div>
+</template>
+
+
+<template name="createTeam">
+  {{> homeHeader}}
+  <div class="row">
+    {{> notifications}}
+    {{> teamForm}}
+  </div>
+</template>
+
+<template name="homeHeader">
+  <div class="row">
+    <div class="span12">
+      <h1>
+        <a href="{{homePath}}">Home</a>
+      </h1>
+    </div>
+  </div>
+</template>
+
+<template name="homeBody">
+  {{#if isLoggedIn}}
+    <div class="span9 pull-right">
+      <div class="row">
+        <div class="span9">
+          <button id="CreateTeam" class="btn pull-right">Create Team</button>
+        </div>
       </div>
-      <div class="span3">
-        {{> myProjects}}
+      <div class="row">
+        <div class="span9">
+          {{> myTeams}}
+        </div>
       </div>
-      <div class="span3">
-        {{> myMilestones}}
+      <div class="row">      
+        <div class="span9">
+          {{> myProjects}}
+        </div>
       </div>
-      <div class="span3">
-        {{> myIssues}}
+      <div class="row">
+        <div class="span9">
+          {{> myMilestones}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="span9">
+          {{> myIssues}}
+        </div>
       </div>
     </div>
   {{else}}
-    <div class="container">
-      <div class="hero-unit">
-        <h1>Home</h1>
-      </div>
-    </div>
   {{/if}}
 </template>

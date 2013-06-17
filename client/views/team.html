@@ -18,7 +18,9 @@
   {{#with currentTeam}}
   <div class="row">
     <div class="span12">
-      <h1><a href="{{teamPath code}}">{{name}}</a></h1>
+      <h1>
+        <a href="{{homePath}}">Home</a> > 
+        <a href="{{teamPath code}}">{{name}}</a></h1>
     </div>
   </div>
   {{/with}}
@@ -37,6 +39,7 @@
         <form class="form-inline span9">
           {{#if isLoggedIn}}
             <button id="createProject" class="btn pull-right">Create Project</button>
+            <button id="editTeam" class="btn pull-right">Edit Team</button>
           {{/if}}
         </form?
       </div>

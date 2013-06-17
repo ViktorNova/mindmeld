@@ -3,11 +3,12 @@
   {{#with currentIssue}}
     <div class="span12">
       <h1>
-        <a href="{{teamPath teamCode}}">{{teamName}}</a> / 
-        <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> / 
+        <a href="{{homePath}}">Home</a> > 
+        <a href="{{teamPath teamCode}}">{{teamName}}</a> > 
+        <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> > 
         <a href="{{milestonePath teamCode projectCode milestoneCode}}">
           {{milestoneName}}
-        </a> / 
+        </a> > 
         <a href="{{issuePath teamCode projectCode milestoneCode code}}">{{name}}</a>
       </h1>
     </div>

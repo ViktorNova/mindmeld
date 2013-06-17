@@ -56,6 +56,8 @@ function setSessionTeamAndProjectAndMilestoneAndIssue(teamCode, projectCode, mil
 Meteor.Router.add({
   '/': 
     { to: 'home' },
+  '/team/create':
+    { to: 'createTeam' },
 
   '/:teamCode': 
     { to: 'team', and: setSessionTeam },
