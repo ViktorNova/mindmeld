@@ -1,22 +1,35 @@
+<template name="editTeam">
+  {{> teamHeader}}
+  <div class="row">
+    {{> notifications}}
+    {{> teamForm}}
+  </div>
+</template>
+
+
 <template name="teamForm">
-  <form id="newTeam" class="form-horizontal span9">
-    <h2>Create Team</h2>
-    <input type="hidden" name="createdBy" value="{{userId}}" />
-    <div class="control-group controls-row">
-      <label class="control-label" for="name">Name</label>
-      <div class="controls">
-        <input name="name" class="span6" type="text" maxlength="80" />
+  {{#with currentTeam}}
+    <form id="{{action}}Team" class="form-horizontal span9">
+      <h2>{{capitalize action}} Team</h2>
+      <input type="hidden" name="action" value="{{action}}" />
+      <input type="hidden" name="_id" value="{{_id}}" />
+
+      <div class="control-group controls-row">
+        <label class="control-label" for="name">Name</label>
+        <div class="controls">
+          <input name="name" class="span6" type="text" maxlength="80" value="{{name}}" />
+        </div>
       </div>
-    </div>
-    <div class="control-group controls-row">
-      <label class="control-label" for="detail">Detail</label>
-      <div class="controls">
-        <textarea name="detail" class="span6" rows="12"></textarea>
+      <div class="control-group controls-row">
+        <label class="control-label" for="detail">Detail</label>
+        <div class="controls">
+          <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
+        </div>
       </div>
-    </div>
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Create</button>
-      <button type="button" class="btn">Cancel</button>
-    </div>
-  </form>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">{{capitalize action}}</button>
+        <button type="button" class="btn">Cancel</button>
+      </div>
+    </form>
+  {{/with}}
 </template>

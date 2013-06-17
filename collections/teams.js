@@ -1,7 +1,7 @@
 Teams = new Meteor.Collection('teams');
 
 Meteor.methods({
-  insertTeam: function(teamAttributes) {
+  createTeam: function(teamAttributes) {
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to create a team");
@@ -16,5 +16,26 @@ Meteor.methods({
 
     var teamId = Teams.insert(team);
     return Teams.findOne(teamId);
+  },
+  editTeam: function(teamAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit a team");
+    //todo: validation
+    //validate name to max 80 chars
+
+    var team = _.extend(_.pick(teamAttributes, '_id', 'name', 'detail'), {
+      code: teamAttributes.name.toCode(),
+    });
+
+    console.log('team is ' + JSON.stringify(team));
+
+    Teams.update( { _id: team._id }, { $set: {
+      name: team.name,
+      detail: team.detail,
+      code: team.code
+    }});
+    return Teams.findOne(team._id);
+
   }
 });

@@ -74,5 +74,23 @@ Meteor.userFunctions = {
   },
   currentDateTime: function() {
     return moment().format();
+  },
+  action: function() {
+    switch (Meteor.Router.page()) {
+      case 'editTeam':
+      case 'editProject':
+      case 'editMilestone':
+      case 'editIssue':
+        return 'edit';
+        break;
+      case 'createTeam':
+      case 'createProject':
+      case 'createMilestone':
+      case 'createIssue':
+        return 'create';
+        break;
+      default:
+        return "";
+    }
   }
 };

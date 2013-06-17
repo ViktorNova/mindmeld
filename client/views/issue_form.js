@@ -14,7 +14,7 @@ Template.issueForm.events({
       assigneeUserId: $(event.target).find('[name=assignee]').val()
     }
 
-    Meteor.call('insertIssue', issue, function(error, issue) {
+    Meteor.call('createIssue', issue, function(error, issue) {
       if (error) {
         //TODO: handle errors in notifications
         Meteor.Errors.throw(error.reason);

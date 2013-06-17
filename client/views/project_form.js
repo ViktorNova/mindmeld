@@ -10,7 +10,7 @@ Template.projectForm.events({
       detail: $(event.target).find('[name=detail]').val()
     }
 
-    Meteor.call('insertProject', project, function(error, project) {
+    Meteor.call('createProject', project, function(error, project) {
       if (error) {
         //TODO: handle errors in notifications
         Meteor.Errors.throw(error.reason);

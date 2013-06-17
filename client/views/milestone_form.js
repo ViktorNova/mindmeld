@@ -12,7 +12,7 @@ Template.milestoneForm.events({
       dueDate: moment($(event.target).find('[name=dueDate]').val()).toDate()
     }
 
-    Meteor.call('insertMilestone', milestone, function(error, milestone) {
+    Meteor.call('createMilestone', milestone, function(error, milestone) {
       if (error) {
         //TODO: handle errors in notifications
         Meteor.Errors.throw(error.reason);

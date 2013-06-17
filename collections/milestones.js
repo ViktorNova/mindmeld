@@ -1,7 +1,7 @@
 Milestones = new Meteor.Collection('milestones');
 
 Meteor.methods({
-  insertMilestone: function(milestoneAttributes) {
+  createMilestone: function(milestoneAttributes) {
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to create a milestone");
