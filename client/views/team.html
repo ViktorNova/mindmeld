@@ -24,12 +24,6 @@
   {{/with}}
 </template>
 
-<template name="teamAddProject">
-  {{#with currentTeam}}  
-    <button id="createProject" class="btn pull-right">Create Project</button>
-  {{/with}}
-</template>
-
 <template name="teamBody">
   <div class="span9 pull-right">
     {{#with currentTeam}}
@@ -42,7 +36,7 @@
       <div class="row">
         <form class="form-inline span9">
           {{#if isLoggedIn}}
-            {{> teamAddProject}}
+            <button id="createProject" class="btn pull-right">Create Project</button>
           {{/if}}
         </form?
       </div>

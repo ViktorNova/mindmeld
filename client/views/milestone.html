@@ -29,12 +29,6 @@
   {{/with}}
 </template>
 
-<template name="milestoneAddIssue">
-  {{#with currentMilestone}}
-    <button id="createIssue" class="btn pull-right">Create Issue</button>
-  {{/with}}
-</template>
-
 <template name="milestoneBody">
   <div class="span9 pull-right">
     {{#with currentMilestone}}
@@ -51,7 +45,7 @@
             <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{dueDate}}" />
           </div>
             {{#if isLoggedIn}}
-              {{> milestoneAddIssue}}
+              <button id="createIssue" class="btn pull-right">Create Issue</button>
             {{/if}}
         </form>
       </div>

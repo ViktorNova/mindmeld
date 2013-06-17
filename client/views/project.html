@@ -27,12 +27,6 @@
   {{/with}}
 </template>
 
-<template name="projectAddMilestone">
-  {{#with currentProject}}
-    <button id="createMilestone" class="btn pull-right">Create Milestone</button>
-  {{/with}}
-</template>
-
 <template name="projectBody">
   <div class="span9 pull-right">
     {{#with currentProject}}
@@ -45,7 +39,7 @@
       <div class="row">
         <form class="form-inline span9">
             {{#if isLoggedIn}}
-              {{> projectAddMilestone}}
+              <button id="createMilestone" class="btn pull-right">Create Milestone</button>
             {{/if}}
         </form>
       </div>
