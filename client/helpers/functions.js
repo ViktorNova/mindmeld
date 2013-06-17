@@ -27,15 +27,27 @@ Meteor.userFunctions = {
     return Milestones.findOne(this.milestoneId).dueDate;
   },
   currentTeam: function() {
+    if (Meteor.Router.page() === 'createTeam')
+      return {};
+
     return Teams.findOne(Session.get('currentTeamId'));
   },
   currentProject: function() {
+    if (Meteor.Router.page() === 'createProject')
+      return {};
+
     return Projects.findOne(Session.get('currentProjectId'));
   },
   currentMilestone: function() {
+    if (Meteor.Router.page() === 'createMilesone')
+      return {};
+
     return Milestones.findOne(Session.get('currentMilestoneId'));
   },
   currentIssue: function() {
+    if (Meteor.Router.page() === 'createIssue')
+      return {};
+    
     return Issues.findOne(Session.get('currentIssueId'));
   },
   createdUsername: function() {

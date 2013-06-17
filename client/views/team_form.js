@@ -27,7 +27,6 @@ Template.teamForm.events({
 
     if (action === 'edit') {
       team._id = $(event.target).find('[name=_id]').val();
-      console.log('tc' + JSON.stringify(team));
 
       Meteor.call('editTeam', team, function(error, team) {
         if (error) {

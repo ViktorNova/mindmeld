@@ -1,25 +1,36 @@
+<template name="editProject">
+  {{> projectHeader}}
+  <div class="row">
+    {{> notifications}}
+    {{> projectForm}}
+  </div>
+</template>
+
 <template name="projectForm">
-  {{#with currentTeam}}
-    <form id="newProject" class="form-horizontal span9">
-      <h2>Create Project</h2>
-      <input type="hidden" name="createdBy" value="{{userId}}" />
+    <form id="{{action}}Project" class="form-horizontal span9">
+      <h2>{{capitalize action}} Project</h2>
+      {{#with currentTeam}}
+      <input type="hidden" name="action" value="{{action}}" />
       <input type="hidden" name="teamId" value="{{_id}}" />
+      {{/with}}
+      {{#with currentProject}}
+      <input type="hidden" name="_id" value="{{_id}}" />
       <div class="control-group controls-row">
         <label class="control-label" for="name">Name</label>
         <div class="controls">
-          <input name="name" class="span6" type="text" maxlength="80" />
+          <input name="name" class="span6" type="text" maxlength="80" value="{{name}}" />
         </div>
       </div>
       <div class="control-group controls-row">
         <label class="control-label" for="detail">Detail</label>
         <div class="controls">
-          <textarea name="detail" class="span6" rows="12"></textarea>
+          <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
         </div>
       </div>
+      {{/with}}
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">{{capitalize action}}</button>
         <button type="button" class="btn">Cancel</button>
       </div>
     </form>
-  {{/with}}
 </template>

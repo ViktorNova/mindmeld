@@ -28,14 +28,11 @@ Meteor.methods({
       code: teamAttributes.name.toCode(),
     });
 
-    console.log('team is ' + JSON.stringify(team));
-
     Teams.update( { _id: team._id }, { $set: {
       name: team.name,
       detail: team.detail,
       code: team.code
     }});
     return Teams.findOne(team._id);
-
   }
 });
