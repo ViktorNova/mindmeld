@@ -47,6 +47,9 @@ Meteor.userFunctions = {
   assigneeUsername: function() {
     return Meteor.users.findOne(this.assigneeUserId).username;
   },
+  allProjects: function() {
+    return Projects.find({teamId: Session.get('currentTeamId')});
+  },
   allMilestones: function() {
     return Milestones.find({
       teamId: Session.get('currentTeamId'),

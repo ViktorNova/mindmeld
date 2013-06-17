@@ -1,0 +1,25 @@
+<template name="projectForm">
+  {{#with currentTeam}}
+    <form id="newProject" class="form-horizontal span9">
+      <h2>Create Project</h2>
+      <input type="hidden" name="createdBy" value="{{userId}}" />
+      <input type="hidden" name="teamId" value="{{_id}}" />
+      <div class="control-group controls-row">
+        <label class="control-label" for="name">Name</label>
+        <div class="controls">
+          <input name="name" class="span6" type="text" maxlength="80" />
+        </div>
+      </div>
+      <div class="control-group controls-row">
+        <label class="control-label" for="detail">Detail</label>
+        <div class="controls">
+          <textarea name="detail" class="span6" rows="12"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="button" class="btn">Cancel</button>
+      </div>
+    </form>
+  {{/with}}
+</template>

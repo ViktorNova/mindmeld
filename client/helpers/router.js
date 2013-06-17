@@ -13,6 +13,15 @@ Meteor.Router.add({
       }
     }
   },
+  '/:teamCode/project/create': {
+    to: 'createProject',
+    and: function(teamCode) {
+      var team = Teams.findOne({code: teamCode});
+      if (team) {
+        Session.set('currentTeamId', team._id);
+      }
+    }
+  },
   '/:teamCode/:projectCode': {
     to: 'project',
     and: function(teamCode, projectCode) { 
