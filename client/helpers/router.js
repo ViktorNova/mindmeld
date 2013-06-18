@@ -2,6 +2,9 @@ function setSessionTeam(teamCode) {
   var team = Teams.findOne({code: teamCode});
   if (team) {
     Session.set('currentTeamId', team._id);
+    Session.set('currentProjectId', null);
+    Session.set('currentMilestoneId', null);
+    Session.set('currentIssueId', null);
   }
 };
 
@@ -12,6 +15,8 @@ function setSessionTeamAndProject(teamCode, projectCode) {
     var project = Projects.findOne({teamId: team._id, code: projectCode});
     if (project) {
       Session.set('currentProjectId', project._id);
+      Session.set('currentMilestoneId', null);
+      Session.set('currentIssueId', null);
     }
   }
 };
@@ -27,6 +32,7 @@ function setSessionTeamAndProjectAndMilestone(teamCode, projectCode, milestoneCo
         projectId: project._id, code: milestoneCode});
       if (milestone) {
         Session.set('currentMilestoneId', milestone._id);
+        Session.set('currentIssueId', null);
       }
     }
   }

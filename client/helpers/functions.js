@@ -34,13 +34,16 @@ Meteor.userFunctions = {
   },
   currentProject: function() {
     if (Meteor.Router.page() === 'createProject')
-      return {};
+      return { teamId: Session.get('currentTeamId') };
 
     return Projects.findOne(Session.get('currentProjectId'));
   },
   currentMilestone: function() {
-    if (Meteor.Router.page() === 'createMilesone')
-      return { dueDate: moment.format() };
+    if (Meteor.Router.page() === 'createMilestone')
+      return { 
+        teamId: Session.get('currentTeamId'),
+        projectId: Session.get('currentProjectId'),
+        dueDate: moment().format() };
 
     return Milestones.findOne(Session.get('currentMilestoneId'));
   },
