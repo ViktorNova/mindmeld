@@ -1,32 +1,40 @@
+<template name="editMilestone">
+  {{> milestoneHeader}}
+  <div class="row">
+    {{> notifications}}
+    {{> milestoneForm}}
+</template>
+
 <template name="milestoneForm">
-  {{#with currentProject}}
-    <form id="newMilestone" class="form-horizontal span9">
-      <h2>Create Milestone</h2>
-      <input type="hidden" name="createdBy" value="{{userId}}" />
-      <input type="hidden" name="teamId" value="{{teamId}}" />
-      <input type="hidden" name="projectId" value="{{_id}}" />
-      <div class="control-group controls-row">
-        <label class="control-label" for="name">Name</label>
-        <div class="controls">
-          <input name="name" class="span6" type="text" maxlength="80" />
-        </div>
+  <form id="{{action}}Milestone" class="form-horizontal span9">
+    <h2>{{capitalize action}} Milestone</h2>
+    {{#with currentMilestone}}
+    <input type="hidden" name="action" value="{{action}}" />
+    <input type="hidden" name="teamId" value="{{teamId}}" />
+    <input type="hidden" name="projectId" value="{{projectId}}" />
+    <input type="hidden" name="_id" value="{{_id}}" />
+    <div class="control-group controls-row">
+      <label class="control-label" for="name">Name</label>
+      <div class="controls">
+        <input name="name" class="span6" type="text" maxlength="80" value="{{name}}" />
       </div>
-      <div class="control-group controls-row">
-        <label class="control-label" for="detail">Detail</label>
-        <div class="controls">
-          <textarea name="detail" class="span6" rows="12"></textarea>
-        </div>
+    </div>
+    <div class="control-group controls-row">
+      <label class="control-label" for="detail">Detail</label>
+      <div class="controls">
+        <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
       </div>
-      <div class="control-group controls-row">
-        <label class="control-label" for="dueDate">Due Date</label>
-        <div class="controls">
-          <input name="dueDate" class="span3" type="text" value="{{currentDateTime}}" />
-        </div>
+    </div>
+    <div class="control-group controls-row">
+      <label class="control-label" for="dueDate">Due Date</label>
+      <div class="controls">
+        <input name="dueDate" class="span3" type="text" value="{{dueDate}}" />
       </div>
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Create</button>
-        <button type="button" class="btn">Cancel</button>
-      </div>
-    </form>
-  {{/with}}
+    </div>
+    {{/with}}
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">{{capitalize action}}</button>
+      <button type="button" class="btn">Cancel</button>
+    </div>
+  </form>
 </template>

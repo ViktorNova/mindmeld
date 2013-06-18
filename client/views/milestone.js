@@ -10,5 +10,12 @@ Template.milestoneBody.events({
       Meteor.userFunctions.teamCode.call(this),
       Meteor.userFunctions.projectCode.call(this),
       this.code);
+  },
+  'click #editMilestone': function(event) {
+    event.preventDefault();
+    Meteor.Router.to('editMilestone', 
+      Meteor.userFunctions.teamCode.call(this),
+      Meteor.userFunctions.projectCode.call(this),
+      this.code);
   }
 });

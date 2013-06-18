@@ -9,11 +9,9 @@
 <template name="projectForm">
     <form id="{{action}}Project" class="form-horizontal span9">
       <h2>{{capitalize action}} Project</h2>
-      {{#with currentTeam}}
-      <input type="hidden" name="action" value="{{action}}" />
-      <input type="hidden" name="teamId" value="{{_id}}" />
-      {{/with}}
       {{#with currentProject}}
+      <input type="hidden" name="action" value="{{action}}" />
+      <input type="hidden" name="teamId" value="{{teamId}}" />
       <input type="hidden" name="_id" value="{{_id}}" />
       <div class="control-group controls-row">
         <label class="control-label" for="name">Name</label>

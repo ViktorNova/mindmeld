@@ -53,13 +53,6 @@ function setSessionTeamAndProjectAndMilestoneAndIssue(teamCode, projectCode, mil
   }
 }
 
-Meteor.Router.beforeRouting = function() {
-  Session.set('currentTeamId', null);
-  Session.set('currentProjectId', null);
-  Session.set('currentMilestoneId', null);
-  Session.set('currentIssueId', null);
-}
-
 Meteor.Router.add({
   '/': 
     { to: 'home' },

@@ -35,7 +35,9 @@ Template.projectForm.events({
           //TODO: handle errors in notifications
           Meteor.Errors.throw(error.reason);
         } else {
-          Meteor.Router.to('project', Meteor.userFunctions.teamCode.call(project), project.code);
+          Meteor.Router.to('project', 
+            Meteor.userFunctions.teamCode.call(project), 
+            project.code);
         }
       });
     }

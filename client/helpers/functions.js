@@ -40,7 +40,7 @@ Meteor.userFunctions = {
   },
   currentMilestone: function() {
     if (Meteor.Router.page() === 'createMilesone')
-      return {};
+      return { dueDate: moment.format() };
 
     return Milestones.findOne(Session.get('currentMilestoneId'));
   },
@@ -83,9 +83,6 @@ Meteor.userFunctions = {
   },
   isLoggedIn: function() {
     return Meteor.userId();
-  },
-  currentDateTime: function() {
-    return moment().format();
   },
   action: function() {
     switch (Meteor.Router.page()) {

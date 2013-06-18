@@ -12,6 +12,8 @@ Template.projectBody.events({
   },
   'click #editProject': function(event) {
     event.preventDefault();
-    Meteor.Router.to('editProject', Meteor.userFunctions.teamCode.call(this), this.code);
+    Meteor.Router.to('editProject', 
+      Meteor.userFunctions.teamCode.call(this), 
+      this.code);
   }
 });
