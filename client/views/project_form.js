@@ -21,8 +21,9 @@ Template.projectForm.events({
           if (error.error == 302)
             Meteor.Router.to('team', error.details)
         } else {
-            Meteor.Router.to('team',
-              Meteor.userFunctions.teamCode.call(project));
+            Meteor.Router.to('project',
+              Meteor.userFunctions.teamCode.call(project),
+              project.code);
         }
       });
     }

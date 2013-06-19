@@ -1,6 +1,8 @@
 {
   "packages": {
     "accounts-ui-bootstrap-dropdown": {},
-    "router": {}
+    "router": {},
+    "moment": {},
+    "select2": {}
   }
 }

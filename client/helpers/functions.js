@@ -43,13 +43,18 @@ Meteor.userFunctions = {
       return { 
         teamId: Session.get('currentTeamId'),
         projectId: Session.get('currentProjectId'),
-        dueDate: moment().format() };
+        dueDate: moment().format() 
+      };
 
     return Milestones.findOne(Session.get('currentMilestoneId'));
   },
   currentIssue: function() {
     if (Meteor.Router.page() === 'createIssue')
-      return {};
+      return {
+        teamId: Session.get('currentTeamId'),
+        projectId: Session.get('currentProjectId'),
+        milestoneId: Session.get('currentMilestoneId')
+      };
     
     return Issues.findOne(Session.get('currentIssueId'));
   },

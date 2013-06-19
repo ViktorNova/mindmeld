@@ -23,9 +23,10 @@ Template.milestoneForm.events({
           if (error.error == 302)
             Meteor.Router.to('project', error.details)
         } else {
-            Meteor.Router.to('project', 
+            Meteor.Router.to('milesstone', 
               Meteor.userFunctions.teamCode.call(milestone),
-              Meteor.userFunctions.projectCode.call(milestone));
+              Meteor.userFunctions.projectCode.call(milestone),
+              milestone.code);
         }
       });
     } 

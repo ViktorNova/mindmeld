@@ -1,5 +1,12 @@
 <template name="issue">
+  {{> issueHeader}}
   <div class="row">
+    {{> notifications}}
+    {{> issueBody}}
+  </div>
+</template>
+
+<template name="issueHeader">
   {{#with currentIssue}}
     <div class="span12">
       <h1>
@@ -12,9 +19,12 @@
         <a href="{{issuePath teamCode projectCode milestoneCode code}}">{{name}}</a>
       </h1>
     </div>
-    {{> notifications}}
-    <div class="span9">
+  {{/with}}
+</template>
 
+<template name="issueBody">
+  <div class="span9 pull-right">
+    {{#with currentIssue}}
       <div class="row">
         <div class="span9">
           <h2>{{name}}</h2>
@@ -35,14 +45,15 @@
             <span class="add-on">Assignee</span>
             <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{assigneeUsername}}" />
           </div>
+          {{#if isLoggedIn}}
+            <button id="editIssue" class="btn pull-right">Edit Issue</button>
+          {{/if}}
         </form>
       </div>
 
       <div class="row">
         <div class="span9">{{detail}}</div>
       </div>
-
-    </div>
-  {{/with}}
+    {{/with}}
   </div>
 </template>
