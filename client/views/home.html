@@ -1,6 +1,6 @@
 <template name="home">
   {{#if isLoggedIn}}
-    {{> homeHeader}}
+    {{> breadcrumbHeader}}
     <div class="row">
       {{> notifications}}
       {{> homeBody}}
@@ -8,6 +8,49 @@
   {{else}}
     {{> public}}
   {{/if}}
+</template>
+
+<template name="breadcrumbHeader">
+ <div class="row">
+    <div class="span12">
+      <a class="" href="{{homePath}}">
+        <i class="icon-home icon-large"></i>
+      </a> 
+      {{#with currentTeam}}
+        {{#if name}}
+          <i class="icon-chevron-sign-right"></i>  
+          <a class="" href="{{teamPath code}}">{{name}}</a>
+        {{/if}}
+      {{/with}}
+      {{#with currentProject}}
+        {{#if name}}
+          <i class="icon-chevron-sign-right"></i>  
+          <a class="" href="{{projectPath teamCode code}}">
+            {{name}}
+          </a>
+        {{/if}}
+      {{/with}}
+      {{#with currentMilestone}}
+        {{#if name}}
+          <i class="icon-chevron-sign-right"></i>  
+          <a class="" 
+            href="{{milestonePath teamCode projectCode code}}">
+            {{name}}
+          </a>
+        {{/if}}
+      {{/with}}
+      {{#with currentIssue}}
+        {{#if name}}
+          <i class="icon-chevron-sign-right"></i>  
+          <a class="" 
+            href="{{issuePath teamCode projectCode milestoneCode code}}">
+            {{name}}
+          </a>
+        {{/if}}
+      {{/with}}      
+    </div>
+  </div>
+ 
 </template>
 
 <template name="public">
@@ -20,20 +63,10 @@
 
 
 <template name="createTeam">
-  {{> homeHeader}}
+  {{> breadcrumbHeader}}
   <div class="row">
     {{> notifications}}
     {{> teamForm}}
-  </div>
-</template>
-
-<template name="homeHeader">
-  <div class="row">
-    <div class="span12">
-      <h1>
-        <a href="{{homePath}}">Home</a>
-      </h1>
-    </div>
   </div>
 </template>
 

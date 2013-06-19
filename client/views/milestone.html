@@ -1,5 +1,5 @@
 <template name="milestone">
-  {{> milestoneHeader}}
+  {{> breadcrumbHeader}}
   <div class="row">
     {{> notifications}}
     {{> milestoneBody}}
@@ -7,28 +7,12 @@
 </template>
 
 <template name="createIssue">
-  {{> milestoneHeader}}
+  {{> breadcrumbHeader}}
   <div class="row">
     {{> notifications}}
     {{> issueForm}}
   </div>
 </template>  
-
-
-<template name="milestoneHeader">
-  {{#with currentMilestone}}
-    <div class="row">
-      <div class="span12">
-        <h1>
-          <a href="{{homePath}}">Home</a> > 
-          <a href="{{teamPath teamCode}}">{{teamName}}</a> > 
-          <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> > 
-          <a href="{{milestonePath teamCode projectCode code}}">{{name}}</a>
-        </h1>
-      </div>
-    </div>
-  {{/with}}
-</template>
 
 <template name="milestoneBody">
   <div class="span9 pull-right">

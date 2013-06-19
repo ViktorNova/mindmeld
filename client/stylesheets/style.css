@@ -3,6 +3,14 @@ body {
   color: #666;
 }
 
+body,a,h1,h2,h3,h4,h5,h6,button,input,textarea {
+  font-family: 'Titillium Web', sans-serif;
+}
+
+h2 {
+  font-size: 16px;
+}
+
 .navbar { margin-bottom: 10px }
 .navbar .navbar-inner {
   border-radius: 0px 0px 3px 3px;

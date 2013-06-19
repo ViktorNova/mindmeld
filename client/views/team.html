@@ -1,5 +1,5 @@
 <template name="team">
-  {{> teamHeader}}
+  {{> breadcrumbHeader}}
   <div class="row">
     {{> notifications}}
     {{> teamBody}}
@@ -7,23 +7,11 @@
 </template>
 
 <template name="createProject">
-  {{> teamHeader}}
+  {{> breadcrumbHeader}}
   <div class="row">
     {{> notifications}}
     {{> projectForm}}
   </div>
-</template>
-
-<template name="teamHeader">
-  {{#with currentTeam}}
-  <div class="row">
-    <div class="span12">
-      <h1>
-        <a href="{{homePath}}">Home</a> > 
-        <a href="{{teamPath code}}">{{name}}</a></h1>
-    </div>
-  </div>
-  {{/with}}
 </template>
 
 <template name="teamBody">

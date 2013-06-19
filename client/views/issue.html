@@ -1,25 +1,9 @@
 <template name="issue">
-  {{> issueHeader}}
+  {{> breadcrumbHeader}}
   <div class="row">
     {{> notifications}}
     {{> issueBody}}
   </div>
-</template>
-
-<template name="issueHeader">
-  {{#with currentIssue}}
-    <div class="span12">
-      <h1>
-        <a href="{{homePath}}">Home</a> > 
-        <a href="{{teamPath teamCode}}">{{teamName}}</a> > 
-        <a href="{{projectPath teamCode projectCode}}">{{projectName}}</a> > 
-        <a href="{{milestonePath teamCode projectCode milestoneCode}}">
-          {{milestoneName}}
-        </a> > 
-        <a href="{{issuePath teamCode projectCode milestoneCode code}}">{{name}}</a>
-      </h1>
-    </div>
-  {{/with}}
 </template>
 
 <template name="issueBody">

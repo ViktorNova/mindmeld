@@ -1,5 +1,4 @@
 Template.issue.helpers(Meteor.userFunctions);
-Template.issueHeader.helpers(Meteor.userFunctions);
 Template.issueBody.helpers(Meteor.userFunctions);
 
 Template.issueBody.events({

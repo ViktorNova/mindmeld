@@ -1,5 +1,5 @@
 <template name="editIssue">
-  {{> issueHeader}}
+  {{> breadcrumbHeader}}
   <div class="row">
     {{> notifications}}
     {{> issueForm}}
@@ -11,47 +11,47 @@
   <form id="{{action}}Issue" class="form-horizontal span9">
     <h2>{{capitalize action}} Issue</h2>
     {{#with currentIssue}}
-    <input type="hidden" name="action" value="{{action}}" />
-    <input type="hidden" name="teamId" value="{{teamId}}" />
-    <input type="hidden" name="projectId" value="{{projectId}}" />
-    <input type="hidden" name="milestoneId" value="{{milestoneId}}" />
-    <input type="hidden" name="_id" value="{{_id}}" />
-    <div class="control-group controls-row">
-      <label class="control-label" for="name">Name</label>
-      <div class="controls">
-        <input name="name" id="thename" class="span6" type="text" maxlength="80" value="{{name}}" />
+      <input type="hidden" name="action" value="{{action}}" />
+      <input type="hidden" name="teamId" value="{{teamId}}" />
+      <input type="hidden" name="projectId" value="{{projectId}}" />
+      <input type="hidden" name="milestoneId" value="{{milestoneId}}" />
+      <input type="hidden" name="_id" value="{{_id}}" />
+      <div class="control-group controls-row">
+        <label class="control-label" for="name">Name</label>
+        <div class="controls">
+          <input name="name" id="thename" class="span6" type="text" maxlength="80" value="{{name}}" />
+        </div>
       </div>
-    </div>
-    <div class="control-group controls-row">
-      <label class="control-label" for="detail">Detail</label>
-      <div class="controls">
-        <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
+      <div class="control-group controls-row">
+        <label class="control-label" for="detail">Detail</label>
+        <div class="controls">
+          <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
+        </div>
       </div>
-    </div>
-    <div class="control-group controls-row">
-      <label class="control-label" for="ownerUserId">Owner</label>
-      <div class="controls">
-        <select name="ownerUserId" id="ownerUserId">
-          {{#each members}}
-            {{> owner}}
-          {{/each}}
-        </select>
+      <div class="control-group controls-row">
+        <label class="control-label" for="ownerUserId">Owner</label>
+        <div class="controls">
+          <select name="ownerUserId" id="ownerUserId">
+            {{#each members}}
+              {{> owner}}
+            {{/each}}
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="control-group controls-row">
-      <label class="control-label" for="assigneeUserId">Assignee</label>
-      <div class="controls">
-        <select name="assigneeUserId" id="assigneeUserId">
-          {{#each members}}
-            {{> assignee}}
-          {{/each}}
-        </select>
+      <div class="control-group controls-row">
+        <label class="control-label" for="assigneeUserId">Assignee</label>
+        <div class="controls">
+          <select name="assigneeUserId" id="assigneeUserId">
+            {{#each members}}
+              {{> assignee}}
+            {{/each}}
+          </select>
+        </div>
       </div>
-    </div>
     {{/with}}
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">{{capitalize action}}</button>
-      <button type="button" class="btn">Cancel</button>
+      <button type="submit" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+      <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
     </div>
   </form>
 </template>

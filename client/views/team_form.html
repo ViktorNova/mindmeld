@@ -1,5 +1,5 @@
 <template name="editTeam">
-  {{> teamHeader}}
+  {{> breadcrumbHeader}}
   <div class="row">
     {{> notifications}}
     {{> teamForm}}
@@ -7,9 +7,9 @@
 </template>
 
 <template name="teamForm">
-  {{#with currentTeam}}
-    <form id="{{action}}Team" class="form-horizontal span9">
-      <h2>{{capitalize action}} Team</h2>
+  <form id="{{action}}Team" class="form-horizontal span9">
+    <h2>{{capitalize action}} Team</h2>
+    {{#with currentTeam}}
       <input type="hidden" name="action" value="{{action}}" />
       <input type="hidden" name="_id" value="{{_id}}" />
 
@@ -25,10 +25,10 @@
           <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
         </div>
       </div>
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary">{{capitalize action}}</button>
-        <button type="button" class="btn">Cancel</button>
-      </div>
-    </form>
-  {{/with}}
+    {{/with}}
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+      <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
+    </div>
+  </form>
 </template>

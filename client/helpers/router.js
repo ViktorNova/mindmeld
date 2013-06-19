@@ -1,3 +1,10 @@
+function setSessionNone() {
+  Session.set('currentTeamId', null);
+  Session.set('currentProjectId', null);
+  Session.set('currentMilestoneId', null);
+  Session.set('currentIssueId', null);
+}
+
 function setSessionTeam(teamCode) {
   var team = Teams.findOne({code: teamCode});
   if (team) {
@@ -61,9 +68,9 @@ function setSessionTeamAndProjectAndMilestoneAndIssue(teamCode, projectCode, mil
 
 Meteor.Router.add({
   '/': 
-    { to: 'home' },
+    { to: 'home', and: setSessionNone },
   '/team/create':
-    { to: 'createTeam' },
+    { to: 'createTeam', and: setSessionNone },
 
   '/:teamCode': 
     { to: 'team', and: setSessionTeam },
