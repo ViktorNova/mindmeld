@@ -1,6 +1,24 @@
 Template.milestoneForm.helpers(Meteor.userFunctions);
 
 Template.milestoneForm.events({
+  'click #delete': function(event) {
+    event.preventDefault();
+
+    var milestoneId = $(document).find('[name=_id]').val();
+
+    Meteor.call('deleteMilestone', milestoneId, function(error) {
+      if (error) {
+        Meteor.Errors.throw(error.reason);
+        //TOO: handle errors in notifications
+      } else {
+        var project = Meteor.userFunctions.currentProject();
+        Meteor.Router.to('project', 
+          Meteor.userFunctions.teamCode.call(project),
+          project.code
+        );
+      }
+    })
+  },
   'submit form': function(event) {
     event.preventDefault();
 

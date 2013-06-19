@@ -1,6 +1,21 @@
 Template.projectForm.helpers(Meteor.userFunctions);
 
 Template.projectForm.events({
+  'click #delete': function(event) {
+    event.preventDefault();
+
+    var projectId = $(document).find('[name=_id]').val();
+
+    Meteor.call('deleteProject', projectId, function(error) {
+      if (error) {
+        Meteor.Errors.throw(error.reason);
+        //TOO: handle errors in notifications
+      } else {
+        var team = Meteor.userFunctions.currentTeam();
+        Meteor.Router.to('team', Meteor.userFunctions.currentTeam().code);
+      }
+    })
+  },
   'submit form': function(event) {
     event.preventDefault();
 

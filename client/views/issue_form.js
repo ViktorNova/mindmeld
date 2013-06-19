@@ -14,6 +14,25 @@ Template.issueForm.rendered = function() {
 };
 
 Template.issueForm.events({
+  'click #delete': function(event) {
+    event.preventDefault();
+
+    var issueId = $(document).find('[name=_id]').val();
+
+    Meteor.call('deleteIssue', issueId, function(error) {
+      if (error) {
+        Meteor.Errors.throw(error.reason);
+        //TOO: handle errors in notifications
+      } else {
+        var milestone = Meteor.userFunctions.currentMilestone();
+        Meteor.Router.to('milestone', 
+          Meteor.userFunctions.teamCode.call(milestone),
+          Meteor.userFunctions.projectCode.call(milestone),
+          milestone.code
+        );
+      }
+    })
+  },
 	'submit form': function(event) {
 		event.preventDefault();
 

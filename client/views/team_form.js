@@ -1,6 +1,20 @@
 Template.teamForm.helpers(Meteor.userFunctions);
 
 Template.teamForm.events({
+  'click #delete': function(event) {
+    event.preventDefault();
+
+    var teamId = $(document).find('[name=_id]').val();
+
+    Meteor.call('deleteTeam', teamId, function(error) {
+      if (error) {
+        Meteor.Errors.throw(error.reason);
+        //TOO: handle errors in notifications
+      } else {
+        Meteor.Router.to('home');
+      }
+    })
+  },
   'submit form': function(event) {
     event.preventDefault();
 

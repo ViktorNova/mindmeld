@@ -40,5 +40,13 @@ Meteor.methods({
       dueDate: milestone.dueDate
     }});
     return Milestones.findOne(milestone._id);
+  },
+  deleteMilestone: function(milestoneId) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to delete a milestone");
+
+    Milestones.remove( { _id: milestoneId });
+    Issues.remove( { milestoneId: milestoneId });
   }
 });
