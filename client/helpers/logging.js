@@ -1,40 +1,40 @@
-var wrappedFind = Meteor.Collection.prototype.find;
+// var wrappedFind = Meteor.Collection.prototype.find;
 
-Meteor.Collection.prototype.find = function () {
-  var cursor = wrappedFind.apply(this, arguments);
-  var collectionName = this._name;
+// Meteor.Collection.prototype.find = function () {
+//   var cursor = wrappedFind.apply(this, arguments);
+//   var collectionName = this._name;
 
-  cursor.observeChanges({
-    added: function (id, fields) {
-      console.log(collectionName, 'added', id, fields);
-    },
+//   cursor.observeChanges({
+//     added: function (id, fields) {
+//       console.log(collectionName, 'added', id, fields);
+//     },
 
-    changed: function (id, fields) {
-      console.log(collectionName, 'changed', id, fields);
-    },
+//     changed: function (id, fields) {
+//       console.log(collectionName, 'changed', id, fields);
+//     },
 
-    movedBefore: function (id, before) {
-      console.log(collectionName, 'movedBefore', id, before);
-    },
+//     movedBefore: function (id, before) {
+//       console.log(collectionName, 'movedBefore', id, before);
+//     },
 
-    removed: function (id) {
-      console.log(collectionName, 'removed', id);
-    }
-  });
+//     removed: function (id) {
+//       console.log(collectionName, 'removed', id);
+//     }
+//   });
 
-  return cursor;
-};
+//   return cursor;
+// };
 
-var logRenders = function() {
-  _.each(Template, function (template, name) {
-    var oldRender = template.rendered;
-    var counter = 0;
+// var logRenders = function() {
+//   _.each(Template, function (template, name) {
+//     var oldRender = template.rendered;
+//     var counter = 0;
 
-    template.rendered = function () {
-      console.log(name, "render count: ", ++counter);
-      oldRender && oldRender.apply(this, arguments);
-    };
-  });
-};
+//     template.rendered = function () {
+//       console.log(name, "render count: ", ++counter);
+//       oldRender && oldRender.apply(this, arguments);
+//     };
+//   });
+// };
 
-logRenders();
+// logRenders();

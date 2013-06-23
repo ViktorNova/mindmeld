@@ -14,8 +14,6 @@ Meteor.methods({
       createdByUserId: Meteor.userId()
     });
 
-    console.log("adding" + milestone);
-
     var milestoneId = Milestones.insert(milestone);
     return Milestones.findOne(milestoneId);
   },

@@ -7,9 +7,8 @@
 
 <template name="milestoneForm">
   <form id="{{action}}Milestone" class="form-horizontal span9">
-    <h2>{{capitalize action}} Milestone</h2>
+    <h1>{{capitalize action}} Milestone</h1>
     {{#with currentMilestone}}
-    <input type="hidden" name="action" value="{{action}}" />
     <input type="hidden" name="teamId" value="{{teamId}}" />
     <input type="hidden" name="projectId" value="{{projectId}}" />
     <input type="hidden" name="_id" value="{{_id}}" />
@@ -33,7 +32,7 @@
     </div>
     {{/with}}
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+      <button type="button" id="{{action}}" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
       <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
     </div>
   </form>

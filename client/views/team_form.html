@@ -8,7 +8,7 @@
 
 <template name="teamForm">
   <form id="{{action}}Team" class="form-horizontal span9">
-    <h2>{{capitalize action}} Team</h2>
+    <h1>{{capitalize action}} Team</h1>
     {{#with currentTeam}}
       <input type="hidden" name="action" value="{{action}}" />
       <input type="hidden" name="_id" value="{{_id}}" />
@@ -27,7 +27,7 @@
       </div>
     {{/with}}
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+      <button type="button" id="{{action}}" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
       <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
     </div>
   </form>

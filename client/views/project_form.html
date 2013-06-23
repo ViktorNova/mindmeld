@@ -9,7 +9,7 @@
 <template name="projectForm">
   {{#with currentProject}}
     <form id="{{action}}Project" class="form-horizontal span9">
-      <h2 class="span8 text-right">{{capitalize action}} this project</h2>
+      <h1 class="span8 text-right">{{capitalize action}} this project</h1>
         <input type="hidden" name="action" value="{{action}}" />
         <input type="hidden" name="teamId" value="{{teamId}}" />
         <input type="hidden" name="_id" value="{{_id}}" />

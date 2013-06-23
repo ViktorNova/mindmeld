@@ -9,7 +9,7 @@
 <template name="issueForm">
   {{curentIssue.name}}
   <form id="{{action}}Issue" class="form-horizontal span9">
-    <h2>{{capitalize action}} Issue</h2>
+    <h1>{{capitalize action}} Issue</h1>
     {{#with currentIssue}}
       <input type="hidden" name="action" value="{{action}}" />
       <input type="hidden" name="teamId" value="{{teamId}}" />
