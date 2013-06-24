@@ -8,13 +8,7 @@
 </template>
 
 <template name="notification">
-  {{#if isIssue}}
-    {{> issueNotification}}
-  {{/if}}
-</template>
-
-<template name="issueNotification">
-    <div class="item"><i class="icon-remove pull-right"></i>
-      <a href="#">{{createdByUsername}}</a> edited this {{entity}}<br />
+    <div class="item"><a id="closeNotification" href=""><i class="icon-remove pull-right" data-id="{{_id}}"></i></a>
+      <a href="/users/">{{createdByUsername}}</a> edited this {{entity}}<br />
       <em><a href="{{issuePath teamCode projectCode milestoneCode issueCode}}#{{_id}}">{{momentTimeAgoCreatedAt}}</a></em></div>
 </template>

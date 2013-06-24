@@ -29,8 +29,5 @@ Meteor.publish('teamMembers', function(userId, teamId) {
 Meteor.publish('teamNotifications', function(userId, teamId) {
   //teamId is ignored, is that ok?
   var teams = Teams.find({members: {$in:[userId]}}).fetch();
-  return Notifications.find({
-    query: {teamId: {$in: _.pluck(teams, '_id')}},
-    $orderby: { createdAt: -1 } 
-  });  
+  return Notifications.find({teamId: {$in: _.pluck(teams, '_id')}});  
 });
