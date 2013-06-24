@@ -2,14 +2,14 @@ Template.issueForm.helpers(Meteor.userFunctions);
 
 Template.issueForm.rendered = function() {
 
-  var ownerUserId = Meteor.userFunctions.currentIssue() && Meteor.userFunctions.currentIssue().ownerUserId;
-  ownerUserId = ownerUserId || Meteor.userId();
-  var assigneeUserId = Meteor.userFunctions.currentIssue() && Meteor.userFunctions.currentIssue().assigneeUserId;
-  assigneeUserId = assigneeUserId || Meteor.userId();
+  var ownedByUserId = Meteor.userFunctions.currentIssue() && Meteor.userFunctions.currentIssue().ownedByUserId;
+  ownedByUserId = ownedByUserId || Meteor.userId();
+  var assignedToUserId = Meteor.userFunctions.currentIssue() && Meteor.userFunctions.currentIssue().assignedToUserId;
+  assignedToUserId = assignedToUserId || Meteor.userId();
 
   $(document).ready(function() {
-    $("#ownerUserId").val(ownerUserId);
-    $("#assigneeUserId").val(assigneeUserId);
+    $("#ownedByUserId").val(ownedByUserId);
+    $("#assignedToUserId").val(assignedToUserId);
   });
 };
 
@@ -44,8 +44,8 @@ Template.issueForm.events({
       milestoneId: $(event.target).find('[name=milestoneId]').val(),
       name: $(event.target).find('[name=name]').val(),
       detail: $(event.target).find('[name=detail]').val(),
-      ownerUserId: $(event.target).find('[name=ownerUserId]').val(),
-      assigneeUserId: $(event.target).find('[name=assigneeUserId]').val()
+      ownedByUserId: $(event.target).find('[name=ownedByUserId]').val(),
+      assignedToUserId: $(event.target).find('[name=assignedToUserId]').val()
     }
 
     if (action === 'create') {

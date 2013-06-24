@@ -101,7 +101,7 @@ if (Teams.find().count() === 0) {
 
   var daysFutureM1Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    createdUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     code: 'milestoneOne',
@@ -111,7 +111,7 @@ if (Teams.find().count() === 0) {
 
   var daysFutureM2Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    createdUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     code: 'milestoneTwo',
@@ -121,7 +121,7 @@ if (Teams.find().count() === 0) {
 
   var daysFutureM3Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    createdUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     code: 'milestoneThree',
@@ -131,7 +131,7 @@ if (Teams.find().count() === 0) {
 
   var xtinctionAgendaM1Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    createdUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     code: 'milestoneFour',
@@ -141,7 +141,7 @@ if (Teams.find().count() === 0) {
 
   var xtinctionAgendaM2Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    createdUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     code: 'milestoneFive',
@@ -151,7 +151,7 @@ if (Teams.find().count() === 0) {
 
   var xtinctionAgendaM3Id = Milestones.insert({
     dueDate: new Date('2013-06-15 17:00:00'),
-    createdUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     code: 'milestoneSix',
@@ -160,9 +160,9 @@ if (Teams.find().count() === 0) {
   });
   
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM1Id,
@@ -172,9 +172,9 @@ if (Teams.find().count() === 0) {
   });
 
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM1Id,
@@ -184,9 +184,9 @@ if (Teams.find().count() === 0) {
   });
   
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM2Id,
@@ -196,9 +196,9 @@ if (Teams.find().count() === 0) {
   });
   
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM2Id,
@@ -208,9 +208,9 @@ if (Teams.find().count() === 0) {
   });
 
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM3Id,
@@ -220,9 +220,9 @@ if (Teams.find().count() === 0) {
   });
   
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: daysFutureId,
     milestoneId: daysFutureM3Id,
@@ -232,9 +232,9 @@ if (Teams.find().count() === 0) {
   });
   
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM1Id,
@@ -244,9 +244,9 @@ if (Teams.find().count() === 0) {
   });
 
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM1Id,
@@ -256,9 +256,9 @@ if (Teams.find().count() === 0) {
   });
   
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM2Id,
@@ -268,9 +268,9 @@ if (Teams.find().count() === 0) {
   });
   
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM2Id,
@@ -280,9 +280,9 @@ if (Teams.find().count() === 0) {
   });
 
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM3Id,
@@ -292,9 +292,9 @@ if (Teams.find().count() === 0) {
   });
   
   Issues.insert({
-    createdUserId: 'JrvzK876e5PBHKc2T',
-    ownerUserId: 'JrvzK876e5PBHKc2T',
-    assigneeUserId: 'JrvzK876e5PBHKc2T',
+    createdByUserId: 'JrvzK876e5PBHKc2T',
+    ownedByUserId: 'JrvzK876e5PBHKc2T',
+    assignedToUserId: 'JrvzK876e5PBHKc2T',
     teamId: weaponXId,
     projectId: xtinctionAgendaId,
     milestoneId: xtinctionAgendaM3Id,

@@ -29,9 +29,9 @@
         </div>
       </div>
       <div class="control-group controls-row">
-        <label class="control-label" for="ownerUserId">Owner</label>
+        <label class="control-label" for="ownedByUserId">Owner</label>
         <div class="controls">
-          <select name="ownerUserId" id="ownerUserId">
+          <select name="ownedByUserId" id="ownedByUserId">
             {{#each members}}
               {{> owner}}
             {{/each}}
@@ -39,9 +39,9 @@
         </div>
       </div>
       <div class="control-group controls-row">
-        <label class="control-label" for="assigneeUserId">Assignee</label>
+        <label class="control-label" for="assignedToUserId">Assignee</label>
         <div class="controls">
-          <select name="assigneeUserId" id="assigneeUserId">
+          <select name="assignedToUserId" id="assignedToUserId">
             {{#each members}}
               {{> assignee}}
             {{/each}}

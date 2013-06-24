@@ -58,14 +58,14 @@ Meteor.userFunctions = {
     
     return Issues.findOne(Session.get('currentIssueId'));
   },
-  createdUsername: function() {
-    return Meteor.users.findOne(this.createdUserId).username;
+  createdByUsername: function() {
+    return Meteor.users.findOne(this.createdByUserId).username;
   },
-  ownerUsername: function() {
-    return Meteor.users.findOne(this.ownerUserId).username;
+  ownedByUsername: function() {
+    return Meteor.users.findOne(this.ownedByUserId).username;
   },
-  assigneeUsername: function() {
-    return Meteor.users.findOne(this.assigneeUserId).username;
+  assignedToUsername: function() {
+    return Meteor.users.findOne(this.assignedToUserId).username;
   },
   allProjects: function() {
     return Projects.find({teamId: Session.get('currentTeamId')});
@@ -91,6 +91,9 @@ Meteor.userFunctions = {
   },
   isLoggedIn: function() {
     return Meteor.userId();
+  },
+  momentTimeAgoCreatedAt: function() {
+    return moment(this.createdAt).fromNow();
   },
   action: function() {
     switch (Meteor.Router.page()) {
