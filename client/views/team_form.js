@@ -19,8 +19,8 @@ Template.teamForm.events({
     event.preventDefault();
 
     var team = {
-      name: $(event.target).find('[name=name]').val(),
-      detail: $(event.target).find('[name=detail]').val()
+      name: $(document).find('[name=name]').val(),
+      detail: $(document).find('[name=detail]').val()
     }
 
     Meteor.call('createTeam', team, function(error, team) {
@@ -39,9 +39,9 @@ Template.teamForm.events({
     event.preventDefault();
 
     var team = {
-      _id: $(event.target).find('[name=_id]').val(),
-      name: $(event.target).find('[name=name]').val(),
-      detail: $(event.target).find('[name=detail]').val()
+      _id: $(document).find('[name=_id]').val(),
+      name: $(document).find('[name=name]').val(),
+      detail: $(document).find('[name=detail]').val()
     }
 
     Meteor.call('editTeam', team, function(error, team) {

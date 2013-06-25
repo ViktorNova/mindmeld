@@ -19,9 +19,16 @@ function delta(oldItem, newItem) {
   var sameKeys = _.intersection(_.keys(oldItem), _.keys(newItem));
   if (sameKeys) {
     _.each(sameKeys, function(sameKey) {
-      if (oldItem[sameKey] !== newItem[sameKey]) {
-        changedFrom[sameKey] = oldItem[sameKey];
-        changedTo[sameKey] = newItem[sameKey];
+      if (oldItem[sameKey] instanceof Array && newItem[sameKey]) {
+        if (_.difference(oldItem[sameKey], newItem[sameKey]).length) {
+          changedFrom[sameKey] = oldItem[sameKey];
+          changedTo[sameKey] = newItem[sameKey];
+        }
+      } else {
+        if (oldItem[sameKey] !== newItem[sameKey]) {
+          changedFrom[sameKey] = oldItem[sameKey];
+          changedTo[sameKey] = newItem[sameKey];
+        }
       }
     });
   }
@@ -35,6 +42,34 @@ function delta(oldItem, newItem) {
 };
 
 Meteor.methods({
+  createTeamNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit a team");
+    //todo: validation
+
+    var oldTeam = notificationAttributes.oldTeam;
+    var newTeam = notificationAttributes.newTeam;
+
+    if (oldTeam._id !== newTeam._id)
+      throw new Meteor.Error(500, "Auditing error when attempting to edit a team. Previous and new versions of id do not match");
+
+    var teamDelta = delta(oldTeam, newTeam);
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity', 'action'), {
+      teamId: newTeam._id,
+      name: newTeam.name,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId(),
+      delta: teamDelta,
+      readBy: []
+    });
+
+    var notificationId = Notifications.insert(notification);
+
+    return Notifications.findOne(notificationId);    
+  },
   createProjectNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)

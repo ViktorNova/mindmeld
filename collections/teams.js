@@ -27,13 +27,31 @@ Meteor.methods({
     var team = _.extend(_.pick(teamAttributes, '_id', 'name', 'detail'), {
       code: teamAttributes.name.toCode(),
     });
+    var oldTeam = Teams.findOne(team._id);    
 
     Teams.update( { _id: team._id }, { $set: {
       name: team.name,
       detail: team.detail,
       code: team.code
     }});
-    return Teams.findOne(team._id);
+
+    var newTeam = Teams.findOne(team._id);
+
+    var notificationAttributes = {
+      entity: 'team', 
+      action: 'edit', 
+      oldTeam: oldTeam,
+      newTeam: newTeam
+    };
+
+    Meteor.call('createTeamNotification', notificationAttributes, function(error, notification) {
+      if (error) {
+        console.log(error);
+        //TODO: handle errors in notifications
+      }
+    });
+
+    return newTeam;
   },
   deleteTeam: function(teamId) {
     var user = Meteor.user();
