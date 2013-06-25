@@ -1,4 +1,4 @@
-Template.issueForm.helpers(Meteor.userFunctions);
+Template.issueForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
 Template.issueForm.rendered = function() {
 

@@ -10,3 +10,16 @@ Handlebars.registerHelper('iconify', function(action) {
     return "icon-edit";
   }
 });
+
+Handlebars.registerHelper('pastTense', function(action) {
+  console.log("!" + action);
+  if (action === "create") {
+    return "created";
+  }
+  if (action === "edit") {
+    return "edited";
+  }
+  if (action === "delete") {
+    return "deleted";
+  }
+})

@@ -1,18 +1,17 @@
 Template.notifications.helpers(_.extend(
   {
     notifications: function() {
-      if (Meteor.Router.page() == "issue") {
-        return Notifications.find(
-          {
-            teamId: Session.get('currentTeamId'),
-            projectId: Session.get('currentProjectId'),
-            milestoneId: Session.get('currentMilestoneId'),
-            issueId: Session.get('currentIssueId'),
-            readBy: {$nin: [ Meteor.userId() ]}
-          },
-          {sort: { createdAt: -1 }, reactive: true}
-        );
-      }
+      var findParameters = {
+        teamId: Session.get('currentTeamId'),
+        projectId: Session.get('currentProjectId'),
+        milestoneId: Session.get('currentMilestoneId'),
+        issueId: Session.get('currentIssueId'),
+        readBy: {$nin: [ Meteor.userId() ]}
+      };
+
+      return Notifications.find(_.compactObject(findParameters),
+        {sort: { createdAt: -1 }, reactive: true}
+      );
     }
   },
   Meteor.userFunctions));

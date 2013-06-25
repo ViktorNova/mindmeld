@@ -1,4 +1,4 @@
-Template.projectForm.helpers(Meteor.userFunctions);
+Template.projectForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
 Template.projectForm.events({
   'click #delete': function(event) {

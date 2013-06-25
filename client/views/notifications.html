@@ -9,6 +9,5 @@
 
 <template name="notification">
     <div class="item"><a id="closeNotification" href=""><i class="icon-remove pull-right" data-id="{{_id}}"></i></a>
-      <a href="/users/">{{createdByUsername}}</a> edited this {{entity}}<br />
-      <em><a href="{{issuePath teamCode projectCode milestoneCode issueCode}}#{{_id}}">{{momentTimeAgoCreatedAt}}</a></em></div>
+      <a href="/users/">{{createdByUsername}}</a> {{pastTense action}} the {{entity}} <a href="{{issuePath teamCode projectCode milestoneCode issueCode}}#{{_id}}">{{name}}</a> <em>{{momentTimeAgoCreatedAt}}</em></div>
 </template>

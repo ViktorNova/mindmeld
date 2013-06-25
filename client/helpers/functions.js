@@ -1,3 +1,24 @@
+Meteor.formFunctions = {
+  action: function() {
+    switch (Meteor.Router.page()) {
+      case 'editTeam':
+      case 'editProject':
+      case 'editMilestone':
+      case 'editIssue':
+        return 'edit';
+        break;
+      case 'createTeam':
+      case 'createProject':
+      case 'createMilestone':
+      case 'createIssue':
+        return 'create';
+        break;
+      default:
+        return "";
+    }
+  }
+};
+
 Meteor.userFunctions = {
   teamCode: function() {
     return Teams.findOne(this.teamId).code;
@@ -94,23 +115,5 @@ Meteor.userFunctions = {
   },
   momentTimeAgoCreatedAt: function() {
     return moment(this.createdAt).fromNow();
-  },
-  action: function() {
-    switch (Meteor.Router.page()) {
-      case 'editTeam':
-      case 'editProject':
-      case 'editMilestone':
-      case 'editIssue':
-        return 'edit';
-        break;
-      case 'createTeam':
-      case 'createProject':
-      case 'createMilestone':
-      case 'createIssue':
-        return 'create';
-        break;
-      default:
-        return "";
-    }
   }
 };

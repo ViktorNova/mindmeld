@@ -1,4 +1,4 @@
-Template.milestoneForm.helpers(Meteor.userFunctions);
+Template.milestoneForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
 Template.milestoneForm.events({
   'click #create': function(event) {

@@ -55,6 +55,7 @@ Meteor.methods({
       projectId: newIssue.projectId,
       milestoneId: newIssue.milestoneId,
       issueId: newIssue._id,
+      name: newIssue.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId(),
       delta: issueDelta,
@@ -70,7 +71,6 @@ Meteor.methods({
     if (!user)
       throw new Meteor.Error(401, "You need to login to edit an issue");
     //todo: validation
-
     Notifications.update(
       {_id: dismissal._id},
       {$push: { readBy: dismissal.userId }}
