@@ -29,6 +29,8 @@ Meteor.methods({
       code: milestoneAttributes.name.toCode(),
     });
 
+    var oldMilestone = Milestones.findOne(milestone._id);    
+
     Milestones.update( { _id: milestone._id }, { $set: {
       teamId: milestone.teamId,
       projectId: milestone.projectId,
@@ -37,7 +39,24 @@ Meteor.methods({
       code: milestone.code,
       dueDate: milestone.dueDate
     }});
-    return Milestones.findOne(milestone._id);
+
+    var newMilestone = Milestones.findOne(milestone._id);
+
+    var notificationAttributes = {
+      entity: 'milestone', 
+      action: 'edit', 
+      oldMilestone: oldMilestone,
+      newMilestone: newMilestone
+    };
+
+    Meteor.call('createMilestoneNotification', notificationAttributes, function(error, notification) {
+      if (error) {
+        console.log(error);
+        //TODO: handle errors in notifications
+      }
+    });
+
+    return newMilestone;
   },
   deleteMilestone: function(milestoneId) {
     var user = Meteor.user();

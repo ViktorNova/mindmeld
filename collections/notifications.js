@@ -35,6 +35,36 @@ function delta(oldItem, newItem) {
 };
 
 Meteor.methods({
+  createMilestoneNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit an milestone");
+    //todo: validation
+
+    var oldMilestone = notificationAttributes.oldMilestone;
+    var newMilestone = notificationAttributes.newMilestone;
+
+    if (oldMilestone._id !== newMilestone._id)
+      throw new Meteor.Error(500, "Auditing error when attempting to edit an milestone. Previous and new versions of id do not match");
+
+    var milestoneDelta = delta(oldMilestone, newMilestone);
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity', 'action'), {
+      teamId: newMilestone.teamId,
+      projectId: newMilestone.projectId,
+      milestoneId: newMilestone._id,
+      name: newMilestone.name,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId(),
+      delta: milestoneDelta,
+      readBy: []
+    });
+
+    var notificationId = Notifications.insert(notification);
+
+    return Notifications.findOne(notificationId);    
+  },
   createIssueNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)

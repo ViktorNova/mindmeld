@@ -16,7 +16,16 @@ Template.notifications.helpers(_.extend(
   },
   Meteor.userFunctions));
 
-Template.notification.helpers(Meteor.userFunctions);
+Template.notification.helpers(_.extend(
+  {
+    isMilestone: function() {
+      return this.entity == "milestone";
+    },
+    isIssue: function() {
+      return this.entity == "issue";
+    }
+  },
+  Meteor.userFunctions));
 
 Template.notification.events({
   'click #closeNotification': function(event) {

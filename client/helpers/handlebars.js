@@ -12,7 +12,6 @@ Handlebars.registerHelper('iconify', function(action) {
 });
 
 Handlebars.registerHelper('pastTense', function(action) {
-  console.log("!" + action);
   if (action === "create") {
     return "created";
   }
