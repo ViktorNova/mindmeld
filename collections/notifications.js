@@ -35,17 +35,46 @@ function delta(oldItem, newItem) {
 };
 
 Meteor.methods({
+  createProjectNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit a project");
+    //todo: validation
+
+    var oldProject = notificationAttributes.oldProject;
+    var newProject = notificationAttributes.newProject;
+
+    if (oldProject._id !== newProject._id)
+      throw new Meteor.Error(500, "Auditing error when attempting to edit a project. Previous and new versions of id do not match");
+
+    var projectDelta = delta(oldProject, newProject);
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity', 'action'), {
+      teamId: newProject.teamId,
+      projectId: newProject._id,
+      name: newProject.name,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId(),
+      delta: projectDelta,
+      readBy: []
+    });
+
+    var notificationId = Notifications.insert(notification);
+
+    return Notifications.findOne(notificationId);    
+  },
   createMilestoneNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to edit an milestone");
+      throw new Meteor.Error(401, "You need to login to edit a milestone");
     //todo: validation
 
     var oldMilestone = notificationAttributes.oldMilestone;
     var newMilestone = notificationAttributes.newMilestone;
 
     if (oldMilestone._id !== newMilestone._id)
-      throw new Meteor.Error(500, "Auditing error when attempting to edit an milestone. Previous and new versions of id do not match");
+      throw new Meteor.Error(500, "Auditing error when attempting to edit a milestone. Previous and new versions of id do not match");
 
     var milestoneDelta = delta(oldMilestone, newMilestone);
 

@@ -18,6 +18,9 @@ Template.notifications.helpers(_.extend(
 
 Template.notification.helpers(_.extend(
   {
+    isProject: function() {
+      return this.entity == "project";
+    },
     isMilestone: function() {
       return this.entity == "milestone";
     },

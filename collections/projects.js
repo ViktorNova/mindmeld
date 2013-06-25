@@ -24,16 +24,36 @@ Meteor.methods({
     //todo: validation
     //validate name to max 80 chars
 
-    var project = _.extend(_.pick(projectAttributes, '_id', 'name', 'detail'), {
+    var project = _.extend(_.pick(projectAttributes, '_id', 'teamId', 'name', 'detail'), {
       code: projectAttributes.name.toCode(),
     });
+    var oldProject = Projects.findOne(project._id);    
 
     Projects.update( { _id: project._id }, { $set: {
+      teamId: project.teamId,
+      projectId: project.projectId,
       name: project.name,
       detail: project.detail,
       code: project.code
     }});
-    return Projects.findOne(project._id);
+
+    var newProject = Projects.findOne(project._id);
+
+    var notificationAttributes = {
+      entity: 'project', 
+      action: 'edit', 
+      oldProject: oldProject,
+      newProject: newProject
+    };
+
+    Meteor.call('createProjectNotification', notificationAttributes, function(error, notification) {
+      if (error) {
+        console.log(error);
+        //TODO: handle errors in notifications
+      }
+    });
+
+    return newProject;
   },
   deleteProject: function(projectId) {
     var user = Meteor.user();
