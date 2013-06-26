@@ -69,6 +69,25 @@ Meteor.methods({
 
     return Notifications.findOne(notificationId);    
   },
+  createProjectNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit a project");
+
+    var project = notificationAttributes.project;
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity','action','project'), {
+      teamId: project.teamId,
+      projectId: project._id,
+      name: project.name,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId()
+    });
+
+    var notificationId = Notifications.insert(notification);
+    return Notifications.findOne(notificationId);  
+  },
   editProjectNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)

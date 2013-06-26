@@ -63,5 +63,6 @@ Meteor.methods({
     Projects.remove( { _id: projectId });
     Milestones.remove( { projectId: projectId });
     Issues.remove( { projectId: projectId });
+    Notifications.remove( { projectId: projectId });
   }
 });
