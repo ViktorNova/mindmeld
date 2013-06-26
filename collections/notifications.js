@@ -175,22 +175,11 @@ Meteor.methods({
       name: newIssue.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId(),
-      delta: issueDelta,
-      readBy: []
+      delta: issueDelta
     });
 
     var notificationId = Notifications.insert(notification);
 
     return Notifications.findOne(notificationId);
-  },
-  dismissNotification: function(dismissal) {
-    var user = Meteor.user();
-    if (!user)
-      throw new Meteor.Error(401, "You need to login to edit an issue");
-    //todo: validation
-    Notifications.update(
-      {_id: dismissal._id},
-      {$push: { readBy: dismissal.userId }}
-    );
   }
 });

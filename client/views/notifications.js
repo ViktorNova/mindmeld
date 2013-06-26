@@ -36,21 +36,5 @@ Template.notification.helpers(_.extend(
       return this.entity == "issue";
     }
   },
-  Meteor.userFunctions));
-
-Template.notification.events({
-  'click #closeNotification': function(event) {
-    event.preventDefault();
-    var dismissal = {
-      _id: event.srcElement.dataset.id,
-      userId: Meteor.userId()
-    };
-
-    Meteor.call('dismissNotification', dismissal, function(error) {
-      if (error) {
-        console.log(error);
-        //TOO: handle errors in notifications
-      }
-    });
-  }
-});
+  Meteor.userFunctions)
+);

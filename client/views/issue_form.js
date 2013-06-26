@@ -66,7 +66,7 @@ Template.issueForm.events({
 
           Meteor.call('createIssueNotification', notificationAttributes, function(error) {
             if (error) {
-              console.log("!" + error);
+              console.log(error);
               //TODO: handle errors in notifications    
             }
             Meteor.Router.to('issue', 
