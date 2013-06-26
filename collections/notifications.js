@@ -42,6 +42,24 @@ function delta(oldItem, newItem) {
 };
 
 Meteor.methods({
+  createTeamNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit a team");
+
+    var team = notificationAttributes.team;
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity','action','team'), {
+      teamId: team._id,
+      name: team.name,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId()
+    });
+
+    var notificationId = Notifications.insert(notification);
+    return Notifications.findOne(notificationId);  
+  },
   editTeamNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)

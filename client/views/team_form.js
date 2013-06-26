@@ -31,7 +31,19 @@ Template.teamForm.events({
         if (error.error == 302)
           Meteor.Router.to('team', error.details)
       } else {
+        var notificationAttributes = {
+          entity: 'team',
+          action: 'create',
+          team: team
+        };
+
+        Meteor.call('createTeamNotification', notificationAttributes, function(error) {
+          if (error) {
+            console.log(error);
+            //TODO: handle errors in notifications    
+          }
           Meteor.Router.to('team', team.code);
+        });      
       }
     });
   },
