@@ -62,8 +62,7 @@ Meteor.methods({
       name: newTeam.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId(),
-      delta: teamDelta,
-      readBy: []
+      delta: teamDelta
     });
 
     var notificationId = Notifications.insert(notification);
@@ -91,13 +90,32 @@ Meteor.methods({
       name: newProject.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId(),
-      delta: projectDelta,
-      readBy: []
+      delta: projectDelta
     });
 
     var notificationId = Notifications.insert(notification);
 
     return Notifications.findOne(notificationId);    
+  },
+  createMilestoneNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit a milestone");
+
+    var milestone = notificationAttributes.milestone;
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity','action','milestone'), {
+      teamId: milestone.teamId,
+      projectId: milestone.projectId,
+      milestoneId: milestone._id,
+      name: milestone.name,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId()
+    });
+
+    var notificationId = Notifications.insert(notification);
+    return Notifications.findOne(notificationId);  
   },
   editMilestoneNotification: function(notificationAttributes) {
     var user = Meteor.user();
@@ -144,13 +162,11 @@ Meteor.methods({
       issueId: issue._id,
       name: issue.name,
       createdAt: new Date(),
-      createdByUserId: Meteor.userId(),
-      readBy: []
+      createdByUserId: Meteor.userId()
     });
 
     var notificationId = Notifications.insert(notification);
     return Notifications.findOne(notificationId);
-
   },
   editIssueNotification: function(notificationAttributes) {
     var user = Meteor.user();

@@ -20,10 +20,22 @@ Template.milestoneForm.events({
         if (error.error == 302)
           Meteor.Router.to('project', error.details)
       } else {
+        var notificationAttributes = {
+          entity: 'milestone',
+          action: 'create',
+          milestone: milestone
+        };
+
+        Meteor.call('createMilestoneNotification', notificationAttributes, function(error) {
+          if (error) {
+            console.log(error);
+            //TODO: handle errors in notifications    
+          }
           Meteor.Router.to('milestone', 
             Meteor.userFunctions.teamCode.call(milestone),
             Meteor.userFunctions.projectCode.call(milestone),
             milestone.code);
+        });      
       }
     });
   },

@@ -57,7 +57,6 @@ Template.issueForm.events({
           if (error.error == 302)
             Meteor.Router.to('issue', error.details)
         } else {
-
           var notificationAttributes = {
             entity: 'issue',
             action: 'create',
