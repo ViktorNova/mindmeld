@@ -49,7 +49,7 @@ Meteor.methods({
       newMilestone: newMilestone
     };
 
-    Meteor.call('createMilestoneNotification', notificationAttributes, function(error, notification) {
+    Meteor.call('editMilestoneNotification', notificationAttributes, function(error, notification) {
       if (error) {
         console.log(error);
         //TODO: handle errors in notifications

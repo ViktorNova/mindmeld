@@ -46,7 +46,7 @@ Meteor.methods({
       newProject: newProject
     };
 
-    Meteor.call('createProjectNotification', notificationAttributes, function(error, notification) {
+    Meteor.call('editProjectNotification', notificationAttributes, function(error, notification) {
       if (error) {
         console.log(error);
         //TODO: handle errors in notifications

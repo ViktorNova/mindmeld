@@ -44,7 +44,7 @@ Meteor.methods({
       newTeam: newTeam
     };
 
-    Meteor.call('createTeamNotification', notificationAttributes, function(error, notification) {
+    Meteor.call('editTeamNotification', notificationAttributes, function(error, notification) {
       if (error) {
         console.log(error);
         //TODO: handle errors in notifications

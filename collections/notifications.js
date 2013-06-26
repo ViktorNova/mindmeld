@@ -42,7 +42,7 @@ function delta(oldItem, newItem) {
 };
 
 Meteor.methods({
-  createTeamNotification: function(notificationAttributes) {
+  editTeamNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to edit a team");
@@ -70,7 +70,7 @@ Meteor.methods({
 
     return Notifications.findOne(notificationId);    
   },
-  createProjectNotification: function(notificationAttributes) {
+  editProjectNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to edit a project");
@@ -99,7 +99,7 @@ Meteor.methods({
 
     return Notifications.findOne(notificationId);    
   },
-  createMilestoneNotification: function(notificationAttributes) {
+  editMilestoneNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to edit a milestone");
@@ -130,6 +130,29 @@ Meteor.methods({
     return Notifications.findOne(notificationId);    
   },
   createIssueNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit an issue");
+
+    var issue = notificationAttributes.issue;
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity','action','issue'), {
+      teamId: issue.teamId,
+      projectId: issue.projectId,
+      milestoneId: issue.milestoneId,
+      issueId: issue._id,
+      name: issue.name,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId(),
+      readBy: []
+    });
+
+    var notificationId = Notifications.insert(notification);
+    return Notifications.findOne(notificationId);
+
+  },
+  editIssueNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to edit an issue");

@@ -1,6 +1,11 @@
 Template.notifications.helpers(_.extend(
   {
     notifications: function() {
+      if (!Session.get('currentTeamId') && !Session.get('currentProjectId') 
+        && !Session.get('currentMilestoneId') && !Session.get('currentIssueId')) {
+        return null;
+      }
+
       var findParameters = {
         teamId: Session.get('currentTeamId'),
         projectId: Session.get('currentProjectId'),
@@ -18,6 +23,9 @@ Template.notifications.helpers(_.extend(
 
 Template.notification.helpers(_.extend(
   {
+    isTeam: function() {
+      return this.entity == "team";
+    },
     isProject: function() {
       return this.entity == "project";
     },

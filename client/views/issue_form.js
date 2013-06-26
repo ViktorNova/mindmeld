@@ -57,11 +57,24 @@ Template.issueForm.events({
           if (error.error == 302)
             Meteor.Router.to('issue', error.details)
         } else {
-          Meteor.Router.to('issue', 
-            Meteor.userFunctions.teamCode.call(issue),
-            Meteor.userFunctions.projectCode.call(issue),
-            Meteor.userFunctions.milestoneCode.call(issue),
-            issue.code);
+
+          var notificationAttributes = {
+            entity: 'issue',
+            action: 'create',
+            issue: issue
+          };
+
+          Meteor.call('createIssueNotification', notificationAttributes, function(error) {
+            if (error) {
+              console.log("!" + error);
+              //TODO: handle errors in notifications    
+            }
+            Meteor.Router.to('issue', 
+              Meteor.userFunctions.teamCode.call(issue),
+              Meteor.userFunctions.projectCode.call(issue),
+              Meteor.userFunctions.milestoneCode.call(issue),
+              issue.code);
+          });      
         }
       });
     }

@@ -17,7 +17,9 @@ Meteor.methods({
     });
 
     var issueId = Issues.insert(issue);
-    return Issues.findOne(issueId);
+    var issue = Issues.findOne(issueId);
+
+    return issue;
   },
   editIssue: function(issueAttributes) {
     var user = Meteor.user();
@@ -54,7 +56,7 @@ Meteor.methods({
       newIssue: newIssue
     };
 
-    Meteor.call('createIssueNotification', notificationAttributes, function(error, notification) {
+    Meteor.call('editIssueNotification', notificationAttributes, function(error, notification) {
       if (error) {
         console.log(error);
         //TODO: handle errors in notifications
@@ -68,6 +70,7 @@ Meteor.methods({
     if (!user)
       throw new Meteor.Error(401, "You need to login to delete a issue");
 
+    Notifications.remove( { issueId: issueId });
     Issues.remove( { _id: issueId });
   }
 });

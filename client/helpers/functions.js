@@ -21,31 +21,40 @@ Meteor.formFunctions = {
 
 Meteor.userFunctions = {
   teamCode: function() {
-    return this.teamId && Teams.findOne(this.teamId).code;
+    return this.teamId && Teams.findOne(this.teamId) && 
+    Teams.findOne(this.teamId).code;
   },
   teamName: function() {
-  	return this.teamId && Teams.findOne(this.teamId).name;
+  	return this.teamId && Teams.findOne(this.teamId) &&
+    Teams.findOne(this.teamId).name;
    },
   projectCode: function() {
-    return this.projectId && Projects.findOne(this.projectId).code;
+    return this.projectId && Projects.findOne(this.projectId) &&
+    Projects.findOne(this.projectId).code;
   },
   projectName: function() {
-    return this.projectId && Projects.findOne(this.projectId).name;
+    return this.projectId && Projects.findOne(this.projectId) &&
+    Projects.findOne(this.projectId).name;
   },
   milestoneCode: function() {
-    return this.milestoneId && Milestones.findOne(this.milestoneId).code;
+    return this.milestoneId && Milestones.findOne(this.milestoneId) &&
+    Milestones.findOne(this.milestoneId).code;
   },
   milestoneName: function() {
-    return this.milestoneId && Milestones.findOne(this.milestoneId).name;
+    return this.milestoneId && Milestones.findOne(this.milestoneId) &&
+    Milestones.findOne(this.milestoneId).name;
   },
   issueCode: function() {
-    return this.issueId && Issues.findOne(this.issueId).code;    
+    return this.issueId && Issues.findOne(this.issueId) && Issues.findOne(this.issueId) &&
+    Issues.findOne(this.issueId).code;    
   },
   issueName: function() {
-    return this.issueId && Issues.findOne(this.issueId).name;
+    return this.issueId && Issues.findOne(this.issueId) && 
+    Issues.findOne(this.issueId).name;
   },
   issueDueDate: function() {
-    return this.milestoneId && Milestones.findOne(this.milestoneId).dueDate;
+    return this.milestoneId && Milestones.findOne(this.milestoneId) &&
+    Milestones.findOne(this.milestoneId).dueDate;
   },
   currentTeam: function() {
     if (Meteor.Router.page() === 'createTeam')
@@ -80,13 +89,16 @@ Meteor.userFunctions = {
     return Issues.findOne(Session.get('currentIssueId'));
   },
   createdByUsername: function() {
-    return this.createdByUserId && Meteor.users.findOne(this.createdByUserId).username;
+    return this.createdByUserId && Meteor.users.findOne(this.createdByUserId) && 
+    Meteor.users.findOne(this.createdByUserId).username;
   },
   ownedByUsername: function() {
-    return this.ownedByUserId && Meteor.users.findOne(this.ownedByUserId).username;
+    return this.ownedByUserId && Meteor.users.findOne(this.ownedByUserId) &&
+    Meteor.users.findOne(this.ownedByUserId).username;
   },
   assignedToUsername: function() {
-    return this.assignedToUserId && Meteor.users.findOne(this.assignedToUserId).username;
+    return this.assignedToUserId && Meteor.users.findOne(this.assignedToUserId) &&
+    Meteor.users.findOne(this.assignedToUserId).username;
   },
   allProjects: function() {
     return Projects.find({teamId: Session.get('currentTeamId')});
@@ -114,6 +126,7 @@ Meteor.userFunctions = {
     return Meteor.userId();
   },
   momentTimeAgoCreatedAt: function() {
-    return this.createdAt && moment(this.createdAt).fromNow();
+    return this.createdAt && moment(this.createdAt) && 
+    moment(this.createdAt).fromNow();
   }
 };

@@ -1,6 +1,6 @@
 <template name="notifications">
   <div class="span3">
-    <h4>Notifications</h4>
+    <h4>Activity</h4>
     {{#each notifications}}
       {{> notification}}
     {{/each}}
@@ -8,8 +8,11 @@
 </template>
 
 <template name="notification">
-    <div class="item"><a id="closeNotification" href=""><i class="icon-remove pull-right" data-id="{{_id}}"></i></a>
-      <a href="/users/">{{createdByUsername}}</a> {{pastTense action}}  {{entity}} 
+    <div class="item">
+      <a href="/users/">{{createdByUsername}}</a> {{pastTense action}}  {{entity}}<br /> 
+      {{#if isTeam}}
+      <a href="{{teamPath teamCode}}#{{_id}}">
+      {{/if}}
       {{#if isProject}}
       <a href="{{projectPath teamCode projectCode}}#{{_id}}">
       {{/if}}
@@ -20,6 +23,6 @@
       <a href="{{issuePath teamCode projectCode milestoneCode issueCode}}#{{_id}}">
       {{/if}}
         {{name}}
-      </a>
+      </a><br />
        <em>{{momentTimeAgoCreatedAt}}</em></div>
 </template>
