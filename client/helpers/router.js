@@ -14,78 +14,20 @@ function findIssueId(issueCode) {
   return Issues.findOne({code: issueCode}) && Issues.findOne({code: issueCode})._id;
 }
 
-//TODO: refactor these functions into one that scans the arg list
-function setSessionNone() {
-  Session.set('currentTeamId', null);
-  Session.set('currentProjectId', null);
-  Session.set('currentMilestoneId', null);
-  Session.set('currentIssueId', null);
-}
-
-function setSessionTeam(teamCode) {
-  var team = Teams.findOne({code: teamCode});
-  if (team) {
-    Session.set('currentTeamId', team._id);
-    Session.set('currentProjectId', null);
-    Session.set('currentMilestoneId', null);
-    Session.set('currentIssueId', null);
-  }
-};
-
-function setSessionTeamAndProject(teamCode, projectCode) {
-  var team = Teams.findOne({code: teamCode});
-  if (team) {
-    Session.set('currentTeamId', team._id);
-    var project = Projects.findOne({teamId: team._id, code: projectCode});
-    if (project) {
-      Session.set('currentProjectId', project._id);
-      Session.set('currentMilestoneId', null);
-      Session.set('currentIssueId', null);
-    }
-  }
-};
-
-function setSessionTeamAndProjectAndMilestone(teamCode, projectCode, milestoneCode) {
-  var team = Teams.findOne({code: teamCode});
-  if (team) {
-    Session.set('currentTeamId', team._id);
-    var project = Projects.findOne({teamId: team._id, code: projectCode});
-    if (project) {
-      Session.set('currentProjectId', project._id);
-      var milestone = Milestones.findOne({teamId: team._id, 
-        projectId: project._id, code: milestoneCode});
-      if (milestone) {
-        Session.set('currentMilestoneId', milestone._id);
-        Session.set('currentIssueId', null);
-      }
-    }
-  }
-};
-
-function setSessionTeamAndProjectAndMilestoneAndIssue(teamCode, projectCode, milestoneCode, issueCode) {
-  var team = Teams.findOne({code: teamCode});
-  if (team) {
-    Session.set('currentTeamId', team._id);
-    var project = Projects.findOne({teamId: team._id, code: projectCode});
-    if (project) {
-      Session.set('currentProjectId', project._id);
-      var milestone = Milestones.findOne({teamId: team._id, 
-        projectId: project._id, code: milestoneCode});
-      if (milestone) {
-        Session.set('currentMilestoneId', milestone._id);
-        var issue = Issues.findOne({teamId: team._id, projectId: project._id, 
-          milestoneId: milestone._id, code: issueCode });
-        if (issue) {
-          Session.set('currentIssueId', issue._id); 
-        }
-      }
-    }
-  }
+function setSession(session) {
+  Session.set('currentTeamId', 
+    session.teamCode && Teams.findOne({code: session.teamCode})._id);
+  Session.set('currentProjectId',
+    session.projectCode && Projects.findOne({code: session.projectCode})._id);
+  Session.set('currentMilestoneId',
+    session.milestoneCode && Milestones.findOne({code: session.milestoneCode})._id);
+  Session.set('currentIssueId',
+    session.issueCode && Issues.findOne({code: session.issueCode})._id);
 }
 
 Meteor.Router.add({
   '/': { as: 'home', to: function() {
-      setSessionNone();
+      setSession({});
       if (Meteor.user()) {
         return 'home';
       } else {
@@ -95,7 +37,7 @@ Meteor.Router.add({
   },
   '/team/create':
     { as: 'createTeam', to: function() {
-      setSessionNone();
+      setSession({});
       if (Meteor.user()) {
         return 'createTeam';
       } else {
@@ -106,7 +48,7 @@ Meteor.Router.add({
   '/:teamCode': { as: 'team', to: function(teamCode) {
       var teamId = findTeamId(teamCode);
       if (Meteor.user() && teamId) {     
-        setSessionTeam(teamCode);
+        setSession({teamCode: teamCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'team',
@@ -122,7 +64,7 @@ Meteor.Router.add({
   '/:teamCode/edit': { as: 'editTeam', to: function(teamCode) {
       var teamId = findTeamId(teamCode);
       if (Meteor.user() && teamId) {
-        setSessionTeam(teamCode);
+        setSession({teamCode: teamCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'editTeam',
@@ -138,7 +80,7 @@ Meteor.Router.add({
   '/:teamCode/project/create': { as: 'createProject', to: function(teamCode) {
       var teamId = findTeamId(teamCode);
       if (Meteor.user() && teamId) {
-        setSessionTeam(teamCode);
+        setSession({teamCode: teamCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'createProject',
@@ -155,7 +97,7 @@ Meteor.Router.add({
       var teamId = findTeamId(teamCode);
       var projectId = findProjectId(projectCode);
       if (Meteor.user() && teamId && projectId) {
-        setSessionTeamAndProject(teamCode, projectCode);
+        setSession({teamCode: teamCode, projectCode: projectCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'project',
@@ -172,7 +114,7 @@ Meteor.Router.add({
       var teamId = findTeamId(teamCode);
       var projectId = findProjectId(projectCode);
       if (Meteor.user() && teamId && projectId) {
-        setSessionTeamAndProject(teamCode, projectCode);
+        setSession({teamCode: teamCode, projectCode: projectCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'editProject',
@@ -189,7 +131,7 @@ Meteor.Router.add({
       var teamId = findTeamId(teamCode);
       var projectId = findProjectId(projectCode);
       if (Meteor.user() && teamId && projectId) {
-        setSessionTeamAndProject(teamCode, projectCode);
+        setSession({teamCode: teamCode, projectCode: projectCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'createMilestone',
@@ -207,7 +149,7 @@ Meteor.Router.add({
       var projectId = findProjectId(projectCode);
       var milestoneId = findMilestoneId(milestoneCode);
       if (Meteor.user() && teamId && projectId && milestoneId) {
-        setSessionTeamAndProjectAndMilestone(teamCode, projectCode, milestoneCode);
+        setSession({teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'milestone',
@@ -225,7 +167,7 @@ Meteor.Router.add({
       var projectId = findProjectId(projectCode);
       var milestoneId = findMilestoneId(milestoneCode);
       if (Meteor.user() && teamId && projectId && milestoneId) {
-        setSessionTeamAndProjectAndMilestone(teamCode, projectCode, milestoneCode);
+        setSession({teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'editMilestone',
@@ -243,7 +185,7 @@ Meteor.Router.add({
       var projectId = findProjectId(projectCode);
       var milestoneId = findMilestoneId(milestoneCode);
       if (Meteor.user() && teamId && projectId && milestoneId) {
-        setSessionTeamAndProjectAndMilestone(teamCode, projectCode, milestoneCode);
+        setSession({teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'createIssue',
@@ -262,7 +204,7 @@ Meteor.Router.add({
       var milestoneId = findMilestoneId(milestoneCode);
       var issueId = findIssueId(issueCode);
       if (Meteor.user() && teamId && projectId && milestoneId && issueId) {
-        setSessionTeamAndProjectAndMilestoneAndIssue(teamCode, projectCode, milestoneCode, issueCode);
+        setSession({teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode, issueCode: issueCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'issue',
@@ -281,7 +223,7 @@ Meteor.Router.add({
       var milestoneId = findMilestoneId(milestoneCode);
       var issueId = findIssueId(issueCode);
       if (Meteor.user() && teamId && projectId && milestoneId && issueId) {
-        setSessionTeamAndProjectAndMilestoneAndIssue(teamCode, projectCode, milestoneCode, issueCode);
+        setSession({teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode, issueCode: issueCode});
         var movementAttributes = {
           teamId: teamId,
           template: 'editIssue',
