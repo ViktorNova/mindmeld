@@ -1,3 +1,20 @@
+function findTeamId(teamCode) {
+  return Teams.findOne({code: teamCode}) && Teams.findOne({code: teamCode})._id;
+}
+
+function findProjectId(projectCode) {
+  return Projects.findOne({code: projectCode}) && Projects.findOne({code: projectCode})._id;
+}
+
+function findMilestoneId(milestoneCode) {
+  return Milestones.findOne({code: milestoneCode}) && Milestones.findOne({code: milestoneCode})._id;
+}
+
+function findIssueId(issueCode) {
+  return Issues.findOne({code: issueCode}) && Issues.findOne({code: issueCode})._id;
+}
+
+//TODO: refactor these functions into one that scans the arg list
 function setSessionNone() {
   Session.set('currentTeamId', null);
   Session.set('currentProjectId', null);
@@ -67,34 +84,214 @@ function setSessionTeamAndProjectAndMilestoneAndIssue(teamCode, projectCode, mil
 }
 
 Meteor.Router.add({
-  '/': 
-    { to: 'home', and: setSessionNone },
+  '/': { as: 'home', to: function() {
+      setSessionNone();
+      if (Meteor.user()) {
+        return 'home';
+      } else {
+        return 'homePublic';
+      }
+    }
+  },
   '/team/create':
-    { to: 'createTeam', and: setSessionNone },
-
-  '/:teamCode': 
-    { to: 'team', and: setSessionTeam },
-  '/:teamCode/edit': 
-    { to: 'editTeam', and: setSessionTeam },
-  '/:teamCode/project/create': 
-    { to: 'createProject', and: setSessionTeam },
-
-  '/:teamCode/:projectCode': 
-    { to: 'project', and: setSessionTeamAndProject },
-  '/:teamCode/:projectCode/edit':
-    { to: 'editProject', and: setSessionTeamAndProject },
-  '/:teamCode/:projectCode/milestone/create': 
-    { to: 'createMilestone', and: setSessionTeamAndProject },
-
-  '/:teamCode/:projectCode/:milestoneCode': 
-    { to: 'milestone', and: setSessionTeamAndProjectAndMilestone },
-  '/:teamCode/:projectCode/:milestoneCode/edit':
-    { to: 'editMilestone', and: setSessionTeamAndProjectAndMilestone },
-  '/:teamCode/:projectCode/:milestoneCode/issue/create': 
-    { to: 'createIssue', and: setSessionTeamAndProjectAndMilestone },
-
-  '/:teamCode/:projectCode/:milestoneCode/:issueCode': 
-    { to: 'issue', and: setSessionTeamAndProjectAndMilestoneAndIssue },
-  '/:teamCode/:projectCode/:milestoneCode/:issueCode/edit':
-    { to: 'editIssue', and: setSessionTeamAndProjectAndMilestoneAndIssue }
+    { as: 'createTeam', to: function() {
+      setSessionNone();
+      if (Meteor.user()) {
+        return 'createTeam';
+      } else {
+        return 'notFound';
+      }
+    }
+  },
+  '/:teamCode': { as: 'team', to: function(teamCode) {
+      var teamId = findTeamId(teamCode);
+      if (Meteor.user() && teamId) {     
+        setSessionTeam(teamCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'team',
+          templatePathAttributes: {teamCode: teamCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'team';
+      } else {
+        return 'notFound';
+      }
+    }
+  },
+  '/:teamCode/edit': { as: 'editTeam', to: function(teamCode) {
+      var teamId = findTeamId(teamCode);
+      if (Meteor.user() && teamId) {
+        setSessionTeam(teamCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'editTeam',
+          templatePathAttributes: {teamCode: teamCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'editTeam';
+      } else {
+        return 'notFound';
+      }
+    }
+  },
+  '/:teamCode/project/create': { as: 'createProject', to: function(teamCode) {
+      var teamId = findTeamId(teamCode);
+      if (Meteor.user() && teamId) {
+        setSessionTeam(teamCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'createProject',
+          templatePathAttributes: {teamCode: teamCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'createProject';
+      } else {
+        return 'notFound';
+      }
+    }    
+  },
+  '/:teamCode/:projectCode': { as: 'project', to: function(teamCode, projectCode) {
+      var teamId = findTeamId(teamCode);
+      var projectId = findProjectId(projectCode);
+      if (Meteor.user() && teamId && projectId) {
+        setSessionTeamAndProject(teamCode, projectCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'project',
+          templatePathAttributes: {teamCode: teamCode, projectCode: projectCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'project';
+      } else {
+        return 'notFound';
+      }
+    }    
+  },
+  '/:teamCode/:projectCode/edit': { as: 'editProject', to: function(teamCode, projectCode) {
+      var teamId = findTeamId(teamCode);
+      var projectId = findProjectId(projectCode);
+      if (Meteor.user() && teamId && projectId) {
+        setSessionTeamAndProject(teamCode, projectCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'editProject',
+          templatePathAttributes: {teamCode: teamCode, projectCode: projectCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'editProject';
+      } else {
+        return 'notFound';
+      }
+    }    
+  },
+  '/:teamCode/:projectCode/milestone/create': { as: 'createMilestone', to: function(teamCode, projectCode) {
+      var teamId = findTeamId(teamCode);
+      var projectId = findProjectId(projectCode);
+      if (Meteor.user() && teamId && projectId) {
+        setSessionTeamAndProject(teamCode, projectCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'createMilestone',
+          templatePathAttributes: {teamCode: teamCode, projectCode: projectCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'createMilestone';
+      } else {
+        return 'notFound';
+      }
+    }    
+  },
+  '/:teamCode/:projectCode/:milestoneCode': { as: 'milestone', to: function(teamCode, projectCode, milestoneCode) {
+      var teamId = findTeamId(teamCode);
+      var projectId = findProjectId(projectCode);
+      var milestoneId = findMilestoneId(milestoneCode);
+      if (Meteor.user() && teamId && projectId && milestoneId) {
+        setSessionTeamAndProjectAndMilestone(teamCode, projectCode, milestoneCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'milestone',
+          templatePathAttributes: {teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'milestone';
+      } else {
+        return 'notFound';
+      }
+    }    
+  },
+  '/:teamCode/:projectCode/:milestoneCode/edit': { as: 'editMilestone', to: function(teamCode, projectCode, milestoneCode) {
+      var teamId = findTeamId(teamCode);
+      var projectId = findProjectId(projectCode);
+      var milestoneId = findMilestoneId(milestoneCode);
+      if (Meteor.user() && teamId && projectId && milestoneId) {
+        setSessionTeamAndProjectAndMilestone(teamCode, projectCode, milestoneCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'editMilestone',
+          templatePathAttributes: {teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'editMilestone';
+      } else {
+        return 'notFound';
+      }
+    }    
+  },
+  '/:teamCode/:projectCode/:milestoneCode/issue/create': { as: 'createIssue', to: function(teamCode, projectCode, milestoneCode) {
+      var teamId = findTeamId(teamCode);
+      var projectId = findProjectId(projectCode);
+      var milestoneId = findMilestoneId(milestoneCode);
+      if (Meteor.user() && teamId && projectId && milestoneId) {
+        setSessionTeamAndProjectAndMilestone(teamCode, projectCode, milestoneCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'createIssue',
+          templatePathAttributes: {teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'createIssue';
+      } else {
+        return 'notFound';
+      }
+    }    
+  },
+  '/:teamCode/:projectCode/:milestoneCode/:issueCode': { as: 'issue', to: function(teamCode, projectCode, milestoneCode, issueCode) {
+      var teamId = findTeamId(teamCode);
+      var projectId = findProjectId(projectCode);
+      var milestoneId = findMilestoneId(milestoneCode);
+      var issueId = findIssueId(issueCode);
+      if (Meteor.user() && teamId && projectId && milestoneId && issueId) {
+        setSessionTeamAndProjectAndMilestoneAndIssue(teamCode, projectCode, milestoneCode, issueCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'issue',
+          templatePathAttributes: {teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode, issueCode: issueCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'issue';
+      } else {
+        return 'notFound';
+      }
+    }    
+  },
+  '/:teamCode/:projectCode/:milestoneCode/:issueCode/edit': { as: 'editIssue', to: function(teamCode, projectCode, milestoneCode, issueCode) {
+      var teamId = findTeamId(teamCode);
+      var projectId = findProjectId(projectCode);
+      var milestoneId = findMilestoneId(milestoneCode);
+      var issueId = findIssueId(issueCode);
+      if (Meteor.user() && teamId && projectId && milestoneId && issueId) {
+        setSessionTeamAndProjectAndMilestoneAndIssue(teamCode, projectCode, milestoneCode, issueCode);
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'editIssue',
+          templatePathAttributes: {teamCode: teamCode, projectCode: projectCode, milestoneCode: milestoneCode, issueCode: issueCode}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'editIssue';
+      } else {
+        return 'notFound';
+      }
+    }    
+  }
 });

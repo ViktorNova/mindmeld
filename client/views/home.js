@@ -1,4 +1,4 @@
-Template.public.helpers(Meteor.userFunctions);
+Template.homePublic.helpers();
 Template.home.helpers(Meteor.userFunctions);
 Template.breadcrumbHeader.helpers(Meteor.userFunctions);
 Template.homeBody.helpers(Meteor.userFunctions);

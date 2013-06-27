@@ -1,13 +1,9 @@
 <template name="home">
-  {{#if isLoggedIn}}
-    {{> breadcrumbHeader}}
-    <div class="row">
-      {{> notifications}}
-      {{> homeBody}}
-    </div>
-  {{else}}
-    {{> public}}
-  {{/if}}
+  {{> breadcrumbHeader}}
+  <div class="row">
+    {{> notifications}}
+    {{> homeBody}}
+  </div>
 </template>
 
 <template name="breadcrumbHeader">
@@ -53,7 +49,7 @@
  
 </template>
 
-<template name="public">
+<template name="homePublic">
   <div class="container">
     <div class="hero-unit">
       <h1>Home</h1>
