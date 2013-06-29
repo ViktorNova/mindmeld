@@ -8,8 +8,8 @@ var following;
 var followingListener = new Deps.Dependency();
 
 var currentlyFollowing = Deps.autorun(function() {
-  var movement = Movements.findOne({_id: Session.get('following')});
-  console.log('movement is ' + movement);
+  //var movement = Movements.findOne({_id: Session.get('following')});
+  //console.log('movement is ' + movement);
 }); 
 
 Template.header.events({
