@@ -1,22 +1,44 @@
 <template name="header">
     <header class="navbar">
       <div class="navbar-inner">
-        <a class="brand" href="{{homePath}}">Mindmeld</a>
-        <ul class="nav pull-right">
-          <li class="align-left">
-            <select id="following" class="select">
-              <option value="">Following..</option>
-              {{#each otherMembers}}
-                {{> followingMember}}
-              {{/each}}
-            </select>
-          </li>
-          <li>{{loginButtons}}</li>
-        </ul>
+        <div class="container">
+          {{#if following}}
+          <span class="brand">Mm</span>
+          {{else}}
+          <a class="brand" href="{{homePath}}">Mm</a>
+          {{/if}}
+          {{#if isLoggedIn}}
+            <ul class="nav">
+              <li><a href="">Blog</a></li>
+              <li><a href="">Help</a></li>
+            </ul>
+            <form class="navbar-search pull-left">
+              <div class="input-prepend nav">
+                <div class="btn-group">
+                  <button class="btn dropdown-toggle" data-toggle="dropdown">
+                    Follow
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="follow" data-bind="" href="#">Nobody</a></li>
+                    <li class="divider"></li>
+                    {{#each otherMembers}}
+                      {{> followingMember}}
+                    {{/each}}
+                  </ul>
+                </div>
+                <input class="span2" style="float: right" id="prependedDropdownButton" type="text" value="{{followingUsername}}"/>
+              </div>
+            </form>
+          {{/if}}
+          <ul class="nav pull-right">
+            <li>{{loginButtons}}</li>
+          </ul>
+        </div>
       </div>
     </header>
 </template>
 
 <template name="followingMember">
-  <option value="{{_id}}">{{username}}</option>
+  <li><a class="follow" data-bind="{{_id}}" href="">{{username}}</a></li>
 </template>

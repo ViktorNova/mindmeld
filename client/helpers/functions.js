@@ -131,6 +131,10 @@ Meteor.userFunctions = {
   following: function() {
     return Session.get('following');
   },
+  followingUsername: function() {
+    var user = Meteor.users.findOne(Session.get('following'));
+    return user ? user.username : 'Nobody';
+  },
   momentTimeAgoCreatedAt: function() {
     return this.createdAt && moment(this.createdAt) && 
     moment(this.createdAt).fromNow();

@@ -8,9 +8,8 @@ Template.header.rendered = function() {
 };
 
 Template.header.events({
-  'click #following': function(event) {
+  'click .follow': function(event) {
     event.preventDefault();
-    var following = $('#following>option:selected').val();
-    Session.set('following', following);
+    Session.set('following',event.toElement.dataset.bind);
   }
 });
