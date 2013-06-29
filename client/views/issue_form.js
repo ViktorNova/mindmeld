@@ -2,19 +2,6 @@ Template.createIssue.helpers(Meteor.userFunctions);
 Template.editIssue.helpers(Meteor.userFunctions);
 Template.issueForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
-Template.issueForm.rendered = function() {
-
-  var ownedByUserId = Meteor.userFunctions.currentIssue() && Meteor.userFunctions.currentIssue().ownedByUserId;
-  ownedByUserId = ownedByUserId || Meteor.userId();
-  var assignedToUserId = Meteor.userFunctions.currentIssue() && Meteor.userFunctions.currentIssue().assignedToUserId;
-  assignedToUserId = assignedToUserId || Meteor.userId();
-
-  $(document).ready(function() {
-    $("#ownedByUserId").val(ownedByUserId);
-    $("#assignedToUserId").val(assignedToUserId);
-  });
-};
-
 Template.issueForm.events({
   'click #delete': function(event) {
     event.preventDefault();
@@ -45,9 +32,7 @@ Template.issueForm.events({
       projectId: $(event.target).find('[name=projectId]').val(),
       featureId: $(event.target).find('[name=featureId]').val(),
       name: $(event.target).find('[name=name]').val(),
-      detail: $(event.target).find('[name=detail]').val(),
-      ownedByUserId: $(event.target).find('[name=ownedByUserId]').val(),
-      assignedToUserId: $(event.target).find('[name=assignedToUserId]').val()
+      detail: $(event.target).find('[name=detail]').val()
     }
 
     if (action === 'create') {
@@ -59,23 +44,11 @@ Template.issueForm.events({
           if (error.error == 302)
             Meteor.Router.to('issue', error.details)
         } else {
-          var notificationAttributes = {
-            entity: 'issue',
-            action: 'create',
-            issue: issue
-          };
-
-          Meteor.call('createIssueNotification', notificationAttributes, function(error) {
-            if (error) {
-              console.log(error);
-              //TODO: handle errors in notifications    
-            }
-            Meteor.Router.to('issue', 
-              Meteor.userFunctions.teamCode.call(issue),
-              Meteor.userFunctions.projectCode.call(issue),
-              Meteor.userFunctions.featureCode.call(issue),
-              issue.code);
-          });      
+          Meteor.Router.to('issue', 
+            Meteor.userFunctions.teamCode.call(issue),
+            Meteor.userFunctions.projectCode.call(issue),
+            Meteor.userFunctions.featureCode.call(issue),
+            issue.code);
         }
       });
     }

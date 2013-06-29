@@ -184,6 +184,27 @@ Meteor.methods({
 
     return Notifications.findOne(notificationId);    
   },
+  issueStatusChangeNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit an issue");
+
+    var issue = notificationAttributes.issue;
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity', 'action','oldStatus','newStatus'), {
+      teamId: issue.teamId,
+      projectId: issue.projectId,
+      featureId: issue.featureId,
+      issueId: issue._id,
+      name: issue.name,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId()
+    });
+
+    var notificationId = Notifications.insert(notification);
+    return Notifications.findOne(notificationId);
+  },
   createIssueNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)

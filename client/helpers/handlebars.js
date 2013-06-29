@@ -11,7 +11,7 @@ Handlebars.registerHelper('iconify', function(action) {
   }
 });
 
-Handlebars.registerHelper('pastTense', function(action) {
+Handlebars.registerHelper('pastTense', function(action, oldStatus, newStatus) {
   if (action === "create") {
     return "created";
   }
@@ -21,4 +21,23 @@ Handlebars.registerHelper('pastTense', function(action) {
   if (action === "delete") {
     return "deleted";
   }
-})
+  if (action === "status") {
+    if (newStatus == 1) {
+      if (oldStatus == 0)
+        return "started working on";
+      if (oldStatus == 1)
+        return "started working on";
+      if (oldStatus == 2)
+        return "restarted working on";
+      if (oldStatus == 3)
+        return "restarted working on";
+    }
+    if (newStatus == 2) {
+      return "completed working on";
+    }
+    if (newStatus == 3) {
+      return "cancelled working on";  
+    }
+    return "statused";
+  }
+});

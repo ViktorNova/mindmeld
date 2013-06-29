@@ -37,33 +37,13 @@
       <div class="control-group controls-row">
         <label class="control-label" for="name">Name</label>
         <div class="controls">
-          <input name="name" id="thename" class="span6" type="text" maxlength="80" value="{{name}}" />
+          <input name="name" class="span6" type="text" maxlength="80" value="{{name}}" />
         </div>
       </div>
       <div class="control-group controls-row">
         <label class="control-label" for="detail">Detail</label>
         <div class="controls">
           <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
-        </div>
-      </div>
-      <div class="control-group controls-row">
-        <label class="control-label" for="ownedByUserId">Owner</label>
-        <div class="controls">
-          <select name="ownedByUserId" id="ownedByUserId">
-            {{#each members}}
-              {{> owner}}
-            {{/each}}
-          </select>
-        </div>
-      </div>
-      <div class="control-group controls-row">
-        <label class="control-label" for="assignedToUserId">Assignee</label>
-        <div class="controls">
-          <select name="assignedToUserId" id="assignedToUserId">
-            {{#each members}}
-              {{> assignee}}
-            {{/each}}
-          </select>
         </div>
       </div>
     {{/with}}

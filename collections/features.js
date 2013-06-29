@@ -9,7 +9,7 @@ Meteor.methods({
     //validate name to max 80 chars
 
     var feature = _.extend(_.pick(featureAttributes, 
-      'teamId', 'projectId', 'name', 'detail', 'dueDate'), {
+      'teamId', 'projectId', 'name', 'detail', 'ownedByUserId'), {
       code: featureAttributes.name.toCode(),
       createdByUserId: Meteor.userId()
     });
@@ -25,7 +25,7 @@ Meteor.methods({
     //validate name to max 80 chars
 
     var feature = _.extend(_.pick(featureAttributes, '_id', 'teamId', 
-      'projectId', 'name', 'detail', 'dueDate'), {
+      'projectId', 'name', 'detail', 'ownedByUserId'), {
       code: featureAttributes.name.toCode(),
     });
 
@@ -37,8 +37,18 @@ Meteor.methods({
       name: feature.name,
       detail: feature.detail,
       code: feature.code,
-      dueDate: feature.dueDate
+      ownedByUserId: feature.ownedByUserId
     }});
+
+    Issues.update( { 
+      teamId: feature.teamId, projectId: 
+      feature.projectId, 
+      featureId: feature._id, 
+      ownedByUserId: oldFeature.ownedByUserId 
+    }, { 
+      $set: { ownedByUserId: feature.ownedByUserId }
+    },
+    { multi: true });
 
     var newFeature = Features.findOne(feature._id);
 

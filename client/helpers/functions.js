@@ -62,6 +62,24 @@ Meteor.userFunctions = {
 
     return Teams.findOne(Session.get('currentTeamId'));
   },
+  statusKey: function() {
+    return Meteor.Mindmeld.toStatusEnum(this.status) && Meteor.Mindmeld.toStatusEnum(this.status).key;
+  },
+  statusNotStarted: function() {
+    return Meteor.Mindmeld.toStatusEnum(this.status) && Meteor.Mindmeld.toStatusEnum(this.status).key === "notStarted";
+  },
+  statusInProgress: function() {
+    return Meteor.Mindmeld.toStatusEnum(this.status) && Meteor.Mindmeld.toStatusEnum(this.status).key === "inProgress";
+  },
+  statusCompleted: function() {
+    return Meteor.Mindmeld.toStatusEnum(this.status) && Meteor.Mindmeld.toStatusEnum(this.status).key === "completed";
+  },
+  statusCancelled: function() {
+    return Meteor.Mindmeld.toStatusEnum(this.status) && Meteor.Mindmeld.toStatusEnum(this.status).key === "cancelled";
+  },
+  statusDisplay: function() {
+    return Meteor.Mindmeld.toStatusEnum(this.status) && Meteor.Mindmeld.toStatusEnum(this.status).display;
+  },
   currentProject: function() {
     if (Meteor.Router.page() === 'createProject')
       return { teamId: Session.get('currentTeamId') };
@@ -96,10 +114,6 @@ Meteor.userFunctions = {
     return this.ownedByUserId && Meteor.users.findOne(this.ownedByUserId) &&
     Meteor.users.findOne(this.ownedByUserId).username;
   },
-  assignedToUsername: function() {
-    return this.assignedToUserId && Meteor.users.findOne(this.assignedToUserId) &&
-    Meteor.users.findOne(this.assignedToUserId).username;
-  },
   allProjects: function() {
     return Projects.find({teamId: Session.get('currentTeamId')});
   },
@@ -127,6 +141,9 @@ Meteor.userFunctions = {
   },
   isLoggedIn: function() {
     return Meteor.userId();
+  },
+  ownedByCurrentUser: function() {
+    return this && this.ownedByUserId && this.ownedByUserId === Meteor.userId();
   },
   following: function() {
     return Session.get('following');

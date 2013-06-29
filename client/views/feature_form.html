@@ -44,9 +44,13 @@
       </div>
     </div>
     <div class="control-group controls-row">
-      <label class="control-label" for="dueDate">Due Date</label>
+      <label class="control-label" for="ownedByUserId">Owner</label>
       <div class="controls">
-        <input name="dueDate" class="span3" type="text" value="{{dueDate}}" />
+        <select name="ownedByUserId" id="ownedByUserId">
+          {{#each members}}
+            {{> owner}}
+          {{/each}}
+        </select>
       </div>
     </div>
     {{/with}}

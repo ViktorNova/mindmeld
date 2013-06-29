@@ -2,6 +2,17 @@ Template.createFeature.helpers(Meteor.userFunctions);
 Template.editFeature.helpers(Meteor.userFunctions);
 Template.featureForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
+Template.featureForm.rendered = function() {
+
+  var ownedByUserId = Meteor.userFunctions.currentFeature() && Meteor.userFunctions.currentFeature().ownedByUserId;
+  ownedByUserId = ownedByUserId || Meteor.userId();
+
+  $(document).ready(function() { 
+    $("#ownedByUserId").val(ownedByUserId);
+    $("#ownedByUserId").select2(); 
+  });
+}
+
 Template.featureForm.events({
   'click #create': function(event) {
     event.preventDefault();
@@ -11,7 +22,7 @@ Template.featureForm.events({
       projectId: $(document).find('[name=projectId]').val(),
       name: $(document).find('[name=name]').val(),
       detail: $(document).find('[name=detail]').val(),
-      dueDate: moment($(document).find('[name=dueDate]').val()).toDate()
+      ownedByUserId: $(document).find('[name=ownedByUserId]').val()
     }
 
     Meteor.call('createFeature', feature, function(error, feature) {
@@ -50,7 +61,7 @@ Template.featureForm.events({
       projectId: $(document).find('[name=projectId]').val(),
       name: $(document).find('[name=name]').val(),
       detail: $(document).find('[name=detail]').val(),
-      dueDate: moment($(document).find('[name=dueDate]').val()).toDate()
+      ownedByUserId: $(document).find('[name=ownedByUserId]').val()
     }
 
     Meteor.call('editFeature', feature, function(error, feature) {

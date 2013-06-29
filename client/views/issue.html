@@ -22,20 +22,32 @@
 
       <div class="row">
         <form class="form-inline span9">
+          <input type="hidden" name="_id" value="{{_id}}" />
           <div class="input-prepend">
             <span class="add-on">Owner</span>
             <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{ownedByUsername}}" />
           </div>
-        <div class="input-prepend">
-          <span class="add-on">Due Date</span>
-          <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{issueDueDate}}" />
-        </div>
           <div class="input-prepend">
-            <span class="add-on">Assignee</span>
-            <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{assignedToUsername}}" />
+            <span class="add-on">Status</span>
+            <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{statusDisplay}}" />
           </div>
           {{#if isLoggedIn}}
             <button id="editIssue" class="btn pull-right">Edit Issue</button>
+            {{#if ownedByCurrentUser}}
+              {{#if statusNotStarted}}
+                <button id="startIssue" class="btn pull-right">Start</button>
+              {{/if}}
+              {{#if statusInProgress}}
+                <button id="cancelIssue" class="btn pull-right">Cancel</button>
+                <button id="completeIssue" class="btn pull-right">Complete</button>
+              {{/if}}
+              {{#if statusCompleted}}
+                <button id="startIssue" class="btn pull-right">Restart</button>
+              {{/if}}
+              {{#if statusCancelled}}
+                <button id="startIssue" class="btn pull-right">Restart</button>
+              {{/if}}
+            {{/if}}
           {{/if}}
         </form>
       </div>
