@@ -1,9 +1,13 @@
 <template name="breadcrumbHeader">
  <div class="row">
     <div class="span12">
+      {{#if following}}
+      Home 
+      {{else}}
       <a class="" href="{{homePath}}">
         Home
       </a> 
+      {{/if}}
       {{#with currentTeam}}
         {{#if name}}
           <i class="icon-chevron-sign-right"></i>  

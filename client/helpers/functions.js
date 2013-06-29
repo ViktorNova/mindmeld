@@ -128,6 +128,9 @@ Meteor.userFunctions = {
   isLoggedIn: function() {
     return Meteor.userId();
   },
+  following: function() {
+    return Session.get('following');
+  },
   momentTimeAgoCreatedAt: function() {
     return this.createdAt && moment(this.createdAt) && 
     moment(this.createdAt).fromNow();
