@@ -1,0 +1,1 @@
+Template.breadcrumbHeader.helpers(Meteor.userFunctions);

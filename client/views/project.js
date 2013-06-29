@@ -1,5 +1,4 @@
 Template.project.helpers(Meteor.userFunctions);
-Template.createMilestone.helpers(Meteor.userFunctions);
 Template.projectBody.helpers(Meteor.userFunctions);
 
 Template.projectBody.events({

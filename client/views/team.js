@@ -1,5 +1,4 @@
 Template.team.helpers(Meteor.userFunctions);
-Template.createProject.helpers(Meteor.userFunctions);
 Template.teamBody.helpers(Meteor.userFunctions);
 
 Template.teamBody.events({

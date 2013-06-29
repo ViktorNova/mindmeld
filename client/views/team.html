@@ -1,17 +1,13 @@
 <template name="team">
-  {{> breadcrumbHeader}}
-  <div class="row">
-    {{> notifications}}
-    {{> teamBody}}
-  </div>
-  {{logMovement}}
-</template>
-
-<template name="createProject">
-  {{> breadcrumbHeader}}
-  <div class="row">
-    {{> notifications}}
-    {{> projectForm}}
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row">
+        {{> notifications}}
+        {{> teamBody}}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,7 +19,6 @@
           <h1>{{name}}</h1>
         </div>
       </div>
-
       <div class="row">
         <form class="form-inline span9">
           {{#if isLoggedIn}}
@@ -32,11 +27,9 @@
           {{/if}}
         </form?
       </div>
-
       <div class="row">
         <div class="span9">{{detail}}</div>
       </div>
-
       <h2>Projects</h2>
       {{#each allProjects}}
         {{> projectList}}

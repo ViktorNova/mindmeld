@@ -1,3 +1,5 @@
+Template.createProject.helpers(Meteor.userFunctions);
+Template.editProject.helpers(Meteor.userFunctions);
 Template.projectForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
 Template.projectForm.events({

@@ -1,18 +1,14 @@
 <template name="project">
-  {{> breadcrumbHeader}}
-  <div class="row">
-    {{> notifications}}
-    {{> projectBody}}
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row">
+        {{> notifications}}
+        {{> projectBody}}
+      </div>
+    </div>
   </div>
-</template>
-
-<template name="createMilestone">
-  {{> breadcrumbHeader}}
-  <div class="row">
-    {{> notifications}}
-    {{> milestoneForm}}
-  </div>
-</template>
 
 <template name="projectBody">
   <div class="span9 pull-right">

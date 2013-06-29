@@ -1,8 +1,21 @@
-<template name="editTeam">
+<template name="createTeam">
   {{> breadcrumbHeader}}
   <div class="row">
     {{> notifications}}
     {{> teamForm}}
+  </div>
+</template>
+
+<template name="editTeam">
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row">
+        {{> notifications}}
+        {{> teamForm}}
+      </div>
+    </div>
   </div>
 </template>
 

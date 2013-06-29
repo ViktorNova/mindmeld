@@ -1,8 +1,13 @@
 <template name="issue">
-  {{> breadcrumbHeader}}
-  <div class="row">
-    {{> notifications}}
-    {{> issueBody}}
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row">
+        {{> notifications}}
+        {{> issuesBody}}
+      </div>
+    </div>
   </div>
 </template>
 

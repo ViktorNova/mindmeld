@@ -1,3 +1,5 @@
+Template.createTeam.helpers(Meteor.userFunctions);
+Template.editTeam.helpers(Meteor.userFunctions);
 Template.teamForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
 Template.teamForm.events({

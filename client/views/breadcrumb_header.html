@@ -1,0 +1,42 @@
+<template name="breadcrumbHeader">
+ <div class="row">
+    <div class="span12">
+      <a class="" href="{{homePath}}">
+        Home
+      </a> 
+      {{#with currentTeam}}
+        {{#if name}}
+          <i class="icon-chevron-sign-right"></i>  
+          <a class="" href="{{teamPath code}}">{{name}}</a>
+        {{/if}}
+      {{/with}}
+      {{#with currentProject}}
+        {{#if name}}
+          <i class="icon-chevron-sign-right"></i>  
+          <a class="" href="{{projectPath teamCode code}}">
+            {{name}}
+          </a>
+        {{/if}}
+      {{/with}}
+      {{#with currentMilestone}}
+        {{#if name}}
+          <i class="icon-chevron-sign-right"></i>  
+          <a class="" 
+            href="{{milestonePath teamCode projectCode code}}">
+            {{name}}
+          </a>
+        {{/if}}
+      {{/with}}
+      {{#with currentIssue}}
+        {{#if name}}
+          <i class="icon-chevron-sign-right"></i>  
+          <a class="" 
+            href="{{issuePath teamCode projectCode milestoneCode code}}">
+            {{name}}
+          </a>
+        {{/if}}
+      {{/with}}      
+    </div>
+  </div>
+ 
+</template>

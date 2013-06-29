@@ -35,4 +35,4 @@ Meteor.publish('teamMovements', function(userId, teamId) {
   //teamId is ignored, is that ok?
   var teams = Teams.find({members: {$in:[userId]}}).fetch();
   return Movements.find({teamId: {$in: _.pluck(teams, '_id')}});
-})
+});

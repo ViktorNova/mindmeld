@@ -1,10 +1,27 @@
-<template name="editProject">
-  {{> breadcrumbHeader}}
-  <div class="row">
-    {{> notifications}}
-    {{> projectForm}}
+<template name="createProject">
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row">
+        {{> notifications}}
+        {{> projectForm}}
+      </div>
+    </div>
   </div>
 </template>
+
+<template name="editProject">
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row">
+        {{> notifications}}
+        {{> projectForm}}
+      </div>
+    </div>
+  </div>
 
 <template name="projectForm">
   {{#with currentProject}}

@@ -1,18 +1,15 @@
 <template name="milestone">
-  {{> breadcrumbHeader}}
-  <div class="row">
-    {{> notifications}}
-    {{> milestoneBody}}
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row">
+        {{> notifications}}
+        {{> milestoneBody}}
+      </div>
+    </div>
   </div>
 </template>
-
-<template name="createIssue">
-  {{> breadcrumbHeader}}
-  <div class="row">
-    {{> notifications}}
-    {{> issueForm}}
-  </div>
-</template>  
 
 <template name="milestoneBody">
   <div class="span9 pull-right">

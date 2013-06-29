@@ -1,0 +1,22 @@
+<template name="header">
+    <header class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="{{homePath}}">Mindmeld</a>
+        <ul class="nav pull-right">
+          <li class="align-left">
+            <select id="following" class="select">
+              <option value="">Following..</option>
+              {{#each otherMembers}}
+                {{> followingMember}}
+              {{/each}}
+            </select>
+          </li>
+          <li>{{loginButtons}}</li>
+        </ul>
+      </div>
+    </header>
+</template>
+
+<template name="followingMember">
+  <option value="{{_id}}">{{username}}</option>
+</template>

@@ -1,8 +1,27 @@
+<template name="createMilestone">
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row">
+        {{> notifications}}
+        {{> milestoneForm}}
+      </div>
+    </div>
+  </div>
+</template>
+
 <template name="editMilestone">
-  {{> breadcrumbHeader}}
-  <div class="row">
-    {{> notifications}}
-    {{> milestoneForm}}
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row">
+        {{> notifications}}
+        {{> milestoneForm}}
+      </div>
+    </div>
+  </div>
 </template>
 
 <template name="milestoneForm">

@@ -119,6 +119,9 @@ Meteor.userFunctions = {
   members: function() {
     return Meteor.users.find();
   },
+  otherMembers: function() {
+    return Meteor.users.find({ _id: { $ne: Meteor.userId() } });
+  },
   userId: function() {
     return Meteor.userId();
   },
