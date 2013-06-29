@@ -1,70 +1,70 @@
-Milestones = new Meteor.Collection('milestones');
+Features = new Meteor.Collection('features');
 
 Meteor.methods({
-  createMilestone: function(milestoneAttributes) {
+  createFeature: function(featureAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to create a milestone");
+      throw new Meteor.Error(401, "You need to login to create a feature");
     //todo: validation
     //validate name to max 80 chars
 
-    var milestone = _.extend(_.pick(milestoneAttributes, 
+    var feature = _.extend(_.pick(featureAttributes, 
       'teamId', 'projectId', 'name', 'detail', 'dueDate'), {
-      code: milestoneAttributes.name.toCode(),
+      code: featureAttributes.name.toCode(),
       createdByUserId: Meteor.userId()
     });
 
-    var milestoneId = Milestones.insert(milestone);
-    return Milestones.findOne(milestoneId);
+    var featureId = Features.insert(feature);
+    return Features.findOne(featureId);
   },
-  editMilestone: function(milestoneAttributes) {
+  editFeature: function(featureAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to edit a milestone");
+      throw new Meteor.Error(401, "You need to login to edit a feature");
     //todo: validation
     //validate name to max 80 chars
 
-    var milestone = _.extend(_.pick(milestoneAttributes, '_id', 'teamId', 
+    var feature = _.extend(_.pick(featureAttributes, '_id', 'teamId', 
       'projectId', 'name', 'detail', 'dueDate'), {
-      code: milestoneAttributes.name.toCode(),
+      code: featureAttributes.name.toCode(),
     });
 
-    var oldMilestone = Milestones.findOne(milestone._id);    
+    var oldFeature = Features.findOne(feature._id);    
 
-    Milestones.update( { _id: milestone._id }, { $set: {
-      teamId: milestone.teamId,
-      projectId: milestone.projectId,
-      name: milestone.name,
-      detail: milestone.detail,
-      code: milestone.code,
-      dueDate: milestone.dueDate
+    Features.update( { _id: feature._id }, { $set: {
+      teamId: feature.teamId,
+      projectId: feature.projectId,
+      name: feature.name,
+      detail: feature.detail,
+      code: feature.code,
+      dueDate: feature.dueDate
     }});
 
-    var newMilestone = Milestones.findOne(milestone._id);
+    var newFeature = Features.findOne(feature._id);
 
     var notificationAttributes = {
-      entity: 'milestone', 
+      entity: 'feature', 
       action: 'edit', 
-      oldMilestone: oldMilestone,
-      newMilestone: newMilestone
+      oldFeature: oldFeature,
+      newFeature: newFeature
     };
 
-    Meteor.call('editMilestoneNotification', notificationAttributes, function(error, notification) {
+    Meteor.call('editFeatureNotification', notificationAttributes, function(error, notification) {
       if (error) {
         console.log(error);
         //TODO: handle errors in notifications
       }
     });
 
-    return newMilestone;
+    return newFeature;
   },
-  deleteMilestone: function(milestoneId) {
+  deleteFeature: function(featureId) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to delete a milestone");
+      throw new Meteor.Error(401, "You need to login to delete a feature");
 
-    Milestones.remove( { _id: milestoneId });
-    Issues.remove( { milestoneId: milestoneId });
-    Notifications.remove( { milestoneId: milestoneId });
+    Features.remove( { _id: featureId });
+    Issues.remove( { featureId: featureId });
+    Notifications.remove( { featureId: featureId });
   }
 });

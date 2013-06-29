@@ -22,11 +22,11 @@
           </a>
         {{/if}}
       {{/with}}
-      {{#with currentMilestone}}
+      {{#with currentFeature}}
         {{#if name}}
           <i class="icon-chevron-sign-right"></i>  
           <a class="" 
-            href="{{milestonePath teamCode projectCode code}}">
+            href="{{featurePath teamCode projectCode code}}">
             {{name}}
           </a>
         {{/if}}
@@ -35,7 +35,7 @@
         {{#if name}}
           <i class="icon-chevron-sign-right"></i>  
           <a class="" 
-            href="{{issuePath teamCode projectCode milestoneCode code}}">
+            href="{{issuePath teamCode projectCode featureCode code}}">
             {{name}}
           </a>
         {{/if}}

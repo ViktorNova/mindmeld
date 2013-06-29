@@ -4,7 +4,7 @@ Template.notifications.helpers(_.extend(
       var findParameters = {
         teamId: Session.get('currentTeamId'),
         projectId: Session.get('currentProjectId'),
-        milestoneId: Session.get('currentMilestoneId'),
+        featureId: Session.get('currentFeatureId'),
         issueId: Session.get('currentIssueId'),
         readBy: {$nin: [ Meteor.userId() ]}
       };
@@ -24,8 +24,8 @@ Template.notification.helpers(_.extend(
     isProject: function() {
       return this.entity == "project";
     },
-    isMilestone: function() {
-      return this.entity == "milestone";
+    isFeature: function() {
+      return this.entity == "feature";
     },
     isIssue: function() {
       return this.entity == "issue";

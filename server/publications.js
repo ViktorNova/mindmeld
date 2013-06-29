@@ -8,10 +8,10 @@ Meteor.publish('teamProjects', function(userId, teamId) {
   return Projects.find({teamId: {$in:_.pluck(teams, '_id')}});
 });
 
-Meteor.publish('teamMilestones', function(userId, teamId) {
+Meteor.publish('teamFeatures', function(userId, teamId) {
   //teamId is ignored, is that ok?
   var teams = Teams.find({members: {$in:[userId]}}).fetch();
-  return Milestones.find({teamId: {$in: _.pluck(teams, '_id')}});
+  return Features.find({teamId: {$in: _.pluck(teams, '_id')}});
 });
 
 Meteor.publish('teamIssues', function(userId, teamId) {

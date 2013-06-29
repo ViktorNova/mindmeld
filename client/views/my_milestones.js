@@ -1,5 +1,5 @@
-Template.myMilestones.helpers({
-  milestonesIBelongTo: function() {
-    return Milestones.find();
+Template.myFeatures.helpers({
+  featuresIBelongTo: function() {
+    return Features.find();
   }
 });

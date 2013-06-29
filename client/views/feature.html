@@ -1,19 +1,19 @@
-<template name="milestone">
+<template name="feature">
   <div class="container">
     {{> header}}
     <div id="main">
       {{> breadcrumbHeader}}
       <div class="row">
         {{> notifications}}
-        {{> milestoneBody}}
+        {{> featureBody}}
       </div>
     </div>
   </div>
 </template>
 
-<template name="milestoneBody">
+<template name="featureBody">
   <div class="span9 pull-right">
-    {{#with currentMilestone}}
+    {{#with currentFeature}}
       <div class="row">
         <div class="span9">
           <h1>{{name}}</h1>
@@ -28,7 +28,7 @@
           </div>
           {{#if isLoggedIn}}
             <button id="createIssue" class="btn pull-right">Create Issue</button>
-            <button id="editMilestone" class="btn pull-right">Edit Milestone</button>
+            <button id="editFeature" class="btn pull-right">Edit Feature</button>
           {{/if}}
         </form>
       </div>

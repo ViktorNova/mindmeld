@@ -1,12 +1,12 @@
-Template.createMilestone.helpers(Meteor.userFunctions);
-Template.editMilestone.helpers(Meteor.userFunctions);
-Template.milestoneForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
+Template.createFeature.helpers(Meteor.userFunctions);
+Template.editFeature.helpers(Meteor.userFunctions);
+Template.featureForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
-Template.milestoneForm.events({
+Template.featureForm.events({
   'click #create': function(event) {
     event.preventDefault();
 
-    var milestone = {
+    var feature = {
       teamId: $(document).find('[name=teamId]').val(),
       projectId: $(document).find('[name=projectId]').val(),
       name: $(document).find('[name=name]').val(),
@@ -14,29 +14,29 @@ Template.milestoneForm.events({
       dueDate: moment($(document).find('[name=dueDate]').val()).toDate()
     }
 
-    Meteor.call('createMilestone', milestone, function(error, milestone) {
+    Meteor.call('createFeature', feature, function(error, feature) {
       if (error) {
         //TODO: handle errors in notifications
         Meteor.Errors.throw(error.reason);
-        //if milestone already exists, go there
+        //if feature already exists, go there
         if (error.error == 302)
           Meteor.Router.to('project', error.details)
       } else {
         var notificationAttributes = {
-          entity: 'milestone',
+          entity: 'feature',
           action: 'create',
-          milestone: milestone
+          feature: feature
         };
 
-        Meteor.call('createMilestoneNotification', notificationAttributes, function(error) {
+        Meteor.call('createFeatureNotification', notificationAttributes, function(error) {
           if (error) {
             console.log(error);
             //TODO: handle errors in notifications    
           }
-          Meteor.Router.to('milestone', 
-            Meteor.userFunctions.teamCode.call(milestone),
-            Meteor.userFunctions.projectCode.call(milestone),
-            milestone.code);
+          Meteor.Router.to('feature', 
+            Meteor.userFunctions.teamCode.call(feature),
+            Meteor.userFunctions.projectCode.call(feature),
+            feature.code);
         });      
       }
     });
@@ -44,7 +44,7 @@ Template.milestoneForm.events({
   'click #edit': function(event) {
     event.preventDefault();
 
-    var milestone = {
+    var feature = {
       _id: $(document).find('[name=_id]').val(),
       teamId: $(document).find('[name=teamId]').val(),
       projectId: $(document).find('[name=projectId]').val(),
@@ -53,24 +53,24 @@ Template.milestoneForm.events({
       dueDate: moment($(document).find('[name=dueDate]').val()).toDate()
     }
 
-    Meteor.call('editMilestone', milestone, function(error, milestone) {
+    Meteor.call('editFeature', feature, function(error, feature) {
       if (error) {
         //TODO: handle errors in notifications
         Meteor.Errors.throw(error.reason);
       } else {
-        Meteor.Router.to('milestone',
-          Meteor.userFunctions.teamCode.call(milestone),
-          Meteor.userFunctions.projectCode.call(milestone),
-          milestone.code);
+        Meteor.Router.to('feature',
+          Meteor.userFunctions.teamCode.call(feature),
+          Meteor.userFunctions.projectCode.call(feature),
+          feature.code);
       }
     });
   },
   'click #delete': function(event) {
     event.preventDefault();
 
-    var milestoneId = $(document).find('[name=_id]').val();
+    var featureId = $(document).find('[name=_id]').val();
 
-    Meteor.call('deleteMilestone', milestoneId, function(error) {
+    Meteor.call('deleteFeature', featureId, function(error) {
       if (error) {
         Meteor.Errors.throw(error.reason);
         //TOO: handle errors in notifications

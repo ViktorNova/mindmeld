@@ -60,7 +60,7 @@ Meteor.methods({
 
     Teams.remove( { _id: teamId });
     Projects.remove( { teamId: teamId });
-    Milestones.remove( { teamId: teamId });
+    Features.remove( { teamId: teamId });
     Issues.remove( { teamId: teamId });
     Notifications.remove( { teamId: teamId });
   }

@@ -1,7 +1,7 @@
-Template.milestone.helpers(Meteor.userFunctions);
-Template.milestoneBody.helpers(Meteor.userFunctions);
+Template.feature.helpers(Meteor.userFunctions);
+Template.featureBody.helpers(Meteor.userFunctions);
 
-Template.milestoneBody.events({
+Template.featureBody.events({
   'click #createIssue': function(event) {
     event.preventDefault();
     Meteor.Router.to('createIssue', 
@@ -9,9 +9,9 @@ Template.milestoneBody.events({
       Meteor.userFunctions.projectCode.call(this),
       this.code);
   },
-  'click #editMilestone': function(event) {
+  'click #editFeature': function(event) {
     event.preventDefault();
-    Meteor.Router.to('editMilestone', 
+    Meteor.Router.to('editFeature', 
       Meteor.userFunctions.teamCode.call(this),
       Meteor.userFunctions.projectCode.call(this),
       this.code);

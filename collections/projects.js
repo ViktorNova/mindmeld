@@ -61,7 +61,7 @@ Meteor.methods({
       throw new Meteor.Error(401, "You need to login to delete a project");
 
     Projects.remove( { _id: projectId });
-    Milestones.remove( { projectId: projectId });
+    Features.remove( { projectId: projectId });
     Issues.remove( { projectId: projectId });
     Notifications.remove( { projectId: projectId });
   }

@@ -26,11 +26,11 @@ Template.issueForm.events({
         Meteor.Errors.throw(error.reason);
         //TOO: handle errors in notifications
       } else {
-        var milestone = Meteor.userFunctions.currentMilestone();
-        Meteor.Router.to('milestone', 
-          Meteor.userFunctions.teamCode.call(milestone),
-          Meteor.userFunctions.projectCode.call(milestone),
-          milestone.code
+        var feature = Meteor.userFunctions.currentFeature();
+        Meteor.Router.to('feature', 
+          Meteor.userFunctions.teamCode.call(feature),
+          Meteor.userFunctions.projectCode.call(feature),
+          feature.code
         );
       }
     })
@@ -43,7 +43,7 @@ Template.issueForm.events({
     var issue = {
       teamId: $(event.target).find('[name=teamId]').val(),
       projectId: $(event.target).find('[name=projectId]').val(),
-      milestoneId: $(event.target).find('[name=milestoneId]').val(),
+      featureId: $(event.target).find('[name=featureId]').val(),
       name: $(event.target).find('[name=name]').val(),
       detail: $(event.target).find('[name=detail]').val(),
       ownedByUserId: $(event.target).find('[name=ownedByUserId]').val(),
@@ -73,7 +73,7 @@ Template.issueForm.events({
             Meteor.Router.to('issue', 
               Meteor.userFunctions.teamCode.call(issue),
               Meteor.userFunctions.projectCode.call(issue),
-              Meteor.userFunctions.milestoneCode.call(issue),
+              Meteor.userFunctions.featureCode.call(issue),
               issue.code);
           });      
         }
@@ -91,7 +91,7 @@ Template.issueForm.events({
           Meteor.Router.to('issue',
             Meteor.userFunctions.teamCode.call(issue),
             Meteor.userFunctions.projectCode.call(issue),
-            Meteor.userFunctions.milestoneCode.call(issue),
+            Meteor.userFunctions.featureCode.call(issue),
             issue.code);
         }
       });

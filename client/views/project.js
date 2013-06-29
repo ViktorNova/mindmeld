@@ -2,9 +2,9 @@ Template.project.helpers(Meteor.userFunctions);
 Template.projectBody.helpers(Meteor.userFunctions);
 
 Template.projectBody.events({
-  'click #createMilestone': function(event) {
+  'click #createFeature': function(event) {
     event.preventDefault();
-    Meteor.Router.to('createMilestone', 
+    Meteor.Router.to('createFeature', 
       Meteor.userFunctions.teamCode.call(this),
       this.code);
   },

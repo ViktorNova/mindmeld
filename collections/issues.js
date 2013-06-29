@@ -9,7 +9,7 @@ Meteor.methods({
     //validate name to max 80 chars
 
     var issue = _.extend(_.pick(issueAttributes, 
-      'teamId', 'projectId', 'milestoneId', 'issueId', 'name', 'detail', 
+      'teamId', 'projectId', 'featureId', 'issueId', 'name', 'detail', 
       'ownedByUserId', 'assignedToUserId'), {
       code: issueAttributes.name.toCode(),
       createdByUserId: Meteor.userId(),
@@ -29,7 +29,7 @@ Meteor.methods({
     //validate name to max 80 chars
 
     var issue = _.extend(_.pick(issueAttributes, '_id', 'teamId', 
-      'projectId', 'milestoneId', 'name', 'detail', 'ownedByUserId', 
+      'projectId', 'featureId', 'name', 'detail', 'ownedByUserId', 
       'assignedToUserId'), {
       code: issueAttributes.name.toCode(),
     });
@@ -39,7 +39,7 @@ Meteor.methods({
     Issues.update( { _id: issue._id }, { $set: {
       teamId: issue.teamId,
       projectId: issue.projectId,
-      milestoneId: issue.milestoneId,
+      featureId: issue.featureId,
       name: issue.name,
       detail: issue.detail,
       code: issue.code,

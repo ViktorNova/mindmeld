@@ -16,11 +16,11 @@
       {{#if isProject}}
       <a href="{{projectPath teamCode projectCode}}#{{_id}}">
       {{/if}}
-      {{#if isMilestone}}
-      <a href="{{milestonePath teamCode projectCode milestoneCode}}#{{_id}}">
+      {{#if isFeature}}
+      <a href="{{featurePath teamCode projectCode featureCode}}#{{_id}}">
       {{/if}}
       {{#if isIssue}}
-      <a href="{{issuePath teamCode projectCode milestoneCode issueCode}}#{{_id}}">
+      <a href="{{issuePath teamCode projectCode featureCode issueCode}}#{{_id}}">
       {{/if}}
         {{name}}
       </a><br />

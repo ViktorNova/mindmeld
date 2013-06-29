@@ -7,7 +7,7 @@ Template.issueBody.events({
     Meteor.Router.to('editIssue',
       Meteor.userFunctions.teamCode.call(this),
       Meteor.userFunctions.projectCode.call(this),
-      Meteor.userFunctions.milestoneCode.call(this),
+      Meteor.userFunctions.featureCode.call(this),
       this.code);
   }
 })

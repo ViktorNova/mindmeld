@@ -1,33 +1,33 @@
-<template name="createMilestone">
+<template name="createFeature">
   <div class="container">
     {{> header}}
     <div id="main">
       {{> breadcrumbHeader}}
       <div class="row">
         {{> notifications}}
-        {{> milestoneForm}}
+        {{> featureForm}}
       </div>
     </div>
   </div>
 </template>
 
-<template name="editMilestone">
+<template name="editFeature">
   <div class="container">
     {{> header}}
     <div id="main">
       {{> breadcrumbHeader}}
       <div class="row">
         {{> notifications}}
-        {{> milestoneForm}}
+        {{> featureForm}}
       </div>
     </div>
   </div>
 </template>
 
-<template name="milestoneForm">
-  <form id="{{action}}Milestone" class="form-horizontal span9">
-    <h1>{{capitalize action}} Milestone</h1>
-    {{#with currentMilestone}}
+<template name="featureForm">
+  <form id="{{action}}Feature" class="form-horizontal span9">
+    <h1>{{capitalize action}} Feature</h1>
+    {{#with currentFeature}}
     <input type="hidden" name="teamId" value="{{teamId}}" />
     <input type="hidden" name="projectId" value="{{projectId}}" />
     <input type="hidden" name="_id" value="{{_id}}" />

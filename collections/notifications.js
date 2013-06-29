@@ -134,19 +134,19 @@ Meteor.methods({
 
     return Notifications.findOne(notificationId);    
   },
-  createMilestoneNotification: function(notificationAttributes) {
+  createFeatureNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to edit a milestone");
+      throw new Meteor.Error(401, "You need to login to edit a feature");
 
-    var milestone = notificationAttributes.milestone;
+    var feature = notificationAttributes.feature;
 
     var notification = _.extend(_.pick(notificationAttributes,
-      'entity','action','milestone'), {
-      teamId: milestone.teamId,
-      projectId: milestone.projectId,
-      milestoneId: milestone._id,
-      name: milestone.name,
+      'entity','action','feature'), {
+      teamId: feature.teamId,
+      projectId: feature.projectId,
+      featureId: feature._id,
+      name: feature.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId()
     });
@@ -154,29 +154,29 @@ Meteor.methods({
     var notificationId = Notifications.insert(notification);
     return Notifications.findOne(notificationId);  
   },
-  editMilestoneNotification: function(notificationAttributes) {
+  editFeatureNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to edit a milestone");
+      throw new Meteor.Error(401, "You need to login to edit a feature");
     //todo: validation
 
-    var oldMilestone = notificationAttributes.oldMilestone;
-    var newMilestone = notificationAttributes.newMilestone;
+    var oldFeature = notificationAttributes.oldFeature;
+    var newFeature = notificationAttributes.newFeature;
 
-    if (oldMilestone._id !== newMilestone._id)
-      throw new Meteor.Error(500, "Auditing error when attempting to edit a milestone. Previous and new versions of id do not match");
+    if (oldFeature._id !== newFeature._id)
+      throw new Meteor.Error(500, "Auditing error when attempting to edit a feature. Previous and new versions of id do not match");
 
-    var milestoneDelta = delta(oldMilestone, newMilestone);
+    var featureDelta = delta(oldFeature, newFeature);
 
     var notification = _.extend(_.pick(notificationAttributes,
       'entity', 'action'), {
-      teamId: newMilestone.teamId,
-      projectId: newMilestone.projectId,
-      milestoneId: newMilestone._id,
-      name: newMilestone.name,
+      teamId: newFeature.teamId,
+      projectId: newFeature.projectId,
+      featureId: newFeature._id,
+      name: newFeature.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId(),
-      delta: milestoneDelta,
+      delta: featureDelta,
       readBy: []
     });
 
@@ -195,7 +195,7 @@ Meteor.methods({
       'entity','action','issue'), {
       teamId: issue.teamId,
       projectId: issue.projectId,
-      milestoneId: issue.milestoneId,
+      featureId: issue.featureId,
       issueId: issue._id,
       name: issue.name,
       createdAt: new Date(),
@@ -223,7 +223,7 @@ Meteor.methods({
       'entity', 'action'), {
       teamId: newIssue.teamId,
       projectId: newIssue.projectId,
-      milestoneId: newIssue.milestoneId,
+      featureId: newIssue.featureId,
       issueId: newIssue._id,
       name: newIssue.name,
       createdAt: new Date(),

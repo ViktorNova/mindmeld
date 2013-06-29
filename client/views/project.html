@@ -23,7 +23,7 @@
       <div class="row">
         <form class="form-inline span9">
           {{#if isLoggedIn}}
-            <button id="createMilestone" class="btn pull-right">Create Milestone</button>
+            <button id="createFeature" class="btn pull-right">Create Feature</button>
             <button id="editProject" class="btn pull-right">Edit Project</button>
           {{/if}}
         </form>
@@ -33,9 +33,9 @@
         <div class="span9">{{detail}}</div>
       </div>
 
-      <h2>Milestones</h2>
-      {{#each allMilestones}}
-        {{> milestoneList}}
+      <h2>Features</h2>
+      {{#each allFeatures}}
+        {{> featureList}}
       {{/each}}
 
     {{/with}}

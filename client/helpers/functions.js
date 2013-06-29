@@ -3,13 +3,13 @@ Meteor.formFunctions = {
     switch (Meteor.Router.page()) {
       case 'editTeam':
       case 'editProject':
-      case 'editMilestone':
+      case 'editFeature':
       case 'editIssue':
         return 'edit';
         break;
       case 'createTeam':
       case 'createProject':
-      case 'createMilestone':
+      case 'createFeature':
       case 'createIssue':
         return 'create';
         break;
@@ -36,13 +36,13 @@ Meteor.userFunctions = {
     return this.projectId && Projects.findOne(this.projectId) &&
     Projects.findOne(this.projectId).name;
   },
-  milestoneCode: function() {
-    return this.milestoneId && Milestones.findOne(this.milestoneId) &&
-    Milestones.findOne(this.milestoneId).code;
+  featureCode: function() {
+    return this.featureId && Features.findOne(this.featureId) &&
+    Features.findOne(this.featureId).code;
   },
-  milestoneName: function() {
-    return this.milestoneId && Milestones.findOne(this.milestoneId) &&
-    Milestones.findOne(this.milestoneId).name;
+  featureName: function() {
+    return this.featureId && Features.findOne(this.featureId) &&
+    Features.findOne(this.featureId).name;
   },
   issueCode: function() {
     return this.issueId && Issues.findOne(this.issueId) && Issues.findOne(this.issueId) &&
@@ -53,8 +53,8 @@ Meteor.userFunctions = {
     Issues.findOne(this.issueId).name;
   },
   issueDueDate: function() {
-    return this.milestoneId && Milestones.findOne(this.milestoneId) &&
-    Milestones.findOne(this.milestoneId).dueDate;
+    return this.featureId && Features.findOne(this.featureId) &&
+    Features.findOne(this.featureId).dueDate;
   },
   currentTeam: function() {
     if (Meteor.Router.page() === 'createTeam')
@@ -68,22 +68,22 @@ Meteor.userFunctions = {
 
     return Projects.findOne(Session.get('currentProjectId'));
   },
-  currentMilestone: function() {
-    if (Meteor.Router.page() === 'createMilestone')
+  currentFeature: function() {
+    if (Meteor.Router.page() === 'createFeature')
       return { 
         teamId: Session.get('currentTeamId'),
         projectId: Session.get('currentProjectId'),
         dueDate: moment().format() 
       };
 
-    return Milestones.findOne(Session.get('currentMilestoneId'));
+    return Features.findOne(Session.get('currentFeatureId'));
   },
   currentIssue: function() {
     if (Meteor.Router.page() === 'createIssue')
       return {
         teamId: Session.get('currentTeamId'),
         projectId: Session.get('currentProjectId'),
-        milestoneId: Session.get('currentMilestoneId')
+        featureId: Session.get('currentFeatureId')
       };
     
     return Issues.findOne(Session.get('currentIssueId'));
@@ -103,8 +103,8 @@ Meteor.userFunctions = {
   allProjects: function() {
     return Projects.find({teamId: Session.get('currentTeamId')});
   },
-  allMilestones: function() {
-    return Milestones.find({
+  allFeatures: function() {
+    return Features.find({
       teamId: Session.get('currentTeamId'),
       projectId: Session.get('currentProjectId')
     });
@@ -113,7 +113,7 @@ Meteor.userFunctions = {
     return Issues.find({
       teamId: Session.get('currentTeamId'),
       projectId: Session.get('currentProjectId'),
-      milestoneId: Session.get('currentMilestoneId')
+      featureId: Session.get('currentFeatureId')
     });
   },
   members: function() {

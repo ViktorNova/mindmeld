@@ -1,12 +1,12 @@
 <template name="issueList">
   <div class="item">
-    <a href="{{issuePath teamCode projectCode milestoneCode code}}">{{name}}</a>
+    <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a>
   </div>
 </template>
 
-<template name="issueListWithTeamAndProjectAndMilestone">
+<template name="issueListWithTeamAndProjectAndFeature">
 <div class="item">
-  <a href="{{issuePath teamCode projectCode milestoneCode code}}">
-    {{teamName}} / {{projectName}} / {{milestoneName}} / {{name}}
+  <a href="{{issuePath teamCode projectCode featureCode code}}">
+    {{teamName}} / {{projectName}} / {{featureName}} / {{name}}
   </a>
 </template>
