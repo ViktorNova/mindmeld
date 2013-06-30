@@ -1,9 +1,9 @@
 <template name="createIssue">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> issueForm}}
       </div>
@@ -12,11 +12,11 @@
 </template>  
 
 <template name="editIssue">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> issueForm}}
       </div>
@@ -25,33 +25,30 @@
 </template>
 
 <template name="issueForm">
-  {{curentIssue.name}}
-  <form id="{{action}}Issue" class="form-horizontal span9">
-    <h1>{{capitalize action}} Issue</h1>
-    {{#with currentIssue}}
-      <input type="hidden" name="action" value="{{action}}" />
-      <input type="hidden" name="teamId" value="{{teamId}}" />
-      <input type="hidden" name="projectId" value="{{projectId}}" />
-      <input type="hidden" name="featureId" value="{{featureId}}" />
-      <input type="hidden" name="_id" value="{{_id}}" />
-      <div class="control-group controls-row">
-        <label class="control-label" for="name">Name</label>
-        <div class="controls">
-          <input name="name" class="span6" type="text" maxlength="80" value="{{name}}" />
+  <div class="span9">
+    <div class="row-fluid">
+      <h1>{{capitalize action}} Issue</h1>
+      <form id="{{action}}Issue">
+        <fieldset>
+        {{#with currentIssue}}
+          <input type="hidden" name="action" value="{{action}}" />
+          <input type="hidden" name="teamId" value="{{teamId}}" />
+          <input type="hidden" name="projectId" value="{{projectId}}" />
+          <input type="hidden" name="featureId" value="{{featureId}}" />
+          <input type="hidden" name="_id" value="{{_id}}" />
+          <label class="control-label" for="name">Name</label>
+          <input name="name" class="span12" type="text" maxlength="80" value="{{name}}" />
+          <label class="control-label" for="detail">Detail</label>
+          <textarea name="detail" class="span12" rows="12">{{detail}}</textarea>
+        {{/with}}
+        </fieldset>
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+          <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
         </div>
-      </div>
-      <div class="control-group controls-row">
-        <label class="control-label" for="detail">Detail</label>
-        <div class="controls">
-          <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
-        </div>
-      </div>
-    {{/with}}
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
-      <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
+      </form>
     </div>
-  </form>
+  </div>
 </template>
 
 <template name="owner">
@@ -60,4 +57,4 @@
 
 <template name="assignee">
   <option value="{{_id}}">{{username}}</option>
-ß</template>
+</template>

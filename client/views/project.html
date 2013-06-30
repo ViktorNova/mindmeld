@@ -1,9 +1,9 @@
 <template name="project">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> projectBody}}
       </div>
@@ -12,32 +12,18 @@
 </template>
 
 <template name="projectBody">
-  <div class="span9 pull-right">
+  <div class="span9">
     {{#with currentProject}}
-      <div class="row">
-        <div class="span9">
-          <h1>{{name}}</h1>
-        </div>
+      <div class="row-fluid">
+        <h1>{{name}}</h1>
+        <p><button id="editProject" class="btn">Edit Project</button></p>
+        <div>{{detail}}</div>
+        <h2>Features</h2>
+        <p><button id="createFeature" class="btn">Create Feature</button></p>
+        {{#each allFeatures}}
+          {{> featureList}}
+        {{/each}}
       </div>
-
-      <div class="row">
-        <form class="form-inline span9">
-          {{#if isLoggedIn}}
-            <button id="createFeature" class="btn pull-right">Create Feature</button>
-            <button id="editProject" class="btn pull-right">Edit Project</button>
-          {{/if}}
-        </form>
-      </div>
-
-      <div class="row">
-        <div class="span9">{{detail}}</div>
-      </div>
-
-      <h2>Features</h2>
-      {{#each allFeatures}}
-        {{> featureList}}
-      {{/each}}
-
     {{/with}}
   </div>
 </template>

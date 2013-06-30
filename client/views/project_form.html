@@ -1,9 +1,9 @@
 <template name="createProject">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> projectForm}}
       </div>
@@ -12,11 +12,11 @@
 </template>
 
 <template name="editProject">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> projectForm}}
       </div>
@@ -25,28 +25,26 @@
 </template>
 
 <template name="projectForm">
-  {{#with currentProject}}
-    <form id="{{action}}Project" class="form-horizontal span9">
-      <h1 class="span8 text-right">{{capitalize action}} this project</h1>
-        <input type="hidden" name="action" value="{{action}}" />
-        <input type="hidden" name="teamId" value="{{teamId}}" />
-        <input type="hidden" name="_id" value="{{_id}}" />
-        <div class="control-group controls-row">
-          <label class="control-label" for="name">Name</label>
-          <div class="controls">
-            <input name="name" class="span6" type="text" maxlength="80" value="{{name}}" />
-          </div>
+  <div class="span9">
+    <div class="row-fluid">
+      <h1>{{capitalize action}} Project</h1>
+      <form id="{{action}}Project">
+        <fieldset>
+        {{#with currentProject}}
+          <input type="hidden" name="action" value="{{action}}" />
+          <input type="hidden" name="teamId" value="{{teamId}}" />
+          <input type="hidden" name="_id" value="{{_id}}" />
+          <label for="name">Name</label>
+          <input name="name" class="span12" type="text" maxlength="80" value="{{name}}" />
+          <label for="detail">Detail</label>
+          <textarea name="detail" class="span12" rows="12">{{detail}}</textarea>
+        {{/with}}
+        </fieldset>
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+          <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
         </div>
-        <div class="control-group controls-row">
-          <label class="control-label" for="detail">Detail</label>
-          <div class="controls">
-            <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
-          </div>
-        </div>
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
-        <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
-      </div>
-    </form>
-  {{/with}}
+      </form>
+    </div>
+  </div>
 </template>

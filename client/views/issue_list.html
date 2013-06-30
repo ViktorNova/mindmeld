@@ -1,7 +1,7 @@
 <template name="issueList">
-<div class="item span4 issue">
-  <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
-  <strong>Owned by:</strong> {{ownedByUsername}} <strong>Status:</strong> {{statusDisplay}}<br />
-  {{truncatedDetail}}
-</div>
+  <p>
+    <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
+    <strong>Owned by:</strong> {{ownedByUsername}} <strong>Status:</strong> {{statusDisplay}}<br />
+    {{truncatedDetail}}
+  </p>
 </template>

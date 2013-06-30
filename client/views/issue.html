@@ -1,9 +1,9 @@
 <template name="issue">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> issueBody}}
       </div>
@@ -12,48 +12,31 @@
 </template>
 
 <template name="issueBody">
-  <div class="span9 pull-right">
+  <div class="span9">
     {{#with currentIssue}}
-      <div class="row">
-        <div class="span9">
-          <h1>{{name}}</h1>
-        </div>
-      </div>
-
-      <div class="row">
-        <form class="form-inline span9">
+      <div class="row-fluid">
+        <h1>{{name}}</h1>
+        <p>
           <input type="hidden" name="_id" value="{{_id}}" />
-          <div class="input-prepend">
-            <span class="add-on">Owner</span>
-            <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{ownedByUsername}}" />
-          </div>
-          <div class="input-prepend">
-            <span class="add-on">Status</span>
-            <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{statusDisplay}}" />
-          </div>
-          {{#if isLoggedIn}}
-            <button id="editIssue" class="btn pull-right">Edit Issue</button>
-            {{#if ownedByCurrentUser}}
-              {{#if statusNotStarted}}
-                <button id="startIssue" class="btn pull-right">Start</button>
-              {{/if}}
-              {{#if statusInProgress}}
-                <button id="cancelIssue" class="btn pull-right">Cancel</button>
-                <button id="completeIssue" class="btn pull-right">Complete</button>
-              {{/if}}
-              {{#if statusCompleted}}
-                <button id="startIssue" class="btn pull-right">Restart</button>
-              {{/if}}
-              {{#if statusCancelled}}
-                <button id="startIssue" class="btn pull-right">Restart</button>
-              {{/if}}
+          <button id="editIssue" class="btn">Edit Issue</button>
+          {{#if ownedByCurrentUser}}
+            {{#if statusNotStarted}}
+              <button id="startIssue" class="btn">Start</button>
+            {{/if}}
+            {{#if statusInProgress}}
+              <button id="cancelIssue" class="btn">Cancel</button>
+              <button id="completeIssue" class="btn">Complete</button>
+            {{/if}}
+            {{#if statusCompleted}}
+              <button id="startIssue" class="btn">Restart</button>
+            {{/if}}
+            {{#if statusCancelled}}
+              <button id="startIssue" class="btn">Restart</button>
             {{/if}}
           {{/if}}
-        </form>
-      </div>
-
-      <div class="row">
-        <div class="span9">{{detail}}</div>
+        </p>
+        <p><strong>Owned by:</strong> {{ownedByUsername}} <strong>Status:</strong> {{statusDisplay}}</p>
+        <div>{{detail}}</div>          
       </div>
     {{/with}}
   </div>

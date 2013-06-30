@@ -1,46 +1,43 @@
 <template name="breadcrumbHeader">
- <div class="row">
-    <div class="span12">
-      {{#if following}}
-      Home 
-      {{else}}
-      <a class="" href="{{homePath}}">
-        Home
-      </a> 
+ <div class="row-fluid">
+    {{#if following}}
+    Home 
+    {{else}}
+    <a class="" href="{{homePath}}">
+      Home
+    </a> 
+    {{/if}}
+    {{#with currentTeam}}
+      {{#if name}}
+        <i class="icon-chevron-sign-right"></i>  
+        <a class="" href="{{teamPath code}}">{{name}}</a>
       {{/if}}
-      {{#with currentTeam}}
-        {{#if name}}
-          <i class="icon-chevron-sign-right"></i>  
-          <a class="" href="{{teamPath code}}">{{name}}</a>
-        {{/if}}
-      {{/with}}
-      {{#with currentProject}}
-        {{#if name}}
-          <i class="icon-chevron-sign-right"></i>  
-          <a class="" href="{{projectPath teamCode code}}">
-            {{name}}
-          </a>
-        {{/if}}
-      {{/with}}
-      {{#with currentFeature}}
-        {{#if name}}
-          <i class="icon-chevron-sign-right"></i>  
-          <a class="" 
-            href="{{featurePath teamCode projectCode code}}">
-            {{name}}
-          </a>
-        {{/if}}
-      {{/with}}
-      {{#with currentIssue}}
-        {{#if name}}
-          <i class="icon-chevron-sign-right"></i>  
-          <a class="" 
-            href="{{issuePath teamCode projectCode featureCode code}}">
-            {{name}}
-          </a>
-        {{/if}}
-      {{/with}}      
-    </div>
+    {{/with}}
+    {{#with currentProject}}
+      {{#if name}}
+        <i class="icon-chevron-sign-right"></i>  
+        <a class="" href="{{projectPath teamCode code}}">
+          {{name}}
+        </a>
+      {{/if}}
+    {{/with}}
+    {{#with currentFeature}}
+      {{#if name}}
+        <i class="icon-chevron-sign-right"></i>  
+        <a class="" 
+          href="{{featurePath teamCode projectCode code}}">
+          {{name}}
+        </a>
+      {{/if}}
+    {{/with}}
+    {{#with currentIssue}}
+      {{#if name}}
+        <i class="icon-chevron-sign-right"></i>  
+        <a class="" 
+          href="{{issuePath teamCode projectCode featureCode code}}">
+          {{name}}
+        </a>
+      {{/if}}
+    {{/with}}      
   </div>
- 
 </template>

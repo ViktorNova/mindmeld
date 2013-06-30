@@ -1,9 +1,9 @@
 <template name="createFeature">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> featureForm}}
       </div>
@@ -12,11 +12,11 @@
 </template>
 
 <template name="editFeature">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> featureForm}}
       </div>
@@ -25,38 +25,32 @@
 </template>
 
 <template name="featureForm">
-  <form id="{{action}}Feature" class="form-horizontal span9">
-    <h1>{{capitalize action}} Feature</h1>
-    {{#with currentFeature}}
-    <input type="hidden" name="teamId" value="{{teamId}}" />
-    <input type="hidden" name="projectId" value="{{projectId}}" />
-    <input type="hidden" name="_id" value="{{_id}}" />
-    <div class="control-group controls-row">
-      <label class="control-label" for="name">Name</label>
-      <div class="controls">
-        <input name="name" class="span6" type="text" maxlength="80" value="{{name}}" />
-      </div>
+  <div class="span9">
+    <div class="row-fluid">
+      <h1>{{capitalize action}} Feature</h1>
+      <form id="{{action}}Feature">
+        <fieldset>
+        {{#with currentFeature}}
+          <input type="hidden" name="teamId" value="{{teamId}}" />
+          <input type="hidden" name="projectId" value="{{projectId}}" />
+          <input type="hidden" name="_id" value="{{_id}}" />
+          <label class="control-label" for="name">Name</label>
+          <input name="name" class="span12" type="text" maxlength="80" value="{{name}}" />
+          <label class="control-label" for="detail">Detail</label>
+          <textarea name="detail" class="span12" rows="12">{{detail}}</textarea>
+          <label class="control-label" for="ownedByUserId">Owner</label>
+          <select name="ownedByUserId" id="ownedByUserId">
+            {{#each members}}
+              {{> owner}}
+            {{/each}}
+          </select>
+        {{/with}}
+        </fieldset>
+        <div class="pull-right">
+          <button type="button" id="{{action}}" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+          <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
+        </div>
+      </form>
     </div>
-    <div class="control-group controls-row">
-      <label class="control-label" for="detail">Detail</label>
-      <div class="controls">
-        <textarea name="detail" class="span6" rows="12">{{detail}}</textarea>
-      </div>
-    </div>
-    <div class="control-group controls-row">
-      <label class="control-label" for="ownedByUserId">Owner</label>
-      <div class="controls">
-        <select name="ownedByUserId" id="ownedByUserId">
-          {{#each members}}
-            {{> owner}}
-          {{/each}}
-        </select>
-      </div>
-    </div>
-    {{/with}}
-    <div class="form-actions">
-      <button type="button" id="{{action}}" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
-      <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
-    </div>
-  </form>
+  </div>
 </template>

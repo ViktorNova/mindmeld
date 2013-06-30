@@ -11,6 +11,11 @@
 a {
   color: #E8E687;
   text-decoration: underline;
+  font-weight: bolder;
+}
+
+a.brand {
+  text-decoration: none;
 }
 
 a:hover {
@@ -47,8 +52,8 @@ input {
   color: #9C905A;
 }
 .main, .item {
-  border-radius: 3px;
+  border-radius: 4px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }

@@ -1,9 +1,9 @@
 <template name="feature">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> featureBody}}
       </div>
@@ -12,36 +12,19 @@
 </template>
 
 <template name="featureBody">
-  <div class="span9 pull-right">
+  <div class="span9">
     {{#with currentFeature}}
-      <div class="row">
-        <div class="span9">
-          <h1>{{name}}</h1>
-        </div>
+      <div class="row-fluid">
+        <h1>{{name}}</h1>
+        <p><button id="editFeature" class="btn">Edit Feature</button></p>
+        <p><strong>Owned by:</strong> {{ownedByUsername}}</p>
+        <div>{{detail}}</div>
+        <h2>Issues</h2>
+        <p><button id="createIssue" class="btn">Create Issue</button></p>
+        {{#each allIssues}}
+          {{> issueList}}
+        {{/each}}
       </div>
-
-      <div class="row">
-        <form class="form-inline span9">
-          <div class="input-prepend">
-            <span class="add-on">Owner</span>
-            <input class="span2 uneditable-input" id="prependedInput" type="text" value="{{ownedByUsername}}" />
-          </div>
-          {{#if isLoggedIn}}
-            <button id="createIssue" class="btn pull-right">Create Issue</button>
-            <button id="editFeature" class="btn pull-right">Edit Feature</button>
-          {{/if}}
-        </form>
-      </div>
-
-      <div class="row">
-        <div class="span9">{{detail}}</div>
-      </div>
-
-      <h2>Issues</h2>
-      {{#each allIssues}}
-        {{> issueList}}
-      {{/each}}
-
     {{/with}}
   </div>
 </template>

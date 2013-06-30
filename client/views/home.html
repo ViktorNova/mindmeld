@@ -1,9 +1,9 @@
 <template name="home">
-  <div class="container">
-    {{> header}}
+  {{> header}}
+  <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      <div class="row">
+      <div class="row-fluid">
         {{> notifications}}
         {{> homeBody}}
       </div>
@@ -12,34 +12,14 @@
 </template>
 
 <template name="homeBody">
-  {{#if isLoggedIn}}
-    <div class="span9 pull-right">
-      <div class="row">
-        <div class="span9">
-          <button id="createTeam" class="btn pull-right">Create Team</button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="span9">
-          {{> myTeams}}
-        </div>
-      </div>
-      <div class="row">      
-        <div class="span9">
-          {{> myProjects}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="span9">
-          {{> myFeatures}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="span9">
-          {{> myIssues}}
-        </div>
-      </div>
+  <div class="span9">
+    <div class="row-fluid">
+      <h1>Home</h1>
+      <p><button id="createTeam" class="btn">Create Team</button></p>
+      {{> myTeams}}
+      {{> myProjects}}
+      {{> myFeatures}}
+      {{> myIssues}}
     </div>
-  {{else}}
-  {{/if}}
+  </div>
 </template>
