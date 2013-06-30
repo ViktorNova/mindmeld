@@ -1,0 +1,1 @@
+Template.teamList.helpers(Meteor.userFunctions);

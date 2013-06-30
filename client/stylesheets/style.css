@@ -1,19 +1,51 @@
+/*
+#86A8E7
+#5A719C
+#E8E687
+#9C905A
+#171717
+#E8E8E8
+*/
+
+a {
+  color: #E8E687;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #E8E687;
+  text-decoration: none;
+}
+
 body {
-  background: #eef;
-  color: #666;
+  background: #86A8E7;
+  color: #171717;
 }
 
 body,a,h1,h2,h3,h4,h5,h6,button,input,textarea {
   font-family: 'Titillium Web', sans-serif;
-  font-weight: normal;
+  font-weight: lighter;
+}
+
+input {
+  background: #E8E8E8;
+  color: #171717;
 }
 
 .navbar { margin-bottom: 10px }
 .navbar .navbar-inner {
   border-radius: 0px 0px 3px 3px;
 }
+.team, .project, .feature, .issue {
+  background: #5A719C;
+}
+.activity {
+  background: #E8E8E8;
+}
+.activity a {
+  color: #9C905A;
+}
 .main, .item {
-  background: #fff;
   border-radius: 3px;
   padding: 10px;
   margin-bottom: 10px;

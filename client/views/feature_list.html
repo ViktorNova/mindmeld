@@ -1,13 +1,7 @@
 <template name="featureList">
-<div class="item">
-  <a href="{{featurePath teamCode projectCode code}}">{{name}}</a>
-</div>
-</template>
-
-<template name="featureListWithTeamAndProject">
-<div class="item">
-  <a href="{{featurePath teamCode projectCode code}}">
-    {{teamName}} / {{projectName}} / {{name}}
-  </a>
+<div class="item span4 feature">
+  <a href="{{featurePath teamCode projectCode code}}">{{name}}</a><br />
+  <strong>Owned by:</strong> {{ownedByUsername}}<br />
+  {{truncatedDetail}}
 </div>
 </template>

@@ -8,7 +8,7 @@
 </template>
 
 <template name="notification">
-    <div class="item">
+    <div class="item activity">
       <a href="/users/">{{createdByUsername}}</a> {{pastTense action oldStatus newStatus}}  {{entity}}<br /> 
       {{#if isTeam}}
       <a href="{{teamPath teamCode}}#{{_id}}">

@@ -1,11 +1,6 @@
 <template name="projectList">
-<div class="item">
-  <a href="{{projectPath teamCode code}}">{{name}}</a>
-</div>
-</template>
-
-<template name="projectListWithTeam">
-<div class="item">
-  <a href="{{projectPath teamCode code}}">{{teamName}} / {{name}}</a>
+<div class="item span4 project">
+  <a href="{{projectPath teamCode code}}">{{name}}</a><br />
+  {{truncatedDetail}}
 </div>
 </template>

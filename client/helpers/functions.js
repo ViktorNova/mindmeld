@@ -80,6 +80,9 @@ Meteor.userFunctions = {
   statusDisplay: function() {
     return Meteor.Mindmeld.toStatusEnum(this.status) && Meteor.Mindmeld.toStatusEnum(this.status).display;
   },
+  truncatedDetail: function() {
+    return this.detail.substring(0, 60) + "...";
+  },
   currentProject: function() {
     if (Meteor.Router.page() === 'createProject')
       return { teamId: Session.get('currentTeamId') };
