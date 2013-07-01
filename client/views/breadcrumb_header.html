@@ -1,43 +1,31 @@
 <template name="breadcrumbHeader">
  <div class="row-fluid">
+    <ul class="breadcrumb">
     {{#if following}}
     Home 
     {{else}}
-    <a class="" href="{{homePath}}">
-      Home
-    </a> 
+    <li><a class="" href="{{homePath}}">Home</a></li>
     {{/if}}
     {{#with currentTeam}}
       {{#if name}}
-        <i class="icon-chevron-sign-right"></i>  
-        <a class="" href="{{teamPath code}}">{{name}}</a>
+        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{teamPath code}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     {{#with currentProject}}
       {{#if name}}
-        <i class="icon-chevron-sign-right"></i>  
-        <a class="" href="{{projectPath teamCode code}}">
-          {{name}}
-        </a>
+        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{projectPath teamCode code}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     {{#with currentFeature}}
       {{#if name}}
-        <i class="icon-chevron-sign-right"></i>  
-        <a class="" 
-          href="{{featurePath teamCode projectCode code}}">
-          {{name}}
-        </a>
+        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{featurePath teamCode projectCode code}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     {{#with currentIssue}}
       {{#if name}}
-        <i class="icon-chevron-sign-right"></i>  
-        <a class="" 
-          href="{{issuePath teamCode projectCode featureCode code}}">
-          {{name}}
-        </a>
+        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
       {{/if}}
-    {{/with}}      
+    {{/with}}
+    </ul>
   </div>
 </template>
