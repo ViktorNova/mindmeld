@@ -12,13 +12,15 @@ Meteor.methods({
     if (!feature)
       throw new Meteor.Error(500, "Feature could not be found");
 
+    var rankingCount = Issues.find({teamId: issueAttributes.teamId, projectId: issueAttributes.projectId, rank: {$exists: true}}).count();
+
     var issue = _.extend(_.pick(issueAttributes, 
       'teamId', 'projectId', 'featureId', 'issueId', 'name', 'detail', 
       'ownedByUserId', 'assignedToUserId'), {
       code: issueAttributes.name.toCode(),
       ownedByUserId: feature.ownedByUserId,
       createdByUserId: Meteor.userId(),
-      ranking: 0,
+      ranking: rankingCount + 1,
       status: 0
     });
 
@@ -30,12 +32,6 @@ Meteor.methods({
       action: 'create',
       issue: issue
     };
-
-    Meteor.call('insertIssueInRankings', issue, function(error) {
-      if (error) {
-        console.log(error);
-      }
-    });
 
     Meteor.call('createIssueNotification', notificationAttributes, function(error) {
       if (error) {
@@ -124,8 +120,9 @@ Meteor.methods({
       throw new Meteor.Error(500, "The logged in user does not own the feature, so this issue can't be started");
 
     var oldIssue = Issues.findOne({_id: issueId});
+    Issues.update({teamId: oldIssue.teamId, projectId: oldIssue.projectId, rank: {$gt: oldIssue.rank}},{ $inc: { rank: -1 }},{multi: true});
+    Issues.update({_id: issueId}, {$set: {status: 1}, $unset: {rank: 1}});
 
-    Issues.update({_id: issueId}, {$set: {status: 1}});
 
     var newIssue = Issues.findOne({_id: issueId});
 
@@ -164,12 +161,6 @@ Meteor.methods({
 
     var newIssue = Issues.findOne({_id: issueId});
 
-    Meteor.call('removeIssueInRankings', newIssue, function(error) {
-      if (error) {
-        console.log(error);
-      }
-    });
-
     var notificationAttributes = {
       entity: 'issue',
       action: 'status',
@@ -204,12 +195,6 @@ Meteor.methods({
 
     var newIssue = Issues.findOne({_id: issueId});
 
-    Meteor.call('removeIssueInRankings', newIssue, function(error) {
-      if (error) {
-        console.log(error);
-      }
-    });
-
     var notificationAttributes = {
       entity: 'issue',
       action: 'status',
@@ -224,5 +209,66 @@ Meteor.methods({
         //TODO: handle errors in notifications    
       }
     });
+  },
+
+  increaseRank: function(teamId, projectId, issueId) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to insert an issue in rankings");
+
+    if (!teamId)
+      throw new Meteor.Error(500, "Issue did not have a teamId");
+
+    if (!projectId)
+      throw new Meteor.Error(500, "Issue did not have a projectId");
+
+    if (!issueId)
+      throw new Meteor.Error(500, "Issue did not have an issueId");
+
+    var issue = Issues.findOne({teamId: teamId, projectId: projectId, _id: issueId});
+    if (!issue)
+      throw new Meteor.Error(500, "No ranking matching that teamId, projectId and issueId found");
+
+    if (issue.rank == 1)
+      return;
+
+
+    var incumbent = Issues.findOne({teamId: teamId, projectId: projectId, rank: issue.rank - 1});
+    if (!incumbent)
+      return;
+
+    Issues.update({teamId: teamId, projectId: projectId, _id: incumbent._id},{$set: {rank: issue.rank }});
+    Issues.update({teamId: teamId, projectId: projectId, _id: issue._id}, {$set: {rank: issue.rank - 1 }});
+  },
+  decreaseRank: function(teamId, projectId, issueId) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to insert an issue in rankings");
+
+    if (!teamId)
+      throw new Meteor.Error(500, "Issue did not have a teamId");
+
+    if (!projectId)
+      throw new Meteor.Error(500, "Issue did not have a projectId");
+
+    if (!issueId)
+      throw new Meteor.Error(500, "Issue did not have an issueId");
+
+    var rankingIssueCount = Issues.find({teamId: teamId, projectId: projectId, rank: {$exists: true}}).count();
+
+    var issue = Issues.findOne({teamId: teamId, projectId: projectId, _id: issueId});
+    if (!issue)
+      throw new Meteor.Error(500, "No ranking matching that teamId, projectId and issueId found");
+
+    if (issue.rank == rankingIssueCount)
+      return;
+
+
+    var incumbent = Issues.findOne({teamId: teamId, projectId: projectId, rank: issue.rank + 1});
+    if (!incumbent)
+      return;
+
+    Issues.update({teamId: teamId, projectId: projectId, _id: incumbent._id},{$set: {rank: issue.rank }});
+    Issues.update({teamId: teamId, projectId: projectId, _id: issue._id}, {$set: {rank: issue.rank + 1 }});
   }
 });

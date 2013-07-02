@@ -158,5 +158,8 @@ Meteor.userFunctions = {
   momentTimeAgoCreatedAt: function() {
     return this.createdAt && moment(this.createdAt) && 
     moment(this.createdAt).fromNow();
+  },
+  issuesByRanking: function() {
+    return Issues.find({ teamId: this.teamId, projectId: this._id, rank: {$exists: true} },{sort: {rank: 1}});
   }
 };
