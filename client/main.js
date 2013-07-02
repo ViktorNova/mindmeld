@@ -8,11 +8,9 @@ Deps.autorun(function() {
   Meteor.subscribe('teamMovements', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('teamIssueRankings', Meteor.userId(), Session.get('currentTeamId'));
 
-  Deps.autorun(function() {
-    var movement = Movements.findOne({userId: Session.get('following')});
-    if (movement) {
-      Meteor.Router.to(Meteor.Router[movement.template + "Path"](movement.templatePathAttributes));
-    }
-  });
+  var movement = Movements.findOne({userId: Session.get('following')});
+  if (movement) {
+    Meteor.Router.to(Meteor.Router[movement.template + "Path"](movement.templatePathAttributes));
+  }
 
 });
