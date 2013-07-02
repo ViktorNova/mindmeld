@@ -36,3 +36,7 @@ Meteor.publish('teamMovements', function(userId, teamId) {
   var teams = Teams.find({members: {$in:[userId]}}).fetch();
   return Movements.find({teamId: {$in: _.pluck(teams, '_id')}});
 });
+Meteor.publish('teamIssueRankings', function(userId, teamId) {
+  var teams = Teams.find({members: {$in:[userId]}}).fetch();
+  return IssueRankings.find({teamId: {$in: _.pluck(teams, '_id')}});
+});

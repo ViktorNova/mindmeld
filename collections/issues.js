@@ -31,10 +31,15 @@ Meteor.methods({
       issue: issue
     };
 
+    Meteor.call('insertIssueInRankings', issue, function(error) {
+      if (error) {
+        console.log(error);
+      }
+    });
+
     Meteor.call('createIssueNotification', notificationAttributes, function(error) {
       if (error) {
         console.log(error);
-        //TODO: handle errors in notifications    
       }
     });
 
@@ -91,6 +96,16 @@ Meteor.methods({
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to delete a issue");
+
+    var issue = Issues.findOne(issueId);
+    if (!issue)
+      throw new Meteor.Error(500, "Issue was not found matching that Issue Id");
+
+    Meteor.call('removeIssueInRankings', issue, function(error) {
+      if (error) {
+        console.log(error);
+      }
+    });
 
     Notifications.remove( { issueId: issueId });
     Issues.remove( { _id: issueId });
@@ -149,6 +164,12 @@ Meteor.methods({
 
     var newIssue = Issues.findOne({_id: issueId});
 
+    Meteor.call('removeIssueInRankings', newIssue, function(error) {
+      if (error) {
+        console.log(error);
+      }
+    });
+
     var notificationAttributes = {
       entity: 'issue',
       action: 'status',
@@ -182,6 +203,12 @@ Meteor.methods({
     Issues.update({_id: issueId}, {$set: {status: 3}});
 
     var newIssue = Issues.findOne({_id: issueId});
+
+    Meteor.call('removeIssueInRankings', newIssue, function(error) {
+      if (error) {
+        console.log(error);
+      }
+    });
 
     var notificationAttributes = {
       entity: 'issue',
