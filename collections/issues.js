@@ -20,7 +20,7 @@ Meteor.methods({
       code: issueAttributes.name.toCode(),
       ownedByUserId: feature.ownedByUserId,
       createdByUserId: Meteor.userId(),
-      ranking: rankingCount + 1,
+      rank: rankingCount + 1,
       status: 0
     });
 
