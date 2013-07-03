@@ -45,7 +45,7 @@ Template.issueForm.events({
       featureId: $(event.target).find('[name=featureId]').val(),
       name: $(event.target).find('[name=name]').val(),
       detail: $(event.target).find('[name=detail]').val(),
-      tags: $(event.target).find('[name=tags]').val().split(',')
+      tags: _.reject($(event.target).find('[name=tags]').val().split(','), function(tag) { return tag.trim() == ''})
     };
 
     if (action === 'create') {
