@@ -166,5 +166,13 @@ Meteor.userFunctions = {
     var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
     if (featuresOwnedByUser) 
       return Issues.find({ status: 1, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}});
+  },
+  tagsAsCommaSeperatedString: function() {
+    return this.tags && this.tags.join(",");
+  },
+  iconTags: function() {
+    if (this.tags) {
+      return _.map(this.tags, function(tag) { return '<span class="label label-info"><i class="icon-tags"></i>' + tag + '</span>'; }).join(' ');
+    }
   }
 };

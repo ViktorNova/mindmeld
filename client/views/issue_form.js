@@ -2,6 +2,18 @@ Template.createIssue.helpers(Meteor.userFunctions);
 Template.editIssue.helpers(Meteor.userFunctions);
 Template.issueForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
+Template.issueForm.rendered = function() {
+  var tags = _.chain(Issues.find({ teamId: Meteor.userFunctions.currentIssue().teamId, tags: {$exists: true} }).fetch())
+    .pluck('tags')
+    .flatten()
+    .uniq()
+    .value();
+
+  $(document).ready(function() { 
+    $('#tags').select2({tags:tags});
+  });
+};
+
 Template.issueForm.events({
   'click #delete': function(event) {
     event.preventDefault();
@@ -32,8 +44,9 @@ Template.issueForm.events({
       projectId: $(event.target).find('[name=projectId]').val(),
       featureId: $(event.target).find('[name=featureId]').val(),
       name: $(event.target).find('[name=name]').val(),
-      detail: $(event.target).find('[name=detail]').val()
-    }
+      detail: $(event.target).find('[name=detail]').val(),
+      tags: $(event.target).find('[name=tags]').val().split(',')
+    };
 
     if (action === 'create') {
       Meteor.call('createIssue', issue, function(error, issue) {

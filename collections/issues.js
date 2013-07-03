@@ -15,8 +15,7 @@ Meteor.methods({
     var rankingCount = Issues.find({teamId: issueAttributes.teamId, projectId: issueAttributes.projectId, rank: {$exists: true}}).count();
 
     var issue = _.extend(_.pick(issueAttributes, 
-      'teamId', 'projectId', 'featureId', 'issueId', 'name', 'detail', 
-      'ownedByUserId', 'assignedToUserId'), {
+      'teamId', 'projectId', 'featureId', 'issueId', 'name', 'detail', 'tags', 'ownedByUserId', 'assignedToUserId'), {
       code: issueAttributes.name.toCode(),
       ownedByUserId: feature.ownedByUserId,
       createdByUserId: Meteor.userId(),
@@ -52,8 +51,7 @@ Meteor.methods({
     if (!feature)
       throw new Meteor.Error(500, "Feature could not be found");
 
-    var issue = _.extend(_.pick(issueAttributes, '_id', 'teamId', 
-      'projectId', 'featureId', 'name', 'detail'), {
+    var issue = _.extend(_.pick(issueAttributes, '_id', 'teamId', 'projectId', 'featureId', 'name', 'detail', 'tags'), {
       code: issueAttributes.name.toCode(),
       ownedByUserId: feature.ownedByUserId
     });
@@ -66,6 +64,7 @@ Meteor.methods({
       featureId: issue.featureId,
       name: issue.name,
       detail: issue.detail,
+      tags: issue.tags,
       code: issue.code,
       ownedByUserId: issue.ownedByUserId
     }});
