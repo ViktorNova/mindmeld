@@ -16,10 +16,24 @@
     <div class="row-fluid">
       <h1>Home</h1>
       <p><button id="createTeam" class="btn">Create Team</button></p>
-      {{> myTeams}}
-      {{> myProjects}}
-      {{> myFeatures}}
-      {{> myIssues}}
+
+      <div class="row-fluid">
+        <div class="span6">
+          {{> myTeams}}
+          {{> myProjects}}
+          {{> myFeatures}}
+          {{> myIssues}}
+        </div>
+        <div class="span6">
+          <h2>Issues in progress</h2>
+          <ul class="nav nav-list">
+            {{#each allIssuesInProgress}}
+              <li class="divider"></li>
+              <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+            {{/each}}            
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>

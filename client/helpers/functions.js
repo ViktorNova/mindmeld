@@ -161,5 +161,10 @@ Meteor.userFunctions = {
   },
   issuesByRanking: function() {
     return Issues.find({ teamId: this.teamId, projectId: this._id, rank: {$exists: true} },{sort: {rank: 1}});
+  },
+  allIssuesInProgress: function() {
+    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
+    if (featuresOwnedByUser) 
+      return Issues.find({ status: 1, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}});
   }
 };
