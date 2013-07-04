@@ -15,12 +15,10 @@
   <div class="span9">
     {{#with currentFeature}}
       <div class="row-fluid">
-        <h1>{{name}}</h1>
-        <p><button id="editFeature" class="btn">Edit Feature</button></p>
+        <h1><button id="editFeature" class="btn"><i class="icon-edit"></i> Edit Feature</button> {{name}}</h1>
         <p><strong>Owned by:</strong> {{ownedByUsername}}</p>
         <div>{{detail}}</div>
-        <h2>Issues</h2>
-        <p><button id="createIssue" class="btn">Create Issue</button></p>
+        <h2><button id="createIssue" class="btn"><i class="icon-plus"></i> Create Issue</button> Issues</h2>
         {{#each allIssues}}
           {{> issueList}}
         {{/each}}

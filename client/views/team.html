@@ -15,14 +15,12 @@
   <div class="span9">
     {{#with currentTeam}}
       <div class="row-fluid">
-        <h1>{{name}}</h1>
-        <p><button id="editTeam" class="btn">Edit Team</button></p>
+        <h1><button id="editTeam" alt="Edit Team" class="btn"><i class="icon-edit"></i> Edit Team</button> {{name}}</h1>
         <div>{{detail}}</div>
 
         <div class="row-fluid">
           <div class="span6">
-            <h2>Projects</h2>
-            <p><button id="createProject" class="btn">Create Project</button></p>
+            <h2><button id="createProject" class="btn"><i class="icon-plus"></i> Create Project</button> Projects</h2>
             {{#each allProjects}}
               {{> projectList}}
             {{/each}}

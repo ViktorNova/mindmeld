@@ -15,10 +15,9 @@
   <div class="span9">
     {{#with currentIssue}}
       <div class="row-fluid">
-        <h1>{{name}}</h1>
+        <h1><button id="editIssue" class="btn"><i class="icon-edit"></i> Edit Issue</button> {{name}}</h1>
         <p>
           <input type="hidden" name="_id" value="{{_id}}" />
-          <button id="editIssue" class="btn">Edit Issue</button>
           {{#if ownedByCurrentUser}}
             {{#if statusNotStarted}}
               <button id="startIssue" class="btn">Start</button>
