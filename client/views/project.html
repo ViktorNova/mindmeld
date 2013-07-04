@@ -17,6 +17,43 @@
     <div class="row-fluid">
       <h1><button id="editProject" class="btn"><i class="icon-edit"></i> Edit Project</button> {{name}}</h1>
       <div>{{detail}}</div>
+      <div class="row-fluid">
+        <h2>Issues in Project</h2>
+        <div class="row-fluid">
+          <div class="span3">
+            <ul class="nav nav-list">
+              <li class="nav-header"><span class="label label-important">{{notStartedIssuesInProject.count}}</span> Not Started</li>
+              {{#each notStartedIssuesInProject}}
+                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="span3">
+            <ul class="nav nav-list">
+              <li class="nav-header"><span class="label label-info">{{inProgressIssuesInProject.count}}</span> In Progress</li>
+              {{#each inProgressIssuesInProject}}
+                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="span3">
+            <ul class="nav nav-list">
+              <li class="nav-header"><span class="label label-success">{{completedIssuesInProject.count}}</span> Completed</li>
+              {{#each completedIssuesInProject}}
+                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="span3">
+            <ul class="nav nav-list">
+              <li class="nav-header"><span class="label label-warning">{{cancelledIssuesInProject.count}}</span> Cancelled</li>
+              {{#each cancelledIssuesInProject}}
+                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
 
       <div class="row-fluid">
         <div class="span6">  
@@ -27,9 +64,9 @@
           {{/each}}
         </div>
         <div class="span6">
-          <h2>New Issues by Ranking</h2>
+          <h2>Not Started Issues by Ranking</h2>
           <ul class="nav nav-list">
-            {{#each issuesByRanking}}
+            {{#each notStartedIssuesByRanking}}
               <li class="divider"></li>
               <li>
                 <span>

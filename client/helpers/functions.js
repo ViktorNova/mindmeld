@@ -162,8 +162,8 @@ Meteor.userFunctions = {
     return this.createdAt && moment(this.createdAt) && 
     moment(this.createdAt).fromNow();
   },
-  issuesByRanking: function() {
-    return Issues.find({ teamId: this.teamId, projectId: this._id, rank: {$exists: true} },{sort: {rank: 1}});
+  notStartedIssuesByRanking: function() {
+    return Issues.find({ teamId: this.teamId, projectId: this._id, status: 0, rank: {$exists: true} },{sort: {rank: 1}});
   },
   allIssuesInProgress: function() {
     var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
@@ -193,5 +193,17 @@ Meteor.userFunctions = {
   },
   cancelledIssuesWithTag: function() {
     return Issues.find({teamId: Session.get('currentTeamId'), status: 3, tags: {$in: [Session.get('currentTag')]}});
+  },
+  notStartedIssuesInProject: function() {
+    return Issues.find({teamId: Session.get('currentTeamId'), projectId: Session.get('currentProjectId'), status: 0});
+  },
+  inProgressIssuesInProject: function() {
+    return Issues.find({teamId: Session.get('currentTeamId'), projectId: Session.get('currentProjectId'), status: 1});
+  },
+  completedIssuesInProject: function() {
+    return Issues.find({teamId: Session.get('currentTeamId'), projectId: Session.get('currentProjectId'), status: 2});
+  },
+  cancelledIssuesInProject: function() {
+    return Issues.find({teamId: Session.get('currentTeamId'), projectId: Session.get('currentProjectId'), status: 3});
   }
 };
