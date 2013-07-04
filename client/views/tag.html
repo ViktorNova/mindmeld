@@ -1,0 +1,54 @@
+<template name="tag">
+  {{> header}}
+  <div class="container-fluid">
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row-fluid">
+        {{> notifications}}
+        {{> tagBody}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="tagBody">
+  <div class="span9">
+      <div class="row-fluid">
+        <h1>Issues tagged with '{{currentTag}}'</h1>
+        <div class="row-fluid">
+          <div class="span3">
+            <ul class="nav nav-list">
+              <li class="nav-header"><span class="label label-important">{{notStartedIssuesWithTag.count}}</span> Not Started</li>
+              {{#each notStartedIssuesWithTag}}
+                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="span3">
+            <ul class="nav nav-list">
+              <li class="nav-header"><span class="label label-info">{{inProgressIssuesWithTag.count}}</span> In Progress</li>
+              {{#each inProgressIssuesWithTag}}
+                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="span3">
+            <ul class="nav nav-list">
+              <li class="nav-header"><span class="label label-success">{{completedIssuesWithTag.count}}</span> Completed</li>
+              {{#each completedIssuesWithTag}}
+                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="span3">
+            <ul class="nav nav-list">
+              <li class="nav-header"><span class="label label-warning">{{cancelledIssuesWithTag.count}}</span> Cancelled</li>
+              {{#each cancelledIssuesWithTag}}
+                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+  </div>
+</template>

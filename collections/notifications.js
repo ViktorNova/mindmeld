@@ -1,46 +1,5 @@
 Notifications = new Meteor.Collection('notifications');
 
-function delta(oldItem, newItem) {
-  var added = {};
-  var removed = {};
-  var changedFrom = {};
-  var changedTo = {};
-
-  var addedKeys = _.difference(_.keys(newItem), _.keys(oldItem));
-  if (addedKeys) {
-    added = 
-      _.object(_.map(addedKeys, function(item) { return [item, newItem[item] ] }));
-  }
-  var removedKeys = _.difference(_.keys(oldItem), _.keys(newItem));
-  if (removedKeys) {
-    removed =
-      _.object(_.map(removedKeys, function(item) { return [item, oldItem[item] ] }));
-  }
-  var sameKeys = _.intersection(_.keys(oldItem), _.keys(newItem));
-  if (sameKeys) {
-    _.each(sameKeys, function(sameKey) {
-      if (oldItem[sameKey] instanceof Array && newItem[sameKey]) {
-        if (_.difference(oldItem[sameKey], newItem[sameKey]).length) {
-          changedFrom[sameKey] = oldItem[sameKey];
-          changedTo[sameKey] = newItem[sameKey];
-        }
-      } else {
-        if (oldItem[sameKey] !== newItem[sameKey]) {
-          changedFrom[sameKey] = oldItem[sameKey];
-          changedTo[sameKey] = newItem[sameKey];
-        }
-      }
-    });
-  }
-
-  return {
-    added: added,
-    removed: removed,
-    changedFrom: changedFrom,
-    changedTo: changedTo
-  }
-};
-
 Meteor.methods({
   createTeamNotification: function(notificationAttributes) {
     var user = Meteor.user();
@@ -72,7 +31,7 @@ Meteor.methods({
     if (oldTeam._id !== newTeam._id)
       throw new Meteor.Error(500, "Auditing error when attempting to edit a team. Previous and new versions of id do not match");
 
-    var teamDelta = delta(oldTeam, newTeam);
+    var teamDelta = Meteor.Mindmeld.delta(oldTeam, newTeam);
 
     var notification = _.extend(_.pick(notificationAttributes,
       'entity', 'action'), {
@@ -118,7 +77,7 @@ Meteor.methods({
     if (oldProject._id !== newProject._id)
       throw new Meteor.Error(500, "Auditing error when attempting to edit a project. Previous and new versions of id do not match");
 
-    var projectDelta = delta(oldProject, newProject);
+    var projectDelta = Meteor.Mindmeld.delta(oldProject, newProject);
 
     var notification = _.extend(_.pick(notificationAttributes,
       'entity', 'action'), {
@@ -166,7 +125,7 @@ Meteor.methods({
     if (oldFeature._id !== newFeature._id)
       throw new Meteor.Error(500, "Auditing error when attempting to edit a feature. Previous and new versions of id do not match");
 
-    var featureDelta = delta(oldFeature, newFeature);
+    var featureDelta = Meteor.Mindmeld.delta(oldFeature, newFeature);
 
     var notification = _.extend(_.pick(notificationAttributes,
       'entity', 'action'), {
@@ -238,7 +197,7 @@ Meteor.methods({
     if (oldIssue._id !== newIssue._id)
       throw new Meteor.Error(500, "Auditing error when attempting to edit an issue. Previous and new versions of id do not match");
 
-    var issueDelta = delta(oldIssue, newIssue);
+    var issueDelta = Meteor.Mindmeld.delta(oldIssue, newIssue);
 
     var notification = _.extend(_.pick(notificationAttributes,
       'entity', 'action'), {

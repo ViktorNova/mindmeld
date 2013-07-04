@@ -23,6 +23,7 @@ function setSession(session) {
     session.featureCode && Features.findOne({code: session.featureCode})._id);
   Session.set('currentIssueId',
     session.issueCode && Issues.findOne({code: session.issueCode})._id);
+  Session.set('currentTag', session.tag);
 }
 
 Meteor.Router.add({
@@ -58,6 +59,22 @@ Meteor.Router.add({
         return 'team';
       } else {
         return 'notFound';
+      }
+    }
+  },
+  '/:teamCode/tags/:tag': { as: 'tag', to: function(teamCode, tag) {
+      var teamId = findTeamId(teamCode);
+      if (Meteor.user() && teamId) {
+        setSession({teamCode: teamCode, tag: tag});
+        var movementAttributes = {
+          teamId: teamId,
+          template: 'tag',
+          templatePathAttributes: {teamCode: teamCode, tag: tag}
+        };
+        Meteor.call('logMovement', movementAttributes);
+        return 'tag';
+      } else {
+        return "notFound";
       }
     }
   },

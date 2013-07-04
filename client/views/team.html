@@ -1,14 +1,14 @@
 <template name="team">
-    {{> header}}
-    <div class="container-fluid">
-      <div id="main">
-        {{> breadcrumbHeader}}
-        <div class="row-fluid">
-          {{> notifications}}
-          {{> teamBody}}
-        </div>
+  {{> header}}
+  <div class="container-fluid">
+    <div id="main">
+      {{> breadcrumbHeader}}
+      <div class="row-fluid">
+        {{> notifications}}
+        {{> teamBody}}
       </div>
     </div>
+  </div>
 </template>
 
 <template name="teamBody">
@@ -18,11 +18,29 @@
         <h1>{{name}}</h1>
         <p><button id="editTeam" class="btn">Edit Team</button></p>
         <div>{{detail}}</div>
-        <h2>Projects</h2>
-        <p><button id="createProject" class="btn">Create Project</button></p>
-        {{#each allProjects}}
-          {{> projectList}}
-        {{/each}}
+
+        <div class="row-fluid">
+          <div class="span6">
+            <h2>Projects</h2>
+            <p><button id="createProject" class="btn">Create Project</button></p>
+            {{#each allProjects}}
+              {{> projectList}}
+            {{/each}}
+          </div>
+          <div class="span6">
+            <h2>Issue Tags Count</h2>
+            <ul class="nav nav-list">
+              {{#each teamTags}}
+              <li class="divider"></li>
+              <li><a href="{{tagPath teamCode tag}}"><span class="badge badge-info">{{count}}</span> {{tag}}</a>
+                <span class="label label-important">{{notStartedIssuesWithTagCount}} Not Started</span> 
+                <span class="label label-info">{{inProgressIssuesWithTagCount}} in progress</span> 
+                <span class="label label-success">{{completedIssuesWithTagCount}} completed</span> 
+                <span class="label label-warning">{{cancelledIssuesWithTagCount}} cancelled</span></li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
       </div>
     {{/with}}
   </div>

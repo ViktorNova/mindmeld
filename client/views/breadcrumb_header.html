@@ -11,6 +11,10 @@
         <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{teamPath code}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
+    {{#if currentTag}}
+        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span>Tags</li>
+        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span>{{currentTag}}</li>
+    {{/if}}
     {{#with currentProject}}
       {{#if name}}
         <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{projectPath teamCode code}}">{{name}}</a></li>

@@ -40,3 +40,7 @@ Meteor.publish('teamRankedIssues', function(userId, teamId) {
   var teams = Teams.find({members: {$in:[userId]}}).fetch();
   return Issues.find({teamId: {$in: _.pluck(teams, '_id')},rank: {$exists: true}},{sort: {rank: 1}});
 });
+Meteor.publish('teamTags', function(userId, teamId) {
+  var teams = Teams.find({members: {$in:[userId]}}).fetch();
+  return Tags.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {count: -1 }});
+});

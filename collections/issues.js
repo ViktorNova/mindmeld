@@ -38,6 +38,10 @@ Meteor.methods({
       }
     });
 
+    _.each(issue.tags, function(tag) {
+      Meteor.call('tagIncrement', issue.teamId, tag);
+    });
+
     return issue;
   },
   editIssue: function(issueAttributes) {
@@ -85,6 +89,17 @@ Meteor.methods({
       }
     });
 
+    var addedTags = _.difference(newIssue.tags, oldIssue.tags);
+    var removedTags = _.difference(oldIssue.tags, newIssue.tags);
+
+    _.each(addedTags, function(tag) {
+      Meteor.call('tagIncrement', newIssue.teamId, tag);
+    });
+
+    _.each(removedTags, function(tag) {
+      Meteor.call('tagDecrement', newIssue.teamId, tag);
+    });
+
     return newIssue;
   },
   deleteIssue: function(issueId) {
@@ -102,7 +117,12 @@ Meteor.methods({
       }
     });
 
+    _.each(issue.tags, function(tag) {
+      Meteor.call('tagDecrement',issue.teamId, issue._id, tag);
+    });
+
     Notifications.remove( { issueId: issueId });
+
     Issues.remove( { _id: issueId });
   },
   startIssue: function(issueId) {

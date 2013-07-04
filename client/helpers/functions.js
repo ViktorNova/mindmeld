@@ -109,6 +109,9 @@ Meteor.userFunctions = {
     
     return Issues.findOne(Session.get('currentIssueId'));
   },
+  currentTag: function() {
+    return Session.get('currentTag');
+  },
   createdByUsername: function() {
     return this.createdByUserId && Meteor.users.findOne(this.createdByUserId) && 
     Meteor.users.findOne(this.createdByUserId).username;
@@ -172,7 +175,23 @@ Meteor.userFunctions = {
   },
   iconTags: function() {
     if (this.tags) {
-      return _.map(this.tags, function(tag) { return '<span class="label label-info"><i class="icon-tags"></i>' + tag + '</span>'; }).join(' ');
+      var teamCode = this.teamId && Teams.findOne(this.teamId) && Teams.findOne(this.teamId).code;
+      return _.map(this.tags, function(tag) { return '<a href="' + Meteor.Router.tagPath(teamCode, tag) + '"><span class="label"><i class="icon-tag"></i> ' + tag + '</span></a>'; }).join(' ');
     }
+  },
+  teamTags: function(){
+    return Tags.find({teamId: this._id }, {sort: {count: -1}});
+  },
+  notStartedIssuesWithTag: function() {
+    return Issues.find({teamId: Session.get('currentTeamId'), status: 0, tags: {$in: [Session.get('currentTag')]}});
+  },
+  inProgressIssuesWithTag: function() {
+    return Issues.find({teamId: Session.get('currentTeamId'), status: 1, tags: {$in: [Session.get('currentTag')]}});
+  },
+  completedIssuesWithTag: function() {
+    return Issues.find({teamId: Session.get('currentTeamId'), status: 2, tags: {$in: [Session.get('currentTag')]}});
+  },
+  cancelledIssuesWithTag: function() {
+    return Issues.find({teamId: Session.get('currentTeamId'), status: 3, tags: {$in: [Session.get('currentTag')]}});
   }
 };
