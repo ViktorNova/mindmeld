@@ -1,5 +1,12 @@
-body, h1, h2, h3, h4, h5, h6 {
+body, h1, h2, h3, h4, h5, {
   color: #667F97;
+}
+
+h6 {
+  font-size: 11px;
+  font-weight: bold;
+  color: #978057;
+  text-transform: uppercase;  
 }
 
 .breadcrumb, .well {
@@ -33,4 +40,11 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 .hero-unit h1 {
     color: #667F97;
+}
+
+.footer {
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #CFDFFF;
+  background-color: #DFEFFF;
 }

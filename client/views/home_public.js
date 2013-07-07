@@ -14,8 +14,8 @@ Template.homePublic.events({
       Meteor.call('subscribe', subscription);
       $('#subscribe').hide();
       $('#subscribed').show();
-      $('#name').replaceWith('<span class="input-large uneditable-input">' + $('#name').val() + '</span>');
-      $('#email').replaceWith('<span class="input-large uneditable-input">' + $('#email').val() + '</span>');
+      $('#name').replaceWith('<span class="input-xlarge uneditable-input">' + $('#name').val() + '</span>');
+      $('#email').replaceWith('<span class="input-xlarge uneditable-input">' + $('#email').val() + '</span>');
     }
   }
 })
