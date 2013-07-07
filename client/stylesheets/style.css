@@ -1,6 +1,27 @@
+body, h1, h2, h3, h4, h5, h6 {
+  color: #667F97;
+}
+
+.breadcrumb, .well {
+  background-color: #DFEFFF;
+}
+
+.breadcrumb i {
+  color: #E4D181;
+}
+
+.nav-header {
+  color: #978057;
+}
+
 .navbar { margin-bottom: 20px }
 .navbar .navbar-inner {
   border-radius: 0px 0px 3px 3px;
+}
+.big-icon {
+  padding: 77px;
+  text-align: center;
+  font-size: 10em;
 }
 .main, .item {
   border-radius: 4px;
@@ -8,8 +29,9 @@
   margin: 10px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }
-.navbar .brand {
-  height: 32px;
-  width: 32px;
-  padding: 4px;
+.hero-unit {
+  background-color: #DFEFFF;
+}
+.hero-unit h1 {
+    color: #667F97;
 }

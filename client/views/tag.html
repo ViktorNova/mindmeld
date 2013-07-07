@@ -20,7 +20,7 @@
             <ul class="nav nav-list">
               <li class="nav-header"><span class="label label-important">{{notStartedIssuesWithTag.count}}</span> Not Started</li>
               {{#each notStartedIssuesWithTag}}
-                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+                <li class="item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
               {{/each}}
             </ul>
           </div>
@@ -28,7 +28,7 @@
             <ul class="nav nav-list">
               <li class="nav-header"><span class="label label-info">{{inProgressIssuesWithTag.count}}</span> In Progress</li>
               {{#each inProgressIssuesWithTag}}
-                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+                <li class="item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
               {{/each}}
             </ul>
           </div>
@@ -36,7 +36,7 @@
             <ul class="nav nav-list">
               <li class="nav-header"><span class="label label-success">{{completedIssuesWithTag.count}}</span> Completed</li>
               {{#each completedIssuesWithTag}}
-                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+                <li class="item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
               {{/each}}
             </ul>
           </div>
@@ -44,7 +44,7 @@
             <ul class="nav nav-list">
               <li class="nav-header"><span class="label label-warning">{{cancelledIssuesWithTag.count}}</span> Cancelled</li>
               {{#each cancelledIssuesWithTag}}
-                <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+                <li class="item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
               {{/each}}
             </ul>
           </div>

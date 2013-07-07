@@ -3,16 +3,16 @@
       <div class="navbar-inner">
         <div class="container">
           {{#if following}}
-          <span class="brand"><img src="mindmeld-logo-57.png" alt="Mindmeld" /></span>
+          <span class="brand">Mindmeld</span>
           {{else}}
-          <a class="brand" href="{{homePath}}"><img src="mindmeld-logo-64.png" alt="Mindmeld" /></a>
+          <a class="brand" href="{{homePath}}">Mindmeld</a>
           {{/if}}
           {{#if isLoggedIn}}
             <form class="navbar-search pull-left">
               <div class="input-prepend nav">
                 <div class="btn-group">
                   <button class="btn dropdown-toggle" data-toggle="dropdown">
-                    Follow
+                    Following
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu">
