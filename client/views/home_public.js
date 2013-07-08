@@ -12,10 +12,9 @@ Template.homePublic.events({
         email: email
       };
       Meteor.call('subscribe', subscription);
-      $('#subscribe').hide();
-      $('#subscribed').show();
-      $('#name').replaceWith('<span class="input-xlarge uneditable-input">' + $('#name').val() + '</span>');
-      $('#email').replaceWith('<span class="input-xlarge uneditable-input">' + $('#email').val() + '</span>');
+      $('#name').replaceWith('<span class="span5 uneditable-input">' + $('#name').val() + '</span>');
+      $('#email').replaceWith('<span class="span5 uneditable-input">' + $('#email').val() + '</span>');
+      $('#subscribe').val('Subscribed!').prop('disabled', true);
     }
   }
 })

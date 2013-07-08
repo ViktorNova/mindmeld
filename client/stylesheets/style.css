@@ -1,5 +1,5 @@
-body, h1, h2, h3, h4, h5, {
-  color: #667F97;
+body, h1, h2, h3, h4, h5, h6, input, button, textarea {
+  font-family: 'Open Sans', sans-serif;
 }
 
 h6 {
@@ -9,8 +9,40 @@ h6 {
   text-transform: uppercase;  
 }
 
+.big-icon {
+  text-align: center;
+  font-size: 6em;
+}
+
+@media(max-width: 480px) {
+  .big-icon {
+    text-align: center;
+    font-size: 4em;
+  }
+  h1 {
+    font-size: 18pt;
+  }
+  h2, h3, h4, h5 {
+    font-size: 14pt;
+  }
+  p {
+    font-size: 12pt;
+  }
+}
+
+.landing-hero {
+  margin:0px 0px 30px;
+  padding: 20px;
+  background-color: #DFEFFF;
+}
+
 .breadcrumb, .well {
   background-color: #DFEFFF;
+}
+
+.breakout {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .breadcrumb i {
@@ -24,10 +56,6 @@ h6 {
 .navbar { margin-bottom: 20px }
 .navbar .navbar-inner {
   border-radius: 0px 0px 3px 3px;
-}
-.big-icon {
-  text-align: center;
-  font-size: 6em;
 }
 .main, .item {
   border-radius: 4px;
@@ -43,8 +71,8 @@ h6 {
 }
 
 .footer {
-  padding: 30px 0;
-  margin-top: 70px;
+  padding: 30px 30px;
+  margin: 70px 0px 0px;
   border-top: 1px solid #CFDFFF;
   background-color: #DFEFFF;
 }
