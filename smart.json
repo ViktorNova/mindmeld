@@ -4,6 +4,8 @@
     "router": {},
     "moment": {},
     "select2": {},
-    "parsleyjs": {}
+    "parsleyjs": {},
+    "jquery-ui": {},
+    "jquery-ui-bootstrap": {}
   }
 }
