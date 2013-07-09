@@ -145,6 +145,9 @@ Meteor.userFunctions = {
   userId: function() {
     return Meteor.userId();
   },
+  username: function() {
+    return Meteor.user() && Meteor.user().username;
+  },
   isLoggedIn: function() {
     return Meteor.userId();
   },

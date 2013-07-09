@@ -1,0 +1,33 @@
+<template name="signIn">
+  {{> header}}
+  <div class="container-fluid">
+    <div id="main">
+      <div class="row-fluid content-gap">
+        {{#unless isLoggedIn}}
+          <div class="span4"></div>
+          <div class="span4 well">
+            <form id="signInCredentials" data-validate="parsley">
+              <fieldset>
+                <legend>Sign In</legend>
+                <div id="usernameGroup" class="control-group">
+                  <label for="username">Username or Email</label>
+                  <input type="text" autofocus="autofocus" class="input span12" id="usernameOrEmail" name="usernameOrEmail" tabindex="1" data-trigger="change" data-required="true" data-minlength="3" data-maxlength="254">
+                  <span id="usernameOrEmailNotFound" class="help-inline hide">Username or Email was not found<br /><br /></span>
+                </div>
+                <div id="passwordGroup" class="control-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="input span12" id="password" name="password" tabindex="2" data-trigger="change" data-required="true" data-minlength="6" data-maxlength="32" />
+                  <span id="passwordIncorrect" class="help-inline hide">Password was incorrect<br /><br /></span>
+                </div>
+                <br />
+                <input type="submit" id="signIn" name="signIn" class="btn btn-success" value="Sign in" tabindex="3">
+              </fieldset>
+            </form>
+          </div>
+          <div class="span4"></div>
+        {{/unless}}
+      </div>
+    </div>
+  </div>
+  {{> footer}}
+</template>

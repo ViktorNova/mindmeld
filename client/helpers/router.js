@@ -27,7 +27,13 @@ function setSession(session) {
 }
 
 Meteor.Router.add({
-  '/': { as: 'home', to: function() {
+  '/signIn': 
+  { as: 'signIn', to: function() {
+      setSession({});
+      return 'signIn';
+    }
+  },
+'/': { as: 'home', to: function() {
       setSession({});
       if (Meteor.user()) {
         return 'home';
