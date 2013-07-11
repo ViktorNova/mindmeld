@@ -6,6 +6,7 @@
     "select2": {},
     "parsleyjs": {},
     "jquery-ui": {},
-    "jquery-ui-bootstrap": {}
+    "jquery-ui-bootstrap": {},
+    "font-awesome": {}
   }
 }
