@@ -14,6 +14,10 @@ h6 {
   font-size: 6em;
 }
 
+.screenshot {
+  border: solid 1px #DDD;
+}
+
 @media(max-width: 480px) {
   .big-icon {
     text-align: center;

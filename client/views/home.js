@@ -1,5 +1,6 @@
 Template.home.helpers(Meteor.userFunctions);
 Template.homeBody.helpers(Meteor.userFunctions);
+Template.issueInTable.helpers(Meteor.userFunctions);
 
 Template.home.events({
   'click #createTeam': function(event) {

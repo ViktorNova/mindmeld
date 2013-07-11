@@ -14,10 +14,10 @@ Meteor.publish('teamFeatures', function(userId, teamId) {
   return Features.find({teamId: {$in: _.pluck(teams, '_id')}});
 });
 
-Meteor.publish('teamIssues', function(userId, teamId) {
+Meteor.publish('teamIssues', function(userId, teamId, limit) {
   //teamId is ignored, is that ok?
   var teams = Teams.find({members: {$in:[userId]}}).fetch();
-  return Issues.find({teamId: {$in: _.pluck(teams, '_id')}});
+  return Issues.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {statusChanged: -1}, limit: limit});
 });
 Meteor.publish('teamMembers', function(userId, teamId) {
   //teamId is ignored, is that ok?
@@ -43,4 +43,24 @@ Meteor.publish('teamRankedIssues', function(userId, teamId) {
 Meteor.publish('teamTags', function(userId, teamId) {
   var teams = Teams.find({members: {$in:[userId]}}).fetch();
   return Tags.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {count: -1 }});
+});
+Meteor.publish('allIssuesNotStarted', function(userId, limit) {
+  var featuresOwnedByUser = Features.find({ownedByUserId: userId}).fetch();
+  if (featuresOwnedByUser) 
+    return Issues.find({ status: 0, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: limit});
+});
+Meteor.publish('allIssuesInProgress', function(userId, limit) {
+  var featuresOwnedByUser = Features.find({ownedByUserId: userId}).fetch();
+  if (featuresOwnedByUser) 
+    return Issues.find({ status: 1, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: limit});
+});
+Meteor.publish('allIssuesCompleted', function(userId, limit) {
+  var featuresOwnedByUser = Features.find({ownedByUserId: userId}).fetch();
+  if (featuresOwnedByUser) 
+    return Issues.find({ status: 2, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: limit});
+});
+Meteor.publish('allIssuesCancelled', function(userId, limit) {
+  var featuresOwnedByUser = Features.find({ownedByUserId: userId}).fetch();
+  if (featuresOwnedByUser) 
+    return Issues.find({ status: 3, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: limit});
 });

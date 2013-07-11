@@ -20,7 +20,8 @@ Meteor.methods({
       ownedByUserId: feature.ownedByUserId,
       createdByUserId: Meteor.userId(),
       rank: rankingCount + 1,
-      status: 0
+      status: 0,
+      statusChanged: new Date()
     });
 
     var issueId = Issues.insert(issue);
@@ -139,9 +140,7 @@ Meteor.methods({
       throw new Meteor.Error(500, "The logged in user does not own the feature, so this issue can't be started");
 
     var oldIssue = Issues.findOne({_id: issueId});
-    Issues.update({teamId: oldIssue.teamId, projectId: oldIssue.projectId, rank: {$gt: oldIssue.rank}},{ $inc: { rank: -1 }},{multi: true});
-    Issues.update({_id: issueId}, {$set: {status: 1}, $unset: {rank: 1}});
-
+    Issues.update({_id: issueId}, {$set: {status: 1, statusChanged: new Date()}, $unset: {rank: 1}});
 
     var newIssue = Issues.findOne({_id: issueId});
 
@@ -176,7 +175,7 @@ Meteor.methods({
 
     var oldIssue = Issues.findOne({_id: issueId});
 
-    Issues.update({_id: issueId}, {$set: {status: 2}});
+    Issues.update({_id: issueId}, {$set: {status: 2, statusChanged: new Date()}});
 
     var newIssue = Issues.findOne({_id: issueId});
 
@@ -210,7 +209,7 @@ Meteor.methods({
 
     var oldIssue = Issues.findOne({_id: issueId});
 
-    Issues.update({_id: issueId}, {$set: {status: 3}});
+    Issues.update({_id: issueId}, {$set: {status: 3, statusChanged: new Date()}});
 
     var newIssue = Issues.findOne({_id: issueId});
 

@@ -1,8 +1,14 @@
+
+allIssuesNotStartedHandle = Meteor.subscribeWithPagination('allIssuesNotStarted', Meteor.userId() ,5);
+allIssuesInProgressHandle = Meteor.subscribeWithPagination('allIssuesInProgress', Meteor.userId() ,5);
+allIssuesCompletedHandle = Meteor.subscribeWithPagination('allIssuesCompleted', Meteor.userId() ,5);
+allIssuesCancelledHandle = Meteor.subscribeWithPagination('allIssuesCancelled', Meteor.userId() ,5);
+
 Deps.autorun(function() {
   Meteor.subscribe('teams', Meteor.userId());
   Meteor.subscribe('teamProjects', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('teamFeatures', Meteor.userId(), Session.get('currentTeamId'));
-  Meteor.subscribe('teamIssues', Meteor.userId(), Session.get('currentTeamId'));
+  teamIssuesHandle = Meteor.subscribeWithPagination('teamIssues', Meteor.userId(), Session.get('currentTeamId'),5);
   Meteor.subscribe('teamMembers', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('teamNotifications', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('teamMovements', Meteor.userId(), Session.get('currentTeamId'));

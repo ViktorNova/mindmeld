@@ -18,13 +18,92 @@
       <p><button id="createTeam" class="btn"><i class="icon-plus"></i> Create Team</button></p>
       <div class="row-fluid">
         <div class="span6">
-          <h2>Issues in progress</h2>
-          <ul class="nav nav-list">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Issues Not Started</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            {{#each allIssuesNotStarted}}
+              {{> issueInTable}}
+            {{/each}}
+            {{#if allIssuesNotStartedReady}}
+              {{#unless allIssuesNotStartedLoaded}}
+                <a class="load-more" href="">Load more</a>
+              {{/unless}}
+            {{else}}
+              <div>{{spinner}}</div>
+            {{/if}}
+            {{#unless allIssuesNotStartedCount}}          
+              <tr>
+                <td colspan="2"><div class="text-center"><em>&#8211;No Issues Not Started&#8211;</em></div></td>
+              </tr>
+            {{/unless}}
+          </table>
+{{spinner}}
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Issues In Progress</th>
+                <th>Started</th>
+              </tr>
+            </thead>
             {{#each allIssuesInProgress}}
-              <li class="divider"></li>
-              <li><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
-            {{/each}}            
-          </ul>
+              {{> issueInTable}}
+            {{/each}}
+            {{#if allIssuesInProgressReady}}
+              {{#unless allIssuesInProgressLoaded}}
+                <tr>
+                  <td colspan="2"><div class="text-center"><a class="load-more" href="">Load more</a></td>
+                </tr>
+              {{/unless}}
+            {{else}}
+              <tr>
+                <td colspan="2"><div class="text-center">{{spinner}}</td></td>
+              </tr>
+            {{/if}}
+            {{#unless allIssuesInProgressCount}}          
+              <tr>
+                <td colspan="2"><div class="text-center"><em>&#8211;No Issues In Progress&#8211;</em></div></td>
+              </tr>
+            {{/unless}}
+          </table>
+
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Issues Completed</th>
+                <th>Completed</th>
+              </tr>
+            </thead>
+            {{#each allIssuesCompleted}}
+              {{> issueInTable}}
+            {{/each}}
+            {{#unless allIssuesCompletedCount}}          
+              <tr>
+                <td colspan="2"><div class="text-center"><em>&#8211;No Issues Completed&#8211;</em></div></td>
+              </tr>
+            {{/unless}}
+          </table>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Issues Cancelled</th>
+                <th>Cancelled</th>
+              </tr>
+            </thead>
+            {{#each allIssuesCompleted}}
+              {{> issueInTable}}
+            {{/each}}
+            {{#unless allIssuesCompletedCount}}          
+              <tr>
+                <td colspan="2"><div class="text-center"><em>&#8211;No Issues Cancelled&#8211;</em></div></td>
+              </tr>
+            {{/unless}}
+          </table>
+
         </div>
         <div class="span6">
           {{> myTeams}}
@@ -35,4 +114,15 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name="issueInTable">
+  <tr>
+    <td>
+      {{teamName}}<br />
+      {{projectName}}<br/>
+      {{featureName}}<br/>
+      <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></td>
+    <td>{{momentStatusChanged}}</td>
+  </tr>
 </template>
