@@ -1,5 +1,19 @@
+Deps.autorun(function() {
+  Meteor.subscribeWithPagination('teamFeatures', Session.get('currentTeamId'), 5);
+});
+
 Template.project.helpers(Meteor.userFunctions);
-Template.projectBody.helpers(Meteor.userFunctions);
+Template.projectBody.helpers(_.extend({
+  allFeatures: function() {
+    return Features.find({
+      teamId: Session.get('currentTeamId'),
+      projectId: Session.get('currentProjectId')
+    },{sort: {updatedAt: -1}});
+  },
+  notStartedIssuesByRanking: function() {
+    return Issues.find({ teamId: this.teamId, projectId: this._id, status: 0, rank: {$exists: true} },{sort: {rank: 1}});
+  }
+}, Meteor.userFunctions));
 
 Template.projectBody.rendered = function() {
 

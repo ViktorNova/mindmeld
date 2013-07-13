@@ -1,6 +1,19 @@
 Teams = new Meteor.Collection('teams');
 
 Meteor.methods({
+  getTeamId: function(teamCode) {
+
+    if (!teamCode)
+      return "NOTFOUND";
+    
+    console.log("looking for code " + teamCode);
+    var team = Teams.findOne({code: teamCode});
+    if (team) {
+      return team._id;
+    } else {
+      return "NOTFOUND";
+    }
+  },
   createTeam: function(teamAttributes) {
     var user = Meteor.user();
     if (!user)
@@ -11,7 +24,8 @@ Meteor.methods({
     var team = _.extend(_.pick(teamAttributes, 'name', 'detail'), {
       code: teamAttributes.name.toCode(),
       members: [ Meteor.userId() ],
-      createdByUserId: Meteor.userId()
+      createdByUserId: Meteor.userId(),
+      updatedAt: new Date()
     });
 
     var teamId = Teams.insert(team);
@@ -32,7 +46,8 @@ Meteor.methods({
     Teams.update( { _id: team._id }, { $set: {
       name: team.name,
       detail: team.detail,
-      code: team.code
+      code: team.code,
+      updatedAt: new Date()
     }});
 
     var newTeam = Teams.findOne(team._id);

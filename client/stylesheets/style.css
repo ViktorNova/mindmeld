@@ -18,6 +18,11 @@ h6 {
   border: solid 1px #DDD;
 }
 
+.waiting-spinner {
+  text-align: center;
+  margin: 200px;
+}
+
 @media(max-width: 480px) {
   .big-icon {
     text-align: center;
@@ -32,6 +37,10 @@ h6 {
   p {
     font-size: 12pt;
   }
+}
+
+.spinner-space {
+  padding: 25px;
 }
 
 .landing-hero {

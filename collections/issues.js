@@ -1,6 +1,29 @@
 Issues = new Meteor.Collection('issues');
 
 Meteor.methods({
+  getIssueId: function(issueCode) {
+
+    if (!issueCode)
+      return "NOTFOUND";
+
+    if (! this.isSimulation) {
+      var Future = Npm.require('fibers/future');
+      var future = new Future();
+      Meteor.setTimeout(function() {
+        future.ret();
+      }, 5 * 1000);
+      future.wait();
+    }
+
+
+    console.log("looking for code " + issueCode);
+    var issue = Issues.findOne({code: issueCode});
+    if (issue) {
+      return issue._id;
+    } else {
+      return "NOTFOUND";
+    }
+  },
 	createIssue: function(issueAttributes) {
     var user = Meteor.user();
     if (!user)
@@ -21,7 +44,8 @@ Meteor.methods({
       createdByUserId: Meteor.userId(),
       rank: rankingCount + 1,
       status: 0,
-      statusChanged: new Date()
+      statusChanged: new Date(),
+      updatedAt: new Date()
     });
 
     var issueId = Issues.insert(issue);
@@ -71,7 +95,8 @@ Meteor.methods({
       detail: issue.detail,
       tags: issue.tags,
       code: issue.code,
-      ownedByUserId: issue.ownedByUserId
+      ownedByUserId: issue.ownedByUserId,
+      updatedAt: new Date()
     }});
 
     var newIssue = Issues.findOne(issue._id);
@@ -246,5 +271,24 @@ Meteor.methods({
     _.each(issueIds, function(issueId, index) {
       Issues.update({teamId: teamId, projectId: projectId, _id: issueId},{$set: {rank: index + 1}});
     });
+  },
+  removeIssueInRankings: function(issue) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to insert an issue in rankings");
+
+    var teamId = issue.teamId;
+    if (!teamId)
+      throw new Meteor.Error(500, "Issue did not have a teamId");
+
+    var projectId = issue.projectId;
+    if (!projectId)
+      throw new Meteor.Error(500, "Issue did not have a projectId");
+
+    var existingProject = IssueRankings.findOne({teamId: teamId, projectId: projectId});
+    if (!existingProject)
+      throw new Meteor.Error(500, "No project matching that projectId found");
+
+    IssueRankings.update({ teamId: teamId, projectId: projectId}, {$pull: {issueIds: issue._id}});
   }
 });

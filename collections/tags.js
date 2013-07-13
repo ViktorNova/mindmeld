@@ -1,6 +1,18 @@
 Tags = new Meteor.Collection('tags');
 
 Meteor.methods({
+  getTagId: function(tagCode) {
+    if (!tagCode)
+      return "NOTFOUND";
+
+    console.log("looking for code " + tagCode);
+    var tag = Tags.findOne({code: tagCode});
+    if (tag) {
+      return tag._id;
+    } else {
+      return "NOTFOUND";
+    }
+  },
   tagIncrement: function(teamId, tag) {
     var existingTag = Tags.findOne({teamId: teamId, tag: tag});
     if (existingTag) {

@@ -21,38 +21,46 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>Issues Not Started</th>
-                <th>Created</th>
+                <th>Issues Not Started {{allIssuesNotStartedCount}}</th>
+                <th>Created </th>
               </tr>
             </thead>
-            {{#each allIssuesNotStarted}}
-              {{> issueInTable}}
-            {{/each}}
             {{#if allIssuesNotStartedReady}}
+              {{#each allIssuesNotStarted}}
+                {{> issueInTable}}
+              {{/each}}
+              {{#unless allIssuesNotStartedCount}}          
+                <tr>
+                  <td colspan="2"><div class="text-center"><em>&#8211;All Issues Started&#8211;</em></div></td>
+                </tr>
+              {{/unless}}
               {{#unless allIssuesNotStartedLoaded}}
-                <a class="load-more" href="">Load more</a>
+                <tr>
+                  <td colspan="2"><div class="text-center"><a class="load-more" href="">Load more</a></td>
+                </tr>
               {{/unless}}
             {{else}}
-              <div>{{spinner}}</div>
-            {{/if}}
-            {{#unless allIssuesNotStartedCount}}          
               <tr>
-                <td colspan="2"><div class="text-center"><em>&#8211;No Issues Not Started&#8211;</em></div></td>
-              </tr>
-            {{/unless}}
+                <td colspan="2"><div class="text-center"><div class="spinner-space">{{> spinner}}</div></td></td>
+              </tr>            
+            {{/if}}
           </table>
-{{spinner}}
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>Issues In Progress</th>
+                <th>Issues In Progress {{allIssuesInProgressCount}}</th>
                 <th>Started</th>
               </tr>
             </thead>
-            {{#each allIssuesInProgress}}
-              {{> issueInTable}}
-            {{/each}}
             {{#if allIssuesInProgressReady}}
+              {{#each allIssuesInProgress}}
+                {{> issueInTable}}
+              {{/each}}
+              {{#unless allIssuesInProgressCount}}          
+                <tr>
+                  <td colspan="2"><div class="text-center"><em>&#8211;No Issues In Progress&#8211;</em></div></td>
+                </tr>
+              {{/unless}}
               {{#unless allIssuesInProgressLoaded}}
                 <tr>
                   <td colspan="2"><div class="text-center"><a class="load-more" href="">Load more</a></td>
@@ -60,16 +68,10 @@
               {{/unless}}
             {{else}}
               <tr>
-                <td colspan="2"><div class="text-center">{{spinner}}</td></td>
+                <td colspan="2"><div class="text-center"><div class="spinner-space">{{> spinner}}</div></td></td>
               </tr>
             {{/if}}
-            {{#unless allIssuesInProgressCount}}          
-              <tr>
-                <td colspan="2"><div class="text-center"><em>&#8211;No Issues In Progress&#8211;</em></div></td>
-              </tr>
-            {{/unless}}
-          </table>
-
+            </table>
             <table class="table table-striped">
             <thead>
               <tr>
@@ -77,16 +79,26 @@
                 <th>Completed</th>
               </tr>
             </thead>
-            {{#each allIssuesCompleted}}
-              {{> issueInTable}}
-            {{/each}}
-            {{#unless allIssuesCompletedCount}}          
+            {{#if allIssuesCompletedReady}}
+              {{#each allIssuesCompleted}}
+                {{> issueInTable}}
+              {{/each}}
+              {{#unless allIssuesCompletedCount}}          
+                <tr>
+                  <td colspan="2"><div class="text-center"><em>&#8211;No Issues Completed&#8211;</em></div></td>
+                </tr>
+              {{/unless}}
+              {{#unless allIssuesCompletedLoaded}}
+                <tr>
+                  <td colspan="2"><div class="text-center"><a class="load-more" href="">Load more</a></td>
+                </tr>
+              {{/unless}}
+            {{else}}
               <tr>
-                <td colspan="2"><div class="text-center"><em>&#8211;No Issues Completed&#8211;</em></div></td>
+                <td colspan="2"><div class="text-center"><div class="spinner-space">{{> spinner}}</div></td></td>
               </tr>
-            {{/unless}}
+            {{/if}}
           </table>
-
           <table class="table table-striped">
             <thead>
               <tr>
@@ -94,14 +106,25 @@
                 <th>Cancelled</th>
               </tr>
             </thead>
-            {{#each allIssuesCompleted}}
-              {{> issueInTable}}
-            {{/each}}
-            {{#unless allIssuesCompletedCount}}          
+            {{#if allIssuesCancelledReady}}
+              {{#each allIssuesCancelled}}
+                {{> issueInTable}}
+              {{/each}}
+              {{#unless allIssuesCancelledCount}}          
+                <tr>
+                  <td colspan="2"><div class="text-center"><em>&#8211;No Issues Cancelled&#8211;</em></div></td>
+                </tr>
+              {{/unless}}
+              {{#unless allIssuesCancelledLoaded}}
+                <tr>
+                  <td colspan="2"><div class="text-center"><a class="load-more" href="">Load more</a></td>
+                </tr>
+              {{/unless}}
+            {{else}}
               <tr>
-                <td colspan="2"><div class="text-center"><em>&#8211;No Issues Cancelled&#8211;</em></div></td>
+                <td colspan="2"><div class="text-center"><div class="spinner-space">{{> spinner}}</div></td></td>
               </tr>
-            {{/unless}}
+            {{/if}}
           </table>
 
         </div>

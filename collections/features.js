@@ -1,6 +1,28 @@
 Features = new Meteor.Collection('features');
 
 Meteor.methods({
+  getFeatureId: function(featureCode) {
+
+    if (!featureCode)
+      return "NOTFOUND";
+
+    if (! this.isSimulation) {
+      var Future = Npm.require('fibers/future');
+      var future = new Future();
+      Meteor.setTimeout(function() {
+        future.ret();
+      }, 5 * 1000);
+      future.wait();
+    }
+
+    console.log("looking for code " + featureCode);
+    var feature = Features.findOne({code: featureCode});
+    if (feature) {
+      return feature._id;
+    } else {
+      return "NOTFOUND";
+    }
+  },
   createFeature: function(featureAttributes) {
     var user = Meteor.user();
     if (!user)
@@ -11,7 +33,8 @@ Meteor.methods({
     var feature = _.extend(_.pick(featureAttributes, 
       'teamId', 'projectId', 'name', 'detail', 'ownedByUserId'), {
       code: featureAttributes.name.toCode(),
-      createdByUserId: Meteor.userId()
+      createdByUserId: Meteor.userId(),
+      updatedAt: new Date()
     });
 
     var featureId = Features.insert(feature);
@@ -37,7 +60,8 @@ Meteor.methods({
       name: feature.name,
       detail: feature.detail,
       code: feature.code,
-      ownedByUserId: feature.ownedByUserId
+      ownedByUserId: feature.ownedByUserId,
+      updatedAt: new Date()
     }});
 
     Issues.update( { 

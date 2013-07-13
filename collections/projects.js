@@ -1,6 +1,19 @@
 Projects = new Meteor.Collection('projects');
 
 Meteor.methods({
+  getProjectId: function(projectCode) {
+
+    if (!projectCode)
+      return "NOTFOUND";
+
+    console.log("looking for code " + projectCode);
+    var project = Projects.findOne({code: projectCode});
+    if (project) {
+      return project._id;
+    } else {
+      return "NOTFOUND";
+    }
+  },
   createProject: function(projectAttributes) {
     var user = Meteor.user();
     if (!user)
@@ -11,7 +24,8 @@ Meteor.methods({
     var project = _.extend(_.pick(projectAttributes, 
       'teamId', 'name', 'detail'), {
       code: projectAttributes.name.toCode(),
-      createdByUserId: Meteor.userId()
+      createdByUserId: Meteor.userId(),
+      updatedAt: new Date()
     });
 
     var projectId = Projects.insert(project);
@@ -34,7 +48,8 @@ Meteor.methods({
       projectId: project.projectId,
       name: project.name,
       detail: project.detail,
-      code: project.code
+      code: project.code,
+      updatedAt: new Date()
     }});
 
     var newProject = Projects.findOne(project._id);
