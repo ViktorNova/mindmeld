@@ -14,11 +14,14 @@ function setCurrentTeamId(templateCode, teamCode) {
     Session.set('currentTeamId', null);
     return;
   }
+
+  Session.set('currentTeamCode', teamCode);
+
   Meteor.call('getTeamId', teamCode, function(error, result) {
-    if (Session.get('currentTemplateCode') != templateCode) {
-      console.log("warning: current template code " + templateCode + " does not match session template code " + Session.get('currentTemplateCode'));
+    if (Session.get('currentTemplateCode') != templateCode)
       return;
-    }
+    if (Session.get('currentTeamCode') != teamCode)
+      return;
     if (error) {
       console.log(error);
       Session.set('currentTeamId','NOTFOUND');
@@ -33,11 +36,14 @@ function setCurrentProjectId(templateCode, projectCode) {
     Session.set('currentProjectId', null);
     return;
   }
+
+  Session.set('currentProjectCode', projectCode);
+
   Meteor.call('getProjectId', projectCode, function(error, result) {
-    if (Session.get('currentTemplateCode') != templateCode) {
-      console.log("warning: current template code " + templateCode + " does not match session template code " + Session.get('currentTemplateCode'));
+    if (Session.get('currentTemplateCode') != templateCode)
       return;
-    }
+    if (Session.get('currentProjectCode') != projectCode)
+      return;
     if (error) {
       console.log(error);
       Session.set('currentProjectId','NOTFOUND');
@@ -52,11 +58,15 @@ function setCurrentFeatureId(templateCode, featureCode) {
     Session.set('currentFeatureId');
     return;
   }
+
+  Session.set('currentFeatureCode', featureCode);
+
   Meteor.call('getFeatureId', featureCode, function(error, result) {
     if (Session.get('currentTemplateCode') != templateCode) {
-      console.log("warning: current template code " + templateCode + " does not match session template code " + Session.get('currentTemplateCode'));
       return;
     }
+    if (Session.get('currentFeatureCode') != featureCode)
+      return;
     if (error) {
       console.log(error);
       Session.set('currentFeatureId','NOTFOUND');
@@ -71,9 +81,14 @@ function setCurrentIssueId(templateCode, issueCode) {
     Session.set('currentIssueId', null);
     return;
   }
+
+  Session.set('currentIssueCode', issueCode);
+
   Meteor.call('getIssueId', issueCode, function(error, result) {
     if (Session.get('currentTemplateCode') != templateCode) {
-      console.log("warning: current template code " + templateCode + " does not match session template code " + Session.get('currentTemplateCode'));
+      return;
+    }
+    if (Session.get('currentIssueCode') != issueCode) {
       return;
     }
     if (error) {

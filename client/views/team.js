@@ -1,7 +1,3 @@
-Deps.autorun(function() {
-  Meteor.subscribeWithPagination('teamProjects', Session.get('currentTeamId'), 5);
-});
-
 Template.team.helpers(Meteor.userFunctions);
 Template.teamBody.helpers(_.extend({
   allProjects: function() {
