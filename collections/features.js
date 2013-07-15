@@ -11,11 +11,11 @@ Meteor.methods({
       var future = new Future();
       Meteor.setTimeout(function() {
         future.ret();
-      }, 5 * 1000);
+      }, 5 * 100);
       future.wait();
     }
 
-    console.log("looking for code " + featureCode);
+    console.log("looking for Fcode " + featureCode);
     var feature = Features.findOne({code: featureCode});
     if (feature) {
       return feature._id;

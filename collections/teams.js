@@ -5,8 +5,17 @@ Meteor.methods({
 
     if (!teamCode)
       return null;
-    
-    console.log("looking for code " + teamCode);
+
+    if (! this.isSimulation) {
+      var Future = Npm.require('fibers/future');
+      var future = new Future();
+      Meteor.setTimeout(function() {
+        future.ret();
+      }, 5 * 100);
+      future.wait();
+    }
+
+    console.log("looking for Tcode " + teamCode);
     var team = Teams.findOne({code: teamCode});
     if (team) {
       return team._id;

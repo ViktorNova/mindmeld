@@ -60,6 +60,9 @@ Meteor.userFunctions = {
     if (Meteor.Router.page() === 'createTeam')
       return {};
 
+    if (Session.get('currentTeamId') == 'LOADING')
+      return null;
+
     return Teams.findOne(Session.get('currentTeamId'));
   },
   statusKey: function() {
@@ -87,6 +90,9 @@ Meteor.userFunctions = {
     if (Meteor.Router.page() === 'createProject')
       return { teamId: Session.get('currentTeamId') };
 
+    if (Session.get('currentProjectId') == 'LOADING')
+      return null;
+
     return Projects.findOne(Session.get('currentProjectId'));
   },
   currentFeature: function() {
@@ -97,6 +103,9 @@ Meteor.userFunctions = {
         dueDate: moment().format() 
       };
 
+    if (Session.get('currentFeatureId') == 'LOADING')
+      return null;
+
     return Features.findOne(Session.get('currentFeatureId'));
   },
   currentIssue: function() {
@@ -106,10 +115,17 @@ Meteor.userFunctions = {
         projectId: Session.get('currentProjectId'),
         featureId: Session.get('currentFeatureId')
       };
-    
+
+    if (Session.get('currentIssueId') == 'LOADING')
+      return null;
+
     return Issues.findOne(Session.get('currentIssueId'));
   },
   currentTag: function() {
+
+    if (Session.get('currentTagId') == 'LOADING')
+      return null;
+
     return Session.get('currentTag');
   },
   createdByUsername: function() {

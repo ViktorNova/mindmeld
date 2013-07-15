@@ -5,6 +5,15 @@ Meteor.methods({
     if (!tagCode)
       return null;
 
+    if (! this.isSimulation) {
+      var Future = Npm.require('fibers/future');
+      var future = new Future();
+      Meteor.setTimeout(function() {
+        future.ret();
+      }, 5 * 100);
+      future.wait();
+    }
+
     console.log("looking for code " + tagCode);
     var tag = Tags.findOne({code: tagCode});
     if (tag) {

@@ -2,19 +2,21 @@ Issues = new Meteor.Collection('issues');
 
 Meteor.methods({
   getIssueId: function(issueCode) {
-    if (!issueCode)
+    if (!issueCode) {
+      console.log('code is null, returning null');
       return null;
+    }
 
     if (! this.isSimulation) {
       var Future = Npm.require('fibers/future');
       var future = new Future();
       Meteor.setTimeout(function() {
         future.ret();
-      }, 5 * 1000);
+      }, 5 * 100);
       future.wait();
     }
 
-    console.log("looking for code " + issueCode);
+    console.log("looking for Icode " + issueCode);
     var issue = Issues.findOne({code: issueCode});
     if (issue) {
       return issue._id;
