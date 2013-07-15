@@ -4,7 +4,7 @@ Meteor.methods({
   getProjectId: function(projectCode) {
 
     if (!projectCode)
-      return "NOTFOUND";
+      return null;
 
     console.log("looking for code " + projectCode);
     var project = Projects.findOne({code: projectCode});

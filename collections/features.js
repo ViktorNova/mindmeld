@@ -4,7 +4,7 @@ Meteor.methods({
   getFeatureId: function(featureCode) {
 
     if (!featureCode)
-      return "NOTFOUND";
+      return null;
 
     if (! this.isSimulation) {
       var Future = Npm.require('fibers/future');

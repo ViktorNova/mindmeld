@@ -1,7 +1,6 @@
 Meteor.publish('userTeams', function(userId, limit) {
   return Teams.find({members: {$in:[userId]}},{sort: {statusChanged: -1}, limit: limit});
 });
-
 Meteor.publish('userProjects', function(userId, limit) {
   var teams = Teams.find({members: {$in:[userId]}}).fetch();
   return Projects.find({teamId: {$in: _.pluck(teams, '_id')}}, {sort: {statusChanged: -1}, limit: limit});
@@ -51,61 +50,61 @@ Meteor.publish('teamTags', function(userId, teamId) {
 });
 Meteor.publish('allIssuesNotStarted', function(userId, limit) {
 
-    // if (! this.isSimulation) {
-    //   var Future = Npm.require('fibers/future');
-    //   var future = new Future();
-    //   Meteor.setTimeout(function() {
-    //     future.ret();
-    //   }, 5 * 100);
-    //   future.wait();
-    // }
+    if (! this.isSimulation) {
+      var Future = Npm.require('fibers/future');
+      var future = new Future();
+      Meteor.setTimeout(function() {
+        future.ret();
+      }, 5 * 100);
+      future.wait();
+    }
 
   var featuresOwnedByUser = Features.find({ownedByUserId: userId}).fetch();
   if (featuresOwnedByUser) 
-    return Issues.find({ status: 0, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: 2});
+    return Issues.find({ status: 0, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: 5});
 });
 Meteor.publish('allIssuesInProgress', function(userId, limit) {
 
-    // if (! this.isSimulation) {
-    //   var Future = Npm.require('fibers/future');
-    //   var future = new Future();
-    //   Meteor.setTimeout(function() {
-    //     future.ret();
-    //   }, 5 * 100);
-    //   future.wait();
-    // }
+    if (! this.isSimulation) {
+      var Future = Npm.require('fibers/future');
+      var future = new Future();
+      Meteor.setTimeout(function() {
+        future.ret();
+      }, 5 * 100);
+      future.wait();
+    }
 
   var featuresOwnedByUser = Features.find({ownedByUserId: userId}).fetch();
   if (featuresOwnedByUser) 
-    return Issues.find({ status: 1, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: 2});
+    return Issues.find({ status: 1, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: 5});
 });
 Meteor.publish('allIssuesCompleted', function(userId, limit) {
 
-    // if (! this.isSimulation) {
-    //   var Future = Npm.require('fibers/future');
-    //   var future = new Future();
-    //   Meteor.setTimeout(function() {
-    //     future.ret();
-    //   }, 5 * 100);
-    //   future.wait();
-    // }
+    if (! this.isSimulation) {
+      var Future = Npm.require('fibers/future');
+      var future = new Future();
+      Meteor.setTimeout(function() {
+        future.ret();
+      }, 5 * 100);
+      future.wait();
+    }
 
   var featuresOwnedByUser = Features.find({ownedByUserId: userId}).fetch();
   if (featuresOwnedByUser) 
-    return Issues.find({ status: 2, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: 2});
+    return Issues.find({ status: 2, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: 5});
 });
 Meteor.publish('allIssuesCancelled', function(userId, limit) {
 
-    // if (! this.isSimulation) {
-    //   var Future = Npm.require('fibers/future');
-    //   var future = new Future();
-    //   Meteor.setTimeout(function() {
-    //     future.ret();
-    //   }, 5 * 100);
-    //   future.wait();
-    // }
+    if (! this.isSimulation) {
+      var Future = Npm.require('fibers/future');
+      var future = new Future();
+      Meteor.setTimeout(function() {
+        future.ret();
+      }, 5 * 100);
+      future.wait();
+    }
 
   var featuresOwnedByUser = Features.find({ownedByUserId: userId}).fetch();
   if (featuresOwnedByUser) 
-    return Issues.find({ status: 3, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: 2});
+    return Issues.find({ status: 3, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}},{sort: {statusChanged: -1 },limit: 5});
 });

@@ -3,11 +3,10 @@ Meteor.subscribeWithPagination('userProjects', Meteor.userId(), 5);
 Meteor.subscribeWithPagination('userFeatures', Meteor.userId(), 5);
 Meteor.subscribeWithPagination('userIssues', Meteor.userId(), 5);
 
-
-allIssuesNotStartedHandle = Meteor.subscribeWithPagination('allIssuesNotStarted', Meteor.userId(), 2);
-allIssuesInProgressHandle = Meteor.subscribeWithPagination('allIssuesInProgress', Meteor.userId(), 2);
-allIssuesCompletedHandle = Meteor.subscribeWithPagination('allIssuesCompleted', Meteor.userId(), 2);
-allIssuesCancelledHandle = Meteor.subscribeWithPagination('allIssuesCancelled', Meteor.userId(), 2);
+allIssuesNotStartedHandle = Meteor.subscribeWithPagination('allIssuesNotStarted', Meteor.userId(), 5);
+allIssuesInProgressHandle = Meteor.subscribeWithPagination('allIssuesInProgress', Meteor.userId(), 5);
+allIssuesCompletedHandle = Meteor.subscribeWithPagination('allIssuesCompleted', Meteor.userId(), 5);
+allIssuesCancelledHandle = Meteor.subscribeWithPagination('allIssuesCancelled', Meteor.userId(), 5);
 
 Template.home.helpers();
 Template.homeBody.helpers({
@@ -95,7 +94,7 @@ Template.homeBody.helpers({
   }
 });
 
-Template.issueInTable.helpers();
+Template.issueInTable.helpers(Meteor.userFunctions);
 
 Template.home.events({
   'click #createTeam': function(event) {

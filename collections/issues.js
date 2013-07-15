@@ -2,9 +2,8 @@ Issues = new Meteor.Collection('issues');
 
 Meteor.methods({
   getIssueId: function(issueCode) {
-
     if (!issueCode)
-      return "NOTFOUND";
+      return null;
 
     if (! this.isSimulation) {
       var Future = Npm.require('fibers/future');
@@ -14,7 +13,6 @@ Meteor.methods({
       }, 5 * 1000);
       future.wait();
     }
-
 
     console.log("looking for code " + issueCode);
     var issue = Issues.findOne({code: issueCode});

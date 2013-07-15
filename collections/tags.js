@@ -3,7 +3,7 @@ Tags = new Meteor.Collection('tags');
 Meteor.methods({
   getTagId: function(tagCode) {
     if (!tagCode)
-      return "NOTFOUND";
+      return null;
 
     console.log("looking for code " + tagCode);
     var tag = Tags.findOne({code: tagCode});

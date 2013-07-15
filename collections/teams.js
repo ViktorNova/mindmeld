@@ -4,7 +4,7 @@ Meteor.methods({
   getTeamId: function(teamCode) {
 
     if (!teamCode)
-      return "NOTFOUND";
+      return null;
     
     console.log("looking for code " + teamCode);
     var team = Teams.findOne({code: teamCode});
