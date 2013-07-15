@@ -1,6 +1,8 @@
 <template name="myFeatures">
-<h2 id="my-features">Features</h2>
-{{#each featuresIBelongTo}}
-  {{> featureList}}
-{{/each}}
+<ul id="features" class="nav nav-list">
+  <li class="nav-header">Features</li>
+  {{#each featuresIBelongTo}}
+    {{> featureList}}
+  {{/each}}
+</ul>
 </template>

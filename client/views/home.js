@@ -67,7 +67,7 @@ Template.home.events({
 
 function refreshPaginatedTable(itemRowClassSelector, moreRowSelector, pageCount) {
   var s = $(itemRowClassSelector);
-  $(moreRowSelector)[0].hidden = false;
+  //$(moreRowSelector)[0].hidden = false;
   for (var i = 0; i < pageCount; i++) {
     if (s[i])
       $(s[i]).show('fast');

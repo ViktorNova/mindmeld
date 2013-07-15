@@ -1,8 +1,3 @@
 <template name="issueList">
-  <p>
-    <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
-    <strong>Owned by:</strong> {{ownedByUsername}} <strong>Status:</strong> {{statusDisplay}}<br />
-    {{truncatedDetail}}<br />
-    {{{iconTags}}}
-  </p>
+  <li class="issue-list-item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a>{{{iconTags}}}</li>
 </template>

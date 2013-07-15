@@ -1,6 +1,8 @@
 <template name="myIssues">
-<h2 id="my-issues">Issues</h2>
-{{#each issuesIBelongTo}}
-  {{> issueList}}
-{{/each}}
+<h2>Issues</h2>
+<ul class="issues">
+  {{#each issuesIBelongTo}}
+    {{> issueList}}
+  {{/each}}
+</ul>
 </template>

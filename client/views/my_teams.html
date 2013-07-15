@@ -1,6 +1,8 @@
 <template name="myTeams">
-<h2 id="my-teams">Teams</h2>
-{{#each teamsIBelongTo}}
-  {{> teamList}}
-{{/each}}
+<ul id="teams" class="nav nav-list">
+  <li class="nav-header">Teams</li>
+  {{#each teamsIBelongTo}}
+    {{> teamList}}
+  {{/each}}
+</ul>
 </template>

@@ -15,13 +15,25 @@
   <div class="span9">
     {{#with currentFeature}}
       <div class="row-fluid">
-        <h1><button id="editFeature" class="btn"><i class="icon-edit"></i> Edit Feature</button> {{name}}</h1>
-        <p><strong>Owned by:</strong> {{ownedByUsername}}</p>
-        <div>{{detail}}</div>
-        <h2><button id="createIssue" class="btn"><i class="icon-plus"></i> Create Issue</button> Issues</h2>
-        {{#each allIssues}}
-          {{> issueList}}
-        {{/each}}
+        <h1>{{name}}</h1>
+        <button id="editFeature" class="btn"><i class="icon-edit"></i> Edit Feature</button>
+        <button id="createIssue" class="btn"><i class="icon-plus"></i> Create Issue</button>
+
+        <div class="row-fluid">
+          <div class="span8">
+            <p><strong>Owned by:</strong> {{ownedByUsername}}</p>
+            <div>{{detail}}</div>
+          </div>
+
+          <div class="span4">
+            <ul class="nav nav-nar">
+              <li class="nav-header">Issues</li>
+              {{#each allIssues}}
+                {{> issueList}}
+              {{/each}}
+            </ul>
+          </div>
+        </div>
       </div>
     {{/with}}
   </div>
