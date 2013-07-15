@@ -1,102 +1,63 @@
-Meteor.subscribeWithPagination('userTeams', Meteor.userId(), 5);
-Meteor.subscribeWithPagination('userProjects', Meteor.userId(), 5);
-Meteor.subscribeWithPagination('userFeatures', Meteor.userId(), 5);
-Meteor.subscribeWithPagination('userIssues', Meteor.userId(), 5);
-
-allIssuesNotStartedHandle = Meteor.subscribeWithPagination('allIssuesNotStarted', Meteor.userId(), 5);
-allIssuesInProgressHandle = Meteor.subscribeWithPagination('allIssuesInProgress', Meteor.userId(), 5);
-allIssuesCompletedHandle = Meteor.subscribeWithPagination('allIssuesCompleted', Meteor.userId(), 5);
-allIssuesCancelledHandle = Meteor.subscribeWithPagination('allIssuesCancelled', Meteor.userId(), 5);
-
 Template.home.helpers();
 Template.homeBody.helpers({
   allIssuesNotStarted: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) 
-      return Issues.find({ status: 0, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}});
+    return Issues.find({status: 0});
   },
   allIssuesNotStartedCount: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) 
-      return Issues.find({ status: 0, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}}).count();
+    return Issues.find({status: 0}).count();
   },
   allIssuesNotStartedReady: function() {
     return !allIssuesNotStartedHandle.loading();
   },
   allIssuesNotStartedLoaded: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) {
-      console.log("handled loaded" + allIssuesNotStartedHandle.loaded());
-      return !allIssuesNotStartedHandle.loading() && 
-      Issues.find({ status: 0, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}}).count < allIssuesNotStartedHandle.loaded();
-    }
+    return !allIssuesNotStartedHandle.loading() && Issues.find({status: 0}).count() < allIssuesNotStartedHandle.loaded();
   },
-  allIssuesInProgress: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) 
-      return Issues.find({ status: 1, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}});
-  },
-  allIssuesInProgressCount: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) {
-      return Issues.find({ status: 1, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}}).count();
-    }
-  },  
-  allIssuesInProgressReady: function() {
-    return !allIssuesInProgressHandle.loading();
-  },
-  allIssuesInProgressLoaded: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) {
-      return !allIssuesInProgressHandle.loading() && 
-      Issues.find({ status: 1, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}}).count < allIssuesInProgressHandle.loaded();
-    }
-  },
-  allIssuesCompleted: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) 
-      return Issues.find({ status: 2, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}});
-  },
-  allIssuesCompletedCount: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) 
-      return Issues.find({ status: 2, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}}).count();
-  },
-  allIssuesCompletedReady: function() {
-    return !allIssuesCompletedHandle.loading();
-  },
-  allIssuesCompletedLoaded: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) {
-      return !allIssuesCompletedHandle.loading() &&
-      Issues.find({ status: 2, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}}).count() < allIssuesCompletedHandle.loaded();
-    }
-  },
-  allIssuesCancelled: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) 
-      return Issues.find({ status: 3, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}});
-  },
-  allIssuesCancelledCount: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) 
-      return Issues.find({ status: 3, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}}).count();
-  },
-  allIssuesCancelledReady: function() {
-    return !allIssuesCancelledHandle.loading();
-  },
-  allIssuesCancelledLoaded: function() {
-    var featuresOwnedByUser = Features.find({ownedByUserId: Meteor.userId()}).fetch();
-    if (featuresOwnedByUser) {
-      return !allIssuesCancelledHandle.loading() &&
-      Issues.find({ status: 3, featureId: {$in: _.pluck(featuresOwnedByUser, '_id')}}).count() < allIssuesCancelledHandle.loaded();
-    }
-  }
+  // allIssuesInProgress: function() {
+  //   return Issues.find({status: 1});
+  // },
+  // allIssuesInProgressCount: function() {
+  //   return Issues.find({status: 1}).count();
+  // },  
+  // allIssuesInProgressReady: function() {
+  //   return !allIssuesInProgressHandle.loading();
+  // },
+  // allIssuesInProgressLoaded: function() {
+  //   return !allIssuesInProgressHandle.loading() && Issues.find({status: 1}).count() < allIssuesInProgressHandle.loaded();
+  // },
+  // allIssuesCompleted: function() {
+  //   return Issues.find({status: 2});
+  // },
+  // allIssuesCompletedCount: function() {
+  //   return Issues.find({status: 2});
+  // },
+  // allIssuesCompletedReady: function() {
+  //   return !allIssuesCompletedHandle.loading();
+  // },
+  // allIssuesCompletedLoaded: function() {
+  //   return !allIssuesCompletedHandle.loading() && Issues.find({status: 2}).count() < allIssuesCompletedHandle.loaded();
+  // },
+  // allIssuesCancelled: function() {
+  //   return Issues.find({status: 3});
+  // },
+  // allIssuesCancelledCount: function() {
+  //   return Issues.find({status: 3}).count();
+  // },
+  // allIssuesCancelledReady: function() {
+  //   return !allIssuesCancelledHandle.loading();
+  // },
+  // allIssuesCancelledLoaded: function() {
+  //   return !allIssuesCancelledHandle.loading() && Issues.find({status: 3}).count() < allIssuesCancelledHandle.loaded();
+  // }
 });
 
 Template.issueInTable.helpers(Meteor.userFunctions);
 
 Template.home.events({
+  'click #not-started-load-more': function(event) {
+    event.preventDefault();
+    console.log("!");
+    allIssuesNotStartedHandle.loadNextPage();
+  },
   'click #createTeam': function(event) {
     event.preventDefault();
     Meteor.Router.to('createTeam');

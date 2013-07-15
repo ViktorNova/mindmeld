@@ -141,9 +141,12 @@ Meteor.Router.add({
   },
   '/:teamCode': { as: 'team', to: function(teamCode) {
 
-    setCurrentIds('team', teamCode, null, null, null, null);
+      setCurrentIds('team', teamCode, null, null, null, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId')) {
         return 'waiting';
       } else {
 
@@ -166,7 +169,10 @@ Meteor.Router.add({
 
       setCurrentIds('tag', teamCode, null, null, null, tag);
 
-      if (!Meteor.user() || !Session.get('currentTeamId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -188,7 +194,10 @@ Meteor.Router.add({
    
       setCurrentIds('editTeam', teamCode, null, null, null, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -210,7 +219,10 @@ Meteor.Router.add({
 
       setCurrentIds('createProject', teamCode, null, null, null, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -232,7 +244,10 @@ Meteor.Router.add({
 
       setCurrentIds('project', teamCode, projectCode, null, null, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId') || !Session.get('currentProjectId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId') || !Session.get('currentProjectId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -255,7 +270,10 @@ Meteor.Router.add({
 
       setCurrentIds('editProject', teamCode, projectCode, null, null, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId') || !Session.get('currentProjectId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId') || !Session.get('currentProjectId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -277,7 +295,10 @@ Meteor.Router.add({
 
       setCurrentIds('createFeature', teamCode, projectCode, null, null, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId') || !Session.get('currentProjectId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId') || !Session.get('currentProjectId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -299,7 +320,10 @@ Meteor.Router.add({
 
       setCurrentIds('feature', teamCode, projectCode, featureCode, null, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -325,7 +349,10 @@ Meteor.Router.add({
 
       setCurrentIds('editFeature', teamCode, projectCode, featureCode, null, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -347,7 +374,10 @@ Meteor.Router.add({
 
       setCurrentIds('createIssue', teamCode, projectCode, featureCode, null, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -369,7 +399,10 @@ Meteor.Router.add({
 
       setCurrentIds('issue', teamCode, projectCode, featureCode, issueCode, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId') || !Session.get('currentIssueId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId') || !Session.get('currentIssueId')) {
         return 'waiting';
       } else {
         var movementAttributes = {
@@ -392,7 +425,10 @@ Meteor.Router.add({
 
       setCurrentIds('editIssue', teamCode, projectCode, featureCode, issueCode, null);
 
-      if (!Meteor.user() || !Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId') || !Session.get('currentIssueId')) {
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId') || !Session.get('currentIssueId')) {
         return 'waiting';
       } else {
         var movementAttributes = {

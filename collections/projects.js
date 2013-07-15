@@ -15,7 +15,6 @@ Meteor.methods({
       future.wait();
     }
 
-    console.log("looking for Pcode " + projectCode);
     var project = Projects.findOne({code: projectCode});
     if (project) {
       return project._id;

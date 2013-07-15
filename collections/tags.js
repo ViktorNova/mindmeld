@@ -14,7 +14,6 @@ Meteor.methods({
       future.wait();
     }
 
-    console.log("looking for code " + tagCode);
     var tag = Tags.findOne({code: tagCode});
     if (tag) {
       return tag._id;

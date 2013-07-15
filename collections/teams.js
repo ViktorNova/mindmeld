@@ -15,7 +15,6 @@ Meteor.methods({
       future.wait();
     }
 
-    console.log("looking for Tcode " + teamCode);
     var team = Teams.findOne({code: teamCode});
     if (team) {
       return team._id;

@@ -1,8 +1,8 @@
 var allIssuesSub;
 
-Deps.autorun(function() {
-  allIssuesSub = Meteor.subscribeWithPagination('teamIssues', Session.get('currentTeamId'), 5);
-});
+// Deps.autorun(function() {
+//   allIssuesSub = Meteor.subscribeWithPagination('teamIssues', Session.get('currentTeamId'), 5);
+// });
 
 Template.feature.helpers(Meteor.userFunctions);
 Template.featureBody.helpers(_.extend({

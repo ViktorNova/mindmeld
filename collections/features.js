@@ -15,7 +15,6 @@ Meteor.methods({
       future.wait();
     }
 
-    console.log("looking for Fcode " + featureCode);
     var feature = Features.findOne({code: featureCode});
     if (feature) {
       return feature._id;
