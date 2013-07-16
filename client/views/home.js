@@ -4,7 +4,7 @@ completedPageCount = 5;
 cancelledPageCount = 5;
 
 Template.home.helpers();
-Template.homeBody.helpers({
+Template.homeBody.helpers(_.extend({
   allIssuesNotStarted: function() {
     return Issues.find({status: 0},{sort: {statusChanged: -1}});
   },
@@ -29,7 +29,7 @@ Template.homeBody.helpers({
   allIssuesCancelledCount: function() {
     return Issues.find({status: 3},{sort: {statusChanged: -1}}).count();
   }
-});
+},Meteor.userFunctions));
 
 Template.issueInTable.helpers(_.extend({
   displayIndex: function() {

@@ -104,7 +104,7 @@ Meteor.userFunctions = {
     return Meteor.Mindmeld.toStatusEnum(this.status) && Meteor.Mindmeld.toStatusEnum(this.status).display;
   },
   truncatedDetail: function() {    
-    return this.detail && this.detail.length > 320 ? this.detail.substring(0, 320) + "..." : this.detail;
+    return this.detail && this.detail.length > 160 ? this.detail.substring(0, 160) + "..." : this.detail;
   },
   currentProject: function() {
     if (Meteor.Router.page() === 'createProject')
