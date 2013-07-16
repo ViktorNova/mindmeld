@@ -5,15 +5,6 @@ Meteor.methods({
     if (!issueCode)
       return null;
 
-    if (! this.isSimulation) {
-      var Future = Npm.require('fibers/future');
-      var future = new Future();
-      Meteor.setTimeout(function() {
-        future.ret();
-      }, 5 * 100);
-      future.wait();
-    }
-
     var issue = Issues.findOne({code: issueCode});
     if (issue) {
       return issue._id;

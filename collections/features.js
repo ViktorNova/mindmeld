@@ -6,15 +6,6 @@ Meteor.methods({
     if (!featureCode)
       return null;
 
-    if (! this.isSimulation) {
-      var Future = Npm.require('fibers/future');
-      var future = new Future();
-      Meteor.setTimeout(function() {
-        future.ret();
-      }, 5 * 100);
-      future.wait();
-    }
-
     var feature = Features.findOne({code: featureCode});
     if (feature) {
       return feature._id;

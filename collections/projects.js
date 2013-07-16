@@ -6,15 +6,6 @@ Meteor.methods({
     if (!projectCode)
       return null;
 
-    if (! this.isSimulation) {
-      var Future = Npm.require('fibers/future');
-      var future = new Future();
-      Meteor.setTimeout(function() {
-        future.ret();
-      }, 5 * 100);
-      future.wait();
-    }
-
     var project = Projects.findOne({code: projectCode});
     if (project) {
       return project._id;
