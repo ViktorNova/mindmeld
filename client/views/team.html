@@ -18,11 +18,12 @@
         <h1>{{name}}</h1>
         <button id="editTeam" alt="Edit Team" class="btn"><i class="icon-edit"></i> Edit Team</button>
         <button id="createProject" class="btn"><i class="icon-plus"></i> Create Project</button>
+        <br /><br />
 
         <div class="row-fluid">
           <div class="span8">
             <div>{{detail}}</div>
-            <h2>Issue Tags Count</h2>
+            <h2>Tags by Count</h2>
             <ul class="nav nav-list">
               {{#each teamTags}}
               <li class="divider"></li>
@@ -35,12 +36,10 @@
             </ul>
           </div>
           <div class="span4">
-            <ul class="nav nav-list">
-              <li class="nav-header">Projects</li>
-              {{#each allProjects}}
-                {{> projectList}}
-              {{/each}}
-            </ul>
+            <h2>Projects</h2>
+            {{#each allProjects}}
+              {{> projectList}}
+            {{/each}}
           </div>
         </div>
       </div>

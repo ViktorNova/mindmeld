@@ -1,3 +1,6 @@
 <template name="issueList">
-  <li class="issue-list-item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a>{{{iconTags}}}</li>
+  <div class="item">
+  <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
+  {{truncatedDetail}}<br />
+  {{{iconTags}}}<br />
 </template>

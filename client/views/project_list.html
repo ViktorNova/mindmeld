@@ -1,3 +1,6 @@
 <template name="projectList">
-  <li class="project-list-item"><a href="{{projectPath teamCode code}}">{{teamName}} : {{name}}</a></li>
+  <div class="item">
+    <a href="{{projectPath teamCode code}}">{{teamName}} : {{name}}</a><br />
+    {{truncatedDetail}}
+  </div>
 </template>

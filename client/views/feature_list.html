@@ -1,3 +1,5 @@
 <template name="featureList">
-  <li class="feature-list-item"><a href="{{featurePath teamCode projectCode code}}">{{teamName}} : {{projectName}} : {{name}}</a></li>
+  <div class="item">
+  <a href="{{featurePath teamCode projectCode code}}">{{teamName}} : {{projectName}} : {{name}}</a><br />
+  {{truncatedDetail}}
 </template>

@@ -273,10 +273,10 @@ Meteor.methods({
     if (!projectId)
       throw new Meteor.Error(500, "Issue did not have a projectId");
 
-    var existingProject = IssueRankings.findOne({teamId: teamId, projectId: projectId});
+    var existingProject = Issues.findOne({teamId: teamId, projectId: projectId});
     if (!existingProject)
       throw new Meteor.Error(500, "No project matching that projectId found");
 
-    IssueRankings.update({ teamId: teamId, projectId: projectId}, {$pull: {issueIds: issue._id}});
+    Issues.update({ teamId: teamId, projectId: projectId}, {$pull: {issueIds: issue._id}});
   }
 });

@@ -18,6 +18,7 @@
       <h1>{{name}}</h1>
       <button id="editProject" class="btn"><i class="icon-edit"></i> Edit Project</button>
       <button id="createFeature" class="btn"><i class="icon-plus"></i> Create Feature</button>
+      <br /><br />
 
       <div class="row-fluid">
         <div class="span8">  
@@ -33,12 +34,10 @@
 
         </div>
         <div class="span4">
-          <ul class="nav nav-list">
-            <li class="nav-header">Features</li>
-            {{#each allFeatures}}
-              {{> featureList}}
-            {{/each}}
-          </ul>
+          <h2>Features</h2>
+          {{#each allFeatures}}
+            {{> featureList}}
+          {{/each}}
         </div>
       </div>
 
