@@ -1,21 +1,20 @@
 <template name="notifications">
-  <div class="span3">
-    <div class="well">
-
-    <ul class="nav nav-list">
-      <li class="nav-header">Activity</li>
-      {{#each notifications}}
-        {{> notification}}
-      {{/each}}
-    </ul>
-
-  </div>
-  </div>
+  {{#if notificationCount}}
+    <div class="span3">
+      <ul class="nav nav-list">
+        <li class="nav-header">Activity</li>
+        {{#each notifications}}
+          {{> notification}}
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
 </template>
 
 <template name="notification">
     <li>
       <p>
+      <a data-item="{{_id}}" class="close pull-right" href="#">&times;</a>
       <a href="/users/">{{createdByUsername}}</a> {{pastTense action oldStatus newStatus}} {{entity}} 
       {{#if isTeam}}
       <a href="{{teamPath teamCode}}#{{_id}}">

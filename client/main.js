@@ -1,4 +1,3 @@
-
 Deps.autorun(function() {
   Meteor.subscribe('teams', Meteor.userId());
   Meteor.subscribe('teamProjects', Meteor.userId(), Session.get('currentTeamId'));

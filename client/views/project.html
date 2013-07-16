@@ -13,7 +13,11 @@
 
 <template name="projectBody">
   {{#with currentProject}}
+  {{#if notificationCount}}
   <div class="span9">
+  {{else}}
+  <div class="span12">
+  {{/if}}
     <div class="row-fluid">
       <h1>{{name}}</h1>
       <button id="editProject" class="btn"><i class="icon-edit"></i> Edit Project</button>

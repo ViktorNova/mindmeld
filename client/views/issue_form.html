@@ -25,7 +25,11 @@
 </template>
 
 <template name="issueForm">
+  {{#if notificationCount}}
   <div class="span9">
+  {{else}}
+  <div class="span12">
+  {{/if}}
     <div class="row-fluid">
       <h1>{{capitalize action}} Issue</h1>
       <form id="{{action}}Issue">

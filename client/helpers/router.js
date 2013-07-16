@@ -96,7 +96,6 @@ function setCurrentIssueId(templateCode, issueCode) {
       Session.set('currentIssueId','NOTFOUND');
       return;
     }
-    console.log('setting currentIssueId to ' + result);
     Session.set('currentIssueId', result);
   });
 }
@@ -106,6 +105,9 @@ function setCurrentTagId(templateCode, tagCode) {
     Session.set('currentTagId', null);
     return;
   }
+
+  Session.set('currentTag', tagCode);
+
   Meteor.call('getTagId', tagCode, function(error, result) {
     if (Session.get('currentTemplateCode') != templateCode) {
       console.log("warning: current template code " + templateCode + " does not match session template code " + Session.get('currentTemplateCode'));

@@ -12,7 +12,11 @@
 </template>
 
 <template name="tagBody">
+  {{#if notifications.count}}
   <div class="span9">
+  {{else}}
+  <div class="span12">
+  {{/if}}
       <div class="row-fluid">
         <h1>Issues tagged with '{{currentTag}}'</h1>
         <div class="row-fluid">

@@ -12,7 +12,11 @@
 </template>
 
 <template name="teamBody">
+  {{#if notificationCount}}
   <div class="span9">
+  {{else}}
+  <div class="span12">
+  {{/if}}
     {{#with currentTeam}}
       <div class="row-fluid">
         <h1>{{name}}</h1>

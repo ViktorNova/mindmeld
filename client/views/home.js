@@ -79,7 +79,8 @@ function refreshPaginatedTable(itemRowClassSelector, moreRowSelector, pageCount)
   }
 
   if (pageCount >= s.length) {
-    $(moreRowSelector)[0].hidden = true;
+    if ($(moreRowSelector)[0])
+      $(moreRowSelector)[0].hidden = true;
   }
 }
 

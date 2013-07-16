@@ -12,7 +12,11 @@
 </template>
 
 <template name="featureBody">
+  {{#if notificationCount}}
   <div class="span9">
+  {{else}}
+  <div class="span12">
+  {{/if}}
     {{#with currentFeature}}
       <div class="row-fluid">
         <h1>{{name}}</h1>

@@ -12,7 +12,11 @@
 </template>
 
 <template name="issueBody">
+  {{#if notificationCount}}
   <div class="span9">
+  {{else}}
+  <div class="span12">
+  {{/if}}
     {{#with currentIssue}}
       <div class="row-fluid">
         <h1>{{name}}</h1>
