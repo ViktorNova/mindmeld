@@ -12,6 +12,7 @@ function setCurrentIds(templateCode, teamCode, projectCode, featureCode, issueCo
 function setCurrentTeamId(templateCode, teamCode) {
   if (!teamCode) {
     Session.set('currentTeamId', null);
+    Session.set('currentTeamCode', null);
     return;
   }
 
@@ -34,6 +35,7 @@ function setCurrentTeamId(templateCode, teamCode) {
 function setCurrentProjectId(templateCode, projectCode) {
   if (!projectCode) {
     Session.set('currentProjectId', null);
+    Session.set('currentProjectCode', null);
     return;
   }
 
@@ -56,6 +58,7 @@ function setCurrentProjectId(templateCode, projectCode) {
 function setCurrentFeatureId(templateCode, featureCode) {
   if (!featureCode) {
     Session.set('currentFeatureId');
+    Session.set('currentFeatureCode');
     return;
   }
 
@@ -79,6 +82,7 @@ function setCurrentFeatureId(templateCode, featureCode) {
 function setCurrentIssueId(templateCode, issueCode) {
   if (!issueCode) {
     Session.set('currentIssueId', null);
+    Session.get('currentIssueCode', null);
     return;
   }
 
@@ -103,6 +107,7 @@ function setCurrentIssueId(templateCode, issueCode) {
 function setCurrentTagId(templateCode, tagCode) {
   if (!tagCode) {
     Session.set('currentTagId', null);
+    Session.set('currentTag', null);
     return;
   }
 
@@ -121,14 +126,6 @@ function setCurrentTagId(templateCode, tagCode) {
     Session.set('currentTagId', result);
   });
 }
-
-// Meteor.Router.beforeRouting = function() {
-//   Session.set('currentTeamId', "LOADING");
-//   Session.set('currentProjectId', "LOADING");
-//   Session.set('currentFeatureId', "LOADING");
-//   Session.set('currentIssueId', "LOADING");
-//   Session.set('currentTagId', "LOADING");  
-// }
 
 Meteor.Router.add({
   '/signIn': 
