@@ -49,36 +49,40 @@
         <h2>Issues in Project</h2>
         <div class="row-fluid">
           <div class="span3">
-            <ul class="nav nav-list">
-              <li class="nav-header"><span class="label label-important">{{notStartedIssuesInProject.count}}</span> Not Started</li>
-              {{#each notStartedIssuesInProject}}
-                <li class="item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
-              {{/each}}
-            </ul>
+            <h3>Not Started <span class="label label-important">{{notStartedIssuesInProject.count}}</span></h3>
+            {{#each notStartedIssuesInProject}}
+              <div class="item">
+                <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
+                <strong>{{ownedByUsername}}</strong>
+              </div>
+            {{/each}}
           </div>
           <div class="span3">
-            <ul class="nav nav-list">
-              <li class="nav-header"><span class="label label-info">{{inProgressIssuesInProject.count}}</span> In Progress</li>
-              {{#each inProgressIssuesInProject}}
-                <li class="item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
-              {{/each}}
-            </ul>
+            <h3>In Progress <span class="label label-info">{{inProgressIssuesInProject.count}}</span></h3>
+            {{#each inProgressIssuesInProject}}
+              <div class="item">
+                <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
+                <strong>{{ownedByUsername}}</strong>
+              </div>
+            {{/each}}
           </div>
           <div class="span3">
-            <ul class="nav nav-list">
-              <li class="nav-header"><span class="label label-success">{{completedIssuesInProject.count}}</span> Completed</li>
-              {{#each completedIssuesInProject}}
-                <li class="item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
-              {{/each}}
-            </ul>
+            <h3>Completed <span class="label label-success">{{completedIssuesInProject.count}}</span></h3>
+            {{#each completedIssuesInProject}}
+              <div class="item">
+                <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
+                <strong>{{ownedByUsername}}</strong>
+              </div>
+            {{/each}}
           </div>
           <div class="span3">
-            <ul class="nav nav-list">
-              <li class="nav-header"><span class="label label-warning">{{cancelledIssuesInProject.count}}</span> Cancelled</li>
-              {{#each cancelledIssuesInProject}}
-                <li class="item"><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
-              {{/each}}
-            </ul>
+            <h3>Cancelled <span class="label label-warning">{{cancelledIssuesInProject.count}}</span></h3>
+            {{#each cancelledIssuesInProject}}
+              <div class="item">
+                <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
+                <strong>{{ownedByUsername}}</strong>
+              </div>
+            {{/each}}
           </div>
         </div>
       </div>
