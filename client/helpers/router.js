@@ -347,10 +347,6 @@ Meteor.Router.add({
         };
         Meteor.call('logMovement', movementAttributes);
   
-        console.log(Session.get('currentTeamId'));
-        console.log(Session.get('currentProjectId'));
-        console.log(Session.get('currentFeatureId'));
-
         if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND' || Session.get('currentFeatureId') == 'NOTFOUND') {
           return 'notFound';
         } else {

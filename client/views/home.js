@@ -33,7 +33,6 @@ Template.homeBody.helpers(_.extend({
 
 Template.issueInTable.helpers(_.extend({
   displayIndex: function() {
-    console.log(this);
     return this.toString();
   }
 }, Meteor.userFunctions));
