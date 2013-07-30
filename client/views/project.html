@@ -36,7 +36,7 @@
           <button id="editProject" class="btn"><i class="icon-edit"></i> Edit Project</button>
           <button id="createFeature" class="btn"><i class="icon-plus"></i> Create Feature</button>
           <br /><br />
-          <div>{{detail}}</div>
+          <div>{{#markdown}}{{detail}}{{/markdown}}</div>
           <h2><i class="icon-ticket"></i> Not Started Issues by Ranking</h2>
           <ul id="sortableIssueList" class="nav nav-list">
             {{#each notStartedIssuesByRanking}}
