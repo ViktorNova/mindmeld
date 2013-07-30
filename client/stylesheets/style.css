@@ -132,6 +132,11 @@ textarea {
   background-color: #DFEFFF;
 }
 
+.comment-body {
+  background-color: #DFEFFF;
+  border-bottom: 1px solid #DDD;
+}
+
 .content-gap {
   margin-top: 70px;
 }

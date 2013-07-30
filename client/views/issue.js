@@ -1,5 +1,7 @@
 Template.issue.helpers(Meteor.userFunctions);
 Template.issueBody.helpers(Meteor.userFunctions);
+Template.commentLinks.helpers(Meteor.userFunctions);
+Template.commentList.helpers(Meteor.userFunctions);
 
 Template.issueBody.events({
   'click #startIssue': function(event) {

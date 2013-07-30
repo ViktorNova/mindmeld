@@ -31,15 +31,16 @@
   {{/if}}
     {{#with currentFeature}}
       <div class="row-fluid">
-        <h1><i class="icon-heart"></i> {{name}}</h1>
-        <button id="editFeature" class="btn"><i class="icon-edit"></i> Edit Feature</button>
-        <button id="createIssue" class="btn"><i class="icon-plus"></i> Create Issue</button>
-        <br /><br />
-
-        <div class="row-fluid">
-          <p><strong>Owned by:</strong> {{ownedByUsername}}</p>
-          <div>{{#markdown}}{{detail}}{{/markdown}}</div>
+        <div class="btn-group">
+          <button id="editFeature" class="btn"><i class="icon-edit"></i> Edit Feature</button>
+          <button id="createIssue" class="btn"><i class="icon-plus"></i> Create Issue</button>
         </div>
+        <h1><i class="icon-certificate"></i> {{name}}</h1>
+        <div class="input-prepend">
+          <span class="add-on">Owner</span>
+          <input class="input-large" disabled type="text" value="{{ownedByUsername}}"></input>
+        </div>
+        <div>{{#markdown}}{{detail}}{{/markdown}}</div>
       </div>
     {{/with}}
   </div>

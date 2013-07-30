@@ -13,6 +13,9 @@ Template.notification.helpers(_.extend(
     },
     isIssue: function() {
       return this.entity == "issue";
+    },
+    isComment: function() {
+      return this.entity == "comment";
     }
   },
   Meteor.userFunctions)

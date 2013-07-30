@@ -49,4 +49,7 @@ Handlebars.registerHelper('pastTense', function(action, oldStatus, newStatus) {
     }
     return "statused";
   }
+  if (action == "add") {
+    return "added a ";
+  }
 });

@@ -11,14 +11,24 @@ Meteor.methods({
     var issue = Issues.findOne({_id: issueId, teamId: {$in:userTeamIds}});
     if (issue) {
       var comment = {
+        teamId: issue.teamId,
+        projectId: issue.projectId,
+        featureId: issue.featureId,
         issueId: issueId,
         comment: comment,
         createdAt: new Date(),
         createdByUserId: userId,
-        teamId: issue.teamId
       };
       var commentId = Comments.insert(comment);
-      return Comments.findOne(commentId);
+      var comment = Comments.findOne(commentId);
+
+      var notificationAttributes = {
+        entity: 'comment',
+        action: 'add',
+        commentId: comment._id,
+        issue: issue
+      }
+      Meteor.call('addCommentNotification', notificationAttributes);
     } else {
       throw new Meteor.Error(403, "You need to belong to the team that owns the issue in order to post an issue comment");      
     }

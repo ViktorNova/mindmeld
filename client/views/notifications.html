@@ -16,6 +16,7 @@
       <p>
       <a data-item="{{_id}}" class="close pull-right" href="#">&times;</a>
       <a href="/users/">{{createdByUsername}}</a> {{pastTense action oldStatus newStatus}} {{entity}} 
+      {{#if isComment}} to {{/if}}
       {{#if isTeam}}
       <a href="{{teamPath teamCode}}#{{_id}}">
       {{/if}}
@@ -27,6 +28,9 @@
       {{/if}}
       {{#if isIssue}}
       <a href="{{issuePath teamCode projectCode featureCode issueCode}}#{{_id}}">
+      {{/if}}
+      {{#if isComment}}
+      <a href="{{issuePath teamCode projectCode featureCode issueCode}}#{{commentId}}">
       {{/if}}
         {{name}}
       </a> <em>{{momentTimeAgoCreatedAt}}</em></p>

@@ -3,12 +3,30 @@
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
+      {{> commentLinks}}
       <div class="row-fluid">
         {{> notifications}}
         {{> issueBody}}
       </div>
     </div>
   </div>
+</template>
+
+<template name="commentLinks">
+  <div class="row-fluid">
+    {{#with currentIssue}}
+      <ul class="breadcrumb next-nav">
+        <li>Comments:</li>
+        {{#each issueComments}}
+          <li><span class="divider"><i class="icon-comments"></i></span>{{> commentList}}</li>
+        {{/each}}
+      </ul>
+    {{/with}}
+  </div>
+</template>
+
+<template name="commentList">
+  <a href="{{issuePath teamCode projectCode featureCode issueCode}}#{{_id}}">{{createdByUsername}} - {{momentTimeAgoCreatedAt}}</a>
 </template>
 
 <template name="issueBody">
@@ -18,36 +36,47 @@
   <div class="span12">
   {{/if}}
     {{#with currentIssue}}
+      <input type="hidden" name="_id" value="{{_id}}" />
       <div class="row-fluid">
+        <div class="btn-group">
+          <button id="editIssue" class="btn"><i class="icon-edit"></i> Edit Issue</button>
+          <button id="startIssue" class="btn" {{disableButtonIfNot statusNotStarted}} {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-play"></i> Start</button>
+          <button id="completeIssue" class="btn" {{disableButtonIfNot statusInProgress}} {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-ok"></i> Complete</button>
+          <button id="cancelIssue" class="btn" {{disableButtonIfNot statusInProgress}} {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-remove"></i> Cancel</button>
+          <button id="restartIssue" class="btn" {{disableButtonIfNot2 statusCompleted statusCancelled}} {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-repeat"></i> Restart</button>
+        </div>
         <h1><i class="icon-ticket"></i> {{name}}</h1>
-        <button id="editIssue" class="btn"><i class="icon-edit"></i> Edit Issue</button>
-        <input type="hidden" name="_id" value="{{_id}}" />
-        {{#if ownedByCurrentUser}}
-          <button id="startIssue" class="btn" {{disableButtonIfNot statusNotStarted}}><i class="icon-play"></i> Start</button>
-          <button id="completeIssue" class="btn" {{disableButtonIfNot statusInProgress}}><i class="icon-ok"></i> Complete</button>
-          <button id="cancelIssue" class="btn" {{disableButtonIfNot statusInProgress}}><i class="icon-remove"></i> Cancel</button>
-          <button id="restartIssue" class="btn" {{disableButtonIfNot2 statusCompleted statusCancelled}}><i class="icon-repeat"></i> Restart</button>
-        {{/if}}
-        <br /><br />
 
-        <p><strong>Owned by:</strong> {{ownedByUsername}} <strong>Status:</strong> {{statusDisplay}}<br>
-          {{{iconTags}}}</p>
-        <div class="issueDetail well">
+        <div class="input-prepend">
+          <span class="add-on">Owner</span>
+          <input class="input-large" disabled type="text" value="{{ownedByUsername}}"></input>
+        </div>
+        <div class="input-prepend">
+          <span class="add-on">Status</span>
+          <input class="input-large" disabled type="text" value="{{statusDisplay}}"></input>
+        </div>
+        <div class="issueDetail">
           {{#markdown}}{{detail}}{{/markdown}}
         </div>
+        <p>{{{iconTags}}}</p>
         <h2><i class="icon-comments"></i> Comments <span class="badge badge-info">{{issueComments.count}}</span></h2>
-        {{#each issueComments}}
-          <div class="item">
-            <div class="well">
-              {{createdByUsername}}<br />
-              {{momentTimeAgoCreatedAt}}<br />
-            </div>
-            {{#if currentUserOwnsComment}}
-              <a data-item="{{_id}}" class="comment-close pull-right" href=""><i data-item="{{_id}}" class="icon-remove"></i></a>
-            {{/if}}
-            {{#markdown}}{{comment}}{{/markdown}}
+        <div class="accordion" id="commentsParent">
+          <div id="{{_id}}" class="accordion-group">
+            {{#each issueComments}}
+              <div class="accordion-heading" id="{{_id}}">
+                {{#if currentUserOwnsComment}}
+                  <button data-item="{{_id}}" class="comment-close close pull-right" href="">&times;</button>
+                {{/if}}
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#commentsParent" href="#collapse{{_id}}">{{createdByUsername}} - {{momentTimeAgoCreatedAt}}</a>
+              </div>
+              <div id="collapse{{_id}}" class="accordion-body collapse comment-body">
+                <div class="accordion-inner">
+                  {{#markdown}}{{comment}}{{/markdown}}
+                </div>
+              </div>                  
+            {{/each}}
           </div>
-        {{/each}}
+        </div>
         <form id="newComment">
           <textarea name="newComment" class="span12" rows="6" tabindex="1"></textarea>
           <button type="submit" class="btn btn-primary" tabindex="2"><i class="icon-plus"></i> Add Comment</button>

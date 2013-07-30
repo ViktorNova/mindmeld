@@ -17,7 +17,7 @@
     <ul class="breadcrumb next-nav">
       <li>Features:</li>
       {{#each allFeatures}}
-        <li><span class="divider"><i class="icon-heart"></i></span>{{> featureList}}</li>
+        <li><span class="divider"><i class="icon-certificate"></i></span>{{> featureList}}</li>
       {{/each}}
     </ul>
   </div>
@@ -32,19 +32,20 @@
   {{/if}}
     <div class="row-fluid">
       <div class="row-fluid">
-          <h1><i class="icon-wrench"></i> {{name}}</h1>
+        <div class="btn-group">        
           <button id="editProject" class="btn"><i class="icon-edit"></i> Edit Project</button>
           <button id="createFeature" class="btn"><i class="icon-plus"></i> Create Feature</button>
-          <br /><br />
-          <div>{{#markdown}}{{detail}}{{/markdown}}</div>
-          <h2><i class="icon-ticket"></i> Not Started Issues by Ranking</h2>
-          <ul id="sortableIssueList" class="nav nav-list">
-            {{#each notStartedIssuesByRanking}}
-              <li id="{{_id}}">
-                <i class="icon-sort pull-right"></i><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a>
-              </li>
-            {{/each}}
-          </ul>
+        </div>
+        <h1><i class="icon-wrench"></i> {{name}}</h1>
+        <div>{{#markdown}}{{detail}}{{/markdown}}</div>
+        <h2><i class="icon-ticket"></i> Not Started Issues by Ranking</h2>
+        <ul id="sortableIssueList" class="nav nav-list">
+          {{#each notStartedIssuesByRanking}}
+            <li id="{{_id}}">
+              <i class="icon-sort pull-right"></i><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a>
+            </li>
+          {{/each}}
+        </ul>
       </div>
 
       <div class="row-fluid">
