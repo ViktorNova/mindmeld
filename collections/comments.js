@@ -18,7 +18,6 @@ Meteor.methods({
         teamId: issue.teamId
       };
       var commentId = Comments.insert(comment);
-      console.log('new commentid is ' + commentId);
       return Comments.findOne(commentId);
     } else {
       throw new Meteor.Error(403, "You need to belong to the team that owns the issue in order to post an issue comment");      
@@ -30,11 +29,13 @@ Meteor.methods({
       throw new Meteor.Error(401, "You need to login to remove an issue comment");
     var userTeams = Teams.find({members: {$in:[userId]}}).fetch();
     var userTeamIds = _.pluck(userTeams, '_id');
+    if (userTeamIds.length == 0)
+      throw new Meteor.Error(401, "You need to belong to a team to remove an issue comment");
     var comment = Comments.findOne({_id: commentId, teamId: {$in:userTeamIds}, createdByUserId: userId});
     if (comment) {
       Comments.remove(commentId);
     } else {
-      throw new Meteor.Error(401, "You need to own the comment you want to remove");
+      throw new Meteor.Error(404, "No comment was found matching those parameters");
     }
   }
 })

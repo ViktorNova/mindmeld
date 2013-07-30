@@ -43,7 +43,7 @@
               {{momentTimeAgoCreatedAt}}<br />
             </div>
             {{#if currentUserOwnsComment}}
-              <a data-item="{{_id}}" class="comment-close pull-right" href="#"><i class="icon-remove"></i></a>
+              <a data-item="{{_id}}" class="comment-close pull-right" href=""><i data-item="{{_id}}" class="icon-remove"></i></a>
             {{/if}}
             {{#markdown}}{{comment}}{{/markdown}}
           </div>
