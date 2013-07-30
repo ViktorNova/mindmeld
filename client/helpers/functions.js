@@ -76,6 +76,9 @@ Meteor.userFunctions = {
     return this.featureId && Features.findOne(this.featureId) &&
     Features.findOne(this.featureId).dueDate;
   },
+  issueComments: function() {
+    return Comments.find({issueId: this._id, teamId: this.teamId},{sort: {createdAt: -1}});
+  },
   currentTeam: function() {
     if (Meteor.Router.page() === 'createTeam')
       return {};
@@ -209,5 +212,8 @@ Meteor.userFunctions = {
   },
   cancelledIssuesInProject: function() {
     return Issues.find({teamId: Session.get('currentTeamId'), projectId: Session.get('currentProjectId'), status: 3},{sort: {statusChanged: -1}});
+  },
+  currentUserOwnsComment: function() {
+    return this.createdByUserId && this.createdByUserId == Meteor.userId();
   }
 };

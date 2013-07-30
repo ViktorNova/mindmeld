@@ -39,6 +39,14 @@ h6 {
   }
 }
 
+textarea {
+  font-family: 'Source Code Pro', monospace, sans-serif;
+}
+
+.issueDetail table tr td {
+  border: solid 1px #CFDFFF;
+}
+
 .spinner-space {
   padding: 25px;
 }

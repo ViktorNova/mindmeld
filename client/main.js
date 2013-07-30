@@ -12,6 +12,8 @@ Deps.autorun(function() {
   Meteor.subscribe('userIssues', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('userNotifications', Meteor.userId(), Session.get('currentTeamId'));
 
+  Meteor.subscribe('issueComments', Meteor.userId(), Session.get('currentTeamId'), Session.get('currentIssueId'));
+
   var movement = Movements.findOne({userId: Session.get('following')});
   if (movement) {
     Meteor.Router.to(Meteor.Router[movement.template + "Path"](movement.templatePathAttributes));

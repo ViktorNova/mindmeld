@@ -50,5 +50,22 @@ Template.issueBody.events({
       Meteor.userFunctions.projectCode.call(this),
       Meteor.userFunctions.featureCode.call(this),
       this.code);
+  },
+  'submit form': function(event) {
+    event.preventDefault();
+    var issueId = $(document).find('[name=_id]').val();  
+    var comment = $(document).find('[name=newComment]').val(); 
+    Meteor.call('addIssueComment', issueId, comment, function(error) {
+      if (error) {
+        Meteor.Errors.throw(error.reason);
+        //TODO: handle errors in notifications
+      }
+      $(document).find('[name=newComment]').val('');
+    });
+  },
+  'click .comment-close': function(event) {
+    event.preventDefault();
+    var commentId = event.target.dataset.item;
+    Meteor.call('removeIssueComment', commentId);
   }
 })

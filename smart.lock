@@ -11,7 +11,8 @@
       "jquery-ui-bootstrap": {},
       "font-awesome": {},
       "paginated-subscription": {},
-      "spin": {}
+      "spin": {},
+      "marked": {}
     },
     "packages": {
       "accounts-ui-bootstrap-dropdown": {
@@ -63,6 +64,11 @@
         "git": "https://github.com/SachaG/meteor-spin.git",
         "tag": "v0.2.0",
         "commit": "fd3a2871a69442848b4b4e74f5e1ae28fa4a95a4"
+      },
+      "marked": {
+        "git": "https://github.com/chuangbo/meteor-marked.git",
+        "tag": "v0.2.8.2",
+        "commit": "f5d9d6dbc013ad1bd568fa610eb4d8a479943f18"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

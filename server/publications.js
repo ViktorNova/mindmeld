@@ -49,4 +49,9 @@ Meteor.publish('teamTags', function(userId, teamId) {
   if (team)
     return Tags.find({teamId: teamId},{sort: {count: -1 }});
 });
+Meteor.publish('issueComments', function(userId, teamId, issueId) {  
+  var team = Teams.findOne({_id: teamId, members: {$in: [userId]}});
+  if (team)
+    return Comments.find({teamId: teamId, issueId: issueId},{sort: {createdAt: -1}});
+});
 
