@@ -3,11 +3,23 @@
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
+      {{> teamLinks}}
       <div class="row-fluid">
         {{> notifications}}
         {{> homeBody}}
       </div>
     </div>
+  </div>
+</template>
+
+<template name="teamLinks">
+  <div class="row-fluid">
+    <ul class="breadcrumb next-nav">
+      <li>Teams:</li>
+      {{#each teamsIBelongTo}}
+        <li><span class="divider"><i class="icon-group"></i></span>{{> teamList}}</li>
+      {{/each}}
+    </ul>
   </div>
 </template>
 
@@ -19,105 +31,98 @@
   {{/if}}
     <div class="row-fluid">
       <div class="row-fluid">
-        <div class="span8">
-          <h1>Home</h1>
-          <p><button id="createTeam" class="btn"><i class="icon-plus"></i> Create Team</button></p>
-          <h2>All Issues</h2>
-          <div class="tabbable">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab-not-started" data-toggle="tab">Not Started <span class="badge badge-info">{{allIssuesNotStartedCount}}</span></a></li>
-              <li><a href="#tab-in-progress" data-toggle="tab">In Progress <span class="badge badge-info">{{allIssuesInProgressCount}}</span></a></li>
-              <li><a href="#tab-completed" data-toggle="tab">Completed <span class="badge badge-info">{{allIssuesCompletedCount}}</span></a></li>
-              <li><a href="#tab-cancelled" data-toggle="tab">Cancelled <span class="badge badge-info">{{allIssuesCancelledCount}}</span></a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane active" id="tab-not-started">
-                <table class="table table-striped not-started">
-                  {{#if allIssuesNotStartedCount}}
-                      <tr>
-                        <td>Issues Not Started</th>
-                        <td>Created</th>
-                      </tr>
-                    {{#each allIssuesNotStarted}}
-                      {{> issueInTable}}
-                    {{/each}}
-                    <tr id="not-started-footer">
-                      <td colspan="2"><div class="text-center"><a href="" id="more-not-started">More</a></div></td>
-                    </tr>
-                  {{else}}
+        <h1><i class="icon-home"></i> Home</h1>
+        <p><button id="createTeam" class="btn"><i class="icon-plus"></i> Create Team</button></p>
+        <h2><i class="icon-ticket"></i> All Issues</h2>
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab-not-started" data-toggle="tab">Not Started <span class="badge badge-important">{{allIssuesNotStartedCount}}</span></a></li>
+            <li><a href="#tab-in-progress" data-toggle="tab">In Progress <span class="badge badge-info">{{allIssuesInProgressCount}}</span></a></li>
+            <li><a href="#tab-completed" data-toggle="tab">Completed <span class="badge badge-success">{{allIssuesCompletedCount}}</span></a></li>
+            <li><a href="#tab-cancelled" data-toggle="tab">Cancelled <span class="badge badge-warning">{{allIssuesCancelledCount}}</span></a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-not-started">
+              <table class="table table-striped not-started">
+                {{#if allIssuesNotStartedCount}}
                     <tr>
-                      <td><div class="text-center"><em>No Issues</em></div></td>
+                      <td>Issues Not Started</th>
+                      <td>Created</th>
                     </tr>
-                  {{/if}}
-                </table>
-              </div>
-              <div class="tab-pane" id="tab-in-progress">
-                <table class="table table-striped in-progress">
-                  {{#if allIssuesInProgressCount}}
-                    <tr>
-                      <td>Issues In Progress</td>
-                      <td>Started</td>
-                    </tr>
-                    {{#each allIssuesInProgress}}
-                      {{> issueInTable}}
-                    {{/each}}
-                    <tr id="in-progress-footer">
-                      <td colspan="2"><div class="text-center"><a href="" id="more-in-progress">More</a></div></td>
-                    </tr>
-                  {{else}}
-                    <tr>
-                      <td colspan="2"><div class="text-center"><em>No Issues</em></div></td>
-                    </tr>                  
-                  {{/if}}
-                </table>
-              </div>
-              <div class="tab-pane" id="tab-completed">
-                <table class="table table-striped completed">
-                  {{#if allIssuesCompletedCount}}
-                  <tr>
-                    <td>Issues Completed</td>
-                    <td>Completed</td>
-                  </tr>
-                  {{#each allIssuesCompleted}}
+                  {{#each allIssuesNotStarted}}
                     {{> issueInTable}}
                   {{/each}}
-                  <tr id="completed-footer">
-                    <td colspan="2"><div class="text-center"><a href="" id="more-completed">More</a></div></td>
+                  <tr id="not-started-footer">
+                    <td colspan="2"><div class="text-center"><a href="" id="more-not-started">More</a></div></td>
                   </tr>
-                  {{else}}
+                {{else}}
+                  <tr>
+                    <td><div class="text-center"><em>No Issues</em></div></td>
+                  </tr>
+                {{/if}}
+              </table>
+            </div>
+            <div class="tab-pane" id="tab-in-progress">
+              <table class="table table-striped in-progress">
+                {{#if allIssuesInProgressCount}}
+                  <tr>
+                    <td>Issues In Progress</td>
+                    <td>Started</td>
+                  </tr>
+                  {{#each allIssuesInProgress}}
+                    {{> issueInTable}}
+                  {{/each}}
+                  <tr id="in-progress-footer">
+                    <td colspan="2"><div class="text-center"><a href="" id="more-in-progress">More</a></div></td>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td colspan="2"><div class="text-center"><em>No Issues</em></div></td>
+                  </tr>                  
+                {{/if}}
+              </table>
+            </div>
+            <div class="tab-pane" id="tab-completed">
+              <table class="table table-striped completed">
+                {{#if allIssuesCompletedCount}}
+                <tr>
+                  <td>Issues Completed</td>
+                  <td>Completed</td>
+                </tr>
+                {{#each allIssuesCompleted}}
+                  {{> issueInTable}}
+                {{/each}}
+                <tr id="completed-footer">
+                  <td colspan="2"><div class="text-center"><a href="" id="more-completed">More</a></div></td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="2"><div class="text-center"><em>No Issues</em></div></td>
+                </tr>
+                {{/if}}
+              </table>
+            </div>
+            <div class="tab-pane" id="tab-cancelled">
+              <table class="table table-striped cancelled">
+                {{#if allIssuesCancelledCount}}
+                  <tr>
+                    <td>Issues Cancelled</td>
+                    <td>Cancelled</td>
+                  </tr>
+                  {{#each allIssuesCancelled}}
+                    {{> issueInTable}}
+                  {{/each}}
+                  <tr id="cancelled-footer">
+                    <td colspan="2"><div class="text-center"><a href="" id="more-cancelled">More</a></div></td>
+                  </tr>
+                {{else}}                  
                   <tr>
                     <td colspan="2"><div class="text-center"><em>No Issues</em></div></td>
                   </tr>
-                  {{/if}}
-                </table>
-              </div>
-              <div class="tab-pane" id="tab-cancelled">
-                <table class="table table-striped cancelled">
-                  {{#if allIssuesCancelledCount}}
-                    <tr>
-                      <td>Issues Cancelled</td>
-                      <td>Cancelled</td>
-                    </tr>
-                    {{#each allIssuesCancelled}}
-                      {{> issueInTable}}
-                    {{/each}}
-                    <tr id="cancelled-footer">
-                      <td colspan="2"><div class="text-center"><a href="" id="more-cancelled">More</a></div></td>
-                    </tr>
-                  {{else}}                  
-                    <tr>
-                      <td colspan="2"><div class="text-center"><em>No Issues</em></div></td>
-                    </tr>
-                  {{/if}}
-                </table>
-              </div>
+                {{/if}}
+              </table>
             </div>
           </div>
-        </div>
-        <div class="span4">
-          {{> myTeams}}
-          {{> myProjects}}
-          {{> myFeatures}}
         </div>
       </div>
     </div>

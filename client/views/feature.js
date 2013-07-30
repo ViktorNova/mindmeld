@@ -1,5 +1,5 @@
 Template.feature.helpers(Meteor.userFunctions);
-Template.featureBody.helpers(_.extend({
+Template.issueLinks.helpers(_.extend({
   allIssues: function() {
     var issues = Issues.find({
       teamId: Session.get('currentTeamId'),
@@ -8,7 +8,9 @@ Template.featureBody.helpers(_.extend({
     },{sort: {statusChanged: -1}});
     return issues;
   }
-},Meteor.userFunctions));
+}, Meteor.userFunctions));
+
+Template.featureBody.helpers(Meteor.userFunctions);
 
 Template.featureBody.events({
   'click #createIssue': function(event) {

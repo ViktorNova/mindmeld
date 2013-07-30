@@ -2,6 +2,22 @@ body, h1, h2, h3, h4, h5, h6, input, button, textarea {
   font-family: 'Open Sans', sans-serif;
 }
 
+h1 {
+  font-size: 20pt;
+}
+
+h2 {
+  font-size: 18pt;
+}
+h3 {
+  font-size: 16pt;
+}
+h4 {
+  font-size: 14pt;
+}
+h5 {
+  font-size: 12pt;
+}
 h6 {
   font-size: 11px;
   font-weight: bold;
@@ -72,11 +88,23 @@ textarea {
 }
 
 .breadcrumb i {
-  color: #E4D181;
+  color: #978057;
 }
 
 .nav-header {
   color: #978057;
+}
+
+.next-nav {
+  background-color: #E4D181;
+}
+
+.breadcrumb li {
+  text-shadow: none;
+}
+
+.next-nav li i {
+  color: #667F97;
 }
 
 .navbar { margin-bottom: 20px }

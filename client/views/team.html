@@ -3,11 +3,23 @@
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
+      {{> projectLinks}}
       <div class="row-fluid">
         {{> notifications}}
         {{> teamBody}}
       </div>
     </div>
+  </div>
+</template>
+
+<template name="projectLinks">
+  <div class="row-fluid">
+    <ul class="breadcrumb next-nav">
+      <li>Projects:</li>
+      {{#each allProjects}}
+        <li><span class="divider"><i class="icon-wrench"></i></span>{{> projectList}}</li>
+      {{/each}}
+    </ul>
   </div>
 </template>
 
@@ -19,15 +31,13 @@
   {{/if}}
     {{#with currentTeam}}
       <div class="row-fluid">
-
         <div class="row-fluid">
-          <div class="span8">
-            <h1>{{name}}</h1>
+            <h1><i class="icon-group"></i> {{name}}</h1>
             <button id="editTeam" alt="Edit Team" class="btn"><i class="icon-edit"></i> Edit Team</button>
             <button id="createProject" class="btn"><i class="icon-plus"></i> Create Project</button>
             <br /><br />
-            <div>{{detail}}</div>
-            <h2>Tags by Count</h2>
+            <div>{{#markdown}}{{detail}}{{/markdown}}</div>
+            <h2><i class="icon-tags"></i> Tags by Count</h2>
             <ul class="nav nav-list">
               {{#each teamTags}}
               <li class="divider"></li>
@@ -38,13 +48,6 @@
                 <span class="label label-warning">{{cancelledIssuesWithTagCount}} cancelled</span></li>
               {{/each}}
             </ul>
-          </div>
-          <div class="span4">
-            <h2>Projects</h2>
-            {{#each allProjects}}
-              {{> projectList}}
-            {{/each}}
-          </div>
         </div>
       </div>
     {{/with}}

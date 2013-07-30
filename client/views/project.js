@@ -1,11 +1,13 @@
 Template.project.helpers(Meteor.userFunctions);
-Template.projectBody.helpers(_.extend({
+Template.featureLinks.helpers(_.extend({
   allFeatures: function() {
     return Features.find({
       teamId: Session.get('currentTeamId'),
       projectId: Session.get('currentProjectId')
     },{sort: {updatedAt: -1}});
-  },
+  }  
+}, Meteor.userFunctions));
+Template.projectBody.helpers(_.extend({
   notStartedIssuesByRanking: function() {
     return Issues.find({ teamId: this.teamId, projectId: this._id, status: 0, rank: {$exists: true} },{sort: {rank: 1}});
   }

@@ -11,6 +11,15 @@ Handlebars.registerHelper('iconify', function(action) {
   }
 });
 
+Handlebars.registerHelper('disableButtonIfNot',function(condition) {
+  return (!condition) ? " disabled " : ""; 
+});
+
+Handlebars.registerHelper('disableButtonIfNot2',function(condition, condition2) {
+  return (!(condition ||condition2)) ? " disabled " : ""; 
+});
+
+
 Handlebars.registerHelper('pastTense', function(action, oldStatus, newStatus) {
   if (action === "create") {
     return "created";

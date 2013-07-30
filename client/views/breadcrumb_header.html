@@ -8,26 +8,25 @@
     {{/if}}
     {{#with currentTeam}}
       {{#if name}}
-        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{teamPath code}}">{{name}}</a></li>
+        <li><span class="divider"><i class="icon-group"></i></span><a class="" href="{{teamPath code}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     {{#if currentTag}}
-        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span>Tags</li>
-        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span>{{currentTag}}</li>
+        <li><span class="divider"><i class="icon-tag"></i></span><a class="" href="{{tagPath currentTeam.code currentTag}}">{{currentTag}}</a></li>
     {{/if}}
     {{#with currentProject}}
       {{#if name}}
-        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{projectPath teamCode code}}">{{name}}</a></li>
+        <li><span class="divider"><i class="icon-wrench"></i></span><a class="" href="{{projectPath teamCode code}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     {{#with currentFeature}}
       {{#if name}}
-        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{featurePath teamCode projectCode code}}">{{name}}</a></li>
+        <li><span class="divider"><i class="icon-heart"></i></span><a class="" href="{{featurePath teamCode projectCode code}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     {{#with currentIssue}}
       {{#if name}}
-        <li><span class="divider"><i class="icon-chevron-sign-right"></i></span><a class="" href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+        <li><span class="divider"><i class="icon-ticket"></i></span><a class="" href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     </ul>

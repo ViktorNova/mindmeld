@@ -43,6 +43,11 @@ Template.issueBody.events({
       }
     });
   },
+  'click #restartIssue': function(event) {
+    event.preventDefault();
+    var issueId = $(document).find('[name=_id]').val();
+    Meteor.call('startIssue', issueId);
+  },
   'click #editIssue': function(event) {
     event.preventDefault();
     Meteor.Router.to('editIssue',

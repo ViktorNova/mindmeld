@@ -4,6 +4,12 @@ completedPageCount = 5;
 cancelledPageCount = 5;
 
 Template.home.helpers();
+Template.teamLinks.helpers(_.extend({
+  teamsIBelongTo: function() {
+    return Teams.find({members: {$in:[Meteor.userId()]}});
+  }
+}, Meteor.userFunctions));
+
 Template.homeBody.helpers(_.extend({
   allIssuesNotStarted: function() {
     return Issues.find({status: 0},{sort: {statusChanged: -1}});

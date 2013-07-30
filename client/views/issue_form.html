@@ -41,17 +41,17 @@
           <input type="hidden" name="featureId" value="{{featureId}}" />
           <input type="hidden" name="_id" value="{{_id}}" />
           <label class="control-label" for="name">Name</label>
-          <input name="name" class="span12" type="text" maxlength="80" value="{{name}}" />
+          <input name="name" class="span12" type="text" maxlength="80" value="{{name}}" autofocus tabindex="1" />
           <label class="control-label" for="detail">Detail</label>
-          <textarea name="detail" class="span12" rows="12">{{detail}}</textarea>
+          <textarea name="detail" class="span12" rows="12" tabindex="2">{{detail}}</textarea>
           <label class="control-label" for="tags">Tags (valid characters are A-Z, a-z, 0-9, and -)</label>
-          <input id="tags" name="tags" type="text" class="span12" value="{{tagsAsCommaSeperatedString}}" />
+          <input id="tags" name="tags" type="text" class="span12" value="{{tagsAsCommaSeperatedString}}" tabindex="3" />
           </select>
         {{/with}}
         </fieldset>
         <div class="pull-right">
-          <button type="submit" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
-          <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
+          <button type="submit" class="btn btn-primary" tabindex="4"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+          <button type="button" id="delete" class="btn btn-danger" tabindex="5"><i class="icon-trash icon-large"></i> Delete</button>
         </div>
       </form>
     </div>

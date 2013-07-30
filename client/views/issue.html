@@ -19,23 +19,14 @@
   {{/if}}
     {{#with currentIssue}}
       <div class="row-fluid">
-        <h1>{{name}}</h1>
+        <h1><i class="icon-ticket"></i> {{name}}</h1>
         <button id="editIssue" class="btn"><i class="icon-edit"></i> Edit Issue</button>
         <input type="hidden" name="_id" value="{{_id}}" />
         {{#if ownedByCurrentUser}}
-          {{#if statusNotStarted}}
-            <button id="startIssue" class="btn">Start</button>
-          {{/if}}
-          {{#if statusInProgress}}
-            <button id="cancelIssue" class="btn">Cancel</button>
-            <button id="completeIssue" class="btn">Complete</button>
-          {{/if}}
-          {{#if statusCompleted}}
-            <button id="startIssue" class="btn">Restart</button>
-          {{/if}}
-          {{#if statusCancelled}}
-            <button id="startIssue" class="btn">Restart</button>
-          {{/if}}
+          <button id="startIssue" class="btn" {{disableButtonIfNot statusNotStarted}}><i class="icon-play"></i> Start</button>
+          <button id="completeIssue" class="btn" {{disableButtonIfNot statusInProgress}}><i class="icon-ok"></i> Complete</button>
+          <button id="cancelIssue" class="btn" {{disableButtonIfNot statusInProgress}}><i class="icon-remove"></i> Cancel</button>
+          <button id="restartIssue" class="btn" {{disableButtonIfNot2 statusCompleted statusCancelled}}><i class="icon-repeat"></i> Restart</button>
         {{/if}}
         <br /><br />
 
@@ -44,23 +35,22 @@
         <div class="issueDetail well">
           {{#markdown}}{{detail}}{{/markdown}}
         </div>
-        <h2>Comments ({{issueComments.count}})</h2>
+        <h2><i class="icon-comments"></i> Comments <span class="badge badge-info">{{issueComments.count}}</span></h2>
         {{#each issueComments}}
           <div class="item">
             <div class="well">
-              {{_id}}<br />
               {{createdByUsername}}<br />
               {{momentTimeAgoCreatedAt}}<br />
             </div>
             {{#if currentUserOwnsComment}}
-              <a data-item="{{_id}}" class="comment-close pull-right" href="#">&times;</a>
+              <a data-item="{{_id}}" class="comment-close pull-right" href="#"><i class="icon-remove"></i></a>
             {{/if}}
             {{#markdown}}{{comment}}{{/markdown}}
           </div>
         {{/each}}
         <form id="newComment">
-          <textarea name="newComment" autofocus="autofocus" class="span12" rows="6"></textarea>
-          <button type="submit" class="btn btn-primary"><i class="icon-plus"></i> Add Comment</button>
+          <textarea name="newComment" class="span12" rows="6" tabindex="1"></textarea>
+          <button type="submit" class="btn btn-primary" tabindex="2"><i class="icon-plus"></i> Add Comment</button>
         </form>
       </div>
     {{/with}}

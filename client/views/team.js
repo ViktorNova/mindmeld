@@ -1,8 +1,11 @@
 Template.team.helpers(Meteor.userFunctions);
-Template.teamBody.helpers(_.extend({
+Template.projectLinks.helpers(_.extend({
   allProjects: function() {
     return Projects.find({teamId: Session.get('currentTeamId')},{sort: {statusChanged: -1}});
-  },
+  }
+},Meteor.userFunctions));
+
+Template.teamBody.helpers(_.extend({
   teamTags: function(){
     return Tags.find({teamId: this._id }, {sort: {count: -1}});
   },
