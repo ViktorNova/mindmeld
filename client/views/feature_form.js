@@ -9,7 +9,7 @@ Template.featureForm.rendered = function() {
 
   $(document).ready(function() { 
     $("#ownedByUserId").val(ownedByUserId);
-    $("#ownedByUserId").select2(); 
+    $("#ownedByUserId").select2({placeholder: 'Owner'}); 
   });
 }
 
@@ -75,6 +75,15 @@ Template.featureForm.events({
           feature.code);
       }
     });
+  },
+  'click #cancel': function(event) {
+    event.preventDefault();
+    var featureId = $(document).find('[name=_id]').val();
+    var feature = Features.findOne(featureId);
+    Meteor.Router.to('feature',
+      Meteor.userFunctions.teamCode.call(feature),
+      Meteor.userFunctions.projectCode.call(feature),
+      feature.code);
   },
   'click #delete': function(event) {
     event.preventDefault();

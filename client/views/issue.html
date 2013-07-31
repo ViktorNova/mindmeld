@@ -39,7 +39,7 @@
     <button id="restartIssue" class="btn" disabled><i class="icon-repeat"></i> Restart</button>
   {{else}}
     <button id="editIssue" class="btn"><i class="icon-edit"></i> Edit Issue</button>
-    <button id="deleteIssue" class="btn"><i class="icon-trash"></i> Delete Issue</button>
+    <button id="deleteIssue" class="btn" {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-trash"></i> Delete Issue</button>
     <button id="startIssue" class="btn" {{disableButtonIfNot statusNotStarted}} {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-play"></i> Start</button>
     <button id="completeIssue" class="btn" {{disableButtonIfNot statusInProgress}} {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-ok"></i> Complete</button>
     <button id="cancelIssue" class="btn" {{disableButtonIfNot statusInProgress}} {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-remove"></i> Cancel</button>

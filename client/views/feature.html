@@ -23,6 +23,18 @@
   </div>
 </template>
 
+<template name="featureButtons">
+  {{#if action}}
+    <button id="editFeature" class="btn" disabled><i class="icon-edit"></i> Edit Feature</button>
+    <button id="deleteFeature" class="btn" disabled><i class="icon-trash"></i> Delete Feature</button>
+    <button id="createIssue" class="btn" disabled><i class="icon-plus"></i> Create Issue</button>
+  {{else}}
+    <button id="editFeature" class="btn"><i class="icon-edit"></i> Edit Feature</button>
+    <button id="deleteFeature" class="btn" {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-trash"></i> Delete Feature</button>
+    <button id="createIssue" class="btn"><i class="icon-plus"></i> Create Issue</button>
+  {{/if}}
+</template>
+
 <template name="featureBody">
   {{#if notificationCount}}
   <div class="span9">
@@ -31,10 +43,7 @@
   {{/if}}
     {{#with currentFeature}}
       <div class="row-fluid">
-        <div class="btn-group">
-          <button id="editFeature" class="btn"><i class="icon-edit"></i> Edit Feature</button>
-          <button id="createIssue" class="btn"><i class="icon-plus"></i> Create Issue</button>
-        </div>
+        {{> featureButtons}}
         <h1><i class="icon-certificate"></i> {{name}}</h1>
         <div class="input-prepend">
           <span class="add-on">Owner</span>

@@ -3,6 +3,7 @@
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
+      {{> issueLinks}}
       <div class="row-fluid">
         {{> notifications}}
         {{> featureForm}}
@@ -16,6 +17,7 @@
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
+      {{> issueLinks}}
       <div class="row-fluid">
         {{> notifications}}
         {{> featureForm}}
@@ -31,30 +33,30 @@
   <div class="span12">
   {{/if}}
     <div class="row-fluid">
-      <h1>{{capitalize action}} Feature</h1>
-      <form id="{{action}}Feature">
-        <fieldset>
-        {{#with currentFeature}}
-          <input type="hidden" name="teamId" value="{{teamId}}" />
-          <input type="hidden" name="projectId" value="{{projectId}}" />
-          <input type="hidden" name="_id" value="{{_id}}" />
-          <label class="control-label" for="name">Name</label>
-          <input name="name" class="span12" type="text" maxlength="80" value="{{name}}" />
-          <label class="control-label" for="detail">Detail</label>
+      {{#with currentFeature}}
+        {{> featureButtons}}
+        <form id="{{action}}Feature">
+          <fieldset>
+            <input type="hidden" name="teamId" value="{{teamId}}" />
+            <input type="hidden" name="projectId" value="{{projectId}}" />
+            <input type="hidden" name="_id" value="{{_id}}" />
+            <h1 class="pull-left"><i class="icon-certificate"></i></h1>
+            <input name="name" id="name-input" class="issue-name-input pull-left span11" type="text" maxlength="80" value="{{name}}" autofocus tabindex="1" />
+
+            <select name="ownedByUserId" id="ownedByUserId">
+              {{#each members}}
+                {{> owner}}
+              {{/each}}
+            </select>
+
           <textarea name="detail" class="span12" rows="12">{{detail}}</textarea>
-          <label class="control-label" for="ownedByUserId">Owner</label>
-          <select name="ownedByUserId" id="ownedByUserId">
-            {{#each members}}
-              {{> owner}}
-            {{/each}}
-          </select>
-        {{/with}}
-        </fieldset>
-        <div class="pull-right">
-          <button type="button" id="{{action}}" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
-          <button type="button" id="delete" class="btn btn-danger"><i class="icon-trash icon-large"></i> Delete</button>
-        </div>
-      </form>
+          </fieldset>
+          <div>
+            <button type="button" id="{{action}}" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+            <button type="button" id="cancel" class="btn btn-warning" tabindex="5"><i class="icon-remove icon-large"></i> Cancel</button>
+          </div>
+        </form>
+      {{/with}}
     </div>
   </div>
 </template>

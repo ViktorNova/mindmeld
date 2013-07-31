@@ -1,4 +1,5 @@
 Template.feature.helpers(Meteor.userFunctions);
+Template.featureButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 Template.issueLinks.helpers(_.extend({
   allIssues: function() {
     var issues = Issues.find({
