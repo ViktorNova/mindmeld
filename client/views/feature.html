@@ -42,6 +42,7 @@
   <div class="span12">
   {{/if}}
     {{#with currentFeature}}
+      <input type="hidden" name="_id" value="{{_id}}" />
       <div class="row-fluid">
         {{> featureButtons}}
         <h1><i class="icon-certificate"></i> {{name}}</h1>

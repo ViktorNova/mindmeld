@@ -84,23 +84,5 @@ Template.featureForm.events({
       Meteor.userFunctions.teamCode.call(feature),
       Meteor.userFunctions.projectCode.call(feature),
       feature.code);
-  },
-  'click #delete': function(event) {
-    event.preventDefault();
-
-    var featureId = $(document).find('[name=_id]').val();
-
-    Meteor.call('deleteFeature', featureId, function(error) {
-      if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TOO: handle errors in notifications
-      } else {
-        var project = Meteor.userFunctions.currentProject();
-        Meteor.Router.to('project', 
-          Meteor.userFunctions.teamCode.call(project),
-          project.code
-        );
-      }
-    })
   }
 });
