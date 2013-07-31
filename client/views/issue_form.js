@@ -26,25 +26,6 @@ Template.issueForm.events({
       Meteor.userFunctions.featureCode.call(issue),
       issue.code);
   },
-  'click #delete': function(event) {
-    event.preventDefault();
-
-    var issueId = $(document).find('[name=_id]').val();
-
-    Meteor.call('deleteIssue', issueId, function(error) {
-      if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TOO: handle errors in notifications
-      } else {
-        var feature = Meteor.userFunctions.currentFeature();
-        Meteor.Router.to('feature', 
-          Meteor.userFunctions.teamCode.call(feature),
-          Meteor.userFunctions.projectCode.call(feature),
-          feature.code
-        );
-      }
-    })
-  },
 	'submit form': function(event) {
 		event.preventDefault();
 
