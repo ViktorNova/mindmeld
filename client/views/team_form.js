@@ -66,5 +66,12 @@ Template.teamForm.events({
         Meteor.Router.to('team', team.code);
       }
     });
+  },
+  'click #cancel': function(event) {
+    event.preventDefault();
+    var teamId = $(document).find('[name=_id]').val();
+    var team = Teams.findOne(teamId);
+    Meteor.Router.to('team',
+      team.code);
   }
 });

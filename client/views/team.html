@@ -23,32 +23,39 @@
   </div>
 </template>
 
+<template name="teamButtons">
+{{#if action}}
+  <button id="editTeam" alt="Edit Team" class="btn"><i class="icon-edit"></i> Edit Team</button>
+  <button id="createProject" class="btn"><i class="icon-plus"></i> Create Project</button>
+{{else}}
+  <button id="editTeam" alt="Edit Team" class="btn"><i class="icon-edit"></i> Edit Team</button>
+  <button id="createProject" class="btn"><i class="icon-plus"></i> Create Project</button>
+{{/if}}
+</template>
+
 <template name="teamBody">
   {{#if notificationCount}}
   <div class="span9">
   {{else}}
   <div class="span12">
   {{/if}}
-    {{#with currentTeam}}
       <div class="row-fluid">
         <div class="row-fluid">
-          <div class="btn-group">
-            <button id="editTeam" alt="Edit Team" class="btn"><i class="icon-edit"></i> Edit Team</button>
-            <button id="createProject" class="btn"><i class="icon-plus"></i> Create Project</button>
-          </div>
-          <h1><i class="icon-group"></i> {{name}}</h1>
-          <div>{{#markdown}}{{detail}}{{/markdown}}</div>
-          <h2><i class="icon-tags"></i> Tags by Count</h2>
-          <ul class="nav nav-list">
-            {{#each teamTags}}
-            <li class="divider"></li>
-            <li><a href="{{tagPath teamCode tag}}"><span class="badge badge-info">{{count}}</span> {{tag}}</a>
-              <span class="label label-important">{{notStartedIssuesWithTagCount}} Not Started</span> 
-              <span class="label label-info">{{inProgressIssuesWithTagCount}} in progress</span> 
-              <span class="label label-success">{{completedIssuesWithTagCount}} completed</span> 
-              <span class="label label-warning">{{cancelledIssuesWithTagCount}} cancelled</span></li>
-            {{/each}}
-          </ul>
+          {{#with currentTeam}}
+            {{> teamButtons}}
+            <h1><i class="icon-group"></i> {{name}}</h1>
+            <div>{{#markdown}}{{detail}}{{/markdown}}</div>
+            <h2><i class="icon-tags"></i> Tags by Count</h2>
+            <ul class="nav nav-list">
+              {{#each teamTags}}
+              <li class="divider"></li>
+              <li><a href="{{tagPath teamCode tag}}"><span class="badge badge-info">{{count}}</span> {{tag}}</a>
+                <span class="label label-important">{{notStartedIssuesWithTagCount}} Not Started</span> 
+                <span class="label label-info">{{inProgressIssuesWithTagCount}} in progress</span> 
+                <span class="label label-success">{{completedIssuesWithTagCount}} completed</span> 
+                <span class="label label-warning">{{cancelledIssuesWithTagCount}} cancelled</span></li>
+              {{/each}}
+            </ul>
         </div>
       </div>
     {{/with}}

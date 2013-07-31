@@ -1,4 +1,5 @@
 Template.team.helpers(Meteor.userFunctions);
+Template.teamButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 Template.projectLinks.helpers(_.extend({
   allProjects: function() {
     return Projects.find({teamId: Session.get('currentTeamId')},{sort: {statusChanged: -1}});
