@@ -3,6 +3,7 @@
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
+      {{> commentLinks}}
       <div class="row-fluid">
         {{> notifications}}
         {{> issueForm}}
@@ -16,6 +17,7 @@
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
+      {{> commentLinks}}
       <div class="row-fluid">
         {{> notifications}}
         {{> issueForm}}
@@ -31,29 +33,33 @@
   <div class="span12">
   {{/if}}
     <div class="row-fluid">
-      <h1>{{capitalize action}} Issue</h1>
-      <form id="{{action}}Issue">
-        <fieldset>
-        {{#with currentIssue}}
-          <input type="hidden" name="action" value="{{action}}" />
-          <input type="hidden" name="teamId" value="{{teamId}}" />
-          <input type="hidden" name="projectId" value="{{projectId}}" />
-          <input type="hidden" name="featureId" value="{{featureId}}" />
-          <input type="hidden" name="_id" value="{{_id}}" />
-          <label class="control-label" for="name">Name</label>
-          <input name="name" class="span12" type="text" maxlength="80" value="{{name}}" autofocus tabindex="1" />
-          <label class="control-label" for="detail">Detail</label>
-          <textarea name="detail" class="span12" rows="12" tabindex="2">{{detail}}</textarea>
-          <label class="control-label" for="tags">Tags (valid characters are A-Z, a-z, 0-9, and -)</label>
-          <input id="tags" name="tags" type="text" class="span12" value="{{tagsAsCommaSeperatedString}}" tabindex="3" />
-          </select>
-        {{/with}}
-        </fieldset>
-        <div class="pull-right">
-          <button type="submit" class="btn btn-primary" tabindex="4"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
-          <button type="button" id="delete" class="btn btn-danger" tabindex="5"><i class="icon-trash icon-large"></i> Delete</button>
-        </div>
-      </form>
+      {{#with currentIssue}}
+        {{> issueButtons}}
+        <form id="{{action}}Issue">
+          <fieldset>
+            <input type="hidden" name="action" value="{{action}}" />
+            <input type="hidden" name="teamId" value="{{teamId}}" />
+            <input type="hidden" name="projectId" value="{{projectId}}" />
+            <input type="hidden" name="featureId" value="{{featureId}}" />
+            <input type="hidden" name="_id" value="{{_id}}" />
+            <h1 class="pull-left"><i class="icon-ticket"></i></h1><input name="name" id="issue-name-input" class="issue-name-input pull-left span11" type="text" maxlength="80" value="{{name}}" autofocus tabindex="1" /><br/>
+            <div class="input-prepend">
+              <span class="add-on">Owner</span>
+              <input class="input-large" disabled type="text" value="{{ownedByUsername}}"></input>
+            </div>
+            <div class="input-prepend">
+              <span class="add-on">Status</span>
+              <input class="input-large" disabled type="text" value="{{statusDisplay}}"></input>
+            </div>
+            <textarea name="detail" class="span12" rows="12" tabindex="2">{{detail}}</textarea><br/>
+            <input id="tags" name="tags" type="text" value="{{tagsAsCommaSeperatedString}}" tabindex="3" />
+          </fieldset>
+          <div>
+            <button type="submit" class="btn btn-primary" tabindex="4"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
+            <button type="button" id="cancel" class="btn btn-warning" tabindex="5"><i class="icon-remove icon-large"></i> Cancel</button>
+          </div>
+        </form>
+      {{/with}}
     </div>
   </div>
 </template>

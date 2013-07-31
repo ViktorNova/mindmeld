@@ -10,11 +10,22 @@ Template.issueForm.rendered = function() {
     .value();
 
   $(document).ready(function() { 
-    $('#tags').select2({tags:tags});
+    $('#tags').select2({width: "100%", tags:tags});
   });
 };
 
 Template.issueForm.events({
+  'click #cancel': function(event) {
+    event.preventDefault();
+
+    var issueId = $(document).find('[name=_id]').val();
+    var issue = Issues.findOne(issueId);
+    Meteor.Router.to('issue',
+      Meteor.userFunctions.teamCode.call(issue),
+      Meteor.userFunctions.projectCode.call(issue),
+      Meteor.userFunctions.featureCode.call(issue),
+      issue.code);
+  },
   'click #delete': function(event) {
     event.preventDefault();
 

@@ -1,5 +1,6 @@
 Template.issue.helpers(Meteor.userFunctions);
 Template.issueBody.helpers(Meteor.userFunctions);
+Template.issueButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 Template.commentLinks.helpers(Meteor.userFunctions);
 Template.commentList.helpers(Meteor.userFunctions);
 
