@@ -41,17 +41,17 @@
   {{else}}
   <div class="span12">
   {{/if}}
-    {{#with currentFeature}}
-      <input type="hidden" name="_id" value="{{_id}}" />
-      <div class="row-fluid">
-        {{> featureButtons}}
-        <h1><i class="icon-certificate"></i> {{name}}</h1>
-        <div class="input-prepend">
-          <span class="add-on">Owner</span>
-          <input class="input-large" disabled type="text" value="{{ownedByUsername}}"></input>
-        </div>
-        <div>{{#markdown}}{{detail}}{{/markdown}}</div>
+  {{#with currentFeature}}
+    <input type="hidden" name="_id" value="{{_id}}" />
+    <div class="row-fluid">
+      {{> featureButtons}}
+      <h1><i class="icon-certificate"></i> {{name}}</h1>
+      <div class="input-prepend">
+        <span class="add-on">Owner</span>
+        <input class="input-large" disabled type="text" value="{{ownedByUsername}}"></input>
       </div>
-    {{/with}}
+      <div>{{#markdown}}{{detail}}{{/markdown}}</div>
+    </div>
+  {{/with}}
   </div>
 </template>

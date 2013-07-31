@@ -1,4 +1,5 @@
 Template.project.helpers(Meteor.userFunctions);
+Template.projectButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 Template.featureLinks.helpers(_.extend({
   allFeatures: function() {
     return Features.find({
@@ -39,5 +40,22 @@ Template.projectBody.events({
     Meteor.Router.to('editProject', 
       Meteor.userFunctions.teamCode.call(this), 
       this.code);
-  }
+  },
+  'click #deleteProject': function(event) {
+    event.preventDefault();
+
+    var projectId = $(document).find('[name=_id]').val();
+    console.log("!" + projectId);
+
+    Meteor.call('deleteProject', projectId, function(error) {
+      if (error) {
+        Meteor.Errors.throw(error.reason);
+        //TOO: handle errors in notifications
+      } else {
+        var team = Meteor.userFunctions.currentTeam();
+        Meteor.Router.to('team', Meteor.userFunctions.currentTeam().code);
+      }
+    })
+  },
+
 });

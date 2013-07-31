@@ -23,8 +23,19 @@
   </div>
 </template>
 
+<template name="projectButtons">
+  {{#if action}}
+  <button id="editProject" class="btn" disabled><i class="icon-edit"></i> Edit Project</button>
+  <button id="deleteProject" class="btn" disabled><i class="icon-trash"></i> Delete Project</button>
+  <button id="createFeature" class="btn" disabled><i class="icon-plus"></i> Create Feature</button>
+  {{else}}
+  <button id="editProject" class="btn"><i class="icon-edit"></i> Edit Project</button>
+  <button id="deleteProject" class="btn"><i class="icon-trash"></i> Delete Project</button>
+  <button id="createFeature" class="btn"><i class="icon-plus"></i> Create Feature</button>
+  {{/if}}
+</template>
+
 <template name="projectBody">
-  {{#with currentProject}}
   {{#if notificationCount}}
   <div class="span9">
   {{else}}
@@ -32,13 +43,13 @@
   {{/if}}
     <div class="row-fluid">
       <div class="row-fluid">
-        <div class="btn-group">        
-          <button id="editProject" class="btn"><i class="icon-edit"></i> Edit Project</button>
-          <button id="createFeature" class="btn"><i class="icon-plus"></i> Create Feature</button>
-        </div>
-        <h1><i class="icon-wrench"></i> {{name}}</h1>
-        <div>{{#markdown}}{{detail}}{{/markdown}}</div>
-        <h2><i class="icon-ticket"></i> Not Started Issues by Ranking</h2>
+        {{#with currentProject}}
+          <input type="hidden" name="_id" value="{{_id}}" />
+          {{> projectButtons}}
+          <h1><i class="icon-wrench"></i> {{name}}</h1>
+          <div>{{#markdown}}{{detail}}{{/markdown}}</div>
+          <h2><i class="icon-ticket"></i> Not Started Issues by Ranking</h2>
+        {{/with}}
         <ul id="sortableIssueList" class="nav nav-list">
           {{#each notStartedIssuesByRanking}}
             <li id="{{_id}}">
@@ -91,5 +102,4 @@
       </div>
     </div>
   </div>
-  {{/with}}
 </template>
