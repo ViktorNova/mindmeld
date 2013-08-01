@@ -46,11 +46,11 @@
             <input name="name" id="name-input" class="issue-name-input pull-left span11" type="text" maxlength="80" value="{{name}}" autofocus tabindex="1" /><br/>
             <div class="input-prepend">
               <span class="add-on">Owner</span>
-              <input class="input-large" disabled type="text" value="{{ownedByUsername}}"></input>
+              <input class="input-large" type="text" value="{{ownedByUsername}}" readonly="readonly"></input>
             </div>
             <div class="input-prepend">
               <span class="add-on">Status</span>
-              <input class="input-large" disabled type="text" value="{{statusDisplay}}"></input>
+              <input class="input-large" type="text" value="{{statusDisplay}}" readonly="readonly"></input>
             </div>
             <textarea name="detail" class="span12" rows="12" tabindex="2">{{detail}}</textarea><br/>
             <input id="tags" name="tags" type="text" value="{{tagsAsCommaSeperatedString}}" tabindex="3" />
