@@ -11,6 +11,10 @@ Handlebars.registerHelper('iconify', function(action) {
   }
 });
 
+Handlebars.registerHelper('disableButtonIf', function(condition) {
+  return (condition) ? " disabled " : "";
+});
+
 Handlebars.registerHelper('disableButtonIfNot',function(condition) {
   return (!condition) ? " disabled " : ""; 
 });

@@ -4,6 +4,7 @@
     <div id="main">
       {{> breadcrumbHeader}}
       {{> teamLinks}}
+      {{> errorNotification}}
       <div class="row-fluid">
         {{> notifications}}
         {{> homeBody}}
@@ -31,8 +32,8 @@
   {{/if}}
     <div class="row-fluid">
       <div class="row-fluid">
+        <p><button id="createTeam" class="btn" {{disableButtonIf teamsCreatedByUserCount}}><i class="icon-plus"></i> Create Team</button></p>
         <h1><i class="icon-home"></i> Home</h1>
-        <p><button id="createTeam" class="btn"><i class="icon-plus"></i> Create Team</button></p>
         <h2><i class="icon-ticket"></i> All Issues</h2>
         <div class="tabbable">
           <ul class="nav nav-tabs">

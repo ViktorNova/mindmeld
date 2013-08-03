@@ -1,18 +1,6 @@
 Teams = new Meteor.Collection('teams');
 
 Meteor.methods({
-  getTeamId: function(teamCode) {
-
-    if (!teamCode)
-      return null;
-
-    var team = Teams.findOne({code: teamCode});
-    if (team) {
-      return team._id;
-    } else {
-      return "NOTFOUND";
-    }
-  },
   createTeam: function(teamAttributes) {
     var user = Meteor.user();
     if (!user)
@@ -20,8 +8,14 @@ Meteor.methods({
     //todo: validation
     //validate name to max 80 chars
 
+    var existingTeamCountForUser = Teams.find({createdByUserId: Meteor.userId()}).count();
+    if (existingTeamCountForUser > 0) {
+      throw new Meteor.Error(403, "You have already created a team. The beta period limits each user to one team only.");
+    }
+
     var team = _.extend(_.pick(teamAttributes, 'name', 'detail'), {
       code: teamAttributes.name.toCode(),
+      upperCaseCode: teamAttributes.name.toCode().toUpperCase(),
       members: [ Meteor.userId() ],
       createdByUserId: Meteor.userId(),
       updatedAt: new Date()

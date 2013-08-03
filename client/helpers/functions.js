@@ -34,6 +34,9 @@ Meteor.formFunctions = {
 };
 
 Meteor.userFunctions = {
+  addError: function(reason) {
+    $('#error-notification').append('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' + reason + '</div>');
+  },
   notificationCount: function() {
     return getNotifications().count();
   },
@@ -215,5 +218,22 @@ Meteor.userFunctions = {
   },
   currentUserOwnsComment: function() {
     return this.createdByUserId && this.createdByUserId == Meteor.userId();
+  },
+  teamsCreatedByUserCount: function() {
+    return Teams.find({createdByUserId: Meteor.userId()}).count();
+  },
+  doesTeamNameExist: function(teamName) {
+    return Teams.findOne({upperCaseCode: teamName.toCode().toUpperCase()}) != null;
+  },
+  getTeamId: function(teamCode) {
+    if (!teamCode)
+      return null;
+
+    var team = Teams.findOne({code: teamCode});
+    if (team) {
+      return team._id;
+    } else {
+      return "NOTFOUND";
+    }
   }
 };

@@ -4,6 +4,7 @@
     <div id="main">
       {{> breadcrumbHeader}}
       {{> projectLinks}}
+      {{> errorNotification}}
       <div class="row-fluid">
         {{> notifications}}
         {{> teamForm}}
@@ -34,19 +35,22 @@
   {{/if}}
     <div class="row-fluid">
       {{> teamButtons}}
-      <form id="{{action}}Team">
+      <form id="{{action}}Team" data-validate="parsley">
         <fieldset>
         {{#with currentTeam}}
           <input type="hidden" name="action" value="{{action}}" />
           <input type="hidden" name="_id" value="{{_id}}" />
-          <h1 class="pull-left"><i class="icon-group"></i></h1>
-          <input name="name" id="name-input" class="pull-left span11" type="text" maxlength="80" value="{{name}}" />
-          <textarea name="detail" class="span12" rows="12">{{detail}}</textarea>
+          <div class="control-group" id="name-control-group">
+            <h1 class="pull-left"><i class="icon-group"></i></h1>
+            <input name="name" id="name-input" class="pull-left input-xxlarge required" type="text" maxlength="30" value="{{name}}" data-trigger="change" data-required="true" data-minlength="3" data-maxlength="30" placeholder="Team Name (max 30 chars)"/>
+            <span class="help-inline" id="name-help-inline"></span>
+          </div>
+          <textarea name="detail" class="span12" rows="12" placeholder="Team Description (max 100 chars) - Github flavored markdown supported" data-required="true" data-minlength="3" data-maxlength="1000">{{detail}}</textarea>
         {{/with}}
         </fieldset>
         <div>
           <button type="button" id="{{action}}" class="btn btn-primary"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
-          <button type="button" id="cancel" class="btn btn-warning" tabindex="5"><i class="icon-remove icon-large"></i> Cancel</button>
+          <button type="button" id="cancel-{{action}}" class="btn btn-warning" tabindex="5"><i class="icon-remove icon-large"></i> Cancel</button>
         </div>
       </form>
     </div>

@@ -18,18 +18,12 @@ function setCurrentTeamId(templateCode, teamCode) {
 
   Session.set('currentTeamCode', teamCode);
 
-  Meteor.call('getTeamId', teamCode, function(error, result) {
-    if (Session.get('currentTemplateCode') != templateCode)
-      return;
-    if (Session.get('currentTeamCode') != teamCode)
-      return;
-    if (error) {
-      console.log(error);
-      Session.set('currentTeamId','NOTFOUND');
-      return;
-    }
-    Session.set('currentTeamId', result);
-  });
+  if (Session.get('currentTemplateCode') != templateCode)
+    return;
+  if (Session.get('currentTeamCode') != teamCode)
+    return;
+  var teamId = Meteor.userFunctions.getTeamId(teamCode);
+  Session.set('currentTeamId', teamId);
 }
 
 function setCurrentProjectId(templateCode, projectCode) {
