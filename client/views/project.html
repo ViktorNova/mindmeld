@@ -53,7 +53,8 @@
         <ul id="sortableIssueList" class="nav nav-list">
           {{#each notStartedIssuesByRanking}}
             <li id="{{_id}}">
-              <i class="icon-sort pull-right"></i><a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a>
+              <i class="icon-sort pull-right"></i>
+              <a href="{{issuePath teamCode projectCode featureCode code}}">{{featureName}} : {{name}}</a>
             </li>
           {{/each}}
         </ul>
@@ -67,6 +68,7 @@
             <h3>Not Started <span class="label label-important">{{notStartedIssuesInProject.count}}</span></h3>
             {{#each notStartedIssuesInProject}}
               <div class="item">
+                {{featureName}}<br />
                 <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
                 <strong>{{ownedByUsername}}</strong>
               </div>
@@ -76,6 +78,7 @@
             <h3>In Progress <span class="label label-info">{{inProgressIssuesInProject.count}}</span></h3>
             {{#each inProgressIssuesInProject}}
               <div class="item">
+                {{featureName}}<br />
                 <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
                 <strong>{{ownedByUsername}}</strong>
               </div>
@@ -85,6 +88,7 @@
             <h3>Completed <span class="label label-success">{{completedIssuesInProject.count}}</span></h3>
             {{#each completedIssuesInProject}}
               <div class="item">
+                {{featureName}}<br />
                 <a href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a><br />
                 <strong>{{ownedByUsername}}</strong>
               </div>

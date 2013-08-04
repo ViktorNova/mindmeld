@@ -135,12 +135,16 @@ Meteor.userFunctions = {
     return Features.findOne(Session.get('currentFeatureId'));
   },
   currentIssue: function() {
-    if (Meteor.Router.page() === 'createIssue')
+    if (Meteor.Router.page() === 'createIssue') {
+      var feature = Features.findOne(Session.get('currentFeatureId'));
       return {
         teamId: Session.get('currentTeamId'),
         projectId: Session.get('currentProjectId'),
-        featureId: Session.get('currentFeatureId')
+        featureId: Session.get('currentFeatureId'),
+        ownedByUserId: feature && feature.ownedByUserId,
+        status: 0
       };
+    }
 
     if (Session.get('currentIssueId') == 'LOADING')
       return null;

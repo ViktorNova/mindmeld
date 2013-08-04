@@ -1,7 +1,7 @@
 Template.issue.helpers(Meteor.userFunctions);
 Template.issueBody.helpers(Meteor.userFunctions);
 Template.issueButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
-Template.commentLinks.helpers(Meteor.userFunctions);
+Template.blankLinks.helpers(Meteor.userFunctions);
 Template.commentList.helpers(Meteor.userFunctions);
 
 Template.issueBody.events({
@@ -9,22 +9,17 @@ Template.issueBody.events({
     event.preventDefault();
     var issueId = $(document).find('[name=_id]').val();
 
-    Meteor.call('startIssue', issueId, function(error) {
-      if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TOO: handle errors in notifications
-      }
+    Meteor.call('startIssue', issueId);
 
-      var projectIssues = Issues.find({ 
-        teamId: Session.get('currentTeamId'), 
-        projectId: Session.get('currentProjectId'), 
-        status: 0, 
-        rank: {$exists: true} },
-      {sort: {rank: 1}});
+    var projectIssues = Issues.find({ 
+      teamId: Session.get('currentTeamId'), 
+      projectId: Session.get('currentProjectId'), 
+      status: 0, 
+      rank: {$exists: true} },
+    {sort: {rank: 1}});
 
-      var projectIssueIds = _.pluck(projectIssues.fetch(), '_id');
-      Meteor.call('reorderIssueRankings', projectIssueIds, Meteor.userFunctions.currentTeam()._id, Meteor.userFunctions.currentProject()._id);
-    });
+    var projectIssueIds = _.pluck(projectIssues.fetch(), '_id');
+    Meteor.call('reorderIssueRankings', projectIssueIds, Meteor.userFunctions.currentTeam()._id, Meteor.userFunctions.currentProject()._id);
   },
   'click #deleteIssue': function(event) {
     event.preventDefault();
@@ -33,8 +28,7 @@ Template.issueBody.events({
 
     Meteor.call('deleteIssue', issueId, function(error) {
       if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TOO: handle errors in notifications
+        Meteor.userFunctions.addError(error.reason);
       } else {
         var feature = Meteor.userFunctions.currentFeature();
         Meteor.Router.to('feature', 

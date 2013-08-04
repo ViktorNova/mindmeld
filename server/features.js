@@ -18,8 +18,8 @@ Meteor.methods({
     if (!Teams.findOne({_id: feature.teamId, members: {$in:[feature.ownedByUserId]}}))
       throw new Meteor.Error(403, "The owner specified was not found in the team specified");
 
-    if (feature.name.length < 3 || feature.name.length > 30)
-      throw new Meteor.Error(403, "Feature name must be between 3 and 30 characters");
+    if (feature.name.length < 3 || feature.name.length > 50)
+      throw new Meteor.Error(403, "Feature name must be between 3 and 50 characters");
 
     if (feature.detail.length < 3 || feature.detail.length > 1000)
       throw new Meteor.Error(403, "Feature description must be between 3 and 1000 characters");
@@ -38,9 +38,7 @@ Meteor.methods({
 
     Meteor.call('createFeatureNotification', notificationAttributes);
 
-    return Features.findOne(featureId);
-
-
+    return newFeature;
   },
   editFeature: function(featureAttributes) {
     var user = Meteor.user();
@@ -58,8 +56,8 @@ Meteor.methods({
     if (!Teams.findOne({_id: feature.teamId, members: {$in:[feature.ownedByUserId]}}))
       throw new Meteor.Error(403, "The owner specified was not found in the team specified");
 
-    if (feature.name.length < 3 || feature.name.length > 30)
-      throw new Meteor.Error(403, "Feature name must be between 3 and 30 characters");
+    if (feature.name.length < 3 || feature.name.length > 50)
+      throw new Meteor.Error(403, "Feature name must be between 3 and 50 characters");
 
     if (feature.detail.length < 3 || feature.detail.length > 1000)
       throw new Meteor.Error(403, "Feature description must be between 3 and 1000 characters");

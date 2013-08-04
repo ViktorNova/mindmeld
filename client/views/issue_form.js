@@ -15,65 +15,68 @@ Template.issueForm.rendered = function() {
 };
 
 Template.issueForm.events({
-  'click #cancel': function(event) {
-    event.preventDefault();
-
-    var issueId = $(document).find('[name=_id]').val();
-    var issue = Issues.findOne(issueId);
-    Meteor.Router.to('issue',
-      Meteor.userFunctions.teamCode.call(issue),
-      Meteor.userFunctions.projectCode.call(issue),
-      Meteor.userFunctions.featureCode.call(issue),
-      issue.code);
-  },
-	'submit form': function(event) {
+	'click #create': function(event) {
 		event.preventDefault();
 
-    var action = $(event.target).find('[name=action]').val();
+    if (!$('form#createIssue').parsley().validate())
+      return;
 
     var issue = {
-      teamId: $(event.target).find('[name=teamId]').val(),
-      projectId: $(event.target).find('[name=projectId]').val(),
-      featureId: $(event.target).find('[name=featureId]').val(),
-      name: $(event.target).find('[name=name]').val(),
-      detail: $(event.target).find('[name=detail]').val(),
-      tags: _.reject($(event.target).find('[name=tags]').val().split(','), function(tag) { return tag.trim() == ''})
+      teamId: $(document).find('[name=teamId]').val(),
+      projectId: $(document).find('[name=projectId]').val(),
+      featureId: $(document).find('[name=featureId]').val(),
+      name: $(document).find('[name=name]').val(),
+      detail: $(document).find('[name=detail]').val(),
+      tags: _.reject($(document).find('[name=tags]').val().split(','), function(tag) { return tag.trim() == ''})
     };
 
-    if (action === 'create') {
-      Meteor.call('createIssue', issue, function(error, issue) {
-        if (error) {
-          //TODO: handle errors in notifications
-          Meteor.Errors.throw(error.reason);
-          //if issue already exists, go there
-          if (error.error == 302)
-            Meteor.Router.to('issue', error.details)
-        } else {
-          Meteor.Router.to('issue', 
-            Meteor.userFunctions.teamCode.call(issue),
-            Meteor.userFunctions.projectCode.call(issue),
-            Meteor.userFunctions.featureCode.call(issue),
-            issue.code);
-        }
-      });
-    }
+    Meteor.call('createIssue', issue, function(error, issue) {
+      if (error) {
+        Meteor.userFunctions.addError(error.reason);
+        return;
+      } else {
+        Meteor.Router.to('issue', 
+          Meteor.userFunctions.teamCode.call(issue),
+          Meteor.userFunctions.projectCode.call(issue),
+          Meteor.userFunctions.featureCode.call(issue),
+          issue.code);
+      }
+    });
+  },
+  'click #edit': function(event) {
+    event.preventDefault();
 
-    if (action === 'edit') {
-      issue._id = $(event.target).find('[name=_id]').val();
+    if (!$('form#editIssue').parsley().validate())
+      return;
 
-      Meteor.call('editIssue', issue, function(error, issue) {
-        if (error) {
-          //TODO: handle errors in notifications
-          Meteor.Errors.throw(error.reason);
-        } else {
-          Meteor.Router.to('issue',
-            Meteor.userFunctions.teamCode.call(issue),
-            Meteor.userFunctions.projectCode.call(issue),
-            Meteor.userFunctions.featureCode.call(issue),
-            issue.code);
-        }
-      });
-    }
+    var issue = {
+      _id: $(document).find('[name=_id]').val(),
+      teamId: $(document).find('[name=teamId]').val(),
+      projectId: $(document).find('[name=projectId]').val(),
+      featureId: $(document).find('[name=featureId]').val(),
+      name: $(document).find('[name=name]').val(),
+      detail: $(document).find('[name=detail]').val(),
+      tags: _.reject($(document).find('[name=tags]').val().split(','), function(tag) { return tag.trim() == ''})
+    };
+
+    Meteor.call('editIssue', issue, function(error, issue) {
+      if (error) {
+        Meteor.userFunctions.addError(error.reason);
+        return;
+      } else {
+        Meteor.Router.to('issue',
+          Meteor.userFunctions.teamCode.call(issue),
+          Meteor.userFunctions.projectCode.call(issue),
+          Meteor.userFunctions.featureCode.call(issue),
+          issue.code);
+      }
+    });
+  },
+  'click #cancel-create': function(event) {
+    event.preventDefault();
+    Meteor.Router.to('feature', Session.get('currentTeamCode'), Session.get('currentProjectCode'), Session.get('currentFeatureCode'));
+  },
+  'click #cancel-edit': function(event) {
+    Meteor.Router.to('issue', Session.get('currentTeamCode'), Session.get('currentProjectCode'), Session.get('currentFeatureCode'), Session.get('currentIssueCode'));
   }
 });
-

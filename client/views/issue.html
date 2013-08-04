@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      {{> commentLinks}}
+      {{> blankLinks}}
       {{> errorNotification}}
       <div class="row-fluid">
         {{> notifications}}
@@ -13,16 +13,11 @@
   </div>
 </template>
 
-<template name="commentLinks">
+<template name="blankLinks">
   <div class="row-fluid">
-    {{#with currentIssue}}
-      <ul class="breadcrumb next-nav">
-        <li>Comments:</li>
-        {{#each issueComments}}
-          <li><span class="divider"><i class="icon-comments"></i></span>{{> commentList}}</li>
-        {{/each}}
-      </ul>
-    {{/with}}
+    <ul class="breadcrumb next-nav">
+      <li><span class="divider"></li>
+    </ul>
   </div>
 </template>
 
