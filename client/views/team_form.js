@@ -12,20 +12,6 @@ Template.teamForm.rendered = function() {
 }
 
 Template.teamForm.events({
-  'click #delete': function(event) {
-    event.preventDefault();
-
-    var teamId = $(document).find('[name=_id]').val();
-
-    Meteor.call('deleteTeam', teamId, function(error) {
-      if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TOO: handle errors in notifications
-      } else {
-        Meteor.Router.to('home');
-      }
-    })
-  },
   'click #create': function(event) {
     event.preventDefault();
 
@@ -42,19 +28,7 @@ Template.teamForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        var notificationAttributes = {
-          entity: 'team',
-          action: 'create',
-          team: team
-        };
-
-        Meteor.call('createTeamNotification', notificationAttributes, function(error) {
-          if (error) {
-            Meteor.userFunctions.addError(error.reason);
-            return;
-          }
-          Meteor.Router.to('team', team.code);
-        });      
+        Meteor.Router.to('team', team.code);
       }
     });
   },

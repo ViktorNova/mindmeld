@@ -1,18 +1,6 @@
 Features = new Meteor.Collection('features');
 
 Meteor.methods({
-  getFeatureId: function(featureCode) {
-
-    if (!featureCode)
-      return null;
-
-    var feature = Features.findOne({code: featureCode});
-    if (feature) {
-      return feature._id;
-    } else {
-      return "NOTFOUND";
-    }
-  },
   createFeature: function(featureAttributes) {
     var user = Meteor.user();
     if (!user)

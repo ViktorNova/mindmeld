@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
-      {{> featureLinks}}
+      {{> projectLinks}}
       {{> errorNotification}}
       <div class="row-fluid">
         {{> notifications}}
@@ -19,6 +19,7 @@
     <div id="main">
       {{> breadcrumbHeader}}
       {{> featureLinks}}
+      {{> errorNotification}}
       <div class="row-fluid">
         {{> notifications}}
         {{> projectForm}}
@@ -36,18 +37,21 @@
     <div class="row-fluid">
       {{#with currentProject}}
         {{> projectButtons}}
-        <form id="{{action}}Project">
+        <form id="{{action}}Project" data-validate="parsley">
           <fieldset>
             <input type="hidden" name="action" value="{{action}}" />
             <input type="hidden" name="teamId" value="{{teamId}}" />
             <input type="hidden" name="_id" value="{{_id}}" />
-            <h1 class="pull-left"><i class="icon-wrench"></i></h1>
-            <input name="name" id="name-input" class="pull-left span11" type="text" maxlength="80" value="{{name}}" autofocus tabindex="1" placeholder="Project Name (max 30 chars)" />
-            <textarea name="detail" class="span12" rows="12" tabindex="2">{{detail}}</textarea>
+            <div class="control-group" id="name-control-group">
+              <h1 class="pull-left"><i class="icon-wrench"></i></h1>
+              <input name="name" id="name-input" class="pull-left input-xxlarge required" type="text" maxlength="30" value="{{name}}" data-trigger="change" data-required="true" data-minlength="3" data-maxlength="30" autofocus tabindex="1" placeholder="Project Name (max 30 chars)" />
+              <span class="help-inline" id="name-help-inline"></span>
+            </div>
+            <textarea name="detail" class="span12" rows="12" tabindex="2" placeholder="Project Description (max 1000 chars) - Github flavored markdown supported" data-required="true" data-minlength="3" data-maxlength="1000">{{detail}}</textarea>
           </fieldset>
           <div>
             <button type="button" id="{{action}}" class="btn btn-primary" tabindex="3"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
-            <button type="button" id="cancel" class="btn btn-warning" tabindex="5"><i class="icon-remove icon-large"></i> Cancel</button>
+            <button type="button" id="cancel-{{action}}" class="btn btn-warning" tabindex="4"><i class="icon-remove icon-large"></i> Cancel</button>
           </div>
         </form>
       {{/with}}

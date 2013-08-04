@@ -3,12 +3,10 @@ Meteor.methods({
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to create a team");
-    //todo: validation
-    //validate name to max 80 chars
 
     var existingTeamCountForUser = Teams.find({createdByUserId: Meteor.userId()}).count();
     if (existingTeamCountForUser > 0) {
-      throw new Meteor.Error(403, "You have already created a team. The beta period limits each user to one team only.");
+      throw new Meteor.Error(403, "You have already created a team. During the beta period, each user is limited to one team only.");
     }
 
     var team = _.extend(_.pick(teamAttributes, 'name', 'detail'), {
@@ -29,7 +27,17 @@ Meteor.methods({
       throw new Meteor.Error(403, "Team name already exists");
 
     var teamId = Teams.insert(team);
-    return Teams.findOne(teamId);
+    var newTeam = Teams.findOne(teamId);
+
+    var notificationAttributes = {
+      entity: 'team',
+      action: 'create',
+      team: newTeam
+    };
+
+    Meteor.call('createTeamNotification', notificationAttributes);
+
+    return newTeam;
   },
   editTeam: function(teamAttributes) {
 
@@ -50,7 +58,7 @@ Meteor.methods({
 
     var oldTeam = Teams.findOne(team._id);
 
-    if (team.upperCaseCode != oldTeam.upperCaseCode && Teams.findOne({upperCaseCode: team.name.toCode().toUpperCase()})) {
+    if (team.upperCaseCode != oldTeam.upperCaseCode && Teams.findOne({upperCaseCode: team.upperCaseCode})) {
       throw new Meteor.Error(403, "Team name already exists");
     }
 
@@ -74,16 +82,5 @@ Meteor.methods({
     Meteor.call('editTeamNotification', notificationAttributes);
 
     return newTeam;
-  },
-  deleteTeam: function(teamId) {
-    var user = Meteor.user();
-    if (!user)
-      throw new Meteor.Error(401, "You need to login to delete a team");
-
-    Teams.remove( { _id: teamId });
-    Projects.remove( { teamId: teamId });
-    Features.remove( { teamId: teamId });
-    Issues.remove( { teamId: teamId });
-    Notifications.remove( { teamId: teamId });
   }
 });

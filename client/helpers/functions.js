@@ -238,5 +238,50 @@ Meteor.userFunctions = {
     } else {
       return "NOTFOUND";
     }
+  },
+  getProjectId: function(projectCode) {
+
+    if (!projectCode)
+      return null;
+
+    var project = Projects.findOne({code: projectCode});
+    if (project) {
+      return project._id;
+    } else {
+      return "NOTFOUND";
+    }
+  },
+  getFeatureId: function(featureCode) {
+    if (!featureCode)
+      return null;
+
+    var feature = Features.findOne({code: featureCode});
+    if (feature) {
+      return feature._id;
+    } else {
+      return "NOTFOUND";
+    }
+  },
+  getIssueId: function(issueCode) {
+    if (!issueCode)
+      return null;
+
+    var issue = Issues.findOne({code: issueCode});
+    if (issue) {
+      return issue._id;
+    } else {
+      return "NOTFOUND";
+    }
+  },
+  getTagId: function(tagCode) {
+    if (!tagCode)
+      return null;
+
+    var tag = Tags.findOne({code: tagCode});
+    if (tag) {
+      return tag._id;
+    } else {
+      return "NOTFOUND";
+    }
   }
 };

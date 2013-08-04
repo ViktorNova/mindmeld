@@ -17,11 +17,6 @@ function setCurrentTeamId(templateCode, teamCode) {
   }
 
   Session.set('currentTeamCode', teamCode);
-
-  if (Session.get('currentTemplateCode') != templateCode)
-    return;
-  if (Session.get('currentTeamCode') != teamCode)
-    return;
   var teamId = Meteor.userFunctions.getTeamId(teamCode);
   Session.set('currentTeamId', teamId);
 }
@@ -34,19 +29,8 @@ function setCurrentProjectId(templateCode, projectCode) {
   }
 
   Session.set('currentProjectCode', projectCode);
-
-  Meteor.call('getProjectId', projectCode, function(error, result) {
-    if (Session.get('currentTemplateCode') != templateCode)
-      return;
-    if (Session.get('currentProjectCode') != projectCode)
-      return;
-    if (error) {
-      console.log(error);
-      Session.set('currentProjectId','NOTFOUND');
-      return;
-    }
-    Session.set('currentProjectId', result);
-  });
+  var projectId = Meteor.userFunctions.getProjectId(projectCode);
+  Session.set('currentProjectId', projectId);
 }
 
 function setCurrentFeatureId(templateCode, featureCode) {
@@ -57,20 +41,8 @@ function setCurrentFeatureId(templateCode, featureCode) {
   }
 
   Session.set('currentFeatureCode', featureCode);
-
-  Meteor.call('getFeatureId', featureCode, function(error, result) {
-    if (Session.get('currentTemplateCode') != templateCode) {
-      return;
-    }
-    if (Session.get('currentFeatureCode') != featureCode)
-      return;
-    if (error) {
-      console.log(error);
-      Session.set('currentFeatureId','NOTFOUND');
-      return;
-    }
-    Session.set('currentFeatureId', result);
-  });
+  var featureId = Meteor.userFunctions.getFeatureId(featureCode);
+  Session.set('currentFeatureId', featureId);
 }
 
 function setCurrentIssueId(templateCode, issueCode) {
@@ -81,21 +53,8 @@ function setCurrentIssueId(templateCode, issueCode) {
   }
 
   Session.set('currentIssueCode', issueCode);
-
-  Meteor.call('getIssueId', issueCode, function(error, result) {
-    if (Session.get('currentTemplateCode') != templateCode) {
-      return;
-    }
-    if (Session.get('currentIssueCode') != issueCode) {
-      return;
-    }
-    if (error) {
-      console.log(error);
-      Session.set('currentIssueId','NOTFOUND');
-      return;
-    }
-    Session.set('currentIssueId', result);
-  });
+  var issueId = Meteor.userFunctions.getIssueId(issueCode);
+  Session.set('currentIssueId', issueId);
 }
 
 function setCurrentTagId(templateCode, tagCode) {
@@ -106,29 +65,20 @@ function setCurrentTagId(templateCode, tagCode) {
   }
 
   Session.set('currentTag', tagCode);
-
-  Meteor.call('getTagId', tagCode, function(error, result) {
-    if (Session.get('currentTemplateCode') != templateCode) {
-      console.log("warning: current template code " + templateCode + " does not match session template code " + Session.get('currentTemplateCode'));
-      return;
-    }
-    if (error) {
-      console.log(error);
-      Session.set('currentTagId','NOTFOUND');
-      return;
-    }
-    Session.set('currentTagId', result);
-  });
+  var tagId = Meteor.userFunctions.getTagId(tagCode);
+  Session.set('currentTagId', tagId);
 }
 
 Meteor.Router.add({
   '/signIn': 
   { as: 'signIn', to: function() {
+    
       setCurrentIds('signIn',null, null, null, null, null);
       return 'signIn';
     }
   },
 '/': { as: 'home', to: function() {
+
       setCurrentIds('home',null, null, null, null, null);
       if (Meteor.user()) {
         return 'home';
@@ -139,6 +89,7 @@ Meteor.Router.add({
   },
   '/team/create':
     { as: 'createTeam', to: function() {
+    
       setCurrentIds('createTeam',null, null, null, null, null);
       if (Meteor.user()) {
         return 'createTeam';
@@ -148,7 +99,6 @@ Meteor.Router.add({
     }
   },
   '/:teamCode': { as: 'team', to: function(teamCode) {
-
       setCurrentIds('team', teamCode, null, null, null, null);
 
       if (!Meteor.user())
@@ -174,7 +124,6 @@ Meteor.Router.add({
     }
   },
   '/:teamCode/tags/:tag': { as: 'tag', to: function(teamCode, tag) {
-
       setCurrentIds('tag', teamCode, null, null, null, tag);
 
       if (!Meteor.user())
@@ -199,7 +148,7 @@ Meteor.Router.add({
     }
   },
   '/:teamCode/edit': { as: 'editTeam', to: function(teamCode) {
-   
+  
       setCurrentIds('editTeam', teamCode, null, null, null, null);
 
       if (!Meteor.user())
@@ -224,7 +173,6 @@ Meteor.Router.add({
     }
   },
   '/:teamCode/project/create': { as: 'createProject', to: function(teamCode) {
-
       setCurrentIds('createProject', teamCode, null, null, null, null);
 
       if (!Meteor.user())
@@ -249,7 +197,6 @@ Meteor.Router.add({
     }    
   },
   '/:teamCode/:projectCode': { as: 'project', to: function(teamCode, projectCode) {
-
       setCurrentIds('project', teamCode, projectCode, null, null, null);
 
       if (!Meteor.user())
@@ -265,8 +212,7 @@ Meteor.Router.add({
         };
         Meteor.call('logMovement', movementAttributes);
 
-
-        if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId' == 'NOTFOUND')) {
+        if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND') {
           return 'notFound';
         } else {
           return 'project';
@@ -275,7 +221,6 @@ Meteor.Router.add({
     }    
   },
   '/:teamCode/:projectCode/edit': { as: 'editProject', to: function(teamCode, projectCode) {
-
       setCurrentIds('editProject', teamCode, projectCode, null, null, null);
 
       if (!Meteor.user())
@@ -291,7 +236,7 @@ Meteor.Router.add({
         };
         Meteor.call('logMovement', movementAttributes);
 
-        if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId' == 'NOTFOUND')) {
+        if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND') {
           return 'notFound';
         } else {
           return 'editProject';
@@ -300,7 +245,6 @@ Meteor.Router.add({
     }    
   },
   '/:teamCode/:projectCode/feature/create': { as: 'createFeature', to: function(teamCode, projectCode) {
-
       setCurrentIds('createFeature', teamCode, projectCode, null, null, null);
 
       if (!Meteor.user())
@@ -316,7 +260,7 @@ Meteor.Router.add({
         };
         Meteor.call('logMovement', movementAttributes);
 
-        if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId' == 'NOTFOUND')) {
+        if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND') {
           return 'notFound';
         } else {
           return 'createFeature';
@@ -325,7 +269,6 @@ Meteor.Router.add({
     }    
   },
   '/:teamCode/:projectCode/:featureCode': { as: 'feature', to: function(teamCode, projectCode, featureCode) {
-
       setCurrentIds('feature', teamCode, projectCode, featureCode, null, null);
 
       if (!Meteor.user())
@@ -350,7 +293,6 @@ Meteor.Router.add({
     }
   },
   '/:teamCode/:projectCode/:featureCode/edit': { as: 'editFeature', to: function(teamCode, projectCode, featureCode) {
-
       setCurrentIds('editFeature', teamCode, projectCode, featureCode, null, null);
 
       if (!Meteor.user())
@@ -375,7 +317,6 @@ Meteor.Router.add({
     }    
   },
   '/:teamCode/:projectCode/:featureCode/issue/create': { as: 'createIssue', to: function(teamCode, projectCode, featureCode) {
-
       setCurrentIds('createIssue', teamCode, projectCode, featureCode, null, null);
 
       if (!Meteor.user())
@@ -400,7 +341,6 @@ Meteor.Router.add({
     }    
   },
   '/:teamCode/:projectCode/:featureCode/:issueCode': { as: 'issue', to: function(teamCode, projectCode, featureCode, issueCode) {
-
       setCurrentIds('issue', teamCode, projectCode, featureCode, issueCode, null);
 
       if (!Meteor.user())
@@ -426,7 +366,6 @@ Meteor.Router.add({
     }    
   },
   '/:teamCode/:projectCode/:featureCode/:issueCode/edit': { as: 'editIssue', to: function(teamCode, projectCode, featureCode, issueCode) {
-
       setCurrentIds('editIssue', teamCode, projectCode, featureCode, issueCode, null);
 
       if (!Meteor.user())

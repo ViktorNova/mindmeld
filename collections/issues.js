@@ -1,17 +1,6 @@
 Issues = new Meteor.Collection('issues');
 
 Meteor.methods({
-  getIssueId: function(issueCode) {
-    if (!issueCode)
-      return null;
-
-    var issue = Issues.findOne({code: issueCode});
-    if (issue) {
-      return issue._id;
-    } else {
-      return "NOTFOUND";
-    }
-  },
 	createIssue: function(issueAttributes) {
     var user = Meteor.user();
     if (!user)

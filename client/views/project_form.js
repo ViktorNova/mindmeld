@@ -6,6 +6,9 @@ Template.projectForm.events({
   'click #create': function(event) {
     event.preventDefault();
 
+    if (!$('form#createProject').parsley().validate())
+      return;
+
     var project = {
       teamId: $(document).find('[name=teamId]').val(),
       name: $(document).find('[name=name]').val(),
@@ -14,32 +17,20 @@ Template.projectForm.events({
 
     Meteor.call('createProject', project, function(error, project) {
       if (error) {
-        //TODO: handle errors in notifications
-        Meteor.Errors.throw(error.reason);
-        //if project already exists, go there
-        if (error.error == 302)
-          Meteor.Router.to('team', error.details)
+        Meteor.userFunctions.addError(error.reason);
+        return;
       } else {
-        var notificationAttributes = {
-          entity: 'project',
-          action: 'create',
-          project: project
-        };
-
-        Meteor.call('createProjectNotification', notificationAttributes, function(error) {
-          if (error) {
-            console.log(error);
-            //TODO: handle errors in notifications    
-          }
-          Meteor.Router.to('project',
-            Meteor.userFunctions.teamCode.call(project),
-            project.code);
-        });      
+        Meteor.Router.to('project',
+          Meteor.userFunctions.teamCode.call(project),
+          project.code);
       }
     });
   },
   'click #edit': function(event) {
     event.preventDefault();
+
+    if (!$('form#editProject').parsley().validate())
+      return;
 
     var project = {
       _id: $(document).find('[name=_id]').val(),
@@ -47,12 +38,11 @@ Template.projectForm.events({
       name: $(document).find('[name=name]').val(),
       detail: $(document).find('[name=detail]').val()
     }
-    console.log(project);
 
     Meteor.call('editProject', project, function(error, project) {
       if (error) {
-        //TODO: handle errors in notifications
-        Meteor.Errors.throw(error.reason);
+        Meteor.userFunctions.addError(error.reason);
+        return;
       } else {
         Meteor.Router.to('project', 
           Meteor.userFunctions.teamCode.call(project), 
@@ -60,12 +50,12 @@ Template.projectForm.events({
       }
     });
   },
-  'click #cancel': function(event) {
+  'click #cancel-create': function(event) {
     event.preventDefault();
-    var projectId = $(document).find('[name=_id]').val();
-    var project = Projects.findOne(projectId);
-    Meteor.Router.to('project',
-      Meteor.userFunctions.teamCode.call(project),
-      project.code);
+    Meteor.Router.to('team', Session.get('currentTeamCode'));
+  },
+  'click #cancel-edit': function(event) {
+    event.preventDefault();
+    Meteor.Router.to('project', Session.get('currentTeamCode'), Session.get('currentProjectCode'));
   }
 });
