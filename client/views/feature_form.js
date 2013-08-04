@@ -17,6 +17,9 @@ Template.featureForm.events({
   'click #create': function(event) {
     event.preventDefault();
 
+    if (!$('form#createFeature').parsley().validate())
+      return;
+
     var feature = {
       teamId: $(document).find('[name=teamId]').val(),
       projectId: $(document).find('[name=projectId]').val(),
@@ -27,33 +30,21 @@ Template.featureForm.events({
 
     Meteor.call('createFeature', feature, function(error, feature) {
       if (error) {
-        //TODO: handle errors in notifications
-        Meteor.Errors.throw(error.reason);
-        //if feature already exists, go there
-        if (error.error == 302)
-          Meteor.Router.to('project', error.details)
+        Meteor.userFunctions.addError(error.reason);
+        return;
       } else {
-        var notificationAttributes = {
-          entity: 'feature',
-          action: 'create',
-          feature: feature
-        };
-
-        Meteor.call('createFeatureNotification', notificationAttributes, function(error) {
-          if (error) {
-            console.log(error);
-            //TODO: handle errors in notifications    
-          }
-          Meteor.Router.to('feature', 
-            Meteor.userFunctions.teamCode.call(feature),
-            Meteor.userFunctions.projectCode.call(feature),
-            feature.code);
-        });      
+        Meteor.Router.to('feature', 
+          Meteor.userFunctions.teamCode.call(feature),
+          Meteor.userFunctions.projectCode.call(feature),
+          feature.code);
       }
     });
   },
   'click #edit': function(event) {
     event.preventDefault();
+
+    if (!$('form#editFeature').parsley().validate())
+      return;
 
     var feature = {
       _id: $(document).find('[name=_id]').val(),
@@ -66,8 +57,8 @@ Template.featureForm.events({
 
     Meteor.call('editFeature', feature, function(error, feature) {
       if (error) {
-        //TODO: handle errors in notifications
-        Meteor.Errors.throw(error.reason);
+        Meteor.userFunctions.addError(error.reason);
+        return;
       } else {
         Meteor.Router.to('feature',
           Meteor.userFunctions.teamCode.call(feature),
@@ -76,13 +67,11 @@ Template.featureForm.events({
       }
     });
   },
-  'click #cancel': function(event) {
+  'click #cancel-create': function(event) {
     event.preventDefault();
-    var featureId = $(document).find('[name=_id]').val();
-    var feature = Features.findOne(featureId);
-    Meteor.Router.to('feature',
-      Meteor.userFunctions.teamCode.call(feature),
-      Meteor.userFunctions.projectCode.call(feature),
-      feature.code);
+    Meteor.Router.to('project', Session.get('currentTeamCode'), Session.get('currentProjectCode'));
+  },
+  'click #cancel-edit': function(event) {
+    Meteor.Router.to('feature', Session.get('currentTeamCode'), Session.get('currentProjectCode'), Session.get('currentFeatureCode'));
   }
 });

@@ -12,7 +12,7 @@ Meteor.methods({
       updatedAt: new Date()
     });
 
-    if (!Teams.findOne(project.teamId))
+    if (!Teams.findOne({_id: project.teamId, members: {$in:[Meteor.userId()]}}))
       throw new Meteor.Error(403, "The team specified could not be found");
 
     if (project.name.length < 3 || project.name.length > 30)
@@ -50,7 +50,7 @@ Meteor.methods({
       upperCaseCode: projectAttributes.name.toCode().toUpperCase()
     });
 
-    if (!Teams.findOne(project.teamId))
+    if (!Teams.findOne({_id: project.teamId, members: {$in:[Meteor.userId()]}}))
       throw new Meteor.Error(403, "The team specified could not be found");
 
     if (project.name.length < 3 || project.name.length > 30)

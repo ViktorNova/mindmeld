@@ -160,5 +160,11 @@ input#name-input {
 }
 
 .select2-container {
-  margin-bottom: 20px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.select2-label {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
