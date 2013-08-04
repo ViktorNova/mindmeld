@@ -37,12 +37,6 @@ Template.teamForm.events({
       detail: $(document).find('[name=detail]').val()
     }
 
-    if (Meteor.userFunctions.doesTeamNameExist(team.name)) {
-      $('#name-control-group').addClass('error');
-      $('#name-help-inline').html('Team name already exists');
-      return;
-    }
-
     Meteor.call('createTeam', team, function(error, team) {
       if (error) {
         Meteor.userFunctions.addError(error.reason);
@@ -56,8 +50,8 @@ Template.teamForm.events({
 
         Meteor.call('createTeamNotification', notificationAttributes, function(error) {
           if (error) {
-            console.log(error);
-            //TODO: handle errors in notifications    
+            Meteor.userFunctions.addError(error.reason);
+            return;
           }
           Meteor.Router.to('team', team.code);
         });      
@@ -76,19 +70,10 @@ Template.teamForm.events({
       detail: $(document).find('[name=detail]').val()
     }
 
-    var currentTeam = Teams.find(team._id);
-    if (team.name.toCode().toUpperCase() != currentTeam.upperCaseCode) {
-      if (Meteor.userFunctions.doesTeamNameExist(team.name)) {
-        $('#name-control-group').addClass('error');
-        $('#name-help-inline').html('Team name already exists');
-        return;
-      }
-    }
-
     Meteor.call('editTeam', team, function(error, team) {
       if (error) {
-        //TODO: handle errors in notifications
-        Meteor.Errors.throw(error.reason);
+        Meteor.userFunctions.addError(error.reason);
+        return;
       } else {
         Meteor.Router.to('team', team.code);
       }

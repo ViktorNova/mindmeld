@@ -222,8 +222,11 @@ Meteor.userFunctions = {
   teamsCreatedByUserCount: function() {
     return Teams.find({createdByUserId: Meteor.userId()}).count();
   },
-  doesTeamNameExist: function(teamName) {
-    return Teams.findOne({upperCaseCode: teamName.toCode().toUpperCase()}) != null;
+  projectsInTeamCount: function() {
+    return Projects.find({teamId: this._id}).count();
+  },
+  projectsInTeamCountIsThreeOrGreater: function() {
+    return Projects.find({teamId: this._id}).count() >= 3;
   },
   getTeamId: function(teamCode) {
     if (!teamCode)
