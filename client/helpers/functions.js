@@ -232,6 +232,17 @@ Meteor.userFunctions = {
   projectsInTeamCountIsThreeOrGreater: function() {
     return Projects.find({teamId: this._id}).count() >= 3;
   },
+  invitesAndMembersCountInTeamIsThreeOrGreater: function() {
+    var currentTeam = Teams.findOne(Session.get('currentTeamId'));
+
+    if (!currentTeam)
+      return false;
+
+    var memberCount = currentTeam.members.length;
+    var teamInvitesCount = TeamInvites.find({teamId: Session.get('currentTeamId')}).fetch().length;
+
+    return (memberCount + teamInvitesCount) >= 7;
+  },
   getTeamId: function(teamCode) {
     if (!teamCode)
       return null;

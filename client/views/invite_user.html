@@ -1,0 +1,37 @@
+<template name="inviteUser">
+  {{> header}}
+  <div class="container-fluid">
+    <div id="main">
+      {{> breadcrumbHeader}}
+      {{> projectLinks}}
+      {{> errorNotification}}
+      <div class="row-fluid">
+        {{> notifications}}
+        {{> inviteUserForm}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="inviteUserForm">
+  {{#if notificationCount}}
+  <div class="span9">
+  {{else}}
+  <div class="span12">
+  {{/if}}
+    <h2 id="remainingInviteCount">Remaining Invite Count: </h2>
+    <p>You have 99 Invites outstanding. <a href="">Revoke Invites</a></p>
+    <div class="row-fluid">
+      <div class="span6">
+        <h3>Invite Users by username</h3>
+        <input type="hidden" id="inviteByUsername" />
+        <p>Users that have chosen to make their profiles public will be visible</p>
+      </div>
+      <div class="span6">    
+        <h3>Invite Users by email</h3>
+        <input type="hidden" id="inviteByEmail" />
+        <p>Invitations will be sent to the email address(es) entered</p>
+      </div>
+    </div>
+  </div>
+</template>

@@ -39,12 +39,16 @@ Template.teamBody.helpers(_.extend({
   Meteor.userFunctions));
 
 Template.teamBody.events({
+  'click #editTeam': function(event) {
+    event.preventDefault();
+    Meteor.Router.to('editTeam', this.code);
+  },
+  'click #inviteUser': function(event) {
+    event.preventDefault();
+    Meteor.Router.to('inviteUser', this.code);
+  },
   'click #createProject': function(event) {
     event.preventDefault();
     Meteor.Router.to('createProject', this.code);
   },
-  'click #editTeam': function(event) {
-    event.preventDefault();
-    Meteor.Router.to('editTeam', this.code);
-  }
 });

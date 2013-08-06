@@ -123,6 +123,31 @@ Meteor.Router.add({
       }
     }
   },
+  '/:teamCode/inviteUser': { as: 'inviteUser', to: function(teamCode) {
+      setCurrentIds('team', teamCode, null, null, null, null);
+
+      if (!Meteor.user())
+        return 'notFound';
+
+      if (!Session.get('currentTeamId')) {
+        return 'waiting';
+      } else {
+        
+        var movementAttributes = {
+          teamId: Session.get('currentTeamId'),
+          template: 'inviteUser',
+          templatePathAttributes: {teamCode: teamCode}
+        };
+        Meteor.call('logMovement',movementAttributes);
+
+        if (Session.get('currentTeamId') == 'NOTFOUND') {
+          return 'notFound';
+        } else {
+          return 'inviteUser';
+        }
+      }
+    }
+  },
   '/:teamCode/tags/:tag': { as: 'tag', to: function(teamCode, tag) {
       setCurrentIds('tag', teamCode, null, null, null, tag);
 

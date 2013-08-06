@@ -1,6 +1,7 @@
-function insertUser(username,name) {
-  var userId = Meteor.users.insert({
+function insertUser(username,name,showPublic) {
+  var userId = Meteor.users.insert({    
     username: username,
+    showPublic: showPublic,
     profile: { name: name }
   });
   return Meteor.users.findOne(userId);
@@ -10,7 +11,8 @@ if (Teams.find().count() === 0) {
   var users = {};
 
   var dcw303Id = Meteor.users.insert(
-    { "_id" : "JrvzK876e5PBHKc2T", 
+    { "_id" : "JrvzK876e5PBHKc2T",
+      "showPublic" : true, 
       "createdAt" : 1370869232768, 
       "emails" : [ { 
         "address" : "daniel.crowley.wilson@gmail.com", 
@@ -30,6 +32,7 @@ if (Teams.find().count() === 0) {
 
   var wolverineId = Meteor.users.insert(
     { "_id" : "jNt9ErmtN4HvxsnKn", 
+      "showPublic" : true, 
       "createdAt" : 1371260015064, 
       "emails" : [ { 
         "address" : "wolverine@wolverine.com", 
@@ -49,6 +52,7 @@ if (Teams.find().count() === 0) {
 
   var x23Id = Meteor.users.insert(
     { "_id" : "ozEMYtxk6kZp4oAPa", 
+      "showPublic" : true, 
       "createdAt" : 1371260040178, 
       "emails" : [ { 
         "address" : "x23@x23.com", 
@@ -67,9 +71,9 @@ if (Teams.find().count() === 0) {
     });
 
 
-  users['shinji'] = insertUser('shinji','Shinji Ikari');
-  users['asuka'] = insertUser('asuka','Asuka Langley Soryu');
-  users['rei'] = insertUser('rei','Rei Ayanami');
+  users['shinji'] = insertUser('shinji','Shinji Ikari', true);
+  users['asuka'] = insertUser('asuka','Asuka Langley Soryu', true);
+  users['rei'] = insertUser('rei','Rei Ayanami', false);
 
   var weaponXId = Teams.insert({
     name: 'Weapon X',

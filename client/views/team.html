@@ -27,9 +27,11 @@
 <template name="teamButtons">
 {{#if action}}
   <button id="editTeam" alt="Edit Team" class="btn" disabled ><i class="icon-edit"></i> Edit Team</button>
+  <button id="inviteUser" alt="Invite User" class="btn" disabled><i class="icon-user"></i> Invite User</button>
   <button id="createProject" class="btn" disabled ><i class="icon-plus"></i> Create Project</button>
 {{else}}
   <button id="editTeam" alt="Edit Team" class="btn"><i class="icon-edit"></i> Edit Team</button>
+  <button id="inviteUser" alt="Invite User" class="btn" {{disableButtonIf invitesAndMembersCountInTeamIsThreeOrGreater}}><i class="icon-user"></i> Invite User</button>
   <button id="createProject" class="btn" {{disableButtonIf projectsInTeamCountIsThreeOrGreater}}><i class="icon-plus"></i> Create Project</button>
 {{/if}}
 </template>
