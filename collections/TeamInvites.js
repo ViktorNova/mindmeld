@@ -1,1 +1,0 @@
-TeamInvites = new Meteor.Collection('teamInvites');
