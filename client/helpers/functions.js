@@ -172,10 +172,10 @@ Meteor.userFunctions = {
   otherMembers: function() {
     return Meteor.users.find({ _id: { $ne: Meteor.userId() } });
   },
-  userId: function() {
+  loggedInUserId: function() {
     return Meteor.userId();
   },
-  username: function() {
+  loggedInUsername: function() {
     return Meteor.user() && Meteor.user().username;
   },
   isLoggedIn: function() {
@@ -298,5 +298,14 @@ Meteor.userFunctions = {
     } else {
       return "NOTFOUND";
     }
+  },
+  getTeamInvites: function() {
+    return TeamInvites.find({teamId: this._id });
+  },
+  getTeamInvitesWithEmail: function() {
+    return TeamInvites.find({email: {$exists: true}, teamId: this._id});
+  },
+  getTeamInvitesWithUsername: function() {
+    return TeamInvites.find({username: {$exists: true}, teamId: this._id});
   }
 };

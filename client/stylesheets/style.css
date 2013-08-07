@@ -159,6 +159,10 @@ input#name-input {
   font-size: 20pt;
 }
 
+p.notification {
+  margin-bottom: 40px;
+}
+
 .select2-container {
   margin-top: 0px;
   margin-bottom: 10px;

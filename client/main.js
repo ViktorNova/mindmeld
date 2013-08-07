@@ -6,6 +6,7 @@ Deps.autorun(function() {
   Meteor.subscribe('teamMembers', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('teamMovements', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('teamTags', Meteor.userId(), Session.get('currentTeamId'));
+  Meteor.subscribe('teamInvites', Meteor.userId(), Session.get('currentTeamId'));
 
   Meteor.subscribe('userProjects', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('userFeatures', Meteor.userId(), Session.get('currentTeamId'));
@@ -13,6 +14,7 @@ Deps.autorun(function() {
   Meteor.subscribe('userNotifications', Meteor.userId(), Session.get('currentTeamId'));
 
   Meteor.subscribe('issueComments', Meteor.userId(), Session.get('currentTeamId'), Session.get('currentIssueId'));
+
 
   var movement = Movements.findOne({userId: Session.get('following')});
   if (movement) {

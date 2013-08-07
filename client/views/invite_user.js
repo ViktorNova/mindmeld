@@ -3,8 +3,12 @@ Template.inviteUserForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.f
 
 var initialRemainingInviteCount = 7;
 
+function pluralInvites(count) {
+  return count == 1 ? "invite" : "invites";
+}
+
 function displayRemainingInviteCount(e) {
-  $('#remainingInviteCount').text('Remaining invite count: ' + remainingInviteCount());
+  $('#remainingInviteCount').text(remainingInviteCount() + " " + pluralInvites(remainingInviteCount()) + " remaining");
   remainingInviteByUsernameCount();
   remainingInviteByEmailCount();
 }
@@ -59,7 +63,7 @@ Template.inviteUserForm.rendered = function() {
     $('#inviteByUsername')
       .on("change", displayRemainingInviteCount)
       .select2({
-        minimumInputLength: 3,
+        minimumInputLength: 1,
         maximumSelectionSize: remainingInviteByUsernameCount,
         multiple: true,
         width: "100%",
@@ -68,7 +72,7 @@ Template.inviteUserForm.rendered = function() {
         },
         query: function(query) {
           var data = {results: []};
-          Meteor.call('getPublicUsernames', query.term, function(error, result) {
+          Meteor.call('getPublicUsernames', query.term, Session.get('currentTeamId'), function(error, result) {
             data.results = result;
             query.callback(data);
           });
@@ -102,3 +106,15 @@ Template.inviteUserForm.rendered = function() {
     displayRemainingInviteCount();  
   });
 }
+
+Template.inviteUserForm.events({
+  'click #invite-users': function(event) {
+    event.preventDefault();
+    if ($('#inviteByUsername').select2('val').length == 0 && $('#inviteByEmail').select2('val').length == 0)
+      return;
+    var teamId = $('input#teamId').val();
+    Meteor.call('addTeamInvites',$('#teamId').val(), $('#inviteByUsername').select2('val'), $('#inviteByEmail').select2('val'));
+    $('#inviteByUsername').select2('val', '');
+    $('#inviteByEmail').select2('val', '');    
+  }
+});
