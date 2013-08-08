@@ -1,5 +1,11 @@
-function inviteByEmail(teamId, email) {
-  console.log('invitin' + email );
+function inviteByEmail(teamName, email) {
+  Email.send({
+    to: email,
+    from: 'robot@mindmeld.io',
+    subject: 'Invite to join ' + teamName,
+    text: 'you should join',
+    html: '<h1>You Should Join</h1><p>really</p>'
+  });
 }
 
 Meteor.methods({
@@ -34,7 +40,7 @@ Meteor.methods({
         email: email,
         createdAt: new Date()
       });
-      inviteByEmail(teamId, email);
+      inviteByEmail(team.name, email);
     });
   },
   revokeByEmail: function(teamId, email) {

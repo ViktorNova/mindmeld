@@ -43,9 +43,9 @@ Template.teamBody.events({
     event.preventDefault();
     Meteor.Router.to('editTeam', this.code);
   },
-  'click #inviteUser': function(event) {
+  'click #inviteUsers': function(event) {
     event.preventDefault();
-    Meteor.Router.to('inviteUser', this.code);
+    Meteor.Router.to('inviteUsers', this.code);
   },
   'click #createProject': function(event) {
     event.preventDefault();

@@ -96,7 +96,7 @@ Template.inviteUserForm.rendered = function() {
         },
         query: function(query) {
           var data = {results: []};
-          Meteor.call('validateEmailForSelect2', query.term, function(error, result) {
+          Meteor.call('validateEmailForSelect2', query.term, Session.get('currentTeamId'), function(error, result) {
             data.results = result;
             query.callback(data);
           });

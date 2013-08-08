@@ -123,7 +123,7 @@ Meteor.Router.add({
       }
     }
   },
-  '/:teamCode/inviteUser': { as: 'inviteUser', to: function(teamCode) {
+  '/:teamCode/inviteUsers': { as: 'inviteUsers', to: function(teamCode) {
       setCurrentIds('team', teamCode, null, null, null, null);
 
       if (!Meteor.user())
