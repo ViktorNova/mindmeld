@@ -36,5 +36,29 @@ Meteor.methods({
       });
       inviteByEmail(teamId, email);
     });
+  },
+  revokeByEmail: function(teamId, email) {
+
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to create a feature");
+
+    var team = Teams.findOne({_id: teamId, members: {$in: [Meteor.userId()]}});
+    if (!team)
+      throw new Meteor.Error(403, "You are not authorized to add invites to this team");
+
+    TeamInvites.remove({teamId: teamId, email: email});
+  },
+  revokeByUsername: function(teamId, username) {
+
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to create a feature");
+
+    var team = Teams.findOne({_id: teamId, members: {$in: [Meteor.userId()]}});
+    if (!team)
+      throw new Meteor.Error(403, "You are not authorized to add invites to this team");
+
+    TeamInvites.remove({teamId: teamId, username: username});
   }
 });

@@ -116,5 +116,17 @@ Template.inviteUserForm.events({
     Meteor.call('addTeamInvites',$('#teamId').val(), $('#inviteByUsername').select2('val'), $('#inviteByEmail').select2('val'));
     $('#inviteByUsername').select2('val', '');
     $('#inviteByEmail').select2('val', '');    
+  },
+  'click .revokeByEmail': function(event) {
+    event.preventDefault();
+    var email = event.target.dataset.email;
+    if (email)
+      Meteor.call('revokeByEmail',$('#teamId').val(), email);
+  },
+  'click .revokeByUsername': function(event) {
+    event.preventDefault();
+    var username = event.target.dataset.username;
+    if (username)
+      Meteor.call('revokeByUsername',$('#teamId').val(), username);
   }
 });

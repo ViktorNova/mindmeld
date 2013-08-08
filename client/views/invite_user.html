@@ -53,12 +53,12 @@
                 {{#if getTeamInvitesWithUsername.count}}
                 <tr>
                   <td class="span11">Username</td>
-                  <td class="span1">Action</td>
+                  <td class="span1"><div class="text-center">Action</div></td>
                 </tr>
                 {{#each getTeamInvitesWithUsername}}
                 <tr>
                   <td>{{username}}</td>
-                  <td><button type="button" class="btn" id="revokeByUsername" data-username="{{username}}">Revoke</button></td>
+                  <td><div clas="text-center"><button type="button" class="btn revokeByUsername" data-username="{{username}}"><i class="icon-remove"></i> Revoke</button></div></td>
                 </tr>
                 {{/each}}
                 {{else}}
@@ -78,7 +78,7 @@
                 {{#each getTeamInvitesWithEmail}}
                 <tr>
                   <td>{{email}}</td>
-                  <td><div class="text-center"><button type="button" class="btn" id="revokeByemail" data-email="{{email}}"><i class="icon-remove"></i> Revoke</button></div></td>
+                  <td><div class="text-center"><button type="button" class="btn revokeByEmail" data-email="{{email}}"><i class="icon-remove"></i> Revoke</button></div></td>
                 </tr>
                 {{/each}}
                 {{else}}
