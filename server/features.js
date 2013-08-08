@@ -50,7 +50,7 @@ Meteor.methods({
       upperCaseCode: featureAttributes.name.toCode().toUpperCase()
     });
 
-    if (!Teams.findOne({_id: project.teamId, members: {$in:[Meteor.userId()]}}))
+    if (!Teams.findOne({_id: feature.teamId, members: {$in:[Meteor.userId()]}}))
       throw new Meteor.Error(403, "The team specified could not be found");
 
     if (!Teams.findOne({_id: feature.teamId, members: {$in:[feature.ownedByUserId]}}))
