@@ -43,23 +43,42 @@
   <div class="span12">
   {{/if}}
       <div class="row-fluid">
-        <div class="row-fluid">
-          {{#with currentTeam}}
-            {{> teamButtons}}
-            <h1><i class="icon-group"></i> {{name}}</h1>
-            <div>{{#markdown}}{{detail}}{{/markdown}}</div>
-            <h2><i class="icon-tags"></i> Tags by Count</h2>
-            <ul class="nav nav-list">
-              {{#each teamTags}}
-              <li class="divider"></li>
-              <li><a href="{{tagPath teamCode tag}}"><span class="badge badge-info">{{count}}</span> {{tag}}</a>
-                <span class="label label-important">{{notStartedIssuesWithTagCount}} Not Started</span> 
-                <span class="label label-info">{{inProgressIssuesWithTagCount}} in progress</span> 
-                <span class="label label-success">{{completedIssuesWithTagCount}} completed</span> 
-                <span class="label label-warning">{{cancelledIssuesWithTagCount}} cancelled</span></li>
+        {{#with currentTeam}}
+          {{> teamButtons}}
+          <h1><i class="icon-group"></i> {{name}}</h1>
+          <div>{{#markdown}}{{detail}}{{/markdown}}</div>
+          <h2>Team Members</h2>
+          <table class="table table-striped">
+            {{#if teamMembers}}
+              <tr>
+                  <td class="span3">Username</td>
+                  <td class="span7">Name</td>
+                  <td class="span2">Action</td>
+              </tr>
+              {{#each teamMembers}}
+              <tr>
+                  <td><a href="">{{username}}</a></td>
+                  <td>{{firstName}}&nbsp;{{lastName}}</td>
+                  <td><button type="button" class="btn remove-user" data-userid="{{_id}}" {{disableButtonIf userIsTeamOwner}}>Remove</button></td>
+              </tr>
               {{/each}}
-            </ul>
-        </div>
+            {{else}}
+            <tr>
+              <td><div class="text-center"><em>No team members</em></div></td>
+            </tr>
+            {{/if}}
+          </table>
+          <h2><i class="icon-tags"></i> Tags by Count</h2>
+          <ul class="nav nav-list">
+            {{#each teamTags}}
+            <li class="divider"></li>
+            <li><a href="{{tagPath teamCode tag}}"><span class="badge badge-info">{{count}}</span> {{tag}}</a>
+              <span class="label label-important">{{notStartedIssuesWithTagCount}} Not Started</span> 
+              <span class="label label-info">{{inProgressIssuesWithTagCount}} in progress</span> 
+              <span class="label label-success">{{completedIssuesWithTagCount}} completed</span> 
+              <span class="label label-warning">{{cancelledIssuesWithTagCount}} cancelled</span></li>
+            {{/each}}
+          </ul>
       </div>
     {{/with}}
   </div>

@@ -19,8 +19,14 @@ Meteor.publish('teamIssues', function(userId, teamId) {
 Meteor.publish('teamMembers', function(userId, teamId) {
   var team = Teams.findOne({_id: teamId, members: {$in: [userId]}});
   if (team) {
-    var teamMembers = Meteor.users.find({_id: {$in: team.members}});
-    return teamMembers;
+    return teamMembers = Meteor.users.find({_id: {$in: team.members}},
+      {fields: {
+        username: 1, 
+        showPublic: 1, 
+        firstName: 1,
+        lastName: 1
+      }
+    });
   }
 });
 Meteor.publish('userProjects', function(userId, teamId) {

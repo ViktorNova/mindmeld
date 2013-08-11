@@ -82,5 +82,18 @@ Meteor.methods({
     Meteor.call('editTeamNotification', notificationAttributes);
 
     return newTeam;
+  },
+  removeUserFromTeam: function(userId, teamId) {
+
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to edit a team");
+
+    var team = Teams.findOne({_id: teamId, members: {$in: [Meteor.userId()]}});
+
+    if (!team)
+      throw new Meteor.Error(403, "You are not authorized to remove a user from this team");
+
+    Teams.update({_id: teamId}, { $pull: { members: userId}});
   }
 });

@@ -35,8 +35,8 @@ Template.featureBody.events({
 
     Meteor.call('deleteFeature', featureId, function(error) {
       if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TOO: handle errors in notifications
+        Meteor.userFunctions.addError(error.reason);
+        return;
       } else {
         var project = Meteor.userFunctions.currentProject();
         Meteor.Router.to('project', 

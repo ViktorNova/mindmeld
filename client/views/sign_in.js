@@ -20,7 +20,6 @@ Template.signIn.events({
 
       Meteor.loginWithPassword(usernameOrEmail, password, function(error) {
         if (error) {
-          "User not found"
           if (error.error == 403 && error.reason == "User not found") {
             $('#usernameOrEmailNotFound').show();
             $('#usernameGroup').addClass('error');

@@ -12,6 +12,8 @@ if (Teams.find().count() === 0) {
 
   var dcw303Id = Meteor.users.insert(
     { "_id" : "JrvzK876e5PBHKc2T",
+      "firstName" : "Daniel",
+      "lastName" : "Crowley-Wilson",
       "showPublic" : true, 
       "createdAt" : 1370869232768, 
       "emails" : [ { 
@@ -32,6 +34,8 @@ if (Teams.find().count() === 0) {
 
   var wolverineId = Meteor.users.insert(
     { "_id" : "jNt9ErmtN4HvxsnKn", 
+      "firstName" : "James",
+      "lastName" :  "Howlett",
       "showPublic" : true, 
       "createdAt" : 1371260015064, 
       "emails" : [ { 
@@ -51,7 +55,9 @@ if (Teams.find().count() === 0) {
     });
 
   var x23Id = Meteor.users.insert(
-    { "_id" : "ozEMYtxk6kZp4oAPa", 
+    { "_id" : "ozEMYtxk6kZp4oAPa",
+      "firstName" : "Laura",
+      "lastName" : "Kinney", 
       "showPublic" : true, 
       "createdAt" : 1371260040178, 
       "emails" : [ { 

@@ -44,8 +44,8 @@ Template.issueBody.events({
     var issueId = $(document).find('[name=_id]').val();
     Meteor.call('completeIssue', issueId, function(error) {
       if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TOO: handle errors in notifications
+        Meteor.userFunctions.addError(error.reason);
+        return;
       }
     });
   },
@@ -54,8 +54,8 @@ Template.issueBody.events({
     var issueId = $(document).find('[name=_id]').val();
     Meteor.call('cancelIssue', issueId, function(error) {
       if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TOO: handle errors in notifications
+        Meteor.userFunctions.addError(error.reason);
+        return;
       }
     });
   },
@@ -78,8 +78,8 @@ Template.issueBody.events({
     var comment = $(document).find('[name=newComment]').val(); 
     Meteor.call('addIssueComment', issueId, comment, function(error) {
       if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TODO: handle errors in notifications
+        Meteor.userFunctions.addError(error.reason);
+        return;
       }
       $(document).find('[name=newComment]').val('');
     });

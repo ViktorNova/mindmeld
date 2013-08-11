@@ -49,8 +49,8 @@ Template.projectBody.events({
 
     Meteor.call('deleteProject', projectId, function(error) {
       if (error) {
-        Meteor.Errors.throw(error.reason);
-        //TOO: handle errors in notifications
+        Meteor.userFunctions.addError(error.reason);
+        return;
       } else {
         var team = Meteor.userFunctions.currentTeam();
         Meteor.Router.to('team', Meteor.userFunctions.currentTeam().code);
