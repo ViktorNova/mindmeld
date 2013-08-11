@@ -172,15 +172,6 @@ Meteor.userFunctions = {
   otherMembers: function() {
     return Meteor.users.find({ _id: { $ne: Meteor.userId() } });
   },
-  loggedInUserId: function() {
-    return Meteor.userId();
-  },
-  loggedInUsername: function() {
-    return Meteor.user() && Meteor.user().username;
-  },
-  isLoggedIn: function() {
-    return Meteor.userId();
-  },
   ownedByCurrentUser: function() {
     return this && this.ownedByUserId && this.ownedByUserId === Meteor.userId();
   },
@@ -299,6 +290,9 @@ Meteor.userFunctions = {
       return "NOTFOUND";
     }
   },
+  teamInvite: function() {
+    return TeamInvites.findOne(Session.get('teamInviteId'));
+  },
   getTeamInvites: function() {
     return TeamInvites.find({teamId: this._id });
   },
@@ -341,5 +335,10 @@ Meteor.userFunctions = {
   userIsTeamOwner: function() {
     var currentTeam = Teams.findOne(Session.get('currentTeamId'));
     return this._id == currentTeam.owner;
+  },
+  invitedTeam: function() {
+    var teamInvite = TeamInvites.findOne({_id: Session.get('teamInviteId'), receivedFrom: Session.get('teamInviteFromUserId')});
+    if (teamInvite)
+      return Teams.findOne({_id: teamInvite.teamId});
   }
 };

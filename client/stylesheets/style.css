@@ -1,16 +1,32 @@
+html, body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#main {
+  overflow: auto;
+  padding-bottom: 150px;
+}
+
 body, h1, h2, h3, h4, h5, h6, input, button, textarea {
   font-family: 'Open Sans', sans-serif;
 }
 
 h1 {
   font-size: 20pt;
+  line-height: 24pt;
 }
 
 h2 {
   font-size: 18pt;
+  line-height: 22pt;
 }
 h3 {
   font-size: 16pt;
+  line-height: 20pt;
 }
 h4 {
   font-size: 14pt;
@@ -134,9 +150,14 @@ textarea {
     color: #667F97;
 }
 
+
+
 .footer {
-  padding: 30px 30px;
-  margin: 70px 0px 0px;
+  position: relative;
+  margin-top: -120px;
+  height: 120px;
+  clear: both;
+  padding-top: 20px;
   border-top: 1px solid #CFDFFF;
   background-color: #DFEFFF;
 }

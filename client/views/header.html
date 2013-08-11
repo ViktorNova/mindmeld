@@ -7,7 +7,7 @@
           {{else}}
           <a class="brand" href="{{homePath}}">Mindmeld</a>
           {{/if}}
-          {{#if isLoggedIn}}
+          {{#if currentUser}}
             <form class="navbar-search pull-left">
               <div class="input-prepend nav">
                 <div class="btn-group">
@@ -27,7 +27,7 @@
               </div>
             </form>
             <ul class="nav pull-right">
-              <li><a href="">{{loggedInUsername}}</a></li>
+              <li><a href="/users/{{currentUser.username}}">{{currentUser.username}}</a></li>
               <li><a id="signOut" href="">Sign Out</a></li>
           {{/if}}
         </div>

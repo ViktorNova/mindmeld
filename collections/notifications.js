@@ -11,7 +11,7 @@ Meteor.methods({
   createTeamNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to edit a team");
+      throw new Meteor.Error(401, "You need to login to create a team");
 
     var team = notificationAttributes.team;
 
@@ -36,7 +36,7 @@ Meteor.methods({
     var newTeam = notificationAttributes.newTeam;
 
     if (oldTeam._id !== newTeam._id)
-      throw new Meteor.Error(500, "Auditing error when attempting to edit a team. Previous and new versions of id do not match");
+      throw new Meteor.Error(403, "Auditing error when attempting to edit a team. Previous and new versions of id do not match");
 
     var teamDelta = Meteor.Mindmeld.delta(oldTeam, newTeam);
 
@@ -82,7 +82,7 @@ Meteor.methods({
     var newProject = notificationAttributes.newProject;
 
     if (oldProject._id !== newProject._id)
-      throw new Meteor.Error(500, "Auditing error when attempting to edit a project. Previous and new versions of id do not match");
+      throw new Meteor.Error(403, "Auditing error when attempting to edit a project. Previous and new versions of id do not match");
 
     var projectDelta = Meteor.Mindmeld.delta(oldProject, newProject);
 
@@ -103,7 +103,7 @@ Meteor.methods({
   createFeatureNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to edit a feature");
+      throw new Meteor.Error(401, "You need to login to create a feature");
 
     var feature = notificationAttributes.feature;
 
@@ -153,7 +153,7 @@ Meteor.methods({
   issueStatusChangeNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to edit an issue");
+      throw new Meteor.Error(401, "You need to login to change an issue status");
 
     var issue = notificationAttributes.issue;
 
@@ -174,7 +174,7 @@ Meteor.methods({
   createIssueNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to edit an issue");
+      throw new Meteor.Error(401, "You need to login to create an issue");
 
     var issue = notificationAttributes.issue;
 
@@ -225,7 +225,7 @@ Meteor.methods({
   addCommentNotification: function(notificationAttributes) {
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to edit an issue");
+      throw new Meteor.Error(401, "You need to login to add a comment notification");
 
     var issue = notificationAttributes.issue;
 
@@ -238,6 +238,21 @@ Meteor.methods({
       name: issue.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId()
+    });
+
+    var notificationId = Notifications.insert(notification);
+    return Notifications.findOne(notificationId);
+  },
+  createJoinTeamNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to add a join team notification");
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity','action','username','teamId'), {
+      name: notificationAttributes.teamCode,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId()  
     });
 
     var notificationId = Notifications.insert(notification);

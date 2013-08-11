@@ -1,6 +1,9 @@
 Meteor.publish('teams', function(userId) {
   return Teams.find({members: {$in:[userId]}},{sort: {updatedAt: -1}});
 });
+Meteor.publish('allTeams', function() {
+  return Teams.find({},{fields: { name: 1, code: 1}});
+});
 Meteor.publish('teamProjects', function(userId, teamId) {
   var team = Teams.findOne({_id: teamId, members: {$in: [userId]}});
   if (team)
@@ -64,5 +67,8 @@ Meteor.publish('teamInvites', function(userId, teamId) {
   var team = Teams.findOne({_id: teamId, members: {$in: [userId]}});
   if (team)
     return TeamInvites.find({teamId: teamId});
+});
+Meteor.publish('teamInviteForInvitee', function(id, receivedFrom) {
+  return TeamInvites.find({_id: id, receivedFrom: receivedFrom},{fields: {receivedFrom: 1, teamId: 1}});
 });
 

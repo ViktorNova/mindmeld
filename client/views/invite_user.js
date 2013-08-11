@@ -61,21 +61,7 @@ function remainingInviteByEmailCount() {
   return remainingInviteCount;
 }
 
-Template.tabHeaders.rendered = function() {
-  console.log('tabHeaders rendered!');
-}
-
-Template.inviteUserForm.events({
-  'click button': function(event) {
-    console.log('button says');
-    console.log(event);
-  }
-});
-
-
 Template.inviteUserForm.rendered = function() {
-
-  console.log('rendered');
 
   $(document).ready(function() {
 

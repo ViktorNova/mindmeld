@@ -45,7 +45,6 @@ Template.projectBody.events({
     event.preventDefault();
 
     var projectId = $(document).find('[name=_id]').val();
-    console.log("!" + projectId);
 
     Meteor.call('deleteProject', projectId, function(error) {
       if (error) {

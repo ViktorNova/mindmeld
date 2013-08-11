@@ -15,7 +15,7 @@
     <li>
       <p>
       <a data-item="{{_id}}" class="close pull-right" href="#">&times;</a>
-      <a href="/users/">{{createdByUsername}}</a> {{pastTense action oldStatus newStatus}} {{entity}} 
+      <a href="/users/{{createdByUsername}}">{{createdByUsername}}</a> {{pastTense action oldStatus newStatus}} {{entity}} 
       {{#if isComment}} to {{/if}}
       {{#if isTeam}}
       <a href="{{teamPath teamCode}}#{{_id}}">

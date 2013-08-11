@@ -87,6 +87,20 @@ Meteor.Router.add({
       }
     }
   },
+  '/acceptEmailInvite':
+  {
+    as: 'acceptEmailInvite', to: function() {
+      var qsElements = this.querystring.split('&');
+      _.each(qsElements, function(element) {
+        var pair = element.split('=');
+        if (pair[0] == 'teamInviteId' || pair[0] == 'teamInviteFromUserId')
+          Session.set(pair[0],pair[1]);
+      });
+
+      setCurrentIds('acceptEmailInvite',null,null,null,null,null);
+      return 'acceptEmailInvite';
+    }
+  },
   '/team/create':
     { as: 'createTeam', to: function() {
     

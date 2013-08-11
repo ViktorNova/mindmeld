@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div id="main">
       <div class="row-fluid content-gap">
-        {{#unless isLoggedIn}}
+        {{#unless currentUser}}
           <div class="span4"></div>
           <div class="span4 well">
             <form id="signInCredentials" data-validate="parsley">
@@ -29,5 +29,4 @@
       </div>
     </div>
   </div>
-  {{> footer}}
 </template>

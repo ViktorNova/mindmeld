@@ -34,6 +34,9 @@ Handlebars.registerHelper('pastTense', function(action, oldStatus, newStatus) {
   if (action === "delete") {
     return "deleted";
   }
+  if (action === "join") {
+    return "joined";
+  }
   if (action === "status") {
     if (newStatus == 1) {
       if (oldStatus == 0)
