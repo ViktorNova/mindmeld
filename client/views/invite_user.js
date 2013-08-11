@@ -1,5 +1,10 @@
 Template.inviteUser.helpers(Meteor.userFunctions);
 Template.inviteUserForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
+Template.tabHeaders.helpers(Meteor.userFunctions);
+Template.teamInvitesWithUsernameTable.helpers(Meteor.userFunctions);
+Template.teamInvitesWithEmailTable.helpers(Meteor.userFunctions);
+
+Template.inviteUserForm.preserve('.tabbable');
 
 var initialRemainingInviteCount = 7;
 
@@ -56,8 +61,22 @@ function remainingInviteByEmailCount() {
   return remainingInviteCount;
 }
 
+Template.tabHeaders.rendered = function() {
+  console.log('tabHeaders rendered!');
+}
+
+Template.inviteUserForm.events({
+  'click button': function(event) {
+    console.log('button says');
+    console.log(event);
+  }
+});
+
 
 Template.inviteUserForm.rendered = function() {
+
+  console.log('rendered');
+
   $(document).ready(function() {
 
     $('#inviteByUsername')
@@ -104,29 +123,50 @@ Template.inviteUserForm.rendered = function() {
     });
 
     displayRemainingInviteCount();  
+
+    $('#mytabs a[href="#tab-outstanding-invites-by-email"]').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+
+    $('#mytabs a[href="#tab-outstanding-invites-by-username"]').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+
+    if (Session.equals('lastInviteType','email'))
+      $('#mytabs a[href="#tab-outstanding-invites-by-email"]').tab('show');
+    else
+      $('#mytabs a[href="#tab-outstanding-invites-by-username"]').tab('show');
+
   });
 }
 
 Template.inviteUserForm.events({
   'click #invite-users': function(event) {
     event.preventDefault();
-    if ($('#inviteByUsername').select2('val').length == 0 && $('#inviteByEmail').select2('val').length == 0)
+    var usernameInviteCount = $('#inviteByUsername').select2('val').length;
+    var emailInviteCount = $('#inviteByEmail').select2('val').length;
+    if (usernameInviteCount + emailInviteCount == 0)
       return;
     var teamId = $('input#teamId').val();
     Meteor.call('addTeamInvites',$('#teamId').val(), $('#inviteByUsername').select2('val'), $('#inviteByEmail').select2('val'));
+
     $('#inviteByUsername').select2('val', '');
-    $('#inviteByEmail').select2('val', '');    
+    $('#inviteByEmail').select2('val', '');
   },
   'click .revokeByEmail': function(event) {
     event.preventDefault();
     var email = event.target.dataset.email;
     if (email)
       Meteor.call('revokeByEmail',$('#teamId').val(), email);
+    Session.set('lastInviteType','email');
   },
   'click .revokeByUsername': function(event) {
     event.preventDefault();
     var username = event.target.dataset.username;
     if (username)
       Meteor.call('revokeByUsername',$('#teamId').val(), username);
+    Session.set('lastInviteType','username');
   }
 });

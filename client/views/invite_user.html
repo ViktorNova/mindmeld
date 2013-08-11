@@ -11,6 +11,7 @@
       </div>
     </div>
   </div>
+  {{> footer}}
 </template>
 
 <template name="inviteUserForm">
@@ -43,50 +44,13 @@
         <input type="hidden" id="teamId" value="{{_id}}"/>
         <h3> {{getTeamInvites.count}} Invites outstanding:</h3>
         <div class="tabbable">
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-outstanding-invites-by-username" data-toggle="tab">By Username <span class="badge">{{getTeamInvitesWithUsername.count}}</span></a></li>
-            <li><a href="#tab-outstanding-invites-by-email" data-toggle="tab">By Email <span class="badge">{{getTeamInvitesWithEmail.count}}</span></a></li>
-          </ul>
+          {{> tabHeaders}}
           <div class="tab-content">
             <div class="tab-pane active" id="tab-outstanding-invites-by-username">
-              <table class="table table-striped">
-                {{#if getTeamInvitesWithUsername.count}}
-                <tr>
-                  <td class="span10">Username</td>
-                  <td class="span2"><div class="text-center">Action</div></td>
-                </tr>
-                {{#each getTeamInvitesWithUsername}}
-                <tr>
-                  <td class="span10">{{username}}</td>
-                  <td class="span2"><div class="text-center"><button type="button" class="btn revokeByUsername" data-username="{{username}}"><i class="icon-remove"></i> Revoke</button></div></td>
-                </tr>
-                {{/each}}
-                {{else}}
-                <tr>
-                  <td><div class="text-center"><em>No invites by username</em></div></td>
-                </tr>
-                {{/if}}
-              </table>
+              {{> teamInvitesWithUsernameTable}}
             </div>
             <div class="tab-pane" id="tab-outstanding-invites-by-email">
-              <table class="table table-striped">
-                {{#if getTeamInvitesWithEmail.count}}
-                <tr>
-                  <td class="span10">Email</td>
-                  <td class="span2"><div class="text-center">Action</div></td>
-                </tr>
-                {{#each getTeamInvitesWithEmail}}
-                <tr>
-                  <td class="span10">{{email}}</td>
-                  <td class="span2"><div class="text-center"><button type="button" class="btn revokeByEmail" data-email="{{email}}"><i class="icon icon-remove"></i> Revoke</button></div></td>
-                </tr>
-                {{/each}}
-                {{else}}
-                <tr>
-                  <td><div class="text-center"><em>No invites by email</em></div></td>
-                </tr>
-                {{/if}}
-              </table>
+              {{> teamInvitesWithEmailTable}}
             </div>
           </div>
         </div>
@@ -94,4 +58,55 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name="teamInvitesWithUsernameTable">
+  <form name="usernameInvitesForm">
+  <table class="table table-striped">
+    {{#if getTeamInvitesWithUsername.count}}
+      <tr>
+        <td class="span10">Username</td>
+        <td class="span2"><div class="text-center">Action</div></td>
+      </tr>
+      {{#each getTeamInvitesWithUsername}}
+      <tr>
+        <td class="span10">{{username}}</td>
+        <td class="span2"><div class="text-center"><button type="button" class="btn revokeByUsername" data-username="{{username}}"><i data-username="{{username}}" class="icon-remove"></i> Revoke</button></div></td>
+      </tr>
+      {{/each}}
+    {{else}}
+      <tr>
+        <td><div class="text-center"><em>No invites by username</em></div></td>
+      </tr>
+    {{/if}}
+  </table>
+  </form>
+</template>
+
+<template name="tabHeaders">
+  <ul class="nav nav-tabs" id="mytabs">
+    <li><a href="#tab-outstanding-invites-by-username">By Username <span class="badge" id="usernameInviteCount">{{getTeamInvitesWithUsername.count}}</span></a></li>
+    <li><a href="#tab-outstanding-invites-by-email">By Email <span class="badge" id="emailInviteCount">{{getTeamInvitesWithEmail.count}}</span></a></li>
+  </ul>
+</template>
+
+<template name="teamInvitesWithEmailTable">
+  <table class="table table-striped">
+    {{#if getTeamInvitesWithEmail.count}}
+      <tr>
+        <td class="span10">Email</td>
+        <td class="span2"><div class="text-center">Action</div></td>
+      </tr>
+      {{#each getTeamInvitesWithEmail}}
+      <tr>
+        <td class="span10">{{email}}</td>
+        <td class="span2"><div class="text-center"><button type="button" class="btn revokeByEmail" data-email="{{email}}"><i data-email="{{email}}" class="icon icon-remove"></i> Revoke</button></div></td>
+      </tr>
+      {{/each}}
+    {{else}}
+      <tr>
+        <td><div class="text-center"><em>No invites by email</em></div></td>
+      </tr>
+    {{/if}}
+  </table>
 </template>

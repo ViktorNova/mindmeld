@@ -1,11 +1,24 @@
-function inviteByEmail(teamName, email) {
+function inviteByEmail(teamInviteId, teamName, email) {
+
   Email.send({
     to: email,
-    from: 'robot@mindmeld.io',
-    subject: 'Invite to join ' + teamName,
-    text: 'you should join',
-    html: '<h1>You Should Join</h1><p>really</p>'
+    from: 'info@mindmeld.io',
+    subject: 'Invitation to join team ' + teamName + " on mindmeld.io",
+    text: generateInviteText(teamInviteId, teamName, email)
   });
+}
+
+function generateInviteText(teamInviteId, teamName, email) {
+  return "\
+Hi,\n\
+You've received a team invitation from mindmeld.io, the realtime collaborative issue tracker:\n\n\
+Email address: " + email + "\n\
+Team name: " + teamName + "\n\n\
+Accepting means that you will become a member of the team, and you can participate in issue tracking.\n\
+To accept, please follow the link below. If you already have a Mindmeld account, you'll be prompted to sign in first.\n\
+If you don't, you can create a free account before accepting the invitation.\n\n\
+http://mindmeld.io/acceptEmailInvite?id=" + teamInviteId + "\n\n\
+Happy Issue Tracking!\n";
 }
 
 Meteor.methods({
@@ -35,12 +48,12 @@ Meteor.methods({
     });
 
     _.each(invitesByEmail, function(email) {
-      TeamInvites.insert({
+      var teamInviteId = TeamInvites.insert({
         teamId: teamId,
         email: email,
         createdAt: new Date()
       });
-      inviteByEmail(team.name, email);
+      inviteByEmail(teamInviteId, team.name, email);
     });
   },
   revokeByEmail: function(teamId, email) {
