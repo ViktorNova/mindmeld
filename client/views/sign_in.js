@@ -30,6 +30,11 @@ Template.signIn.events({
           }
           return;
         }
+        var redir = Session.get('redir');
+        if (redir) {
+          Session.set('redir', null);
+          Meteor.Router.to(Meteor.Router[redir + 'Path']());
+        } else
         Meteor.Router.to(Meteor.Router.homePath());
       });
     } 

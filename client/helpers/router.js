@@ -72,6 +72,14 @@ function setCurrentTagId(templateCode, tagCode) {
 Meteor.Router.add({
   '/signIn': 
   { as: 'signIn', to: function() {
+      if (this.querystring) {
+        var qsElements = this.querystring.split('&');
+        _.each(qsElements, function(element) {
+          var pair = element.split('=');
+          if (pair[0] == 'redir')
+            Session.set(pair[0],pair[1]);
+        });
+      }
     
       setCurrentIds('signIn',null, null, null, null, null);
       return 'signIn';
