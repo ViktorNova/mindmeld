@@ -20,7 +20,8 @@ Meteor.methods({
       teamId: team._id,
       name: team.name,
       createdAt: new Date(),
-      createdByUserId: Meteor.userId()
+      createdByUserId: Meteor.userId(),
+      createdByUsername: user.username
     });
 
     var notificationId = Notifications.insert(notification);
@@ -46,6 +47,7 @@ Meteor.methods({
       name: newTeam.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId(),
+      createdByUsername: user.username,
       delta: teamDelta
     });
 
@@ -66,7 +68,8 @@ Meteor.methods({
       projectId: project._id,
       name: project.name,
       createdAt: new Date(),
-      createdByUserId: Meteor.userId()
+      createdByUserId: Meteor.userId(),
+      createdByUsername: user.username      
     });
 
     var notificationId = Notifications.insert(notification);
@@ -93,6 +96,7 @@ Meteor.methods({
       name: newProject.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId(),
+      createdByUsername: user.username,
       delta: projectDelta
     });
 
@@ -114,7 +118,8 @@ Meteor.methods({
       featureId: feature._id,
       name: feature.name,
       createdAt: new Date(),
-      createdByUserId: Meteor.userId()
+      createdByUserId: Meteor.userId(),
+      createdByUsername: user.username      
     });
 
     var notificationId = Notifications.insert(notification);
@@ -142,6 +147,7 @@ Meteor.methods({
       name: newFeature.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId(),
+      createdByUsername: user.username,      
       delta: featureDelta,
       readBy: []
     });
@@ -165,7 +171,8 @@ Meteor.methods({
       issueId: issue._id,
       name: issue.name,
       createdAt: new Date(),
-      createdByUserId: Meteor.userId()
+      createdByUserId: Meteor.userId(),
+      createdByUsername: user.username      
     });
 
     var notificationId = Notifications.insert(notification);
@@ -186,7 +193,8 @@ Meteor.methods({
       issueId: issue._id,
       name: issue.name,
       createdAt: new Date(),
-      createdByUserId: Meteor.userId()
+      createdByUserId: Meteor.userId(),
+      createdByUsername: user.username      
     });
 
     var notificationId = Notifications.insert(notification);
@@ -215,6 +223,7 @@ Meteor.methods({
       name: newIssue.name,
       createdAt: new Date(),
       createdByUserId: Meteor.userId(),
+      createdByUsername: user.username,      
       delta: issueDelta
     });
 
@@ -237,7 +246,8 @@ Meteor.methods({
       issueId: issue._id,
       name: issue.name,
       createdAt: new Date(),
-      createdByUserId: Meteor.userId()
+      createdByUserId: Meteor.userId(),
+      createdByUsername: user.username      
     });
 
     var notificationId = Notifications.insert(notification);
@@ -252,7 +262,24 @@ Meteor.methods({
       'entity','action','username','teamId'), {
       name: notificationAttributes.teamCode,
       createdAt: new Date(),
-      createdByUserId: Meteor.userId()  
+      createdByUserId: Meteor.userId(),
+      createdByUsername: user.username      
+    });
+
+    var notificationId = Notifications.insert(notification);
+    return Notifications.findOne(notificationId);
+  },
+  createDeclineTeamNotification: function(notificationAttributes) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to add a decline team notification");
+
+    var notification = _.extend(_.pick(notificationAttributes,
+      'entity','action','username','teamId'), {
+      name: notificationAttributes.teamCode,
+      createdAt: new Date(),
+      createdByUserId: Meteor.userId(),
+      createdByUsername: user.username        
     });
 
     var notificationId = Notifications.insert(notification);

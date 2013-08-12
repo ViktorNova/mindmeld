@@ -159,8 +159,8 @@ Meteor.userFunctions = {
     return Session.get('currentTag');
   },
   createdByUsername: function() {
-    return this.createdByUserId && Meteor.users.findOne(this.createdByUserId) && 
-    Meteor.users.findOne(this.createdByUserId).username;
+    return this.createdByUsername || (this.createdByUserId && Meteor.users.findOne(this.createdByUserId) && 
+    Meteor.users.findOne(this.createdByUserId).username);
   },
   ownedByUsername: function() {
     return this.ownedByUserId && Meteor.users.findOne(this.ownedByUserId) &&
@@ -340,5 +340,8 @@ Meteor.userFunctions = {
     var teamInvite = TeamInvites.findOne({_id: Session.get('teamInviteId'), receivedFrom: Session.get('teamInviteFromUserId')});
     if (teamInvite)
       return Teams.findOne({_id: teamInvite.teamId});
+  },
+  invitedTeamsForUsername: function() {
+    return TeamInvites.find({username: Meteor.user() && Meteor.user().username});
   }
 };

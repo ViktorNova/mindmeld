@@ -32,7 +32,7 @@ Meteor.methods({
     if (!team)
       throw new Meteor.Error(403, "You are not authorized to add invites to this team");
 
-    var maxInvites = 7;
+    var maxInvites = team.inviteCount || 10;
     var currentInvites = TeamInvites.find({teamId: teamId}).count();
     var newInvites = invitesByUsername.length + invitesByEmail.length;
 
@@ -82,11 +82,11 @@ Meteor.methods({
 
     TeamInvites.remove({teamId: teamId, username: username});
   },
-  acceptInvite: function(teamInviteId, teamInviteFromUserId) {
+  acceptEmailInvite: function(teamInviteId, teamInviteFromUserId) {
 
     var user = Meteor.user();
     if (!user)
-      throw new Meteor.Error(401, "You need to login to create a feature");
+      throw new Meteor.Error(401, "You need to login to accept an email team invite");
 
     var teamInvite = TeamInvites.findOne({_id: teamInviteId, receivedFrom: teamInviteFromUserId});
 
@@ -109,5 +109,81 @@ Meteor.methods({
     Meteor.call('createJoinTeamNotification', notificationAttributes);
 
     return joinedTeam.code;
+  },
+  declineEmailInvite: function(teamInviteId, teamInviteFromUserId) {
+
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to decline an email team invite");
+
+    var teamInvite = TeamInvites.findOne({_id: teamInviteId, receivedFrom: teamInviteFromUserId});
+
+    if (!teamInvite)
+      throw new Meteor.Error(403, "No team invite found matching those parameters");
+
+    TeamInvites.remove({_id: teamInviteId, receivedFrom: teamInviteFromUserId});
+
+    var declinedTeam = Teams.findOne(teamInvite.teamId);
+
+    var notificationAttributes = {
+      entity: 'team',
+      action: 'decline',
+      username: user.username,
+      teamId: declinedTeam._id,
+      teamCode: declinedTeam.code
+    };
+    Meteor.call('createDeclineTeamNotification', notificationAttributes);
+  },
+  acceptUsernameInvite: function(teamInviteId) {
+
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to accept a username team invite");
+
+    var teamInvite = TeamInvites.findOne({_id: teamInviteId, username: user.username});
+
+    if (!teamInvite)
+      throw new Meteor.Error(403, "No team invite found matching those parameters");
+
+    Teams.update({_id: teamInvite.teamId},{$push: {members: Meteor.userId()}});
+    TeamInvites.remove({_id: teamInviteId, username: user.username});
+
+    var joinedTeam = Teams.findOne(teamInvite.teamId);
+
+    var notificationAttributes = {
+      entity: 'team',
+      action: 'join',
+      username: user.username,
+      teamId: joinedTeam._id,
+      teamCode: joinedTeam.code
+    };
+    Meteor.call('createJoinTeamNotification', notificationAttributes);
+
+    return joinedTeam.code;
+  },
+  declineUsernameInvite: function(teamInviteId) {
+    var user = Meteor.user();
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to decline a username team invite");
+
+    console.log("!" + teamInviteId);
+
+    var teamInvite = TeamInvites.findOne({_id: teamInviteId, username: user.username});
+
+    if (!teamInvite)
+      throw new Meteor.Error(403, "No team invite found matching those parameters");
+
+    TeamInvites.remove({_id: teamInviteId, username: user.username});
+
+    var declinedTeam = Teams.findOne(teamInvite.teamId);
+
+    var notificationAttributes = {
+      entity: 'team',
+      action: 'decline',
+      username: user.username,
+      teamId: declinedTeam._id,
+      teamCode: declinedTeam.code
+    };
+    Meteor.call('createDeclineTeamNotification', notificationAttributes);
   }
 });

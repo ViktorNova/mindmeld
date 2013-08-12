@@ -71,4 +71,6 @@ Meteor.publish('teamInvites', function(userId, teamId) {
 Meteor.publish('teamInviteForInvitee', function(id, receivedFrom) {
   return TeamInvites.find({_id: id, receivedFrom: receivedFrom},{fields: {receivedFrom: 1, teamId: 1}});
 });
-
+Meteor.publish('teamInviteForUsernameInvitee', function(username) {  
+  return TeamInvites.find({username: username});
+});

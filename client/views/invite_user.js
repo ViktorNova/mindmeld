@@ -6,7 +6,7 @@ Template.teamInvitesWithEmailTable.helpers(Meteor.userFunctions);
 
 Template.inviteUserForm.preserve('.tabbable');
 
-var initialRemainingInviteCount = 7;
+var initialRemainingInviteCount;
 
 function pluralInvites(count) {
   return count == 1 ? "invite" : "invites";
@@ -62,6 +62,12 @@ function remainingInviteByEmailCount() {
 }
 
 Template.inviteUserForm.rendered = function() {
+
+  var currentTeam = Teams.findOne(Session.get('currentTeamId'));
+  if (currentTeam)
+    initialRemainingInviteCount = currentTeam.inviteCount || 10;
+  else
+    initialRemainingInviteCount = 0;
 
   $(document).ready(function() {
 

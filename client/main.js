@@ -9,6 +9,7 @@ Deps.autorun(function() {
   Meteor.subscribe('teamTags', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('teamInvites', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('teamInviteForInvitee', Session.get('teamInviteId'), Session.get('teamInviteFromUserId'));
+  Meteor.subscribe('teamInviteForUsernameInvitee', Meteor.user() && Meteor.user().username);
   Meteor.subscribe('userProjects', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('userFeatures', Meteor.userId(), Session.get('currentTeamId'));
   Meteor.subscribe('userIssues', Meteor.userId(), Session.get('currentTeamId'));

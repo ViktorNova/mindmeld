@@ -67,6 +67,25 @@ Template.home.events({
   'click #createTeam': function(event) {
     event.preventDefault();
     Meteor.Router.to('createTeam');
+  },
+  'click #accept': function(event) {
+    event.preventDefault();
+    Meteor.call('acceptUsernameInvite', event.target.dataset.inviteid, function(error, teamCode) {
+      if (error) {
+        Meteor.userFunctions.addError(error.reason);
+        return;
+      }
+      Meteor.Router.to(Meteor.Router.teamPath(teamCode));
+    });
+  },
+  'click #decline': function(event) {
+    event.preventDefault();
+    Meteor.call('declineUsernameInvite', event.target.dataset.inviteid, function(error) {
+      if (error) {
+        Meteor.userFunctions.addError(error.reason);
+        return;
+      }
+    });
   }
 });
 

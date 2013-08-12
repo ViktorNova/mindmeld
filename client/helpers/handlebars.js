@@ -37,6 +37,9 @@ Handlebars.registerHelper('pastTense', function(action, oldStatus, newStatus) {
   if (action === "join") {
     return "joined";
   }
+  if (action === "decline") {
+    return "declined an invite to ";
+  }
   if (action === "status") {
     if (newStatus == 1) {
       if (oldStatus == 0)
