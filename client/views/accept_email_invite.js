@@ -24,5 +24,15 @@ Template.acceptEmailInvite.events({
       Session.set('teamInviteFromUserId', null);
       Meteor.Router.to(Meteor.Router.homePath());
     });
+  },
+  'click #sign-in': function(event) {
+    event.preventDefault();
+    Session.set('redir','acceptEmailInvite');
+    Meteor.Router.to(Meteor.Router.signInPath());
+  },
+  'click #sign-up': function(event) {
+    event.preventDefault();
+    Session.set('redir','acceptEmailInvite');
+    Meteor.Router.to(Meteor.Router.signUpPath());
   }
 });

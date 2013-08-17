@@ -3,23 +3,30 @@
   <div class="container-fluid">
     <div id="main">
       <div class="row-fluid">
-        <div class="span12">
-          <h1>Accept Email Invite</h1>
+        <div class="span2"></div>
+        <div class="span8">
+          <h1>Invitation to join team</h1>
           {{#if currentUser}}
             {{#unless invitedTeam}}
-            <h2>Error - Team invitation could not be found</h2>
-            <p>The team invitation could not be found. The detail may be incorrect, or the invitation may have been revoked.</p>
+              <h2>Team invitation could not be found</h2>
+              <p>The team invitation could not be found. The detail may be incorrect, or the invitation may have been revoked.</p>
             {{/unless}}
             {{#with invitedTeam}}
-              <p>Do you want to join team {{name}}? <button id="accept" type="button" class="btn">Accept</button>
-              <button id="decline" type="buton" class="btn">Decline</button>
+              <p>You've been invited to join the team {{name}}. As a team member, you'll be able to participate in projects owned by the team. Would you like to join?</p>
+              <div class="text-center sign-up-buttons">
+                <button id="accept" type="button" class="btn"><i class="icon-thumbs-up"></i> Accept team invitation</button>
+                <button id="decline" type="buton" class="btn"><i class="icon-thumbs-down"></i> Decline team invitation</button>
+              </div>
             {{/with}}
           {{else}}
-            You are not signed in!
-            <a href="{{signInPath}}?redir=acceptEmailInvite">Sign In</a>
-            <a href="{{signUpPath}}?redir=acceptEmailInvite">Sign Up</a>
+            <p>To accept or decline a team invitation, you need to be signed in. You can sign in with your existing user account, or you can sign up with a new user account. Signing up is free, with no obligation to pay.</p>
+            <div class="text-center sign-up-buttons">
+              <button class="btn" id="sign-in"><i class="icon-signin"></i> Sign in with your existing user account</button>
+              <button class="btn" id="sign-up"><i class="icon-user"></i> Sign up with a free user account</button>
+            </div>
           {{/if}}
         </div>
+        <div class="span2"></div>
       </div>
     </div>
   </div>

@@ -1,6 +1,5 @@
 {
   "packages": {
-    "accounts-ui-bootstrap-dropdown": {},
     "router": {},
     "moment": {},
     "select2": {},
@@ -8,8 +7,6 @@
     "jquery-ui": {},
     "jquery-ui-bootstrap": {},
     "font-awesome": {},
-    "paginated-subscription": {},
-    "spin": {},
-    "marked": {}
+    "spin": {}
   }
 }

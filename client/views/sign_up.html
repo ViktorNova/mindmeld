@@ -1,0 +1,80 @@
+<template name="signUp">
+  {{> header}}
+  <div class="container-fluid">
+    <div id="main">
+      <div class="row-fluid">
+        <div class="span2"></div>
+        <div class="span8">
+          {{> errorNotification}}
+          <h1>Sign up with a free user account</h1>
+          <p>To use Mindmeld, you'll need to create a user account. Creating a user account is free; you won't be asked for credit card or payment details. Your account can be a member of many teams. Once you have signed in, you'll have the option to create a team.</p>
+
+          <form id="signup" class="form-horizontal" novalidate="novalidate">
+            <fieldset>
+              <div class="control-group">
+                <label class="control-label" for="username">Username</label>
+                <div class="controls">
+                  <input type="text" id="username" class="input input-large" autofocus="autofocus" tabindex="1" maxlength="30" data-username data-validchars data-trigger="change" data-required="true">
+                  <span class="help-inline"></span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                  <input type="password" id="password" class="input input-large" tabindex="2" maxlength="32" data-trigger="change" data-required="true" data-minlength="6" data-maxlength="32">
+                  <span class="help-inline"></span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="firstname">First Name</label>
+                <div class="controls">
+                  <input type="text" id="firstname" class="input input-large" tabindex="3" maxlength="30" data-trigger="change" data-required="true" data-minlength="1" data-maxlength="30">
+                  <span class="help-inline"></span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="lastname">Last Name</label>
+                <div class="controls">
+                  <input type="text" id="lastname" class="input input-large" tabindex="4" maxlength="30" data-trigger="change" data-required="true" data-minlength="1" data-maxlength="30">
+                  <span class="help-inline"></span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="email">Email</label>
+                <div class="controls">
+                  <input type="email" id="email" class="input input-xlarge" tabindex="5" maxlength="256" data-trigger="change" data-required="true" data-type="email">
+                  <span class="help-inline"></span>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="controls">
+                  <label class="checkbox">
+                    <input type="checkbox" id="showpublic" data-group="other" class="input" tabindex="6" checked value="true">
+                    Show my username, first name, and last name in the public directory
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" id="subscribe" data-group="other" class="input" tabindex="7" checked value="true">
+                    Receive email updates from mindmeld.io (your email address will not be given to any 3rd parties)
+                  </label>
+                  <span class="help-inline"></span>
+                </div>
+              </div>
+
+              <div class="form-actions" id="submitform">
+                <button id="submitformbutton" type="submit" class="btn btn-primary" tabindex="8"><i class="icon-user"></i> Sign up</button>
+              </div>
+
+            </fieldset>
+          </form>
+
+          <div id="signupwaiting" class="hide">
+            {{> spinner}}
+          </div>
+
+        </div>
+        <div class="span2"></div>
+      </div>
+    </div>
+  </div>
+</template>

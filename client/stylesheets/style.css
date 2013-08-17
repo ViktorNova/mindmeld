@@ -41,6 +41,11 @@ h6 {
   text-transform: uppercase;  
 }
 
+.form-actions {
+  background-color: #FFF;
+  border-top-width: 0px;
+}
+
 .big-icon {
   text-align: center;
   font-size: 6em;
@@ -86,10 +91,6 @@ textarea {
 
 .issueDetail table tr td {
   border: solid 1px #CFDFFF;
-}
-
-.spinner-space {
-  padding: 25px;
 }
 
 .landing-hero {
@@ -192,4 +193,29 @@ p.notification {
 .select2-label {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.sign-up-buttons {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+form#signup {
+  margin-top: 50px;
+}
+
+.help-inline.parsley-error-list {
+  margin-left: 15px;
+}
+
+#signupwaiting {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.control-group.error input.parsley-validated{
+    color: #b94a48 !important;
+    background-color: #f2dede !important;
+    border: 1px solid #EED3D7 !important;
 }

@@ -1,3 +1,6 @@
+Meteor.publish('usernames', function() {
+  return Meteor.users.find({}, {fields: { username: 1}});
+});
 Meteor.publish('teams', function(userId) {
   return Teams.find({members: {$in:[userId]}},{sort: {updatedAt: -1}});
 });

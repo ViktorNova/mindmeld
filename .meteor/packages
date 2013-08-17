@@ -6,3 +6,16 @@
 preserve-inputs
 bootstrap
 accounts-password
+accounts-ui
+standard-app-packages
+font-awesome
+jquery-ui
+jquery-ui-bootstrap
+marked
+moment
+page-js-ie-support
+paginated-subscription
+parsleyjs
+router
+select2
+spin

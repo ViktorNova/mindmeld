@@ -70,22 +70,26 @@ function setCurrentTagId(templateCode, tagCode) {
 }
 
 Meteor.Router.add({
-  '/signIn': 
+  '/verify-email/:token':
+  { as: 'verifyEmail', to: function(token) {
+      Session.set('verifyEmailToken',token);
+      setCurrentIds('verifyEmail',null, null, null, null, null);
+      return 'verifyEmail';
+    }
+  },
+  '/signin': 
   { as: 'signIn', to: function() {
-      if (this.querystring) {
-        var qsElements = this.querystring.split('&');
-        _.each(qsElements, function(element) {
-          var pair = element.split('=');
-          if (pair[0] == 'redir')
-            Session.set(pair[0],pair[1]);
-        });
-      }
-    
       setCurrentIds('signIn',null, null, null, null, null);
       return 'signIn';
     }
   },
-'/': { as: 'home', to: function() {
+  '/signup':
+  { as: 'signUp', to: function() {
+      setCurrentIds('signIn',null, null, null, null, null);
+      return 'signUp';
+    }
+  },
+  '/': { as: 'home', to: function() {
 
       setCurrentIds('home',null, null, null, null, null);
       if (Meteor.user()) {
@@ -95,9 +99,9 @@ Meteor.Router.add({
       }
     }
   },
-  '/acceptEmailInvite':
+  '/accept-email-invite':
   {
-    as: 'acceptEmailInvite', to: function() {
+    as: 'accept-email-invite', to: function() {
       var qsElements = this.querystring.split('&');
       _.each(qsElements, function(element) {
         var pair = element.split('=');
