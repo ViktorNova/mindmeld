@@ -7,7 +7,7 @@
           {{else}}
           <a class="brand" href="{{homePath}}">Mindmeld</a>
           {{/if}}
-          {{#if currentUser}}
+          {{#if Meteor.user}}
             <form class="navbar-search pull-left">
               <div class="input-prepend nav">
                 <div class="btn-group">
@@ -18,23 +18,19 @@
                   <ul class="dropdown-menu">
                     <li><a class="follow" data-bind="" href="#">Nobody</a></li>
                     <li class="divider"></li>
-                    {{#each otherMembers}}
-                      {{> followingMember}}
-                    {{/each}}
+                     {{#each otherMembers}}
+                     <li><a class="follow" data-bind="{{_id}}" href="">{{username}}</a></li>
+                    {{/each}}                  
                   </ul>
                 </div>
                 <input class="span2" style="float: right" id="prependedDropdownButton" type="text" value="{{followingUsername}}"/>
               </div>
             </form>
             <ul class="nav pull-right">
-              <li><a href="/users/{{currentUser.username}}">{{currentUser.username}}</a></li>
+              <li><a href="/users/{{Meteor.user.username}}">{{Meteor.user.username}}</a></li>
               <li><a id="signOut" href="">Sign Out</a></li>
           {{/if}}
         </div>
       </div>
     </header>
-</template>
-
-<template name="followingMember">
-  <li><a class="follow" data-bind="{{_id}}" href="">{{username}}</a></li>
 </template>

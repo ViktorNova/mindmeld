@@ -11,7 +11,11 @@ Template.signIn.events({
     $('#passwordIncorrect').hide();
   },
   'click #signIn': function(event) {
+
     event.preventDefault();
+    $('#waiting').show();
+    $('#signIn').addClass('disabled');
+
 
     var usernameOrEmail = $('#usernameOrEmail').val();
     var password = $('#password').val();
@@ -19,7 +23,9 @@ Template.signIn.events({
     if ($('#signInCredentials').parsley().validate()) { 
 
       Meteor.loginWithPassword(usernameOrEmail, password, function(error) {
+        $('#waiting').hide();
         if (error) {
+          $('#signIn').removeClass('disabled');
           if (error.error == 403 && error.reason == "User not found") {
             $('#usernameOrEmailNotFound').show();
             $('#usernameGroup').addClass('error');
@@ -33,11 +39,13 @@ Template.signIn.events({
         var redir = Session.get('redir');
         if (redir) {
           Session.set('redir', null);
-          Meteor.Router.to(Meteor.Router[redir + 'Path']());
-        } else
-        Meteor.Router.to(Meteor.Router.homePath());
+          Router.go(redir);
+        }
+        Router.go('home');
       });
+    }
+    else {
+      console.log('novalid');
     } 
-
   }
-})
+});

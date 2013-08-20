@@ -14,7 +14,7 @@ function getNotifications() {
 
 Meteor.formFunctions = {
   action: function() {
-    switch (Meteor.Router.page()) {
+    switch (Router.current().route.name) {
       case 'editTeam':
       case 'editProject':
       case 'editFeature':
@@ -34,6 +34,38 @@ Meteor.formFunctions = {
 };
 
 Meteor.userFunctions = {
+  teamParams: function() {
+    return {
+      teamCode: this.code
+    }
+  },
+  projectParams: function() {
+    return {
+      teamCode: Teams.findOne(this.teamId).code,
+      projectCode: this.code
+    };
+  },
+  featureParams: function() {
+    return {
+      teamCode: Teams.findOne(this.teamId).code,
+      projectCode: Projects.findOne(this.projectId).code,
+      featureCode: this.code
+    }
+  },
+  issueParams: function() {
+    return {
+      teamCode: Teams.findOne(this.teamId).code,
+      projectCode: Projects.findOne(this.projectId).code,
+      featureCode: Features.findOne(this.featureId).code,
+      issueCode: this.code
+    }
+  },
+  tagParams: function() {
+    return {
+      teamCode: Teams.findOne(this.teamId).code,
+      tag: this.tag
+    }
+  },
   addError: function(reason) {
     $('#error-notification').append('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' + reason + '</div>');
   },
@@ -44,6 +76,7 @@ Meteor.userFunctions = {
     return getNotifications();
   },
   teamCode: function() {
+    console.log('checking ' + this.teamId);
     return this.teamId && Teams.findOne(this.teamId) && 
     Teams.findOne(this.teamId).code;
   },
@@ -83,13 +116,7 @@ Meteor.userFunctions = {
     return Comments.find({issueId: this._id, teamId: this.teamId},{sort: {createdAt: -1}});
   },
   currentTeam: function() {
-    if (Meteor.Router.page() === 'createTeam')
-      return {};
-
-    if (Session.get('currentTeamId') == 'LOADING')
-      return null;
-
-    return Teams.findOne(Session.get('currentTeamId'));
+    return Teams.findOne({code: Router.current().params.teamCode});
   },
   statusKey: function() {
     return Meteor.Mindmeld.toStatusEnum(this.status) && Meteor.Mindmeld.toStatusEnum(this.status).key;
@@ -112,52 +139,52 @@ Meteor.userFunctions = {
   truncatedDetail: function() {    
     return this.detail && this.detail.length > 160 ? this.detail.substring(0, 160) + "..." : this.detail;
   },
-  currentProject: function() {
-    if (Meteor.Router.page() === 'createProject')
-      return { teamId: Session.get('currentTeamId') };
+  // currentProject: function() {
+  //   if (Meteor.Router.page() === 'createProject')
+  //     return { teamId: Session.get('currentTeamId') };
 
-    if (Session.get('currentProjectId') == 'LOADING')
-      return null;
+  //   if (Session.get('currentProjectId') == 'LOADING')
+  //     return null;
 
-    return Projects.findOne(Session.get('currentProjectId'));
-  },
-  currentFeature: function() {
-    if (Meteor.Router.page() === 'createFeature')
-      return { 
-        teamId: Session.get('currentTeamId'),
-        projectId: Session.get('currentProjectId'),
-        dueDate: moment().format() 
-      };
+  //   return Projects.findOne(Session.get('currentProjectId'));
+  // },
+  // currentFeature: function() {
+  //   if (Meteor.Router.page() === 'createFeature')
+  //     return { 
+  //       teamId: Session.get('currentTeamId'),
+  //       projectId: Session.get('currentProjectId'),
+  //       dueDate: moment().format() 
+  //     };
 
-    if (Session.get('currentFeatureId') == 'LOADING')
-      return null;
+  //   if (Session.get('currentFeatureId') == 'LOADING')
+  //     return null;
 
-    return Features.findOne(Session.get('currentFeatureId'));
-  },
-  currentIssue: function() {
-    if (Meteor.Router.page() === 'createIssue') {
-      var feature = Features.findOne(Session.get('currentFeatureId'));
-      return {
-        teamId: Session.get('currentTeamId'),
-        projectId: Session.get('currentProjectId'),
-        featureId: Session.get('currentFeatureId'),
-        ownedByUserId: feature && feature.ownedByUserId,
-        status: 0
-      };
-    }
+  //   return Features.findOne(Session.get('currentFeatureId'));
+  // },
+  // currentIssue: function() {
+  //   if (Meteor.Router.page() === 'createIssue') {
+  //     var feature = Features.findOne(Session.get('currentFeatureId'));
+  //     return {
+  //       teamId: Session.get('currentTeamId'),
+  //       projectId: Session.get('currentProjectId'),
+  //       featureId: Session.get('currentFeatureId'),
+  //       ownedByUserId: feature && feature.ownedByUserId,
+  //       status: 0
+  //     };
+  //   }
 
-    if (Session.get('currentIssueId') == 'LOADING')
-      return null;
+  //   if (Session.get('currentIssueId') == 'LOADING')
+  //     return null;
 
-    return Issues.findOne(Session.get('currentIssueId'));
-  },
-  currentTag: function() {
+  //   return Issues.findOne(Session.get('currentIssueId'));
+  // },
+  // currentTag: function() {
 
-    if (Session.get('currentTagId') == 'LOADING')
-      return null;
+  //   if (Session.get('currentTagId') == 'LOADING')
+  //     return null;
 
-    return Session.get('currentTag');
-  },
+  //   return Session.get('currentTag');
+  // },
   createdByUsername: function() {
     return this.createdByUsername || (this.createdByUserId && Meteor.users.findOne(this.createdByUserId) && 
     Meteor.users.findOne(this.createdByUserId).username);
@@ -170,7 +197,14 @@ Meteor.userFunctions = {
     return Meteor.users.find();
   },
   otherMembers: function() {
-    return Meteor.users.find({ _id: { $ne: Meteor.userId() } });
+    console.log("o");
+    console.log(Session.get('currentTeamId'));
+    var team = Teams.findOne(Session.get('currentTeamId'));
+    if (team) {
+      var remaining = _.without(team.members, Meteor.userId());
+      console.log(remaining);
+      return remaining;
+    }
   },
   ownedByCurrentUser: function() {
     return this && this.ownedByUserId && this.ownedByUserId === Meteor.userId();
@@ -333,8 +367,8 @@ Meteor.userFunctions = {
     return Issues.find({teamId: Session.get('currentTeamId'), status: 3, tags: {$in: [this.tag]}}).count();
   },
   userIsTeamOwner: function() {
-    var currentTeam = Teams.findOne(Session.get('currentTeamId'));
-    return this._id == currentTeam.owner;
+    var currentTeam = Teams.findOne({code: Router.current().params.teamCode});
+    return Meteor.userId == currentTeam.owner;
   },
   invitedTeam: function() {
     var teamInvite = TeamInvites.findOne({_id: Session.get('teamInviteId'), receivedFrom: Session.get('teamInviteFromUserId')});

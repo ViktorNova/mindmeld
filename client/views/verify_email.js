@@ -1,19 +1,22 @@
 Template.verifyEmail.helpers(Meteor.userFunctions);
 
+var token;
+
+Template.verifyEmail.created = function() {
+  token = Session.get('verifyEmailToken');
+  if (token) {
+    Session.set('verifyEmailToken',null);
+  }
+};
+
 Template.verifyEmail.rendered = function() {
-  $(document).ready(function() {
-    if (Session.get('verifyEmailToken')) {
-      console.log("!");
-      Accounts.verifyEmail(Session.get('verifyEmailToken'), function(error) {
-        if (error) {
-          Meteor.userFunctions.addError(error.reason);
-          return;
-        }
-        $('#confirmation').html('Your account was confirmed. log in');
-        Session.set('verifyEmailToken',null);
-      });
-    } else {
-      $('#confirmation').html('Account confirmation could not be verified.');
+  console.log("1");
+  Accounts.verifyEmail(token, function(error) {
+    if (error) {
+      Meteor.userFunctions.addError(error.reason);
+      return;
     }
+    $('#confirmation').html('Your account was confirmed. log in');
+    Session.set('verifyEmailToken',null);
   });
 }

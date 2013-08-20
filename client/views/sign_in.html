@@ -1,5 +1,4 @@
 <template name="signIn">
-  {{> header}}
   <div class="container-fluid">
     <div id="main">
       <div class="row-fluid content-gap">
@@ -21,6 +20,9 @@
                 </div>
                 <br />
                 <input type="submit" id="signIn" name="signIn" class="btn btn-success" value="Sign in" tabindex="3">
+                <div id="waiting" class="hide">
+                  {{> spinner}}
+                </div>
               </fieldset>
             </form>
           </div>

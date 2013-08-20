@@ -5,7 +5,7 @@ Template.signUp.events = {
       return;
 
     $('#signup').hide();
-    $('#signupwaiting').show();
+    $('#waiting').show();
 
     var signupUserAttributes = {
       username: $('#username').val(),
@@ -18,7 +18,7 @@ Template.signUp.events = {
     }
 
     Meteor.call('signupUser', signupUserAttributes, function(error) {
-      $('#signupwaiting').hide();
+      $('#waiting').hide();
       $('#signup').show();
       if (error) {
         Meteor.userFunctions.addError(error.reason);

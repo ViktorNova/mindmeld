@@ -55,11 +55,6 @@ h6 {
   border: solid 1px #DDD;
 }
 
-.waiting-spinner {
-  text-align: center;
-  margin: 200px;
-}
-
 @media(max-width: 480px) {
   .big-icon {
     text-align: center;
@@ -208,7 +203,7 @@ form#signup {
   margin-left: 15px;
 }
 
-#signupwaiting {
+#waiting {
   position: absolute;
   top: 50%;
   left: 50%;

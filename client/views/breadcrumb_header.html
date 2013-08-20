@@ -4,29 +4,29 @@
     {{#if following}}
     Home 
     {{else}}
-    <li><a class="" href="{{homePath}}">Home</a></li>
+    <li><a class="" href="{{pathFor 'home'}}">Home</a></li>
     {{/if}}
     {{#with currentTeam}}
       {{#if name}}
-        <li><span class="divider"><i class="icon-group"></i></span><a class="" href="{{teamPath code}}">{{name}}</a></li>
+        <li><span class="divider"><i class="icon-group"></i></span><a class="" href="{{pathFor 'team' teamParams}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     {{#if currentTag}}
-        <li><span class="divider"><i class="icon-tag"></i></span><a class="" href="{{tagPath currentTeam.code currentTag}}">{{currentTag}}</a></li>
+        <li><span class="divider"><i class="icon-tag"></i></span><a class="" href="{{pathFor 'tag' tagParams}}">{{currentTag}}</a></li>
     {{/if}}
     {{#with currentProject}}
       {{#if name}}
-        <li><span class="divider"><i class="icon-wrench"></i></span><a class="" href="{{projectPath teamCode code}}">{{name}}</a></li>
+        <li><span class="divider"><i class="icon-wrench"></i></span><a class="" href="{{pathFor 'project' projectParams}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     {{#with currentFeature}}
       {{#if name}}
-        <li><span class="divider"><i class="icon-certificate"></i></span><a class="" href="{{featurePath teamCode projectCode code}}">{{name}}</a></li>
+        <li><span class="divider"><i class="icon-certificate"></i></span><a class="" href="{{pathFor 'feature' featureParams}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     {{#with currentIssue}}
       {{#if name}}
-        <li><span class="divider"><i class="icon-ticket"></i></span><a class="" href="{{issuePath teamCode projectCode featureCode code}}">{{name}}</a></li>
+        <li><span class="divider"><i class="icon-ticket"></i></span><a class="" href="{{pathFor 'issue' issueParms}}">{{name}}</a></li>
       {{/if}}
     {{/with}}
     </ul>

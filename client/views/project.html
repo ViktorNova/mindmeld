@@ -1,5 +1,4 @@
 <template name="project">
-  {{> header}}
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
@@ -17,8 +16,10 @@
   <div class="row-fluid">
     <ul class="breadcrumb next-nav">
       <li>Features:</li>
-      {{#each allFeatures}}
-        <li><span class="divider"><i class="icon-certificate"></i></span>{{> featureList}}</li>
+      {{#each availableFeatures}}
+        <li><span class="divider"><i class="icon-certificate"></i></span>
+          <a class="reverse" href="{{pathFor 'feature' featureParams}}">{{name}}</a>
+        </li>
       {{/each}}
     </ul>
   </div>

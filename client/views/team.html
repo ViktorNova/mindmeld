@@ -1,5 +1,4 @@
 <template name="team">
-  {{> header}}
   <div class="container-fluid">
     <div id="main">
       {{> breadcrumbHeader}}
@@ -17,11 +16,17 @@
   <div class="row-fluid">
     <ul class="breadcrumb next-nav">
       <li>Projects:</li>
-      {{#each allProjects}}
-        <li><span class="divider"><i class="icon-wrench"></i></span>{{> projectList}}</li>
+      {{#each availableProjects}}
+        <li><span class="divider"><i class="icon-wrench"></i></span>
+          <a class="reverse" href="{{pathFor 'project' projectParams}}">{{name}}</a>
+        </li>
       {{/each}}
     </ul>
   </div>
+</template>
+
+<template name="projectList">
+    
 </template>
 
 <template name="teamButtons">

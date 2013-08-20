@@ -1,3 +1,31 @@
+
+
+//   { as: 'project', to: function(teamCode, projectCode) {
+//       setCurrentIds('project', teamCode, projectCode, null, null, null);
+
+//       if (!Meteor.user())
+//         return 'notFound';
+
+//       if (!Session.get('currentTeamId') || !Session.get('currentProjectId')) {
+//         return 'waiting';
+//       } else {
+//         var movementAttributes = {
+//           teamId: Session.get('currentTeamId'),
+//           template: 'project',
+//           templatePathAttributes: {teamCode: teamCode, projectCode: projectCode}
+//         };
+//         Meteor.call('logMovement', movementAttributes);
+
+//         if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND') {
+//           return 'notFound';
+//         } else {
+//           return 'project';
+//         }
+//       }
+//     }    
+//   },
+
+
 Template.project.helpers(Meteor.userFunctions);
 Template.projectButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 Template.featureLinks.helpers(_.extend({

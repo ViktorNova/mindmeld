@@ -1,25 +1,20 @@
 Template.team.helpers(Meteor.userFunctions);
 Template.teamBody.helpers(Meteor.userFunctions);
 Template.teamButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
-Template.projectLinks.helpers(_.extend({
-  allProjects: function() {
-    return Projects.find({teamId: Session.get('currentTeamId')},{sort: {statusChanged: -1}});
-  }
-},Meteor.userFunctions));
-
+Template.projectLinks.helpers(Meteor.userFunctions);
 
 Template.teamBody.events({
   'click #editTeam': function(event) {
     event.preventDefault();
-    Meteor.Router.to('editTeam', this.code);
+    Router.go('editTeam', {teamCode: this.code});
   },
   'click #inviteUsers': function(event) {
     event.preventDefault();
-    Meteor.Router.to('inviteUsers', this.code);
+    Router.go('inviteUsers', {teamCode: this.code});
   },
   'click #createProject': function(event) {
     event.preventDefault();
-    Meteor.Router.to('createProject', this.code);
+    Router.go('createProject', {teamCode: this.code});
   },
   'click .remove-user': function(event) {
     event.preventDefault();
