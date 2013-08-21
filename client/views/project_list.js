@@ -1,1 +1,0 @@
-Template.projectList.helpers(Meteor.userFunctions);

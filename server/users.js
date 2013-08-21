@@ -5,7 +5,7 @@ Accounts.emailTemplates.verifyEmail.subject = function() {
 };
 Accounts.emailTemplates.verifyEmail.text = function(user, url) {
   return  "Hi " + user.username + ",\n\n"
-  +       "Your account is ready to be activated. Please confirm that this is your email address.\n\n"
+  +       "Your account is ready to use. Please confirm that this is your email address.\n\n"
   +       url.replace("/#/","/") + "\n\n"
   +       "If you didn't create a mindmeld.io account, you can ignore this email."
 };
@@ -41,6 +41,13 @@ Meteor.methods({
       return [{id: email, text: email}];
     else
       return [];
+  },
+  sendVerificationEmail: function() {
+    if (Meteor.userId()) {
+      Accounts.sendVerificationEmail(Meteor.userId());
+    } else {
+      throw new Meteor.Error(403, "You must be signed in to send a verification email");
+    }
   },
   signupUser: function(signupUserAttributes) {
     var signupUser = _.pick(signupUserAttributes,

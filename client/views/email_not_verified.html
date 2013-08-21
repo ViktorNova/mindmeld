@@ -1,0 +1,25 @@
+<template name="emailNotVerified">
+  <div class="container-fluid">
+    <div id="main">
+      <div class="row-fluid">
+        <div class="span2"></div>
+        <div class="span8">
+          {{> errorNotification}}
+          <h1>Email address Not Verified</h1>
+          <p>You need to confirm your email address to use this account. Click on the link in the confirmation email that was sent to <a href="mailto:{{currentEmail}}">{{currentEmail}}</a> when you created this account. If you can't find this message, you can resend the confirmation email.</p>
+
+          <button id="resendConfirmationEmail" class="btn btn-primary"><i class="icon-envelope"></i> Resend confirmation email</button>
+
+          <div id="waiting" class="hide">
+            {{> spinner}}
+          </div>
+
+          <div id="success" class="hide">A confirmation message was resent to <a href="mailto:{{currentEmail}}">{{currentEmail}}</a></div>
+
+        </div>
+        <div class="span2"></div>
+      </div>
+    </div>
+  </div>
+
+</template>

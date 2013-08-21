@@ -1,5 +1,3 @@
-var Future = Npm.require('fibers/future');
-
 Meteor.publish('userTeams', function(userId) {
 
     var future = new Future;
@@ -34,6 +32,18 @@ Meteor.publish('teamMembers', function(userId) {
 Meteor.publish('userFeatures', function(userId) {
   var teams = Teams.find({members: {$in: [userId]}}).fetch();
   return Features.find({teamId: {$in: _.pluck(teams, '_id')}}, {sort: {updatedAt: -1}});
+});
+
+Meteor.publish('usernames', function() {
+
+    var future = new Future;
+
+    // simulate high latency publish function
+    Meteor.setTimeout(function () {
+      future.return(Meteor.users.find({}, {fields: { username: 1}}));
+    }, 5000);
+
+    return future.wait();
 });
 
 //LEGACY

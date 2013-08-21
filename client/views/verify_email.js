@@ -10,7 +10,6 @@ Template.verifyEmail.created = function() {
 };
 
 Template.verifyEmail.rendered = function() {
-  console.log("1");
   Accounts.verifyEmail(token, function(error) {
     if (error) {
       Meteor.userFunctions.addError(error.reason);

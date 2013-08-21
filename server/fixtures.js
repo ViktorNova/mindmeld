@@ -18,7 +18,7 @@ if (Teams.find().count() === 0) {
       "createdAt" : 1370869232768, 
       "emails" : [ { 
         "address" : "daniel.crowley.wilson@gmail.com", 
-        "verified" : false 
+        "verified" : true 
       } ], 
       "services" : { 
         "password" : { 
@@ -40,7 +40,7 @@ if (Teams.find().count() === 0) {
       "createdAt" : 1371260015064, 
       "emails" : [ { 
         "address" : "wolverine@wolverine.com", 
-        "verified" : false 
+        "verified" : true 
       } ], 
       "services" : { 
         "password" : { 
@@ -62,7 +62,7 @@ if (Teams.find().count() === 0) {
       "createdAt" : 1371260040178, 
       "emails" : [ { 
         "address" : "x23@x23.com", 
-        "verified" : false 
+        "verified" : true 
       } ], 
       "services" : { 
         "password" : { 

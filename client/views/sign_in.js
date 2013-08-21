@@ -44,8 +44,5 @@ Template.signIn.events({
         Router.go('home');
       });
     }
-    else {
-      console.log('novalid');
-    } 
   }
 });

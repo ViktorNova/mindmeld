@@ -10,6 +10,7 @@ Router.map(function() {
         availableTeams: availableTeams
       };
     },
+    waitOn: Meteor.subscribe('userTeams', Meteor.userId()),
     controller: HomeController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting'

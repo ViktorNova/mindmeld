@@ -1,36 +1,47 @@
-<template name="header">
-    <header class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
-          {{#if following}}
-          <span class="brand">Mindmeld</span>
-          {{else}}
-          <a class="brand" href="{{homePath}}">Mindmeld</a>
-          {{/if}}
-          {{#if Meteor.user}}
-            <form class="navbar-search pull-left">
-              <div class="input-prepend nav">
-                <div class="btn-group">
-                  <button class="btn dropdown-toggle" data-toggle="dropdown">
-                    Following
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="follow" data-bind="" href="#">Nobody</a></li>
-                    <li class="divider"></li>
-                     {{#each otherMembers}}
-                     <li><a class="follow" data-bind="{{_id}}" href="">{{username}}</a></li>
-                    {{/each}}                  
-                  </ul>
-                </div>
-                <input class="span2" style="float: right" id="prependedDropdownButton" type="text" value="{{followingUsername}}"/>
+<template name="userHeader">
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="{{pathFor 'home'}}">Mindmeld</a>
+          {{#if otherMembers}}
+          <form class="navbar-search pull-left">
+            <div class="input-prepend nav">
+              <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                  Following
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="follow" data-bind="" href="#">Nobody</a></li>
+                  <li class="divider"></li>
+                   {{#each otherMembers}}
+                   <li><a class="follow" data-bind="{{_id}}" href="">{{username}}</a></li>
+                  {{/each}}                  
+                </ul>
               </div>
-            </form>
-            <ul class="nav pull-right">
-              <li><a href="/users/{{Meteor.user.username}}">{{Meteor.user.username}}</a></li>
-              <li><a id="signOut" href="">Sign Out</a></li>
+              <input class="span2" style="float: right" id="prependedDropdownButton" type="text" value="{{followingUsername}}"/>
+            </div>
+          </form>
           {{/if}}
-        </div>
+          <ul class="nav pull-right">
+            <li><a href="{{pathFor 'user' this}}">{{username}}</a></li>
+            <li><a id="signOut" href="{{pathFor 'signOut'}}">Sign Out</a></li>
+          </ul>
       </div>
-    </header>
+    </div>
+  </header>
+</template>
+
+<template name="publicHeader">
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="{{homePath}}">Mindmeld</a>
+        <ul class="nav pull-right">
+          <li><a href="{{pathFor 'signIn'}}">Sign In</a></li>
+          <li><a href="{{pathFor 'signUp'}}">Sign Up</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
 </template>

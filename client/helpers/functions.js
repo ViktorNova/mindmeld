@@ -76,7 +76,6 @@ Meteor.userFunctions = {
     return getNotifications();
   },
   teamCode: function() {
-    console.log('checking ' + this.teamId);
     return this.teamId && Teams.findOne(this.teamId) && 
     Teams.findOne(this.teamId).code;
   },
@@ -195,16 +194,6 @@ Meteor.userFunctions = {
   },
   members: function() {
     return Meteor.users.find();
-  },
-  otherMembers: function() {
-    console.log("o");
-    console.log(Session.get('currentTeamId'));
-    var team = Teams.findOne(Session.get('currentTeamId'));
-    if (team) {
-      var remaining = _.without(team.members, Meteor.userId());
-      console.log(remaining);
-      return remaining;
-    }
   },
   ownedByCurrentUser: function() {
     return this && this.ownedByUserId && this.ownedByUserId === Meteor.userId();

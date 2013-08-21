@@ -1,6 +1,6 @@
-Template.header.helpers(Meteor.userFunctions);
+Template.userHeader.helpers(Meteor.userFunctions);
 
-Template.header.events({
+Template.userHeader.events({
   'click #signOut': function(event) {
     Meteor.logout();
   },

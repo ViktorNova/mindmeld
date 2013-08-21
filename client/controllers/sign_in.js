@@ -4,6 +4,9 @@ SignInController = RouteController.extend({
       Router.go('home');
     } else {
       this.render('signIn');
+      this.render({
+        publicHeader: {to: 'header'}
+      });
     }
   } 
 });
