@@ -3,6 +3,143 @@ Router.configure({
 });
 
 
+Router.map(function() {
+  this.route('home',
+  {
+    path: '/',
+    data: function() {
+      var availableTeams = Teams.find({members: {$in: [Meteor.userId()]}});
+      if (availableTeams.count() == 0)
+        return null;
+      return {
+        availableTeams: availableTeams
+      };
+    },
+    waitOn: Meteor.subscribe('userTeams', Meteor.userId()),
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
+    loadingTemplate: 'waiting',
+    userFoundTemplate: 'home',
+    userNotFoundTemplate: 'homePublic',
+  });
+
+  this.route('signIn',
+  {
+    path: '/signin',
+    controller: SignInController,
+    action: 'userLoadedAction'
+  });
+
+  this.route('signOut',
+  {
+    path: '/signout',
+    controller: SignOutController,
+    action: 'signOutAction',
+    loadingTemplate: 'waiting'
+  });
+
+  this.route('signUp',
+  {
+    path: '/signup',
+    data: function() {
+      return {
+        usernames: Meteor.users.find({}, {fields: { username: 1}})
+      }
+    },
+    waitOn: Meteor.subscribe('usernames'),
+    loadingTemplate: 'waiting',
+    controller: SignUpController,
+    action: 'userLoadedAction'
+  });
+
+  this.route('verifyEmail',
+  { 
+    path: '/verify-email/:emailVerificationToken',
+    controller: VerifyEmailTokenController,
+    action: 'verifyToken',
+    loadingTemplate: 'waiting'
+  });
+
+  this.route('team',
+  {
+    path: '/:teamCode',
+    data: function() {
+      var currentTeam = Teams.findOne({code: this.params.teamCode});
+      if (!currentTeam)
+        return null;
+      return {
+        currentTeam: currentTeam, 
+        availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
+        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})
+      };
+    },
+    waitOn: [
+      Meteor.subscribe('userTeams', Meteor.userId()),
+      Meteor.subscribe('userProjects', Meteor.userId()),
+      Meteor.subscribe('teamMembers', Meteor.userId())
+    ],
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
+    loadingTemplate: 'waiting',
+    notFoundTemplate: 'notFound',
+    userFoundTemplate: 'team',
+    userNotFoundTemplate: 'notFound'
+  });
+
+  this.route('user',
+  {
+    path: '/users/:username',
+    data: function() {
+      return {};
+    },
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
+    loadingTemplate: 'waiting',
+    notFoundTemplate: 'notFound',
+    userFoundTemplate: 'user',
+    userNotFoundTemplate: 'notFound'
+  });
+
+  this.route ('project', 
+  { 
+    path: '/:teamCode/:projectCode',
+    data: function() {
+      var currentTeam = Teams.findOne({code: this.params.teamCode});
+      var currentProject = Projects.findOne({code: this.params.projectCode});
+      if (!currentTeam || !currentProject)
+        return null;
+
+      var availableFeatures = Features.find({
+          teamId: currentTeam._id,
+          projectId: currentProject._id
+        },
+        {sort: {statusChanged: -1}}
+      );
+
+      return {
+        currentTeam: currentTeam,
+        currentProject: currentProject,
+        availableFeatures: availableFeatures
+      }
+    },
+    waitOn: [
+      Meteor.subscribe('userTeams', Meteor.userId()),
+      Meteor.subscribe('userProjects', Meteor.userId()),
+      Meteor.subscribe('userFeatures', Meteor.userId())
+    ],
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
+    loadingTemplate: 'waiting',
+    notFoundTemplate: 'notFound',
+    userFoundTemplate: 'project',
+    userNotFoundTemplate: 'notFound'
+  });
+
+  this.route('feature',{});
+
+});
+
+
 //   '/accept-email-invite':
 //   { as: 'accept-email-invite', to: function() {
 //       var qsElements = this.querystring.split('&');

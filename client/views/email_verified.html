@@ -1,4 +1,4 @@
-<template name="verifyEmail">
+<template name="emailVerified">
   <div class="container-fluid">
     <div id="main">
       <div class="row-fluid">
@@ -6,7 +6,7 @@
         <div class="span8">
           {{> errorNotification}}
           <h1>Account Confirmation</h1>
-          <div id="confirmation"></div>
+          <div id="confirmation">Your account was confirmed. <a href="{{pathFor 'home'}}">Home</a></div>
         </div>
       <div class="span2"></div>
     </div>

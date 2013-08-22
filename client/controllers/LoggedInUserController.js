@@ -1,5 +1,6 @@
-HomeController = RouteController.extend({
+LoggedInUserController = RouteController.extend({
   userLoadedAction: function() {
+
     if (Meteor.loggingIn())
       return;
     
@@ -18,13 +19,12 @@ HomeController = RouteController.extend({
       });
 
       if (Meteor.user().emails[0].verified) {
-        this.render('home');
+        this.render(this.route.options.userFoundTemplate);
       } else {
         this.render('emailNotVerified');
       }
-
     } else {
-      this.render('homePublic');
+      this.render(this.route.options.userNotFoundTemplate);
       this.render({
         publicHeader: { to: 'header'}
       });
