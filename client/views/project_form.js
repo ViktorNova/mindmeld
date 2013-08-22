@@ -1,6 +1,6 @@
-Template.createProject.helpers(Meteor.userFunctions);
-Template.editProject.helpers(Meteor.userFunctions);
-Template.projectForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
+// Template.createProject.helpers(Meteor.userFunctions);
+// Template.editProject.helpers(Meteor.userFunctions);
+// Template.projectForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
 Template.projectForm.events({
   'click #create': function(event) {
@@ -15,14 +15,14 @@ Template.projectForm.events({
       detail: $(document).find('[name=detail]').val()
     }
 
+    var dataContext = this;
+
     Meteor.call('createProject', project, function(error, project) {
       if (error) {
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Meteor.Router.to('project',
-          Meteor.userFunctions.teamCode.call(project),
-          project.code);
+        Router.go('project', {teamCode: dataContext.currentTeamCode, projectCode: project.code});
       }
     });
   },
@@ -39,23 +39,25 @@ Template.projectForm.events({
       detail: $(document).find('[name=detail]').val()
     }
 
+    var dataContext = this;
+
     Meteor.call('editProject', project, function(error, project) {
       if (error) {
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Meteor.Router.to('project', 
-          Meteor.userFunctions.teamCode.call(project), 
-          project.code);
+        Router.go('project', {teamCode: dataContext.currentTeamCode, projectCode: project.code});
       }
     });
   },
   'click #cancel-create': function(event) {
     event.preventDefault();
-    Meteor.Router.to('team', Session.get('currentTeamCode'));
+    console.log(this);
+    console.log("?" + this.currentTeamCode);
+    Router.go('team', {teamCode: this.currentTeamCode});
   },
   'click #cancel-edit': function(event) {
     event.preventDefault();
-    Meteor.Router.to('project', Session.get('currentTeamCode'), Session.get('currentProjectCode'));
+    Router.go('project', {teamCode: this.currentTeamCode, projectCode: this.currentProjectCode});
   }
 });

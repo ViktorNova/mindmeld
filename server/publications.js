@@ -5,7 +5,7 @@ Meteor.publish('userTeams', function(userId) {
     // simulate high latency publish function
     Meteor.setTimeout(function () {
       future.return(Teams.find({members: {$in: [userId]}}));
-    }, 1000);
+    }, 10);
 
     return future.wait();
 });
@@ -24,7 +24,7 @@ Meteor.publish('teamMembers', function(userId) {
     Meteor.setTimeout(function () {
       future.return(Meteor.users.find({_id: {$in: allTeamMembers}},
         {fields: { username: 1, showPublic: 1, firstName: 1, lastName: 1}}));
-    }, 1000);
+    }, 10);
 
     return future.wait();
 });
@@ -41,7 +41,7 @@ Meteor.publish('usernames', function() {
     // simulate high latency publish function
     Meteor.setTimeout(function () {
       future.return(Meteor.users.find({}, {fields: { username: 1}}));
-    }, 5000);
+    }, 10);
 
     return future.wait();
 });

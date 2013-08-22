@@ -1,46 +1,17 @@
-
-
-//   { as: 'project', to: function(teamCode, projectCode) {
-//       setCurrentIds('project', teamCode, projectCode, null, null, null);
-
-//       if (!Meteor.user())
-//         return 'notFound';
-
-//       if (!Session.get('currentTeamId') || !Session.get('currentProjectId')) {
-//         return 'waiting';
-//       } else {
-//         var movementAttributes = {
-//           teamId: Session.get('currentTeamId'),
-//           template: 'project',
-//           templatePathAttributes: {teamCode: teamCode, projectCode: projectCode}
-//         };
-//         Meteor.call('logMovement', movementAttributes);
-
-//         if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND') {
-//           return 'notFound';
-//         } else {
-//           return 'project';
-//         }
-//       }
-//     }    
-//   },
-
-
-Template.project.helpers(Meteor.userFunctions);
-Template.projectButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
-Template.featureLinks.helpers(_.extend({
+Template.featureLinks.helpers({
   allFeatures: function() {
     return Features.find({
       teamId: Session.get('currentTeamId'),
       projectId: Session.get('currentProjectId')
     },{sort: {updatedAt: -1}});
   }  
-}, Meteor.userFunctions));
-Template.projectBody.helpers(_.extend({
+});
+
+Template.projectBody.helpers({
   notStartedIssuesByRanking: function() {
     return Issues.find({ teamId: this.teamId, projectId: this._id, status: 0, rank: {$exists: true} },{sort: {rank: 1}});
   }
-}, Meteor.userFunctions));
+});
 
 Template.projectBody.rendered = function() {
 
@@ -59,28 +30,25 @@ Template.projectBody.rendered = function() {
 Template.projectBody.events({
   'click #createFeature': function(event) {
     event.preventDefault();
-    Meteor.Router.to('createFeature', 
-      Meteor.userFunctions.teamCode.call(this),
-      this.code);
+    Router.go('createFeature', {teamCode: this.currentTeamCode, projectCode: this.currentProjectCode});
   },
   'click #editProject': function(event) {
     event.preventDefault();
-    Meteor.Router.to('editProject', 
-      Meteor.userFunctions.teamCode.call(this), 
-      this.code);
+    Router.go('editProject', {teamCode: this.currentTeamCode, projectCode: this.currentProjectCode});
   },
   'click #deleteProject': function(event) {
     event.preventDefault();
-
     var projectId = $(document).find('[name=_id]').val();
+
+    var dataContext = this;
 
     Meteor.call('deleteProject', projectId, function(error) {
       if (error) {
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        var team = Meteor.userFunctions.currentTeam();
-        Meteor.Router.to('team', Meteor.userFunctions.currentTeam().code);
+        console.log(dataContext);
+        Router.go('team', {teamCode: dataContext.currentTeamCode});
       }
     })
   },

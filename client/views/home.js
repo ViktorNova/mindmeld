@@ -66,7 +66,7 @@ Template.home.events({
   },  
   'click #createTeam': function(event) {
     event.preventDefault();
-    Meteor.Router.to('createTeam');
+    Router.go('createTeam');
   },
   'click #accept': function(event) {
     event.preventDefault();

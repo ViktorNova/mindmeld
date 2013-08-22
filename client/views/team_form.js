@@ -1,7 +1,3 @@
-Template.createTeam.helpers(Meteor.userFunctions);
-Template.editTeam.helpers(Meteor.userFunctions);
-Template.teamForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
-
 Template.teamForm.rendered = function() {
   $(document).ready(function() { 
     $('#name-input').focus(function() {
@@ -28,7 +24,7 @@ Template.teamForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Meteor.Router.to('team', team.code);
+        Router.go('team', {teamCode: team.code});
       }
     });
   },
@@ -49,16 +45,17 @@ Template.teamForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Meteor.Router.to('team', team.code);
+        Router.go('team', {teamCode: team.code});
       }
     });
   },
   'click #cancel-create': function(event) {
     event.preventDefault();
-    Meteor.Router.to('home');
+    Router.go('home');
   },
   'click #cancel-edit': function(event) {
     event.preventDefault();
-    Meteor.Router.to('team', Session.get('currentTeamCode'));
+    console.log(this);
+    Router.go('team', {teamCode: this.currentTeamCode});
   }
 });

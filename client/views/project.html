@@ -45,9 +45,9 @@
   {{/if}}
     <div class="row-fluid">
       <div class="row-fluid">
+        {{> projectButtons}}
         {{#with currentProject}}
           <input type="hidden" name="_id" value="{{_id}}" />
-          {{> projectButtons}}
           <h1><i class="icon-wrench"></i> {{name}}</h1>
           <div>{{#markdown}}{{detail}}{{/markdown}}</div>
           <h2><i class="icon-ticket"></i> Not Started Issues by Ranking</h2>
