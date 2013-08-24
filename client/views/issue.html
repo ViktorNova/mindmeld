@@ -21,7 +21,7 @@
 </template>
 
 <template name="commentList">
-  <a href="{{issuePath teamCode projectCode featureCode issueCode}}#{{_id}}">{{createdByUsername}} - {{momentTimeAgoCreatedAt}}</a>
+  <a href="{{pathFor 'issue' issueParams}}#{{_id}}">{{createdByUsername}} - {{momentTimeAgoCreatedAt}}</a>
 </template>
 
 <template name="issueButtons">

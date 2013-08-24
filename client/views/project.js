@@ -1,17 +1,5 @@
-Template.featureLinks.helpers({
-  allFeatures: function() {
-    return Features.find({
-      teamId: Session.get('currentTeamId'),
-      projectId: Session.get('currentProjectId')
-    },{sort: {updatedAt: -1}});
-  }  
-});
-
-Template.projectBody.helpers({
-  notStartedIssuesByRanking: function() {
-    return Issues.find({ teamId: this.teamId, projectId: this._id, status: 0, rank: {$exists: true} },{sort: {rank: 1}});
-  }
-});
+Template.featureLinks.helpers(Meteor.userFunctions);
+Template.projectBody.helpers(Meteor.userFunctions);
 
 Template.projectBody.rendered = function() {
 
@@ -20,7 +8,7 @@ Template.projectBody.rendered = function() {
       axis: "y",
       beforeStop: function(event, ui) {
         var rankedIssueIds = $( "#sortableIssueList" ).sortable( "toArray" );
-        Meteor.call('reorderIssueRankings', rankedIssueIds, Meteor.userFunctions.currentTeam()._id, Meteor.userFunctions.currentProject()._id);
+        Meteor.call('reorderIssueRankings', rankedIssueIds, this.currentTeam._id, this.currentProject._id);
       }
     });
     $('#sortableIssueList').disableSelection();

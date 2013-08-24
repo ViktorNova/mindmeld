@@ -2,6 +2,8 @@ Meteor.publish('userTeams', function(userId) {
 
     var future = new Future;
 
+    console.log('userId is ' + userId);
+
     // simulate high latency publish function
     Meteor.setTimeout(function () {
       future.return(Teams.find({members: {$in: [userId]}}));
@@ -32,6 +34,11 @@ Meteor.publish('teamMembers', function(userId) {
 Meteor.publish('userFeatures', function(userId) {
   var teams = Teams.find({members: {$in: [userId]}}).fetch();
   return Features.find({teamId: {$in: _.pluck(teams, '_id')}}, {sort: {updatedAt: -1}});
+});
+
+Meteor.publish('userIssues', function(userId) {
+  var teams = Teams.find({members: {$in: [userId]}}).fetch();
+  return Issues.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});
 });
 
 Meteor.publish('usernames', function() {
