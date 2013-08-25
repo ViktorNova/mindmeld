@@ -53,6 +53,11 @@ Meteor.publish('usernames', function() {
     return future.wait();
 });
 
+Meteor.publish('teamInvites', function(userId) {
+  var teams = Teams.find({members: {$in: [userId]}}).fetch();
+  return TeamInvites.find({teamId: {$in: _.pluck(teams, '_id')}});
+});
+
 //LEGACY
 
 // Meteor.publish('usernames', function() {

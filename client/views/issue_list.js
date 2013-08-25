@@ -1,1 +1,0 @@
-Template.issueList.helpers(Meteor.userFunctions);

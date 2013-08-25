@@ -2,7 +2,6 @@ Template.issue.helpers(Meteor.userFunctions);
 Template.issueBody.helpers(Meteor.userFunctions);
 Template.issueButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 Template.blankLinks.helpers(Meteor.userFunctions);
-Template.commentList.helpers(Meteor.userFunctions);
 
 Template.issueBody.events({
   'click #startIssue': function(event) {

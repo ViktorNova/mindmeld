@@ -257,62 +257,6 @@ Meteor.userFunctions = {
 
     return (memberCount + teamInvitesCount) >= 7;
   },
-  getTeamId: function(teamCode) {
-    if (!teamCode)
-      return null;
-
-    var team = Teams.findOne({code: teamCode});
-    if (team) {
-      return team._id;
-    } else {
-      return "NOTFOUND";
-    }
-  },
-  getProjectId: function(projectCode) {
-
-    if (!projectCode)
-      return null;
-
-    var project = Projects.findOne({code: projectCode});
-    if (project) {
-      return project._id;
-    } else {
-      return "NOTFOUND";
-    }
-  },
-  getFeatureId: function(featureCode) {
-    if (!featureCode)
-      return null;
-
-    var feature = Features.findOne({code: featureCode});
-    if (feature) {
-      return feature._id;
-    } else {
-      return "NOTFOUND";
-    }
-  },
-  getIssueId: function(issueCode) {
-    if (!issueCode)
-      return null;
-
-    var issue = Issues.findOne({code: issueCode});
-    if (issue) {
-      return issue._id;
-    } else {
-      return "NOTFOUND";
-    }
-  },
-  getTagId: function(tagCode) {
-    if (!tagCode)
-      return null;
-
-    var tag = Tags.findOne({code: tagCode});
-    if (tag) {
-      return tag._id;
-    } else {
-      return "NOTFOUND";
-    }
-  },
   teamInvite: function() {
     return TeamInvites.findOne(Session.get('teamInviteId'));
   },
@@ -358,11 +302,6 @@ Meteor.userFunctions = {
   userIsTeamOwner: function() {
     var currentTeam = Teams.findOne({code: Router.current().params.teamCode});
     return Meteor.userId == currentTeam.owner;
-  },
-  invitedTeam: function() {
-    var teamInvite = TeamInvites.findOne({_id: Session.get('teamInviteId'), receivedFrom: Session.get('teamInviteFromUserId')});
-    if (teamInvite)
-      return Teams.findOne({_id: teamInvite.teamId});
   },
   invitedTeamsForUsername: function() {
     return TeamInvites.find({username: Meteor.user() && Meteor.user().username});

@@ -37,11 +37,13 @@ Template.signIn.events({
           return;
         }
         var redir = Session.get('redir');
+        console.log('redir is ' + redir);
         if (redir) {
           Session.set('redir', null);
           Router.go(redir);
+        } else {
+          Router.go('home');
         }
-        Router.go('home');
       });
     }
   }

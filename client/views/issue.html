@@ -20,10 +20,6 @@
   </div>
 </template>
 
-<template name="commentList">
-  <a href="{{pathFor 'issue' issueParams}}#{{_id}}">{{createdByUsername}} - {{momentTimeAgoCreatedAt}}</a>
-</template>
-
 <template name="issueButtons">
   {{#if action}}
     <button id="editIssue" class="btn" disabled><i class="icon-edit"></i> Edit Issue</button>

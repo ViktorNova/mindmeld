@@ -1,9 +1,25 @@
 VerifyEmailTokenController = RouteController.extend({
   verifyToken: function() {
     this.render('waiting');
-    this.render({
-      publicHeader: {to: 'header'}
-    });
+
+    if (Meteor.user()) {
+
+      this.render({
+        userHeader: { 
+          to: 'header', 
+          data: function() {
+            return {
+              otherMembers: null,
+              username: Meteor.user().username
+            }
+          }
+        }
+      });
+    } else {
+      this.render({
+        publicHeader: {to: 'header', data: {}}
+      });          
+    }
 
     var routeContext = this;
 

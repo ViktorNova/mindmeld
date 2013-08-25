@@ -4,11 +4,12 @@
       <div class="row-fluid">
         <div class="span2"></div>
         <div class="span8">
+          {{> errorNotification}}
           <h1>Invitation to join team</h1>
           {{#if currentUser}}
             {{#unless invitedTeam}}
               <h2>Team invitation could not be found</h2>
-              <p>The team invitation could not be found. The detail may be incorrect, or the invitation may have been revoked.</p>
+              <p>The team invitation could not be found. The URL may be incorrect, or the invitation may have been revoked.</p>
             {{/unless}}
             {{#with invitedTeam}}
               <p>You've been invited to join the team {{name}}. As a team member, you'll be able to participate in projects owned by the team. Would you like to join?</p>

@@ -1,38 +1,43 @@
 Template.acceptEmailInvite.helpers(Meteor.userFunctions);
 
+var dataContext;
+
+Template.acceptEmailInvite.rendered = function() {
+  dataContext = this;
+}
+
 Template.acceptEmailInvite.events({
   'click #accept': function(event) {
     event.preventDefault();
-    Meteor.call('acceptEmailInvite', Session.get('teamInviteId'), Session.get('teamInviteFromUserId'), function(error, teamCode) {
+    Meteor.call('acceptEmailInvite', dataContext.data.teamInviteId, dataContext.data.teamInviteFromUserId, function(error, teamCode) {
+
       if (error) {
+        console.log(error.reason);
         Meteor.userFunctions.addError(error.reason);
         return;
       }
-      Session.set('teamInviteId', null);
-      Session.set('teamInviteFromUserId', null);
-      Meteor.Router.to(Meteor.Router.teamPath(teamCode));
+      console.log('!');
+      Router.go('team', {teamCode: teamCode});
     });
   },
  'click #decline': function(event) {
     event.preventDefault();
-    Meteor.call('declineEmailInvite', Session.get('teamInviteId'), Session.get('teamInviteFromUserId'), function(error) {
+    Meteor.call('declineEmailInvite', dataContext.data.teamInviteId, dataContext.data.teamInviteFromUserId, function(error) {
       if (error) {
         Meteor.userFunctions.addError(error.reason);
         return;
       }
-      Session.set('teamInviteId', null);
-      Session.set('teamInviteFromUserId', null);
-      Meteor.Router.to(Meteor.Router.homePath());
+      Router.go('home');
     });
   },
   'click #sign-in': function(event) {
     event.preventDefault();
-    Session.set('redir','acceptEmailInvite');
-    Meteor.Router.to(Meteor.Router.signInPath());
+    Session.set('redir',Router.current().path);
+    Router.go('signIn');
   },
   'click #sign-up': function(event) {
     event.preventDefault();
-    Session.set('redir','acceptEmailInvite');
-    Meteor.Router.to(Meteor.Router.signUpPath());
+    Session.set('redir',Router.current().path);
+    Router.go('signUp');
   }
 });

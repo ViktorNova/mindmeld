@@ -7,6 +7,7 @@ Template.teamInvitesWithEmailTable.helpers(Meteor.userFunctions);
 Template.inviteUserForm.preserve('.tabbable');
 
 var initialRemainingInviteCount;
+var dataContext;
 
 function pluralInvites(count) {
   return count == 1 ? "invite" : "invites";
@@ -20,9 +21,9 @@ function displayRemainingInviteCount(e) {
 
 function remainingInviteCount() {
   var remainingInviteCount = initialRemainingInviteCount;
-  var currentMembers = Teams.findOne(Session.get('currentTeamId')).members.length;
+  var currentMembers = dataContext.data.currentTeam.members.length;
   remainingInviteCount -= currentMembers;
-  var currentOutstandingInvites = TeamInvites.find({teamId: Session.get('currentTeamId')}).fetch().length;
+  var currentOutstandingInvites = TeamInvites.find({teamId: dataContext.data.currentTeam._id}).fetch().length;
   remainingInviteCount -= currentOutstandingInvites;
   var currentInvitesByEmail = $('#inviteByEmail').select2('val').length;
   remainingInviteCount -= currentInvitesByEmail;
@@ -33,9 +34,9 @@ function remainingInviteCount() {
 
 function remainingInviteByUsernameCount() {
   var remainingInviteCount = initialRemainingInviteCount;
-  var currentMembers = Teams.findOne(Session.get('currentTeamId')).members.length;
+  var currentMembers = dataContext.data.currentTeam.members.length;
   remainingInviteCount -= currentMembers;
-  var currentOutstandingInvites = TeamInvites.find({teamId: Session.get('currentTeamId')}).fetch().length;
+  var currentOutstandingInvites = TeamInvites.find({teamId: dataContext.data.currentTeam._id}).fetch().length;
   remainingInviteCount -= currentOutstandingInvites;
   var currentInvitesByEmail = $('#inviteByEmail').select2('val').length;
   remainingInviteCount -= currentInvitesByEmail;
@@ -48,9 +49,9 @@ function remainingInviteByUsernameCount() {
 
 function remainingInviteByEmailCount() {
   var remainingInviteCount = initialRemainingInviteCount;
-  var currentMembers = Teams.findOne(Session.get('currentTeamId')).members.length;
+  var currentMembers = dataContext.data.currentTeam.members.length;
   remainingInviteCount -= currentMembers;
-  var currentOutstandingInvites = TeamInvites.find({teamId: Session.get('currentTeamId')}).fetch().length;
+  var currentOutstandingInvites = TeamInvites.find({teamId: dataContext.data.currentTeam._id}).fetch().length;
   remainingInviteCount -= currentOutstandingInvites;
   var currentInvitesByUsername = $('#inviteByUsername').select2('val').length;
   remainingInviteCount -= currentInvitesByUsername;
@@ -63,9 +64,10 @@ function remainingInviteByEmailCount() {
 
 Template.inviteUserForm.rendered = function() {
 
-  var currentTeam = Teams.findOne(Session.get('currentTeamId'));
-  if (currentTeam)
-    initialRemainingInviteCount = currentTeam.inviteCount || 10;
+  dataContext = this;
+
+  if (this.data.currentTeam)
+    initialRemainingInviteCount = this.data.currentTeam.inviteCount || 10;
   else
     initialRemainingInviteCount = 0;
 
@@ -83,7 +85,7 @@ Template.inviteUserForm.rendered = function() {
         },
         query: function(query) {
           var data = {results: []};
-          Meteor.call('getPublicUsernames', query.term, Session.get('currentTeamId'), function(error, result) {
+          Meteor.call('getPublicUsernames', query.term, dataContext.data.currentTeam._id, function(error, result) {
             data.results = result;
             query.callback(data);
           });
@@ -107,7 +109,7 @@ Template.inviteUserForm.rendered = function() {
         },
         query: function(query) {
           var data = {results: []};
-          Meteor.call('validateEmailForSelect2', query.term, Session.get('currentTeamId'), function(error, result) {
+          Meteor.call('validateEmailForSelect2', query.term, dataContext.data.currentTeam._id, function(error, result) {
             data.results = result;
             query.callback(data);
           });

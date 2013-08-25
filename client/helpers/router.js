@@ -60,6 +60,33 @@ Router.map(function() {
     loadingTemplate: 'waiting'
   });
 
+  this.route('acceptEmailInvite',
+  {
+    path: '/accept-email-invite',
+    data: function() {
+
+      var invitedTeam;
+      var teamInvite = TeamInvites.findOne(this.params.teamInviteId);
+      if (!teamInvite)
+        invitedTeam = {};
+      else 
+        invitedTeam = Teams.findOne({_id: teamInvite.teamId});
+      if (!invitedTeam)
+        invitedTeam = {};
+
+      return {
+        invitedTeam: invitedTeam,
+        teamInviteId: this.params.teamInviteId,
+        teamInviteFromUserId: this.params.teamInviteFromUserId
+      };
+    },
+    waitOn: Meteor.subscribe('teamInvites', Meteor.userId()),
+    controller: AcceptEmailInviteController,
+    action: 'acceptEmailInvite',
+    loadingTemplate: 'waiting',
+    notFoundTemplate: 'acceptEmailInvite'
+  });
+
   this.route('team',
   {
     path: '/:teamCode',
@@ -137,6 +164,33 @@ Router.map(function() {
     userNotFoundTemplate: 'notFound'
   });
 
+  this.route('inviteUsers',
+  {
+    path: '/:teamCode/inviteUsers',
+    data: function() {
+      var currentTeam = Teams.findOne({code: this.params.teamCode});
+      if (!currentTeam)
+        return null;
+      return {
+        currentTeam: currentTeam,
+        teamCode: this.params.teamCode, 
+        availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
+        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})
+      };
+    },
+    waitOn: [
+      Meteor.subscribe('userTeams', Meteor.userId()),
+      Meteor.subscribe('userProjects', Meteor.userId()),
+      Meteor.subscribe('teamMembers', Meteor.userId())
+    ],
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
+    loadingTemplate: 'waiting',
+    notFoundTemplate: 'notFound',
+    userFoundTemplate: 'inviteUser',
+    userNotFoundTemplate: 'notFound'
+  });
+
   this.route('user',
   {
     path: '/users/:username',
@@ -170,7 +224,7 @@ Router.map(function() {
     waitOn: [
       Meteor.subscribe('userTeams', Meteor.userId()),
       Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())
+      Meteor.subscribe('teamMembers', Meteor.userId()),
     ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
@@ -315,45 +369,6 @@ Router.map(function() {
   });
 });
 
-//   '/accept-email-invite':
-//   { as: 'accept-email-invite', to: function() {
-//       var qsElements = this.querystring.split('&');
-//       _.each(qsElements, function(element) {
-//         var pair = element.split('=');
-//         if (pair[0] == 'teamInviteId' || pair[0] == 'teamInviteFromUserId')
-//           Session.set(pair[0],pair[1]);
-//       });
-
-//       setCurrentIds('acceptEmailInvite',null,null,null,null,null);
-//       return 'acceptEmailInvite';
-//     }
-//   },
-//   '/:teamCode/inviteUsers': 
-//   { as: 'inviteUsers', to: function(teamCode) {
-//       setCurrentIds('team', teamCode, null, null, null, null);
-
-//       if (!Meteor.user())
-//         return 'notFound';
-
-//       if (!Session.get('currentTeamId')) {
-//         return 'waiting';
-//       } else {
-        
-//         var movementAttributes = {
-//           teamId: Session.get('currentTeamId'),
-//           template: 'inviteUser',
-//           templatePathAttributes: {teamCode: teamCode}
-//         };
-//         Meteor.call('logMovement',movementAttributes);
-
-//         if (Session.get('currentTeamId') == 'NOTFOUND') {
-//           return 'notFound';
-//         } else {
-//           return 'inviteUser';
-//         }
-//       }
-//     }
-//   },
 //   '/:teamCode/tags/:tag': 
 //   { as: 'tag', to: function(teamCode, tag) {
 //       setCurrentIds('tag', teamCode, null, null, null, tag);
@@ -400,31 +415,6 @@ Router.map(function() {
 //           return 'notFound';
 //         } else {
 //           return 'createProject';
-//         }
-//       }
-//     }    
-//   },
-//   '/:teamCode/:projectCode': 
-//   { as: 'project', to: function(teamCode, projectCode) {
-//       setCurrentIds('project', teamCode, projectCode, null, null, null);
-
-//       if (!Meteor.user())
-//         return 'notFound';
-
-//       if (!Session.get('currentTeamId') || !Session.get('currentProjectId')) {
-//         return 'waiting';
-//       } else {
-//         var movementAttributes = {
-//           teamId: Session.get('currentTeamId'),
-//           template: 'project',
-//           templatePathAttributes: {teamCode: teamCode, projectCode: projectCode}
-//         };
-//         Meteor.call('logMovement', movementAttributes);
-
-//         if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND') {
-//           return 'notFound';
-//         } else {
-//           return 'project';
 //         }
 //       }
 //     }    
