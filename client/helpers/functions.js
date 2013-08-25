@@ -193,8 +193,6 @@ Meteor.userFunctions = {
     Meteor.users.findOne(this.ownedByUserId).username;
   },
   ownedByCurrentUser: function() {
-    console.log(this.ownedByUserId);
-    console.log(Meteor.userId());
     return this && this.ownedByUserId && this.ownedByUserId === Meteor.userId();
   },
   following: function() {
@@ -218,7 +216,9 @@ Meteor.userFunctions = {
   iconTags: function() {
     if (this.tags) {
       var teamCode = this.teamId && Teams.findOne(this.teamId) && Teams.findOne(this.teamId).code;
-      return _.map(this.tags, function(tag) { return '<a href="' + Meteor.Router.tagPath(teamCode, tag) + '"><span class="label"><i class="icon-tag"></i> ' + tag + '</span></a>'; }).join(' ');
+      return _.map(this.tags, function(tag) { return '<a href="' + 
+        Router.path('tag', {teamCode: teamCode, tag: tag})
+        + '"><span class="label"><i class="icon-tag"></i> ' + tag + '</span></a>'; }).join(' ');
     }
   },
   notStartedIssuesInProject: function() {
@@ -300,7 +300,6 @@ Meteor.userFunctions = {
   },
   userIsTeamOwner: function() {
     var currentTeam = Teams.findOne({code: Router.current().params.teamCode});
-    console.log(currentTeam);
     return this._id == currentTeam.owner;
   },
   invitedTeamsForUsername: function() {

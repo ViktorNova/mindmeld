@@ -3,6 +3,12 @@ Template.issueBody.helpers(Meteor.userFunctions);
 Template.issueButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 Template.blankLinks.helpers(Meteor.userFunctions);
 
+var dataContext;
+
+Template.issueBody.rendered = function() {
+  dataContext = this;
+}
+
 Template.issueBody.events({
   'click #startIssue': function(event) {
     event.preventDefault();
@@ -28,13 +34,13 @@ Template.issueBody.events({
     Meteor.call('deleteIssue', issueId, function(error) {
       if (error) {
         Meteor.userFunctions.addError(error.reason);
+        return;
       } else {
-        var feature = Meteor.userFunctions.currentFeature();
-        Meteor.Router.to('feature', 
-          Meteor.userFunctions.teamCode.call(feature),
-          Meteor.userFunctions.projectCode.call(feature),
-          feature.code
-        );
+        Router.go('feature', {
+          teamCode: dataContext.data.teamCode,
+          projectCode: dataContext.data.projectCode,
+          featureCode: dataContext.data.featureCode
+        });
       }
     })
   },
@@ -65,11 +71,12 @@ Template.issueBody.events({
   },
   'click #editIssue': function(event) {
     event.preventDefault();
-    Meteor.Router.to('editIssue',
-      Meteor.userFunctions.teamCode.call(this),
-      Meteor.userFunctions.projectCode.call(this),
-      Meteor.userFunctions.featureCode.call(this),
-      this.code);
+    Router.go('editIssue', {
+      teamCode: dataContext.data.teamCode,
+      projectCode: dataContext.data.projectCode,
+      featureCode: dataContext.data.featureCode,
+      issueCode: dataContext.data.issueCode
+    });
   },
   'submit form': function(event) {
     event.preventDefault();

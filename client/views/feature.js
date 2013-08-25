@@ -22,11 +22,10 @@ Template.featureButtons.rendered = function() {
 Template.featureButtons.events({
   'click #createIssue': function(event) {
     event.preventDefault();
-    Router.go('createIssue', dataContext);
+    Router.go('createIssue', dataContext.data);
   },
   'click #editFeature': function(event) {
     event.preventDefault();
-    console.log(dataContext.data);
     Router.go('editFeature', dataContext.data);
   },
   'click #deleteFeature': function(event) {

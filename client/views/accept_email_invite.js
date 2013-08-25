@@ -12,11 +12,9 @@ Template.acceptEmailInvite.events({
     Meteor.call('acceptEmailInvite', dataContext.data.teamInviteId, dataContext.data.teamInviteFromUserId, function(error, teamCode) {
 
       if (error) {
-        console.log(error.reason);
         Meteor.userFunctions.addError(error.reason);
         return;
       }
-      console.log('!');
       Router.go('team', {teamCode: teamCode});
     });
   },

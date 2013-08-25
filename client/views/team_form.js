@@ -55,7 +55,6 @@ Template.teamForm.events({
   },
   'click #cancel-edit': function(event) {
     event.preventDefault();
-    console.log(this);
     Router.go('team', {teamCode: this.currentTeamCode});
   }
 });

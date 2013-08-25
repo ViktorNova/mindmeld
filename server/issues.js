@@ -4,6 +4,7 @@ Meteor.methods({
     if (!user)
       throw new Meteor.Error(401, "You need to login to create an issue");
 
+    console.log(issueAttributes);
     var feature = Features.findOne({teamId: issueAttributes.teamId, projectId: issueAttributes.projectId, _id: issueAttributes.featureId});
     if (!feature)
       throw new Meteor.Error(403, "Feature could not be found");

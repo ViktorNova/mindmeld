@@ -114,6 +114,29 @@ Router.map(function() {
     userNotFoundTemplate: 'notFound'
   });
 
+  this.route('tag',
+  {
+    path: '/:teamCode/tags/:tag',
+    data: function() {
+      var currentTeam = Teams.findOne({code: this.params.teamCode});
+      if (!currentTeam)
+        return null;
+      var tags = Tags.find({teamId: currentTeam._id});
+      return {
+        tags: tags,
+        currentTeam: currentTeam,
+        teamCode: this.params.teamCode,
+        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})
+      };
+    },
+    waitOn: [
+    Meteor.subscribe('userTeams', Meteor.userId()),
+    Meteor.subscribe('userTags', Meteor.userId()),
+    Meteor.subscribe('teamMembers', Meteor.userId())
+    ]
+  });
+
+
   this.route('createTeam',
   {
     path: '/team/create',
@@ -264,19 +287,61 @@ Router.map(function() {
         currentProject: currentProject,
         projectCode: this.params.projectCode,
         availableFeatures: availableFeatures,
-        notStartedIssues: notStartedIssues
+        notStartedIssues: notStartedIssues,
+        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})                
       }
     },
     waitOn: [
       Meteor.subscribe('userTeams', Meteor.userId()),
       Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId())
+      Meteor.subscribe('userFeatures', Meteor.userId()),
+      Meteor.subscribe('teamMembers', Meteor.userId())      
     ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'project',
+    userNotFoundTemplate: 'notFound'
+  });
+
+  this.route ('editProject', 
+  { 
+    path: '/:teamCode/:projectCode/edit',
+    data: function() {
+      var currentTeam = Teams.findOne({code: this.params.teamCode});
+      if (!currentTeam)
+        return null;
+      var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
+      if (!currentProject)
+        return null;
+      var availableFeatures = Features.find({
+          teamId: currentTeam._id,
+          projectId: currentProject._id
+        },
+        {sort: {statusChanged: -1}}
+      );
+      return {
+        action: 'edit',
+        currentTeam: currentTeam,
+        teamCode: this.params.teamCode,
+        currentProject: currentProject,
+        projectCode: this.params.projectCode,
+        availableFeatures: availableFeatures,
+        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+      }
+    },
+    waitOn: [
+      Meteor.subscribe('userTeams', Meteor.userId()),
+      Meteor.subscribe('userProjects', Meteor.userId()),
+      Meteor.subscribe('userFeatures', Meteor.userId()),
+      Meteor.subscribe('teamMembers', Meteor.userId())      
+    ],
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
+    loadingTemplate: 'waiting',
+    notFoundTemplate: 'notFound',
+    userFoundTemplate: 'editProject',
     userNotFoundTemplate: 'notFound'
   });
 
@@ -412,6 +477,59 @@ Router.map(function() {
     userNotFoundTemplate: 'notFound'
   });
 
+this.route('createIssue',
+{
+  path: '/:teamCode/:projectCode/:featureCode/issue/create',
+    data: function() {
+      var currentTeam = Teams.findOne({code: this.params.teamCode});
+      if (!currentTeam)
+        return null;
+      var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
+      if (!currentProject)
+        return null;
+      var currentFeature = Features.findOne({teamId: currentTeam._id, projectId: currentProject._id, code: this.params.featureCode});
+      if (!currentFeature)
+        return null;
+      var tags = Tags.find({teamId: currentTeam._id});
+
+      var availableIssues = Issues.find({
+          teamId: currentTeam._id,
+          projectId: currentProject._id,
+          featureId: currentFeature._id,
+          tags: tags
+        },
+        {sort: {updatedAt: -1}
+      });
+
+      return {
+        action: 'create',
+        currentTeam : currentTeam,
+        teamCode: this.params.teamCode,
+        currentProject: currentProject,
+        projectCode: this.params.projectCode,
+        currentFeature: currentFeature,
+        featureCode: this.params.featureCode,
+        currentIssue: {teamId: currentTeam._id, projectId: currentProject._id, featureId: currentFeature._id},
+        availableIssues: availableIssues,
+        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+      }
+    },
+    waitOn: [
+      Meteor.subscribe('userTeams', Meteor.userId()),
+      Meteor.subscribe('userProjects', Meteor.userId()),
+      Meteor.subscribe('userFeatures', Meteor.userId()),
+      Meteor.subscribe('userIssues', Meteor.userId()),
+      Meteor.subscribe('userTags', Meteor.userId()),
+      Meteor.subscribe('teamMembers', Meteor.userId())      
+    ],
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
+    loadingTemplate: 'waiting',
+    notFoundTemplate: 'notFound',
+    userFoundTemplate: 'createIssue',
+    userNotFoundTemplate: 'notFound'
+  });
+
   this.route('issue',
   {
     path: '/:teamCode/:projectCode/:featureCode/:issueCode',
@@ -453,131 +571,51 @@ Router.map(function() {
     userFoundTemplate: 'issue',
     userNotFoundTemplate: 'notFound'
   });
+
+  this.route('editIssue',
+  {
+    path: '/:teamCode/:projectCode/:featureCode/:issueCode/edit',
+    data: function() {
+      var currentTeam = Teams.findOne({code: this.params.teamCode});
+      if (!currentTeam)
+        return null;
+      var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
+      if (!currentProject)
+        return null;
+      var currentFeature = Features.findOne({teamId: currentTeam._id, projectId: currentProject._id, code: this.params.featureCode});
+      if (!currentFeature)
+        return null;
+      var currentIssue = Issues.findOne({teamId: currentTeam._id, projectId: currentProject._id, featureId: currentFeature._id, code: this.params.issueCode});
+      if (!currentIssue)
+        return null;
+
+      var tags = Tags.find({teamId: currentTeam._id});
+
+      return {
+        action: 'edit',
+        currentTeam : currentTeam,
+        teamCode: this.params.teamCode,
+        currentProject: currentProject,
+        projectCode: this.params.projectCode,
+        currentFeature: currentFeature,
+        featureCode: this.params.featureCode,
+        currentIssue: currentIssue,
+        issueCode: this.params.issueCode,
+        tags: tags
+      }
+    },
+    waitOn: [
+      Meteor.subscribe('userTeams', Meteor.userId()),
+      Meteor.subscribe('userProjects', Meteor.userId()),
+      Meteor.subscribe('userFeatures', Meteor.userId()),
+      Meteor.subscribe('userTags', Meteor.userId()),
+      Meteor.subscribe('userIssues', Meteor.userId())    
+    ],
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
+    loadingTemplate: 'waiting',
+    notFoundTemplate: 'notFound',
+    userFoundTemplate: 'editIssue',
+    userNotFoundTemplate: 'notFound'
+  });
 });
-
-//   '/:teamCode/tags/:tag': 
-//   { as: 'tag', to: function(teamCode, tag) {
-//       setCurrentIds('tag', teamCode, null, null, null, tag);
-
-//       if (!Meteor.user())
-//         return 'notFound';
-
-//       if (!Session.get('currentTeamId')) {
-//         return 'waiting';
-//       } else {
-//         var movementAttributes = {
-//           teamId: Session.get('currentTeamId'),
-//           template: 'tag',
-//           templatePathAttributes: {teamCode: teamCode, tag: tag}
-//         };
-//         Meteor.call('logMovement', movementAttributes);
-
-//         if (Session.get('currentTeamId') == 'NOTFOUND') {
-//           return "notFound";
-//         } else {
-//           return 'tag';
-//         }
-//       }
-//     }
-//   },
-//   '/:teamCode/project/create': 
-//   { as: 'createProject', to: function(teamCode) {
-//       setCurrentIds('createProject', teamCode, null, null, null, null);
-
-//       if (!Meteor.user())
-//         return 'notFound';
-
-//       if (!Session.get('currentTeamId')) {
-//         return 'waiting';
-//       } else {
-//         var movementAttributes = {
-//           teamId: Session.get('currentTeamId'),
-//           template: 'createProject',
-//           templatePathAttributes: {teamCode: teamCode}
-//         };
-//         Meteor.call('logMovement', movementAttributes);
-
-//         if (Session.get('currentTeamId') == 'NOTFOUND') {
-//           return 'notFound';
-//         } else {
-//           return 'createProject';
-//         }
-//       }
-//     }    
-//   },
-//   '/:teamCode/:projectCode/edit': 
-//   { as: 'editProject', to: function(teamCode, projectCode) {
-//       setCurrentIds('editProject', teamCode, projectCode, null, null, null);
-
-//       if (!Meteor.user())
-//         return 'notFound';
-
-//       if (!Session.get('currentTeamId') || !Session.get('currentProjectId')) {
-//         return 'waiting';
-//       } else {
-//         var movementAttributes = {
-//           teamId: Session.get('currentTeamId'),
-//           template: 'editProject',
-//           templatePathAttributes: {teamCode: teamCode, projectCode: projectCode}
-//         };
-//         Meteor.call('logMovement', movementAttributes);
-
-//         if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND') {
-//           return 'notFound';
-//         } else {
-//           return 'editProject';
-//         }
-//       }
-//     }    
-//   },
-//   '/:teamCode/:projectCode/:featureCode/issue/create': 
-//   { as: 'createIssue', to: function(teamCode, projectCode, featureCode) {
-//       setCurrentIds('createIssue', teamCode, projectCode, featureCode, null, null);
-
-//       if (!Meteor.user())
-//         return 'notFound';
-
-//       if (!Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId')) {
-//         return 'waiting';
-//       } else {
-//         var movementAttributes = {
-//           teamId: Session.get('currentTeamId'),
-//           template: 'createIssue',
-//           templatePathAttributes: {teamCode: teamCode, projectCode: projectCode, featureCode: featureCode}
-//         };
-//         Meteor.call('logMovement', movementAttributes);
-
-//         if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND' || Session.get('currentFeatureId') == 'NOTFOUND') {
-//           return 'notFound';
-//         } else {
-//           return 'createIssue';
-//         }
-//       }
-//     }    
-//   },
-//   '/:teamCode/:projectCode/:featureCode/:issueCode/edit': 
-//   { as: 'editIssue', to: function(teamCode, projectCode, featureCode, issueCode) {
-//       setCurrentIds('editIssue', teamCode, projectCode, featureCode, issueCode, null);
-
-//       if (!Meteor.user())
-//         return 'notFound';
-
-//       if (!Session.get('currentTeamId') || !Session.get('currentProjectId') || !Session.get('currentFeatureId') || !Session.get('currentIssueId')) {
-//         return 'waiting';
-//       } else {
-//         var movementAttributes = {
-//           teamId: Session.get('currentTeamId'),
-//           template: 'editIssue',
-//           templatePathAttributes: {teamCode: teamCode, projectCode: projectCode, featureCode: featureCode, issueCode: issueCode}
-//         };
-//         Meteor.call('logMovement', movementAttributes);
-
-//         if (Session.get('currentTeamId') == 'NOTFOUND' || Session.get('currentProjectId') == 'NOTFOUND' || Session.get('currentFeatureId') == 'NOTFOUND' || Session.get('currentIssueId') == 'NOTFOUND') {
-//           return 'notFound';
-//         } else {
-//           return 'editIssue';
-//         }
-//       }
-//     }    
-//   }
-// });

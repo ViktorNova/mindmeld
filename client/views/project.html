@@ -52,14 +52,14 @@
           <div>{{#markdown}}{{detail}}{{/markdown}}</div>
           <h2><i class="icon-ticket"></i> Not Started Issues by Ranking</h2>
         {{/with}}
-        <ul id="sortableIssueList" class="nav nav-list">
-          {{#each notStartedIssues}}
-            <li id="{{_id}}">
-              <i class="icon-sort pull-right"></i>
-              <a href="{{pathFor 'issue' issueParams}}">{{featureName}} : {{name}}</a>
-            </li>
-          {{/each}}
-        </ul>
+      </div>
+      <div id="sortableIssueList" class="row-fluid">
+        {{#each notStartedIssues}}        
+        <div class="span3">
+          {{featureName}}<br />
+          <a href="{{pathFor 'issue' issueParams}}">{{name}}</a>
+        </div>
+        {{/each}}
       </div>
 
       <div class="row-fluid">

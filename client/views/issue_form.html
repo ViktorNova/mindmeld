@@ -33,8 +33,8 @@
   <div class="span12">
   {{/if}}
     <div class="row-fluid">
+      {{> issueButtons}}
       {{#with currentIssue}}
-        {{> issueButtons}}
         <form id="{{action}}Issue" data-validate="parsely">
           <fieldset>
             <input type="hidden" name="action" value="{{action}}" />

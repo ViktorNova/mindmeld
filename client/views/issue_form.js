@@ -2,15 +2,15 @@ Template.createIssue.helpers(Meteor.userFunctions);
 Template.editIssue.helpers(Meteor.userFunctions);
 Template.issueForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
+var dataContext;
+
 Template.issueForm.rendered = function() {
-  var tags = _.chain(Issues.find({ teamId: Meteor.userFunctions.currentIssue().teamId, tags: {$exists: true} }).fetch())
-    .pluck('tags')
-    .flatten()
-    .uniq()
-    .value();
+
+  dataContext = this;
+  var formTags = _.pluck(dataContext.data.tags.fetch(),'tag');
 
   $(document).ready(function() { 
-    $('#tags').select2({width: "100%", tags:tags});
+    $('#tags').select2({width: "100%", tags:formTags});
   });
 };
 
@@ -35,11 +35,12 @@ Template.issueForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Meteor.Router.to('issue', 
-          Meteor.userFunctions.teamCode.call(issue),
-          Meteor.userFunctions.projectCode.call(issue),
-          Meteor.userFunctions.featureCode.call(issue),
-          issue.code);
+        Router.go('issue', {
+          teamCode: dataContext.data.teamCode,
+          projectCode: dataContext.data.projectCode,
+          featureCode: dataContext.data.featureCode,
+          issueCode: issue.code
+        });
       }
     });
   },
@@ -64,19 +65,30 @@ Template.issueForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Meteor.Router.to('issue',
-          Meteor.userFunctions.teamCode.call(issue),
-          Meteor.userFunctions.projectCode.call(issue),
-          Meteor.userFunctions.featureCode.call(issue),
-          issue.code);
+        Router.go('issue', {
+          teamCode: dataContext.data.teamCode,
+          projectCode: dataContext.data.projectCode,
+          featureCode: dataContext.data.featureCode,
+          issueCode: issue.code
+        });
       }
     });
   },
   'click #cancel-create': function(event) {
     event.preventDefault();
-    Meteor.Router.to('feature', Session.get('currentTeamCode'), Session.get('currentProjectCode'), Session.get('currentFeatureCode'));
+    Router.go('feature', {
+      teamCode: dataContext.data.teamCode,
+      projectCode: dataContext.data.projectCode,
+      featureCode: dataContext.data.featureCode
+    });
   },
   'click #cancel-edit': function(event) {
-    Meteor.Router.to('issue', Session.get('currentTeamCode'), Session.get('currentProjectCode'), Session.get('currentFeatureCode'), Session.get('currentIssueCode'));
+    event.preventDefault();
+    Router.go('issue', {
+      teamCode: dataContext.data.teamCode,
+      projectCode: dataContext.data.projectCode,
+      featureCode: dataContext.data.featureCode,
+      issueCode: dataContext.data.issueCode
+    });
   }
 });

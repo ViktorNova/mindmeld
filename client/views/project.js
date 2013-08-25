@@ -9,10 +9,9 @@ Template.projectBody.rendered = function() {
 
   $(document).ready(function() { 
     $('#sortableIssueList').sortable({ 
-      axis: "y",
       beforeStop: function(event, ui) {
         var rankedIssueIds = $( "#sortableIssueList" ).sortable( "toArray" );
-        Meteor.call('reorderIssueRankings', rankedIssueIds, this.currentTeam._id, this.currentProject._id);
+        Meteor.call('reorderIssueRankings', rankedIssueIds, dataContext.data.currentTeam._id, dataContext.data.currentProject._id);
       }
     });
     $('#sortableIssueList').disableSelection();
