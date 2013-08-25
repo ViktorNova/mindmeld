@@ -60,7 +60,7 @@
               <tr>
                   <td><a href="">{{username}}</a></td>
                   <td>{{firstName}}&nbsp;{{lastName}}</td>
-                  <td><div class="text-center"><button type="button" class="btn remove-user" data-userid="{{_id}}" {{disableButtonIf userIsTeamOwner}}>Remove</button></div></td>
+                  <td><div class="text-center"><button type="button" class="btn remove-user" data-userid="{{_id}}" {{disableButtonIf userIsTeamOwner}}><i class="icon-remove"></i> Remove</button></div></td>
               </tr>
               {{/each}}
             {{else}}

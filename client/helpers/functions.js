@@ -192,10 +192,9 @@ Meteor.userFunctions = {
     return this.ownedByUserId && Meteor.users.findOne(this.ownedByUserId) &&
     Meteor.users.findOne(this.ownedByUserId).username;
   },
-  members: function() {
-    return Meteor.users.find();
-  },
   ownedByCurrentUser: function() {
+    console.log(this.ownedByUserId);
+    console.log(Meteor.userId());
     return this && this.ownedByUserId && this.ownedByUserId === Meteor.userId();
   },
   following: function() {
@@ -301,7 +300,8 @@ Meteor.userFunctions = {
   },
   userIsTeamOwner: function() {
     var currentTeam = Teams.findOne({code: Router.current().params.teamCode});
-    return Meteor.userId == currentTeam.owner;
+    console.log(currentTeam);
+    return this._id == currentTeam.owner;
   },
   invitedTeamsForUsername: function() {
     return TeamInvites.find({username: Meteor.user() && Meteor.user().username});

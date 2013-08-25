@@ -32,7 +32,9 @@
     <button id="createIssue" class="btn" disabled><i class="icon-plus"></i> Create Issue</button>
   {{else}}
     <button id="editFeature" class="btn"><i class="icon-edit"></i> Edit Feature</button>
+    {{#with currentFeature}}
     <button id="deleteFeature" class="btn" {{disableButtonIfNot ownedByCurrentUser}}><i class="icon-trash"></i> Delete Feature</button>
+    {{/with}}
     <button id="createIssue" class="btn"><i class="icon-plus"></i> Create Issue</button>
   {{/if}}
 </template>
@@ -43,17 +45,17 @@
   {{else}}
   <div class="span12">
   {{/if}}
-  {{#with currentFeature}}
     <input type="hidden" name="_id" value="{{_id}}" />
     <div class="row-fluid">
       {{> featureButtons}}
+      {{#with currentFeature}}
       <h1><i class="icon-certificate"></i> {{name}}</h1>
       <div class="input-prepend">
         <span class="add-on">Owner</span>
         <input class="input-large" type="text" value="{{ownedByUsername}}" readonly="readonly"></input>
       </div>
       <div>{{#markdown}}{{detail}}{{/markdown}}</div>
+      {{/with}}
     </div>
-  {{/with}}
   </div>
 </template>

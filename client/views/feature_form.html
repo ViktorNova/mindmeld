@@ -33,8 +33,8 @@
   <div class="span12">
   {{/if}}
     <div class="row-fluid">
+      {{> featureButtons}}
       {{#with currentFeature}}
-        {{> featureButtons}}
         <form id="{{action}}Feature" data-validate="parsely">
           <fieldset>
             <input type="hidden" name="teamId" value="{{teamId}}" />
@@ -47,8 +47,8 @@
             <div class="row-fluid">
               <div class="select2-label span1">Owner&nbsp;&nbsp;&nbsp;</div>
               <select name="ownedByUserId" id="ownedByUserId" tabindex="2">
-                {{#each members}}
-                  {{> owner}}
+                {{#each ../teamMembers}}
+                  <option value="{{_id}}">{{username}}</option>
                 {{/each}}
               </select>
             </div>
@@ -64,8 +64,4 @@
       {{/with}}
     </div>
   </div>
-</template>
-
-<template name="owner">
-  <option value="{{_id}}">{{username}}</option>
 </template>

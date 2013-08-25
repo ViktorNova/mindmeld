@@ -2,9 +2,13 @@ Template.createFeature.helpers(Meteor.userFunctions);
 Template.editFeature.helpers(Meteor.userFunctions);
 Template.featureForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
 
+var dataContext;
+
 Template.featureForm.rendered = function() {
 
-  var ownedByUserId = Meteor.userFunctions.currentFeature() && Meteor.userFunctions.currentFeature().ownedByUserId;
+  dataContext = this;
+
+  var ownedByUserId = this.data.currentFeature && this.data.currentFeature.ownedByUserId;
   ownedByUserId = ownedByUserId || Meteor.userId();
 
   $(document).ready(function() { 
@@ -33,10 +37,11 @@ Template.featureForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Meteor.Router.to('feature', 
-          Meteor.userFunctions.teamCode.call(feature),
-          Meteor.userFunctions.projectCode.call(feature),
-          feature.code);
+        Router.go('feature', {
+          teamCode: dataContext.data.teamCode,
+          projectCode: dataContext.data.projectCode,
+          featureCode: feature.code
+        });
       }
     });
   },
@@ -60,18 +65,23 @@ Template.featureForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Meteor.Router.to('feature',
-          Meteor.userFunctions.teamCode.call(feature),
-          Meteor.userFunctions.projectCode.call(feature),
-          feature.code);
+        Router.go('feature', {
+          teamCode: dataContext.data.teamCode,
+          projectCode: dataContext.data.projectCode,
+          featureCode: feature.code
+        });
       }
     });
   },
   'click #cancel-create': function(event) {
     event.preventDefault();
-    Meteor.Router.to('project', Session.get('currentTeamCode'), Session.get('currentProjectCode'));
+    Router.go('project', {teamCode: dataContext.data.teamCode, projectCode: dataContext.data.projectCode});
   },
   'click #cancel-edit': function(event) {
-    Meteor.Router.to('feature', Session.get('currentTeamCode'), Session.get('currentProjectCode'), Session.get('currentFeatureCode'));
+    Router.go('feature', {
+      teamCode: dataContext.data.teamCode,
+      projectCode: dataContext.data.projectCode,
+      featureCode: dataContext.data.featureCode
+    });
   }
 });

@@ -22,7 +22,7 @@ Template.projectForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Router.go('project', {teamCode: dataContext.currentTeamCode, projectCode: project.code});
+        Router.go('project', {teamCode: dataContext.teamCode, projectCode: project.code});
       }
     });
   },
@@ -46,18 +46,16 @@ Template.projectForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Router.go('project', {teamCode: dataContext.currentTeamCode, projectCode: project.code});
+        Router.go('project', {teamCode: dataContext.teamCode, projectCode: project.code});
       }
     });
   },
   'click #cancel-create': function(event) {
     event.preventDefault();
-    console.log(this);
-    console.log("?" + this.currentTeamCode);
-    Router.go('team', {teamCode: this.currentTeamCode});
+    Router.go('team', {teamCode: this.teamCode});
   },
   'click #cancel-edit': function(event) {
     event.preventDefault();
-    Router.go('project', {teamCode: this.currentTeamCode, projectCode: this.currentProjectCode});
+    Router.go('project', {teamCode: this.teamCode, projectCode: this.projectCode});
   }
 });

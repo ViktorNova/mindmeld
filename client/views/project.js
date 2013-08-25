@@ -1,7 +1,11 @@
 Template.featureLinks.helpers(Meteor.userFunctions);
 Template.projectBody.helpers(Meteor.userFunctions);
 
+var dataContext;
+
 Template.projectBody.rendered = function() {
+
+  dataContext = this;
 
   $(document).ready(function() { 
     $('#sortableIssueList').sortable({ 
@@ -18,25 +22,22 @@ Template.projectBody.rendered = function() {
 Template.projectBody.events({
   'click #createFeature': function(event) {
     event.preventDefault();
-    Router.go('createFeature', {teamCode: this.currentTeamCode, projectCode: this.currentProjectCode});
+    Router.go('createFeature', {teamCode: dataContext.data.teamCode, projectCode: dataContext.data.projectCode});
   },
   'click #editProject': function(event) {
     event.preventDefault();
-    Router.go('editProject', {teamCode: this.currentTeamCode, projectCode: this.currentProjectCode});
+    Router.go('editProject', {teamCode: dataContext.data.teamCode, projectCode: dataContext.data.projectCode});
   },
   'click #deleteProject': function(event) {
     event.preventDefault();
     var projectId = $(document).find('[name=_id]').val();
-
-    var dataContext = this;
 
     Meteor.call('deleteProject', projectId, function(error) {
       if (error) {
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        console.log(dataContext);
-        Router.go('team', {teamCode: dataContext.currentTeamCode});
+        Router.go('team', {teamCode: dataContext.data.teamCode});
       }
     })
   },

@@ -13,20 +13,21 @@ Template.issueLinks.helpers(_.extend({
 
 Template.featureBody.helpers(Meteor.userFunctions);
 
-Template.featureBody.events({
+var dataContext;
+
+Template.featureButtons.rendered = function() {
+  dataContext = this;
+}
+
+Template.featureButtons.events({
   'click #createIssue': function(event) {
     event.preventDefault();
-    Meteor.Router.to('createIssue', 
-      Meteor.userFunctions.teamCode.call(this),
-      Meteor.userFunctions.projectCode.call(this),
-      this.code);
+    Router.go('createIssue', dataContext);
   },
   'click #editFeature': function(event) {
     event.preventDefault();
-    Meteor.Router.to('editFeature', 
-      Meteor.userFunctions.teamCode.call(this),
-      Meteor.userFunctions.projectCode.call(this),
-      this.code);
+    console.log(dataContext.data);
+    Router.go('editFeature', dataContext.data);
   },
   'click #deleteFeature': function(event) {
     event.preventDefault();
@@ -39,10 +40,7 @@ Template.featureBody.events({
         return;
       } else {
         var project = Meteor.userFunctions.currentProject();
-        Meteor.Router.to('project', 
-          Meteor.userFunctions.teamCode.call(project),
-          project.code
-        );
+        Router.go('project', dataContext);
       }
     })
   }
