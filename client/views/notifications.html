@@ -1,5 +1,5 @@
 <template name="notifications">
-  {{#if notificationCount}}
+  {{#if notifications.count}}
     <div class="span3">
       <ul class="nav nav-list">
         <li class="nav-header">Activity</li>
@@ -15,22 +15,22 @@
     <li>
       <p>
       <a data-item="{{_id}}" class="close pull-right" href="#">&times;</a>
-      <a href="/users/{{createdByUsername}}">{{createdByUsername}}</a> {{pastTense action oldStatus newStatus}} {{entity}} 
+      <a href="{{pathFor 'user' createdByUsernameParams}}">{{createdByUsername}}</a> {{pastTense action oldStatus newStatus}} {{entity}} 
       {{#if isComment}} to {{/if}}
       {{#if isTeam}}
-      <a href="{{teamPath teamCode}}#{{_id}}">
+      <a href="{{pathFor 'team' asTeamParams}}#{{_id}}">
       {{/if}}
       {{#if isProject}}
-      <a href="{{projectPath teamCode projectCode}}#{{_id}}">
+      <a href="{{pathFor 'project' asProjectParams}}#{{_id}}">
       {{/if}}
       {{#if isFeature}}
-      <a href="{{featurePath teamCode projectCode featureCode}}#{{_id}}">
+      <a href="{{pathFor 'feature' asFeatureParams}}#{{_id}}">
       {{/if}}
       {{#if isIssue}}
-      <a href="{{issuePath teamCode projectCode featureCode issueCode}}#{{_id}}">
+      <a href="{{pathFor 'issue' asIssueParams}}#{{_id}}">
       {{/if}}
       {{#if isComment}}
-      <a href="{{issuePath teamCode projectCode featureCode issueCode}}#{{commentId}}">
+      <a href="{{pathFor 'issue' asIssueParams}}#{{commentId}}">
       {{/if}}
         {{name}}
       </a> <em>{{momentTimeAgoCreatedAt}}</em></p>

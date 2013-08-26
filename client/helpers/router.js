@@ -547,6 +547,8 @@ this.route('createIssue',
       if (!currentIssue)
         return null;
 
+      var notifications = Notifications.find({teamId: currentTeam._id});
+
       return {
         currentTeam : currentTeam,
         teamCode: this.params.teamCode,
@@ -555,14 +557,16 @@ this.route('createIssue',
         currentFeature: currentFeature,
         featureCode: this.params.featureCode,
         currentIssue: currentIssue,
-        issueCode: this.params.issueCode
+        issueCode: this.params.issueCode,
+        notifications: notifications
       }
     },
     waitOn: [
       Meteor.subscribe('userTeams', Meteor.userId()),
       Meteor.subscribe('userProjects', Meteor.userId()),
       Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('userIssues', Meteor.userId())    
+      Meteor.subscribe('userIssues', Meteor.userId()),
+      Meteor.subscribe('userNotifications', Meteor.userId())    
     ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',

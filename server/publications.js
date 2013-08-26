@@ -61,6 +61,11 @@ Meteor.publish('userTags', function(userId) {
   return Tags.find({teamId: {$in: _.pluck(teams, '_id')}});
 });
 
+Meteor.publish('userNotifications', function(userId) {
+  var teams = Teams.find({members: {$in: [userId]}}).fetch();
+    return Notifications.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});  
+});
+
 //LEGACY
 
 // Meteor.publish('usernames', function() {

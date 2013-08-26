@@ -1,17 +1,3 @@
-function getNotifications() {
-  var findParameters = {
-    teamId: Session.get('currentTeamId'),
-    projectId: Session.get('currentProjectId'),
-    featureId: Session.get('currentFeatureId'),
-    issueId: Session.get('currentIssueId'),
-    readBy: {$nin: [ Meteor.userId() ]}
-  };
-
-  return Notifications.find(_.compactObject(findParameters),
-    {sort: { createdAt: -1 }, reactive: true}
-  );
-};
-
 Meteor.formFunctions = {
   action: function() {
     switch (Router.current().route.name) {
@@ -69,11 +55,16 @@ Meteor.userFunctions = {
   addError: function(reason) {
     $('#error-notification').append('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' + reason + '</div>');
   },
-  notificationCount: function() {
-    return getNotifications().count();
-  },
   notifications: function() {
-    return getNotifications();
+    var findParameters = _.compactObject({
+      teamId: this.currentTeam && this.currentTeam._id,
+      projectId: this.currentProject && this.currentProject._id,
+      featureId: this.currentFeature && this.currentFeature._id,
+      issueId: this.currentIssue && this.currentIssue._id,
+      readBy: {$nin: [ Meteor.userId() ]}
+    });
+    return Notifications.find(findParameters, {sort: { createdAt: -1 }, reactive: true}
+    );
   },
   teamCode: function() {
     return this.teamId && Teams.findOne(this.teamId) && 
