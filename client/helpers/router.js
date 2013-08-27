@@ -98,13 +98,15 @@ Router.map(function() {
         currentTeam: currentTeam,
         teamCode: this.params.teamCode, 
         availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})
+        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}}),
+        teamMovements: Movements.find({teamId: currentTeam._id})
       };
     },
     waitOn: [
       Meteor.subscribe('userTeams', Meteor.userId()),
       Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())
+      Meteor.subscribe('teamMembers', Meteor.userId()),
+      Meteor.subscribe('teamMovements', Meteor.userId())
     ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',

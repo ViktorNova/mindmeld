@@ -187,10 +187,10 @@ Meteor.userFunctions = {
     return this && this.ownedByUserId && this.ownedByUserId === Meteor.userId();
   },
   following: function() {
-    return Session.get('following');
+    return SessionAmplify.get('following');
   },
   followingUsername: function() {
-    var user = Meteor.users.findOne(Session.get('following'));
+    var user = Meteor.users.findOne(SessionAmplify.get('following'));
     return user ? user.username : 'Nobody';
   },
   momentTimeAgoCreatedAt: function() {

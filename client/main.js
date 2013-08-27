@@ -19,8 +19,14 @@ Deps.autorun(function() {
   // Meteor.subscribe('issueComments', Meteor.userId(), Session.get('currentTeamId'), Session.get('currentIssueId'));
 
 
-  // var movement = Movements.findOne({userId: Session.get('following')});
+  // var movement = Movements.findOne({userId: SessionAmplify.get('following')});
   // if (movement) {
-  //   Meteor.Router.to(Meteor.Router[movement.template + "Path"](movement.templatePathAttributes));
+  //   console.log(Router._current);
+  //   if (Router._current.path != movement.path) {
+  //     console.log('going to ' + movement.path);
+  //     Router.go(movement.path);
+  //   } else {
+  //     console.log('already there')
+  //   }
   // }
 });

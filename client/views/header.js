@@ -6,6 +6,6 @@ Template.userHeader.events({
   },
   'click .follow': function(event) {
     event.preventDefault();
-    Session.set('following',event.toElement.dataset.bind);
+    SessionAmplify.set('following',event.target.dataset.bind);
   }
 });

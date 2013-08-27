@@ -63,8 +63,14 @@ Meteor.publish('userTags', function(userId) {
 
 Meteor.publish('userNotifications', function(userId) {
   var teams = Teams.find({members: {$in: [userId]}}).fetch();
-    return Notifications.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});  
+  return Notifications.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});  
 });
+
+Meteor.publish('teamMovements', function(userId) {
+  var teams = Teams.find({members: {$in: [userId]}}).fetch();
+  return Movements.find({teamId: {$in: _.pluck(teams, '_id')}});
+});
+
 
 //LEGACY
 
