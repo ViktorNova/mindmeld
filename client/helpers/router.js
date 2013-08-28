@@ -227,7 +227,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'user',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'userPublic'
   });
 
   this.route('createProject', 

@@ -1,6 +1,12 @@
 Template.signIn.helpers({
 });
 
+Template.signIn.rendered = function() {
+  $(document).ready(function() {
+    $('#usernameOrEmail').focus();
+  });
+}
+
 Template.signIn.events({
   'focus #usernameOrEmail': function(event) {
     $('#usernameGroup').removeClass('error');

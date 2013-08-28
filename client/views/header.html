@@ -1,7 +1,7 @@
 <template name="userHeader">
   <header class="navbar">
     <div class="navbar-inner">
-      <div class="container">
+      <div id="header" class="container">
         <a class="brand" href="{{pathFor 'home'}}">Mindmeld</a>
           {{#if otherMembers}}
           <form class="navbar-search pull-left">
@@ -36,7 +36,7 @@
   <header class="navbar">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand" href="{{homePath}}">Mindmeld</a>
+        <a class="brand" href="{{pathFor 'home'}}">Mindmeld</a>
         <ul class="nav pull-right">
           <li><a href="{{pathFor 'signIn'}}">Sign In</a></li>
           <li><a href="{{pathFor 'signUp'}}">Sign Up</a></li>

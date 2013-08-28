@@ -18,7 +18,6 @@ Deps.autorun(function() {
 
   // Meteor.subscribe('issueComments', Meteor.userId(), Session.get('currentTeamId'), Session.get('currentIssueId'));
 
-
   // var movement = Movements.findOne({userId: SessionAmplify.get('following')});
   // if (movement) {
   //   console.log(Router._current);
