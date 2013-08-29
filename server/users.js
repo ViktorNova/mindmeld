@@ -12,8 +12,6 @@ Accounts.emailTemplates.verifyEmail.text = function(user, url) {
 
 Meteor.methods({
   getPublicUsernames: function(usernameFragment, teamId) {
-    console.log(usernameFragment);
-    console.log(teamId);
 
     var team = Teams.findOne({_id: teamId, members: {$in: [Meteor.userId()]}});
     if (!team)

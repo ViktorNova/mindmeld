@@ -75,7 +75,7 @@ Template.home.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       }
-      Meteor.Router.to(Meteor.Router.teamPath(teamCode));
+      Router.go('team', {teamCode: teamCode});
     });
   },
   'click #decline': function(event) {

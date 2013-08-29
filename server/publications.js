@@ -44,6 +44,10 @@ Meteor.publish('teamInvites', function(userId) {
   return TeamInvites.find({teamId: {$in: _.pluck(teams, '_id')}});
 });
 
+Meteor.publish('ownTeamInvites', function(username) {
+  return TeamInvites.find({username: username});
+})
+
 Meteor.publish('userTags', function(userId) {
   var teams = Teams.find({members: {$in: [userId]}}).fetch();
   return Tags.find({teamId: {$in: _.pluck(teams, '_id')}});
@@ -56,7 +60,6 @@ Meteor.publish('userNotifications', function(userId) {
 
 Meteor.publish('teamMovements', function(userId) {
   var teams = Teams.find({members: {$in: [userId]}}).fetch();
-  console.log(teams);
   return Movements.find({teamId: {$in: _.pluck(teams, '_id')}});
 });
 

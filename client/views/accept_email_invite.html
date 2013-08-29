@@ -12,6 +12,7 @@
               <p>The team invitation could not be found. The URL may be incorrect, or the invitation may have been revoked.</p>
             {{/unless}}
             {{#with invitedTeam}}
+              {{invitedTeam}}
               <p>You've been invited to join the team {{name}}. As a team member, you'll be able to participate in projects owned by the team. Would you like to join?</p>
               <div class="text-center sign-up-buttons">
                 <button id="accept" type="button" class="btn"><i class="icon-thumbs-up"></i> Accept team invitation</button>

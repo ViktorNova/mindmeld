@@ -2,20 +2,18 @@ Router.configure({
   layout: 'layout'
 });
 
-
 Router.map(function() {
   this.route('home',
   {
     path: '/',
     data: function() {
       var availableTeams = Teams.find({members: {$in: [Meteor.userId()]}});
-      if (availableTeams.count() == 0)
-        return null;
       return {
-        availableTeams: availableTeams
+        availableTeams: availableTeams,
+        invitedTeamsForUsername: TeamInvites.find({username: Meteor.user() && Meteor.user().username}),
+        invitedTeamsForUsernameCount: TeamInvites.find({username: Meteor.user() && Meteor.user().username}).count()
       };
     },
-    waitOn: Meteor.subscribe('userTeams', Meteor.userId()),
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -55,7 +53,7 @@ Router.map(function() {
   this.route('verifyEmail',
   { 
     path: '/verify-email/:emailVerificationToken',
-    controller: VerifyEmailTokenController,
+    controller: EmailVerificationTokenController,
     action: 'verifyToken',
     loadingTemplate: 'waiting'
   });
@@ -66,13 +64,18 @@ Router.map(function() {
     data: function() {
 
       var invitedTeam;
+      console.log(this.params.teamInviteId);
       var teamInvite = TeamInvites.findOne(this.params.teamInviteId);
+      console.log(teamInvite);
       if (!teamInvite)
-        invitedTeam = {};
+        invitedTeam = null;
       else 
         invitedTeam = Teams.findOne({_id: teamInvite.teamId});
       if (!invitedTeam)
-        invitedTeam = {};
+        invitedTeam = null;
+
+      console.log('invitedTeam is ');
+      console.log(invitedTeam);
 
       return {
         invitedTeam: invitedTeam,
@@ -110,13 +113,6 @@ Router.map(function() {
         };
       }
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('publicTeams'),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId()),
-      Meteor.subscribe('teamMovements', Meteor.userId())
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -140,11 +136,6 @@ Router.map(function() {
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})
       };
     },
-    waitOn: [
-    Meteor.subscribe('userTeams', Meteor.userId()),
-    Meteor.subscribe('userTags', Meteor.userId()),
-    Meteor.subscribe('teamMembers', Meteor.userId())
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -163,10 +154,6 @@ Router.map(function() {
         currentTeam: {}
       };
     },
-    waitOn: [
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())
-    ],    
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -190,11 +177,6 @@ Router.map(function() {
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       };
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -214,14 +196,12 @@ Router.map(function() {
         currentTeam: currentTeam,
         teamCode: this.params.teamCode, 
         availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
-        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+        teamInvites: TeamInvites.find({teamId: currentTeam._id }),
+        teamInvitesWithEmail: TeamInvites.find({email: {$exists: true}, teamId: currentTeam._id}),
+        teamInvitesWithUsername: TeamInvites.find({username: {$exists: true}, teamId: currentTeam._id})
       };
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -241,10 +221,6 @@ Router.map(function() {
         user: user
       };
     },
-    waitOn: [
-    Meteor.subscribe('teamMembers', Meteor.userId()),
-    Meteor.subscribe('publicMembers')
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -269,11 +245,6 @@ Router.map(function() {
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       };
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId()),
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -316,12 +287,6 @@ Router.map(function() {
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})                
       }
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())      
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -356,12 +321,6 @@ Router.map(function() {
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       }
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())      
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -392,12 +351,6 @@ Router.map(function() {
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       };
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -439,12 +392,6 @@ Router.map(function() {
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       }
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('userIssues', Meteor.userId())    
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -487,13 +434,6 @@ Router.map(function() {
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       }
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('userIssues', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())      
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -539,14 +479,6 @@ this.route('createIssue',
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       }
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('userIssues', Meteor.userId()),
-      Meteor.subscribe('userTags', Meteor.userId()),
-      Meteor.subscribe('teamMembers', Meteor.userId())      
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -586,13 +518,6 @@ this.route('createIssue',
         notifications: notifications
       }
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('userIssues', Meteor.userId()),
-      Meteor.subscribe('userNotifications', Meteor.userId())    
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
@@ -633,13 +558,6 @@ this.route('createIssue',
         tags: tags
       }
     },
-    waitOn: [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('userTags', Meteor.userId()),
-      Meteor.subscribe('userIssues', Meteor.userId())    
-    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',

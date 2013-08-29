@@ -67,9 +67,9 @@ if (Teams.find().count() === 0) {
       "services" : { 
         "password" : { 
           "srp" : { 
-            "identity" : "8sDCPYbFkrgwbFko4", 
-            "salt" : "3gdqzm2DnNjSaaknE", 
-            "verifier" : "310c363ad8fcff9c778bffba36f29e68e18d3f53714b5418445d15a85953469f024b59abe244fba36c905d6ed9723f9fdff22672a6638b4fbd112ccd1bdb617e3f629d97e4e796dcee997d635dc6f3fb591ef50fd9400a5753bb2412c8ce5eaaf66af0ece9e50aabd547c2fa9fb06a203816ee06962ffd05ef1c44df8d5d62dc" 
+            "identity" : "ZsGjeNnqhQWAg5iAm", 
+            "salt" : "6dyqNy9L7BY4Rq5cN", 
+            "verifier" : "a96cc3922a9bfa4419334912093945b15c2cd4e96a27bfdcb9617093664e4cc82a77d572e9ea70017d16587f362f24c965ab9acdbd5f48f6f68f19f96ab1358323a12d541dba2a0cd2f7da105f2c5dd427ed235f534cf01f4cf1e91debb2fd58bb8e5c5429e52eac58c32edfc4b4a4f50de8a7a1ed0c73a1070bc93bfeca228d" 
           } 
         }, 
       }, 

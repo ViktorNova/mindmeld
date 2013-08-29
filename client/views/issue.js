@@ -24,7 +24,7 @@ Template.issueBody.events({
     {sort: {rank: 1}});
 
     var projectIssueIds = _.pluck(projectIssues.fetch(), '_id');
-    Meteor.call('reorderIssueRankings', projectIssueIds, Meteor.userFunctions.currentTeam()._id, Meteor.userFunctions.currentProject()._id);
+    Meteor.call('reorderIssueRankings', projectIssueIds, dataContext.data.currentTeam._id, dataContext.data.currentProject._id);
   },
   'click #deleteIssue': function(event) {
     event.preventDefault();

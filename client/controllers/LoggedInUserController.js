@@ -1,4 +1,20 @@
 LoggedInUserController = RouteController.extend({
+  waitOn: function() {
+    return [
+      Meteor.subscribe('publicMembers'),
+      Meteor.subscribe('publicTeams'),
+      Meteor.subscribe('teamMembers', Meteor.userId()),
+      Meteor.subscribe('teamMovements', Meteor.userId()),
+      Meteor.subscribe('userFeatures', Meteor.userId()),
+      Meteor.subscribe('userIssues', Meteor.userId()),
+      Meteor.subscribe('userNotifications', Meteor.userId()),
+      Meteor.subscribe('userProjects', Meteor.userId()),
+      Meteor.subscribe('userTags', Meteor.userId()),
+      Meteor.subscribe('userTeams', Meteor.userId()),
+      Meteor.subscribe('ownTeamInvites', Meteor.user() && Meteor.user().username),
+      Meteor.subscribe('teamInvites', Meteor.userId())
+    ];
+  },
   userLoadedAction: function() {
 
     var router = this;

@@ -34,8 +34,8 @@
   {{/if}}
     <div class="row-fluid">
       {{> featureButtons}}
-      {{#with currentFeature}}
         <form id="{{action}}Feature" data-validate="parsely">
+          {{#with currentFeature}}
           <fieldset>
             <input type="hidden" name="teamId" value="{{teamId}}" />
             <input type="hidden" name="projectId" value="{{projectId}}" />
@@ -56,12 +56,12 @@
               <textarea name="detail" class="span12" rows="12" tabindex="3" placeholder="Feature Description (max 1000 chars) - Github flavored markdown supported" data-trigger="change" data-required="true" data-minlength="3" data-maxlength="1000">{{detail}}</textarea>
             </div>
           </fieldset>
+          {{/with}}
           <div>
             <button type="button" id="{{action}}" class="btn btn-primary" tabindex="4"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
             <button type="button" id="cancel-{{action}}" class="btn btn-warning" tabindex="5"><i class="icon-remove icon-large"></i> Cancel</button>
           </div>
         </form>
-      {{/with}}
     </div>
   </div>
 </template>

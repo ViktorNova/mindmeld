@@ -31,6 +31,11 @@ Meteor.userFunctions = {
       tag: this.tag
     }
   },
+  usernameParams: function() {
+    return {
+      username: this.username
+    }
+  },
   addError: function(reason) {
     $('#error-notification').append('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' + reason + '</div>');
   },
@@ -169,28 +174,8 @@ Meteor.userFunctions = {
   projectsInTeamCountIsThreeOrGreater: function() {
     return Projects.find({teamId: this._id}).count() >= 3;
   },
-  invitesAndMembersCountInTeamIsThreeOrGreater: function() {
-    var currentTeam = Teams.findOne(Session.get('currentTeamId'));
-
-    if (!currentTeam)
-      return false;
-
-    var memberCount = currentTeam.members.length;
-    var teamInvitesCount = TeamInvites.find({teamId: Session.get('currentTeamId')}).fetch().length;
-
-    return (memberCount + teamInvitesCount) >= 7;
-  },
   teamInvite: function() {
     return TeamInvites.findOne(Session.get('teamInviteId'));
-  },
-  getTeamInvites: function() {
-    return TeamInvites.find({teamId: this._id });
-  },
-  getTeamInvitesWithEmail: function() {
-    return TeamInvites.find({email: {$exists: true}, teamId: this._id});
-  },
-  getTeamInvitesWithUsername: function() {
-    return TeamInvites.find({username: {$exists: true}, teamId: this._id});
   },
   // teamMembers: function() {
   //   return Meteor.users.find({_id: {$in: this.members}});
@@ -225,8 +210,5 @@ Meteor.userFunctions = {
   userIsTeamOwner: function() {
     var currentTeam = Teams.findOne({code: Router.current().params.teamCode});
     return this._id && currentTeam && currentTeam.owner && this._id == currentTeam.owner;
-  },
-  invitedTeamsForUsername: function() {
-    return TeamInvites.find({username: Meteor.user() && Meteor.user().username});
   }
 };

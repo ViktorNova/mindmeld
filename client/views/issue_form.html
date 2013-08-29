@@ -34,8 +34,8 @@
   {{/if}}
     <div class="row-fluid">
       {{> issueButtons}}
-      {{#with currentIssue}}
         <form id="{{action}}Issue" data-validate="parsely">
+          {{#with currentIssue}}
           <fieldset>
             <input type="hidden" name="action" value="{{action}}" />
             <input type="hidden" name="teamId" value="{{teamId}}" />
@@ -63,12 +63,12 @@
               <input id="tags" name="tags" type="text" value="{{tagsAsCommaSeperatedString}}" tabindex="3" placeholder="Tags" />
             </div>
           </fieldset>
+          {{/with}}
           <div>
             <button type="button" id="{{action}}" class="btn btn-primary" tabindex="4"><i class="{{iconify action}} icon-large"></i> {{capitalize action}}</button>
             <button type="button" id="cancel-{{action}}" class="btn btn-warning" tabindex="5"><i class="icon-remove icon-large"></i> Cancel</button>
           </div>
         </form>
-      {{/with}}
     </div>
   </div>
 </template>
