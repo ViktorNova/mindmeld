@@ -1,6 +1,6 @@
 Template.issue.helpers(Meteor.userFunctions);
 Template.issueBody.helpers(Meteor.userFunctions);
-Template.issueButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
+Template.issueButtons.helpers(Meteor.userFunctions);
 Template.blankLinks.helpers(Meteor.userFunctions);
 
 var dataContext;

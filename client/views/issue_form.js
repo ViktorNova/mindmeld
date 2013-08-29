@@ -1,6 +1,6 @@
 Template.createIssue.helpers(Meteor.userFunctions);
 Template.editIssue.helpers(Meteor.userFunctions);
-Template.issueForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
+Template.issueForm.helpers(Meteor.userFunctions);
 
 var dataContext;
 

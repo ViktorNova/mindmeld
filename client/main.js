@@ -20,12 +20,9 @@ Deps.autorun(function() {
 
   // var movement = Movements.findOne({userId: SessionAmplify.get('following')});
   // if (movement) {
-  //   console.log(Router._current);
   //   if (Router._current.path != movement.path) {
-  //     console.log('going to ' + movement.path);
   //     Router.go(movement.path);
   //   } else {
-  //     console.log('already there')
   //   }
   // }
 });

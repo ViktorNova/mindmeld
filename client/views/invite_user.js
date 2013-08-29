@@ -1,5 +1,5 @@
 Template.inviteUser.helpers(Meteor.userFunctions);
-Template.inviteUserForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
+Template.inviteUserForm.helpers(Meteor.userFunctions);
 Template.tabHeaders.helpers(Meteor.userFunctions);
 Template.teamInvitesWithUsernameTable.helpers(Meteor.userFunctions);
 Template.teamInvitesWithEmailTable.helpers(Meteor.userFunctions);

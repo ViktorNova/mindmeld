@@ -26,9 +26,13 @@ Template.notification.helpers(_.extend(
       }
     },
     asProjectParams: function() {
+      var obj = {
+        teamCode: Teams.findOne(this.teamId) && Teams.findOne(this.teamId).code,
+        projectCode: Projects.findOne(this.projectId) && Projects.findOne(this.projectId).code
+      };
       return {
-        teamCode: Teams.findOne(this.teamId).code,
-        projectCode: Projects.findOne(this.projectId).code
+        teamCode: Teams.findOne(this.teamId) && Teams.findOne(this.teamId).code,
+        projectCode: Projects.findOne(this.projectId) && Projects.findOne(this.projectId).code
       }
     },
     asFeatureParams: function() {

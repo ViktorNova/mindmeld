@@ -1,13 +1,12 @@
 Meteor.publish('userTeams', function(userId) {
+  if (userId)
+    return Teams.find({members: {$in: [userId]}});
+  else
+    return Teams.find({code: ''});
+});
 
-    var future = new Future;
-
-    // simulate high latency publish function
-    Meteor.setTimeout(function () {
-      future.return(Teams.find({members: {$in: [userId]}}));
-    }, 10);
-
-    return future.wait();
+Meteor.publish('publicTeams', function() {
+  return Teams.find({},{fields: {code: 1, name: 1}});
 });
 
 Meteor.publish('userProjects', function(userId) {
@@ -16,17 +15,14 @@ Meteor.publish('userProjects', function(userId) {
 });
 
 Meteor.publish('teamMembers', function(userId) {
-
-  var future = new Future;
-
   var allTeamMembers = _.flatten(_.pluck(Teams.find({members: {$in: [userId]}}).fetch(),'members'));
+  return Meteor.users.find({_id: {$in: allTeamMembers}}, 
+    {fields: { username: 1, showPublic: 1, firstName: 1, lastName: 1}});
+});
 
-    Meteor.setTimeout(function () {
-      future.return(Meteor.users.find({_id: {$in: allTeamMembers}},
-        {fields: { username: 1, showPublic: 1, firstName: 1, lastName: 1}}));
-    }, 10);
-
-    return future.wait();
+Meteor.publish('publicMembers', function() {
+  return Meteor.users.find({showPublic: true},
+    {fields: { username: 1, showPublic: 1, firstName: 1, lastName: 1}});
 });
 
 Meteor.publish('userFeatures', function(userId) {
@@ -40,15 +36,7 @@ Meteor.publish('userIssues', function(userId) {
 });
 
 Meteor.publish('usernames', function() {
-
-    var future = new Future;
-
-    // simulate high latency publish function
-    Meteor.setTimeout(function () {
-      future.return(Meteor.users.find({}, {fields: { username: 1}}));
-    }, 10);
-
-    return future.wait();
+  return Meteor.users.find({}, {fields: { username: 1}});
 });
 
 Meteor.publish('teamInvites', function(userId) {
@@ -68,6 +56,7 @@ Meteor.publish('userNotifications', function(userId) {
 
 Meteor.publish('teamMovements', function(userId) {
   var teams = Teams.find({members: {$in: [userId]}}).fetch();
+  console.log(teams);
   return Movements.find({teamId: {$in: _.pluck(teams, '_id')}});
 });
 

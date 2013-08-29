@@ -12,6 +12,43 @@
   </div>
 </template>
 
-<template name="userBody">
+<template name="userButtons">
+{{#if isCurrentUser}}
+  <button id="editUser" class="btn"><i class="icon-user"></i> Edit User</button>
+  <button id="changePassword" class="btn"><i class="icon-user"></i> Change Password</button>
+{{else}}
+  <button id="editUser" class="btn" disabled><i class="icon-user"></i> Edit User</button>
+  <button id="changePassword" class="btn" disabled><i class="icon-user"></i> Change Password</button>
+{{/if}}
+</template>
 
+<template name="userBody">
+  {{#with user}}
+    {{#if notifications.count}}
+    <div class="span9">
+    {{else}}
+    <div class="span12">
+    {{/if}}
+      <div class="row-fluid">
+        {{> userButtons}}
+        <h1><i class="icon-user"></i> {{username}}</h1>
+        {{#if isCurrentUser}}
+          <p>{{firstName}} {{lastName}}</p>
+          <p>
+          {{#each emails}}
+            <a href="mailto:{{address}}">{{address}}</a><br/>
+          {{/each}}
+          </p>
+        {{else}}
+          {{#if showPublic}}
+            {{#if firstName}}
+              <p>{{firstName}} {{lastName}}</p>
+            {{/if}}
+          {{else}}
+            <p><em>This user has no public profile</em></p>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  {{/with}}
 </template>

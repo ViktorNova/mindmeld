@@ -1,6 +1,6 @@
 Template.createFeature.helpers(Meteor.userFunctions);
 Template.editFeature.helpers(Meteor.userFunctions);
-Template.featureForm.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
+Template.featureForm.helpers(Meteor.userFunctions);
 
 var dataContext;
 

@@ -94,16 +94,25 @@ Router.map(function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
       if (!currentTeam)
         return null;
-      return {
-        currentTeam: currentTeam,
-        teamCode: this.params.teamCode, 
-        availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}}),
-        teamMovements: Movements.find({teamId: currentTeam._id})
-      };
+      if (currentTeam.members) {
+        return {
+          currentTeam: currentTeam,
+          teamCode: this.params.teamCode, 
+          availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
+          teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+          teamMovements: Movements.find({teamId: currentTeam._id})
+        };
+      } else {
+        return {
+          publicViewOnly: true,
+          currentTeam: currentTeam,
+          teamCode: this.params.teamCode
+        };
+      }
     },
     waitOn: [
       Meteor.subscribe('userTeams', Meteor.userId()),
+      Meteor.subscribe('publicTeams'),
       Meteor.subscribe('userProjects', Meteor.userId()),
       Meteor.subscribe('teamMembers', Meteor.userId()),
       Meteor.subscribe('teamMovements', Meteor.userId())
@@ -113,7 +122,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'team',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('tag',
@@ -121,21 +130,27 @@ Router.map(function() {
     path: '/:teamCode/tags/:tag',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       var tags = Tags.find({teamId: currentTeam._id});
       return {
         tags: tags,
         currentTeam: currentTeam,
         teamCode: this.params.teamCode,
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})
       };
     },
     waitOn: [
     Meteor.subscribe('userTeams', Meteor.userId()),
     Meteor.subscribe('userTags', Meteor.userId()),
     Meteor.subscribe('teamMembers', Meteor.userId())
-    ]
+    ],
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
+    loadingTemplate: 'waiting',
+    notFoundTemplate: 'notFound',
+    userFoundTemplate: 'tag',
+    userNotFoundTemplate: 'unauthorized'
   });
 
 
@@ -145,8 +160,7 @@ Router.map(function() {
     data: function() {
       return {
         action: 'create',
-        currentTeam: {},
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+        currentTeam: {}
       };
     },
     waitOn: [
@@ -158,7 +172,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'createTeam',
-    userNotFoundTemplate: 'notFound'    
+    userNotFoundTemplate: 'unauthorized' 
   });
 
   this.route('editTeam',
@@ -166,14 +180,14 @@ Router.map(function() {
     path: '/:teamCode/edit',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       return {
         action: 'edit',
         currentTeam: currentTeam,
         teamCode: this.params.teamCode,
         availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       };
     },
     waitOn: [
@@ -186,7 +200,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'editTeam',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('inviteUsers',
@@ -194,13 +208,13 @@ Router.map(function() {
     path: '/:teamCode/inviteUsers',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       return {
         currentTeam: currentTeam,
         teamCode: this.params.teamCode, 
         availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})
       };
     },
     waitOn: [
@@ -213,21 +227,30 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'inviteUser',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('user',
   {
     path: '/users/:username',
     data: function() {
-      return {};
+      var user = Meteor.users.findOne({username: this.params.username});
+      if (!user)
+        return null;
+      return {
+        user: user
+      };
     },
+    waitOn: [
+    Meteor.subscribe('teamMembers', Meteor.userId()),
+    Meteor.subscribe('publicMembers')
+    ],
     controller: LoggedInUserController,
     action: 'userLoadedAction',
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'user',
-    userNotFoundTemplate: 'userPublic'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('createProject', 
@@ -243,7 +266,7 @@ Router.map(function() {
         teamCode: this.params.teamCode,
         currentProject: {teamId: currentTeam._id},
         availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       };
     },
     waitOn: [
@@ -256,7 +279,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'createProject',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route ('project', 
@@ -290,7 +313,7 @@ Router.map(function() {
         projectCode: this.params.projectCode,
         availableFeatures: availableFeatures,
         notStartedIssues: notStartedIssues,
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})                
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})                
       }
     },
     waitOn: [
@@ -304,7 +327,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'project',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route ('editProject', 
@@ -330,7 +353,7 @@ Router.map(function() {
         currentProject: currentProject,
         projectCode: this.params.projectCode,
         availableFeatures: availableFeatures,
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       }
     },
     waitOn: [
@@ -344,7 +367,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'editProject',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('createFeature',
@@ -366,7 +389,7 @@ Router.map(function() {
         projectCode: this.params.projectCode,
         currentFeature: {teamId: currentTeam._id, projectId: currentProject._id},
         availableFeatures: Features.find({teamId: currentTeam._id, projectId: currentProject._id},{sort: {statusChanged: -1}}),
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       };
     },
     waitOn: [
@@ -380,7 +403,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'createFeature',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('feature',
@@ -413,7 +436,7 @@ Router.map(function() {
         currentFeature: currentFeature,
         featureCode: this.params.featureCode,
         availableIssues: availableIssues,
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       }
     },
     waitOn: [
@@ -427,7 +450,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'feature',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('editFeature',
@@ -461,7 +484,7 @@ Router.map(function() {
         currentFeature: currentFeature,
         featureCode: this.params.featureCode,
         availableIssues: availableIssues,
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       }
     },
     waitOn: [
@@ -476,7 +499,7 @@ Router.map(function() {
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'editFeature',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
 this.route('createIssue',
@@ -513,7 +536,7 @@ this.route('createIssue',
         featureCode: this.params.featureCode,
         currentIssue: {teamId: currentTeam._id, projectId: currentProject._id, featureId: currentFeature._id},
         availableIssues: availableIssues,
-        teamMembers: Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       }
     },
     waitOn: [
@@ -529,7 +552,7 @@ this.route('createIssue',
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'createIssue',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('issue',
@@ -575,7 +598,7 @@ this.route('createIssue',
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'issue',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('editIssue',
@@ -622,6 +645,6 @@ this.route('createIssue',
     loadingTemplate: 'waiting',
     notFoundTemplate: 'notFound',
     userFoundTemplate: 'editIssue',
-    userNotFoundTemplate: 'notFound'
+    userNotFoundTemplate: 'unauthorized'
   });
 });

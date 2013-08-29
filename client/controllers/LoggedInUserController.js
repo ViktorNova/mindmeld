@@ -31,8 +31,9 @@ LoggedInUserController = RouteController.extend({
           to: 'header', 
           data: function() {
             var otherMembers = null;
-            if (routeData && routeData.currentTeam)
+            if (routeData && routeData.currentTeam && routeData.currentTeam.members) {
               otherMembers = Meteor.users.find({_id: {$in: _.without(routeData.currentTeam.members,Meteor.userId())}});
+            }
             return {
               otherMembers: otherMembers,
               username: Meteor.user().username

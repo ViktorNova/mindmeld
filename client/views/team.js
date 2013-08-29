@@ -1,6 +1,6 @@
 Template.team.helpers(Meteor.userFunctions);
 Template.teamBody.helpers(Meteor.userFunctions);
-Template.teamButtons.helpers(_.extend(_.clone(Meteor.userFunctions), Meteor.formFunctions));
+Template.teamButtons.helpers(Meteor.userFunctions);
 Template.projectLinks.helpers(Meteor.userFunctions);
 
 Template.teamBody.events({
