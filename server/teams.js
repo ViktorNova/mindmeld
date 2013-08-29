@@ -14,6 +14,7 @@ Meteor.methods({
       upperCaseCode: teamAttributes.name.toCode().toUpperCase(),
       members: [ Meteor.userId() ],
       createdByUserId: Meteor.userId(),
+      owner: Meteor.userId(),
       updatedAt: new Date()
     });
 

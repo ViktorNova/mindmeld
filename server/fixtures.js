@@ -85,6 +85,7 @@ if (Teams.find().count() === 0) {
     name: 'Weapon X',
     code: 'weaponx',
     owner: dcw303Id,
+    createdByUserId: dcw303Id,
     members: [  dcw303Id, wolverineId, x23Id ]
   });
   
@@ -92,6 +93,7 @@ if (Teams.find().count() === 0) {
     name: 'Eva',
     code: 'eva',
     owner: users['shinji']._id,
+    createdByUserId: users['shinji']._id,
     members: [ users['shinji']._id, users['asuka']._id, users['rei']._id]
   });
 
