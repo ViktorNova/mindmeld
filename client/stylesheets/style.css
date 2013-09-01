@@ -139,14 +139,15 @@ textarea {
   margin: 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }
+div.span3.issueStatusGroup:not(:first-child) {
+  margin-left: 0px;
+}
 .hero-unit {
   background-color: #DFEFFF;
 }
 .hero-unit h1 {
     color: #667F97;
 }
-
-
 
 .footer {
   position: relative;
@@ -213,4 +214,16 @@ form#signup {
     color: #b94a48 !important;
     background-color: #f2dede !important;
     border: 1px solid #EED3D7 !important;
+}
+.table .no-table-cell-border {
+  cursor: move;
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border: none;
+}
+
+.quartet {
+  width: 25%;
 }

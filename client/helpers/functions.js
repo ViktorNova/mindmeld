@@ -150,18 +150,6 @@ Meteor.userFunctions = {
         + '"><span class="label"><i class="icon-tag"></i> ' + tag + '</span></a>'; }).join(' ');
     }
   },
-  notStartedIssuesInProject: function() {
-    return Issues.find({teamId: Session.get('currentTeamId'), projectId: Session.get('currentProjectId'), status: 0},{sort: {rank: 1}});
-  },
-  inProgressIssuesInProject: function() {
-    return Issues.find({teamId: Session.get('currentTeamId'), projectId: Session.get('currentProjectId'), status: 1},{sort: {statusChanged: -1}});
-  },
-  completedIssuesInProject: function() {
-    return Issues.find({teamId: Session.get('currentTeamId'), projectId: Session.get('currentProjectId'), status: 2},{sort: {statusChanged: -1}});
-  },
-  cancelledIssuesInProject: function() {
-    return Issues.find({teamId: Session.get('currentTeamId'), projectId: Session.get('currentProjectId'), status: 3},{sort: {statusChanged: -1}});
-  },
   currentUserOwnsComment: function() {
     return this.createdByUserId && this.createdByUserId == Meteor.userId();
   },

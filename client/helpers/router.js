@@ -64,18 +64,13 @@ Router.map(function() {
     data: function() {
 
       var invitedTeam;
-      console.log(this.params.teamInviteId);
       var teamInvite = TeamInvites.findOne(this.params.teamInviteId);
-      console.log(teamInvite);
       if (!teamInvite)
         invitedTeam = null;
       else 
         invitedTeam = Teams.findOne({_id: teamInvite.teamId});
       if (!invitedTeam)
         invitedTeam = null;
-
-      console.log('invitedTeam is ');
-      console.log(invitedTeam);
 
       return {
         invitedTeam: invitedTeam,
@@ -287,7 +282,7 @@ Router.map(function() {
         },
         {sort: {statusChanged: -1}}
       );
-      var notStartedIssues = Issues.find({ 
+      var notStartedIssuesInProject = Issues.find({ 
           teamId: currentTeam._id, 
           projectId: currentProject._id, 
           status: 0, 
@@ -295,13 +290,42 @@ Router.map(function() {
         },
         {sort: {rank: 1}}
       );
+      var inProgressIssuesInProject = Issues.find({ 
+          teamId: currentTeam._id, 
+          projectId: currentProject._id, 
+          status: 1
+        },
+        {sort: {rank: 1}}
+      );
+      var completedIssuesInProject = Issues.find({ 
+          teamId: currentTeam._id, 
+          projectId: currentProject._id, 
+          status: 2
+        },
+        {sort: {rank: 1}}
+      );
+      var cancelledIssuesInProject = Issues.find({ 
+          teamId: currentTeam._id, 
+          projectId: currentProject._id, 
+          status: 3
+        },
+        {sort: {rank: 1}}
+      );
+
       return {
         currentTeam: currentTeam,
         teamCode: this.params.teamCode,
         currentProject: currentProject,
         projectCode: this.params.projectCode,
         availableFeatures: availableFeatures,
-        notStartedIssues: notStartedIssues,
+        notStartedIssuesInProject: notStartedIssuesInProject,
+        inProgressIssuesInProject: inProgressIssuesInProject,
+        completedIssuesInProject: completedIssuesInProject,
+        cancelledIssuesInProject: cancelledIssuesInProject,
+        notStartedIssuesInProjectCount: notStartedIssuesInProject.count(),
+        inProgressIssuesInProjectCount: inProgressIssuesInProject.count(),
+        completedIssuesInProjectCount: completedIssuesInProject.count(),
+        cancelledIssuesInProjectCount: cancelledIssuesInProject.count(),
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})                
       }
     },

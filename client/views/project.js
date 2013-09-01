@@ -1,5 +1,31 @@
+//credit to http://www.foliotek.com/devblog/make-table-rows-sortable-using-jquery-ui-sortable/
+var fixHelper = function(e, ui) {
+  ui.children().each(function() {
+    $(this).width($(this).width());
+  });
+  return ui;
+};
+
 Template.featureLinks.helpers(Meteor.userFunctions);
-Template.projectBody.helpers(Meteor.userFunctions);
+Template.projectBody.helpers(_.extend({
+  renderNotStartedIssueByRankingTable: function() {
+    var buffer = [];
+    var notStartedIssues = this.notStartedIssuesInProject.fetch();
+    this.notStartedIssuesInProject.rewind();
+    _.each(notStartedIssues, function(element, index, list) {
+      if (index == 0)
+        buffer.push('<tr>');
+      if (index > 1 && (index % 4 == 0))
+        buffer.push('<tr>');
+      buffer.push('<td id="' + element._id + '" class="no-table-cell-border quartet">' + (index + 1) + ": " + element.name + '</td>');
+      if (index > 0 && (index + 1) % 4 == 0)
+        buffer.push('</tr>');
+    });
+    if (notStartedIssues.length % 4 != 0)
+      buffer.push('</tr>');
+    return buffer.join('');
+  }
+}, Meteor.userFunctions));
 
 var dataContext;
 
@@ -8,13 +34,14 @@ Template.projectBody.rendered = function() {
   dataContext = this;
 
   $(document).ready(function() { 
-    $('#sortableIssueList').sortable({ 
+    $('#sortableIssueList').sortable({
+      items: 'td',
+      helper: fixHelper, 
       beforeStop: function(event, ui) {
-        var rankedIssueIds = $( "#sortableIssueList" ).sortable( "toArray" );
+        var rankedIssueIds = $(this).sortable('toArray');
         Meteor.call('reorderIssueRankings', rankedIssueIds, dataContext.data.currentTeam._id, dataContext.data.currentProject._id);
       }
-    });
-    $('#sortableIssueList').disableSelection();
+    }).disableSelection();
   });
 };
 

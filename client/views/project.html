@@ -50,60 +50,56 @@
           <input type="hidden" name="_id" value="{{_id}}" />
           <h1><i class="icon-wrench"></i> {{name}}</h1>
           <div>{{#markdown}}{{detail}}{{/markdown}}</div>
-          <h2><i class="icon-ticket"></i> Not Started Issues by Ranking</h2>
         {{/with}}
       </div>
-      <div id="sortableIssueList" class="row-fluid">
-        {{#each notStartedIssues}}        
-        <div class="span3">
-          {{featureName}}<br />
-          <a href="{{pathFor 'issue' issueParams}}">{{name}}</a>
-        </div>
-        {{/each}}
-      </div>
+      <h2><i class="icon-ticket"></i> Not Started Issues by Ranking</h2>
+      <p><em>Drag an issue to reorder</em></p>
+      <table class="table">
+      <tbody id="sortableIssueList">
+        {{{renderNotStartedIssueByRankingTable}}}
+      </tbody>
+      </table>
 
-      <div class="row-fluid">
-        <h2><i class="icon-ticket"></i> Issues in Project</h2>
-        <div class="row-fluid">
-          <div class="span3">
-            <h3>Not Started <span class="label label-important">{{notStartedIssuesInProject.count}}</span></h3>
-            {{#each notStartedIssuesInProject}}
-              <div class="item">
-                {{featureName}}<br />
-                <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
-                <strong>{{ownedByUsername}}</strong>
-              </div>
-            {{/each}}
-          </div>
-          <div class="span3">
-            <h3>In Progress <span class="label label-info">{{inProgressIssuesInProject.count}}</span></h3>
-            {{#each inProgressIssuesInProject}}
-              <div class="item">
-                {{featureName}}<br />
-                <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
-                <strong>{{ownedByUsername}}</strong>
-              </div>
-            {{/each}}
-          </div>
-          <div class="span3">
-            <h3>Completed <span class="label label-success">{{completedIssuesInProject.count}}</span></h3>
-            {{#each completedIssuesInProject}}
-              <div class="item">
-                {{featureName}}<br />
-                <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
-                <strong>{{ownedByUsername}}</strong>
-              </div>
-            {{/each}}
-          </div>
-          <div class="span3">
-            <h3>Cancelled <span class="label label-warning">{{cancelledIssuesInProject.count}}</span></h3>
-            {{#each cancelledIssuesInProject}}
-              <div class="item">
-                <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
-                <strong>{{ownedByUsername}}</strong>
-              </div>
-            {{/each}}
-          </div>
+      <h2><i class="icon-ticket"></i> Issues in Project</h2>
+      <div id="issueStatuses">
+        <div class="span3 issueStatusGroup">
+          <h3>Not Started <span class="label label-important">{{notStartedIssuesInProjectCount}}</span></h3>
+          {{#each notStartedIssuesInProject}}
+            <div class="item">
+              {{featureName}}<br />
+              <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
+              <strong>{{ownedByUsername}}</strong>
+            </div>
+          {{/each}}
+        </div>
+        <div class="span3 issueStatusGroup">
+          <h3>In Progress <span class="label label-info">{{inProgressIssuesInProjectCount}}</span></h3>
+          {{#each inProgressIssuesInProject}}
+            <div class="item">
+              {{featureName}}<br />
+              <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
+              <strong>{{ownedByUsername}}</strong>
+            </div>
+          {{/each}}
+        </div>
+        <div class="span3 issueStatusGroup">
+          <h3>Completed <span class="label label-success">{{completedIssuesInProjectCount}}</span></h3>
+          {{#each completedIssuesInProject}}
+            <div class="item">
+              {{featureName}}<br />
+              <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
+              <strong>{{ownedByUsername}}</strong>
+            </div>
+          {{/each}}
+        </div>
+        <div class="span3 issueStatusGroup">
+          <h3>Cancelled <span class="label label-warning">{{cancelledIssuesInProjectCount}}</span></h3>
+          {{#each cancelledIssuesInProject}}
+            <div class="item">
+              <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
+              <strong>{{ownedByUsername}}</strong>
+            </div>
+          {{/each}}
         </div>
       </div>
     </div>
