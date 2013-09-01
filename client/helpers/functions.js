@@ -177,36 +177,6 @@ Meteor.userFunctions = {
   teamInvite: function() {
     return TeamInvites.findOne(Session.get('teamInviteId'));
   },
-  // teamMembers: function() {
-  //   return Meteor.users.find({_id: {$in: this.members}});
-  // },
-  teamTags: function(){
-    return Tags.find({teamId: this._id }, {sort: {count: -1}});
-  },
-  // notStartedIssuesWithTag: function() {
-  //   return Issues.find({teamId: Session.get('currentTeamId'), status: 0, tags: {$in: [Session.get('currentTag')]}});
-  // },
-  // inProgressIssuesWithTag: function() {
-  //   return Issues.find({teamId: Session.get('currentTeamId'), status: 1, tags: {$in: [Session.get('currentTag')]}});
-  // },
-  // completedIssuesWithTag: function() {
-  //   return Issues.find({teamId: Session.get('currentTeamId'), status: 2, tags: {$in: [Session.get('currentTag')]}});
-  // },
-  // cancelledIssuesWithTag: function() {
-  //   return Issues.find({teamId: Session.get('currentTeamId'), status: 3, tags: {$in: [Session.get('currentTag')]}});
-  // },
-  // notStartedIssuesWithTagCount: function() {
-  //   return Issues.find({teamId: Session.get('currentTeamId'), status: 0, tags: {$in: [this.tag]}}).count();
-  // },
-  // inProgressIssuesWithTagCount: function() {
-  //   return Issues.find({teamId: Session.get('currentTeamId'), status: 1, tags: {$in: [this.tag]}}).count();
-  // },
-  // completedIssuesWithTagCount: function() {
-  //   return Issues.find({teamId: Session.get('currentTeamId'), status: 2, tags: {$in: [this.tag]}}).count();
-  // },
-  // cancelledIssuesWithTagCount: function() {
-  //   return Issues.find({teamId: Session.get('currentTeamId'), status: 3, tags: {$in: [this.tag]}}).count();
-  // },
   userIsTeamOwner: function() {
     var currentTeam = Teams.findOne({code: Router.current().params.teamCode});
     return this._id && currentTeam && currentTeam.owner && this._id == currentTeam.owner;

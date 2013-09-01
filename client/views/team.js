@@ -1,11 +1,22 @@
 Template.team.helpers(Meteor.userFunctions);
 Template.teamBody.helpers(_.extend({
-    invitesAndMembersCountInTeamIsThreeOrGreater: function() {
-    console.log(Router);
+  invitesAndMembersCountInTeamIsThreeOrGreater: function() {
     var memberCount = dataContext.data.currentTeam.members.length;
     var teamInvitesCount = TeamInvites.find({teamId: dataContext.data.currentTeam._id}).fetch().length;
 
     return (memberCount + teamInvitesCount) >= 7;
+  },
+  notStartedIssuesWithTagCount: function() { 
+    return Issues.find({teamId: this.teamId, status: 0, tags: {$in: [this.tag]}},{sort: {rank: 1}}).count();
+  },
+  inProgressIssuesWithTagCount: function() {
+    return Issues.find({teamId: this.teamId, status: 1, tags: {$in: [this.tag]}},{sort: {statusChanged: -1}}).count();
+  },
+  completedIssuesWithTagCount: function() {
+    return Issues.find({teamId: this.teamId, status: 2, tags: {$in: [this.tag]}},{sort: {statusChanged: -1}}).count();
+  },
+  cancelledIssuesWithTagCount: function() {
+    return Issues.find({teamId: this.teamId, status: 3, tags: {$in: [this.tag]}},{sort: {statusChanged: -1}}).count();
   }
 },Meteor.userFunctions));
 

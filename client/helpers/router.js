@@ -103,7 +103,8 @@ Router.map(function() {
           teamCode: this.params.teamCode, 
           availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
           teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
-          teamMovements: Movements.find({teamId: currentTeam._id})
+          teamMovements: Movements.find({teamId: currentTeam._id}),
+          teamTags: Tags.find({teamId: currentTeam._id }, {sort: {count: -1}})
         };
       } else {
         return {
@@ -128,11 +129,28 @@ Router.map(function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
       if (!currentTeam || !currentTeam.members)
         return null;
-      var tags = Tags.find({teamId: currentTeam._id});
+      var currentTag = Tags.findOne({teamId: currentTeam._id, tag: this.params.tag});
+      var notStartedIssuesWithTag = Issues.find({teamId: currentTeam._id, status: 0, tags: {$in: [this.params.tag]}},{sort: {rank: 1}});
+      var inProgressIssuesWithTag = Issues.find({teamId: currentTeam._id, status: 1, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}});
+      var completedIssuesWithTag = Issues.find({teamId: currentTeam._id, status: 2, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}});
+      var cancelledIssuesWithTag = Issues.find({teamId: currentTeam._id, status: 3, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}});
+      var notStartedIssuesWithTagCount = Issues.find({teamId: currentTeam._id, status: 0, tags: {$in: [this.params.tag]}},{sort: {rank: 1}}).count();
+      var inProgressIssuesWithTagCount = Issues.find({teamId: currentTeam._id, status: 1, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}}).count();
+      var completedIssuesWithTagCount = Issues.find({teamId: currentTeam._id, status: 2, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}}).count();
+      var cancelledIssuesWithTagCount = Issues.find({teamId: currentTeam._id, status: 3, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}}).count();
+
       return {
-        tags: tags,
         currentTeam: currentTeam,
         teamCode: this.params.teamCode,
+        currentTag: currentTag,
+        notStartedIssuesWithTag: notStartedIssuesWithTag,
+        inProgressIssuesWithTag: inProgressIssuesWithTag,
+        completedIssuesWithTag: completedIssuesWithTag,
+        cancelledIssuesWithTag: cancelledIssuesWithTag,
+        notStartedIssuesWithTagCount: notStartedIssuesWithTagCount,
+        inProgressIssuesWithTagCount: inProgressIssuesWithTagCount,
+        completedIssuesWithTagCount: completedIssuesWithTagCount,
+        cancelledIssuesWithTagCount: cancelledIssuesWithTagCount,
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})
       };
     },
