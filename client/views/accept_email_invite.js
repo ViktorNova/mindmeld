@@ -15,7 +15,6 @@ Template.acceptEmailInvite.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       }
-      console.log('routing with teamCode ' + teamCode);
       Router.go('team', {teamCode: teamCode});
     });
   },

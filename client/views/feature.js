@@ -38,8 +38,7 @@ Template.featureButtons.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        var project = Meteor.userFunctions.currentProject();
-        Router.go('project', dataContext);
+        Router.go('project', {teamCode: dataContext.data.teamCode, projectCode: dataContext.data.projectCode});
       }
     })
   }

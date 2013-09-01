@@ -518,6 +518,7 @@ this.route('createIssue',
         featureCode: this.params.featureCode,
         currentIssue: {teamId: currentTeam._id, projectId: currentProject._id, featureId: currentFeature._id},
         availableIssues: availableIssues,
+        tags: tags,
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
       }
     },

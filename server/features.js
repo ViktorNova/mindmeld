@@ -106,6 +106,8 @@ Meteor.methods({
     if (!user)
       throw new Meteor.Error(401, "You need to login to delete a feature");
 
+    console.log('featureId is ' + featureId);
+
     var teamIdsUserBelongs = _.pluck(Teams.find({members: {$in:[Meteor.userId()]}}).fetch(),'_id');
 
     var validFeature = Features.findOne({_id: featureId, teamId: {$in:teamIdsUserBelongs}});

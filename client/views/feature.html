@@ -45,10 +45,10 @@
   {{else}}
   <div class="span12">
   {{/if}}
-    <input type="hidden" name="_id" value="{{_id}}" />
     <div class="row-fluid">
       {{> featureButtons}}
       {{#with currentFeature}}
+      <input type="hidden" name="_id" value="{{_id}}" />
       <h1><i class="icon-certificate"></i> {{name}}</h1>
       <div class="input-prepend">
         <span class="add-on">Owner</span>
