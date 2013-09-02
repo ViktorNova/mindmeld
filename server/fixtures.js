@@ -1,7 +1,6 @@
-function insertUser(username,name,showPublic) {
+function insertUser(username,name) {
   var userId = Meteor.users.insert({    
     username: username,
-    showPublic: showPublic,
     profile: { name: name }
   });
   return Meteor.users.findOne(userId);
@@ -13,8 +12,7 @@ if (Teams.find().count() === 0) {
   var dcw303Id = Meteor.users.insert(
     { "_id" : "JrvzK876e5PBHKc2T",
       "firstName" : "Daniel",
-      "lastName" : "Crowley-Wilson",
-      "showPublic" : true, 
+      "lastName" : "Crowley-Wilson", 
       "createdAt" : 1370869232768, 
       "emails" : [ { 
         "address" : "daniel.crowley.wilson@gmail.com", 
@@ -35,8 +33,7 @@ if (Teams.find().count() === 0) {
   var wolverineId = Meteor.users.insert(
     { "_id" : "jNt9ErmtN4HvxsnKn", 
       "firstName" : "James",
-      "lastName" :  "Howlett",
-      "showPublic" : true, 
+      "lastName" :  "Howlett", 
       "createdAt" : 1371260015064, 
       "emails" : [ { 
         "address" : "wolverine@wolverine.com", 
@@ -57,8 +54,7 @@ if (Teams.find().count() === 0) {
   var x23Id = Meteor.users.insert(
     { "_id" : "ozEMYtxk6kZp4oAPa",
       "firstName" : "Laura",
-      "lastName" : "Kinney", 
-      "showPublic" : true, 
+      "lastName" : "Kinney",  
       "createdAt" : 1371260040178, 
       "emails" : [ { 
         "address" : "x23@x23.com", 

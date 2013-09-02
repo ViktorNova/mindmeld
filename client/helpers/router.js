@@ -53,9 +53,27 @@ Router.map(function() {
   this.route('verifyEmail',
   { 
     path: '/verify-email/:emailVerificationToken',
-    controller: EmailVerificationTokenController,
+    data: function() {
+      return {
+        emailVerificationToken: this.params.emailVerificationToken
+      }
+    },
+    controller: VerifyEmailTokenController,
     action: 'verifyToken',
     loadingTemplate: 'waiting'
+  });
+
+  this.route('emailVerified',
+  {
+    path: '/email-verified',
+    data: function() {
+      return {
+        usernames: Meteor.users.find({}, {fields: { username: 1}})
+      }
+    },
+    waitOn: Meteor.subscribe('usernames'),
+    loadingTemplate: 'waiting',
+    template: 'emailVerified'
   });
 
   this.route('acceptEmailInvite',

@@ -18,7 +18,7 @@ Meteor.methods({
       throw new Meteor.Error(403, "You are not authorized to get public usernames for this team");
 
 
-    var usernames = Meteor.users.find({username: new RegExp(usernameFragment), showPublic: true},{username: 1}).fetch();
+    var usernames = Meteor.users.find({username: new RegExp(usernameFragment)},{username: 1}).fetch();
     var ret = _.map(usernames, function(item) { return {id: item.username, text: item.username}});
     var excludedUsernames = _.pluck(TeamInvites.find({teamId: teamId, username: {$exists: true}}).fetch(),'username');
     var teamUsernames = _.map(team.members, function(member) { return Meteor.users.findOne(member).username; });
@@ -51,7 +51,7 @@ Meteor.methods({
   },
   signupUser: function(signupUserAttributes) {
     var signupUser = _.pick(signupUserAttributes,
-      'username','password','firstName','lastName','email','showPublic','subscribe');
+      'username','password','firstName','lastName','email','subscribe');
 
     if (!/^[a-z0-9]{3,30}$/.test(signupUser.username))
       throw new Meteor.Error(403, "Username must be 3-30 lowercase alphanumeric characters.");
@@ -59,10 +59,10 @@ Meteor.methods({
     if (signupUser.password.length < 6 || signupUser.password.length > 32)
       throw new Meteor.Error(403, "Password must be 3-32 characters.");
 
-    if (signupUser.firstName.length < 6 || signupUser.firstName.length > 32)
+    if (signupUser.firstName.length < 1 || signupUser.firstName.length > 32)
       throw new Meteor.Error(403, "First name must be 1-30 characters.");
 
-    if (signupUser.lastName.length < 6 || signupUser.lastName.length > 32)
+    if (signupUser.lastName.length < 1 || signupUser.lastName.length > 32)
       throw new Meteor.Error(403, "Last name must be 1-30 characters.");
 
     if (signupUser.email.length > 256)
@@ -75,7 +75,6 @@ Meteor.methods({
       profile: {
         firstName: signupUser.firstName,
         lastName: signupUser.lastName,
-        showPublic: signupUser.showPublic,
         subscribe: signupUser.subscribe
       }
     });

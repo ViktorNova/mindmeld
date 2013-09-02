@@ -13,7 +13,6 @@ Template.signUp.events = {
       firstName: $('#firstname').val(),
       lastName: $('#lastname').val(),
       email: $('#email').val(),
-      showPublic: $('#showpublic').prop('checked'),
       subscribe: $('#subscribe').prop('checked')
     }
 

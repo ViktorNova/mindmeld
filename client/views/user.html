@@ -32,21 +32,13 @@
       <div class="row-fluid">
         {{> userButtons}}
         <h1><i class="icon-user"></i> {{username}}</h1>
+        <p>{{firstName}} {{lastName}}</p>
         {{#if isCurrentUser}}
-          <p>{{firstName}} {{lastName}}</p>
           <p>
           {{#each emails}}
             <a href="mailto:{{address}}">{{address}}</a><br/>
           {{/each}}
           </p>
-        {{else}}
-          {{#if showPublic}}
-            {{#if firstName}}
-              <p>{{firstName}} {{lastName}}</p>
-            {{/if}}
-          {{else}}
-            <p><em>This user has no public profile</em></p>
-          {{/if}}
         {{/if}}
       </div>
     </div>

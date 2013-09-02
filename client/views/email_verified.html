@@ -1,6 +1,21 @@
 <template name="emailVerified">
   <div class="container-fluid">
     <div id="main">
+      {{> breadcrumbHeader}}
+      {{> teamLinks}}
+      {{> errorNotification}}
+      <div class="row-fluid">
+        {{> notifications}}
+        {{> emailVerifiedBody}}
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<template name="emailVerifiedBody">
+  <div class="container-fluid">
+    <div id="main">
       <div class="row-fluid">
         <div class="span2"></div>
         <div class="span8">
