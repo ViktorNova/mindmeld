@@ -1,6 +1,5 @@
 {
   "packages": {
-    "router": {},
     "moment": {},
     "select2": {},
     "parsleyjs": {},
