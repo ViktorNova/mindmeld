@@ -427,6 +427,7 @@ Router.map(function() {
       if (!currentTeam)
         return null;
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
+      
       if (!currentProject)
         return null;
       var currentFeature = Features.findOne({teamId: currentTeam._id, projectId: currentProject._id, code: this.params.featureCode});
