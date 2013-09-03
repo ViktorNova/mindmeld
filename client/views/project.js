@@ -17,7 +17,7 @@ Template.projectBody.helpers(_.extend({
         buffer.push('<tr>');
       if (index > 1 && (index % 4 == 0))
         buffer.push('<tr>');
-      buffer.push('<td id="' + element._id + '" class="no-table-cell-border quartet">' + (index + 1) + ": " + element.name + '</td>');
+      buffer.push('<td id="' + element._id + '" class="no-table-cell-border quartet"><a href="' + Router.path('issue', Meteor.userFunctions.issueParams.call(element)) + '">' + (index + 1) + '</a>: ' + element.name + '</a></td>');
       if (index > 0 && (index + 1) % 4 == 0)
         buffer.push('</tr>');
     });
