@@ -30,12 +30,12 @@ Template.acceptEmailInvite.events({
   },
   'click #sign-in': function(event) {
     event.preventDefault();
-    Session.set('redir',Router.current().path);
+    SessionAmplify.set('redir',Router.current().path);
     Router.go('signIn');
   },
   'click #sign-up': function(event) {
     event.preventDefault();
-    Session.set('redir',Router.current().path);
+    SessionAmplify.set('redir',Router.current().path);
     Router.go('signUp');
   }
 });

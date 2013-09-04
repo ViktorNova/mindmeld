@@ -27,8 +27,8 @@ Template.signIn.events({
     var password = $('#password').val();
 
     if ($('#signInCredentials').parsley().validate()) { 
-
       Meteor.loginWithPassword(usernameOrEmail, password, function(error) {
+        event.preventDefault();
         $('#waiting').hide();
         if (error) {
           $('#signIn').removeClass('disabled');
@@ -42,13 +42,15 @@ Template.signIn.events({
           }
           return;
         }
-        var redir = Session.get('redir');
+
+        var redir = SessionAmplify.get('redir');
         if (redir) {
-          Session.set('redir', null);
-          Router.go(redir);
+          SessionAmplify.set('redir', null);
+          window.location.replace(redir);
         } else {
-          Router.go('home');
+          window.location.replace(Router.path('home'));
         }
+
       });
     }
   }

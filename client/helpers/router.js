@@ -25,6 +25,7 @@ Router.map(function() {
   {
     path: '/signin',
     controller: SignInController,
+    loadingTemplate: 'waiting',
     action: 'userLoadedAction'
   });
 

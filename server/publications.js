@@ -44,9 +44,13 @@ Meteor.publish('teamInvites', function(userId) {
   return TeamInvites.find({teamId: {$in: _.pluck(teams, '_id')}});
 });
 
-Meteor.publish('ownTeamInvites', function(username) {
+Meteor.publish('ownUsernameTeamInvites', function(username) {
   return TeamInvites.find({username: username});
-})
+});
+
+Meteor.publish('ownEmailTeamInvites', function(email) {
+  return TeamInvites.find({email: email});
+});
 
 Meteor.publish('userTags', function(userId) {
   var teams = Teams.find({members: {$in: [userId]}}).fetch();

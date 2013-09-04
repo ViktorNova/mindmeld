@@ -16,6 +16,11 @@ VerifyEmailTokenController = RouteController.extend({
           routeContext.render('error');
           return;
         }
+        var redir = SessionAmplify.get('redir');
+        if (redir) {
+          SessionAmplify.set('redir', null);
+          window.location.replace(redir);
+        }
       });
     } else {
       routeContext.render({
