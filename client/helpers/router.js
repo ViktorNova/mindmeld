@@ -8,18 +8,23 @@ Router.map(function() {
     path: '/',
     data: function() {
       var availableTeams = Teams.find({members: {$in: [Meteor.userId()]}});
+      var allIssuesNotStarted = Issues.find({status: 0},{sort: {updatedAt: -1}});
+      var allIssuesInProgress = Issues.find({status: 1},{sort: {statusChanged: -1}});
+      var allIssuesCompleted = Issues.find({status: 2},{sort: {statusChanged: -1}});
+      var allIssuesCancelled = Issues.find({status: 3},{sort: {statusChanged: -1}})
+
       return {
         availableTeams: availableTeams,
         invitedTeamsForUsername: TeamInvites.find({username: Meteor.user() && Meteor.user().username}),
         invitedTeamsForUsernameCount: TeamInvites.find({username: Meteor.user() && Meteor.user().username}).count(),
-        allIssuesNotStarted: Issues.find({status: 0},{sort: {updatedAt: -1}}),
-        allIssuesInProgress: Issues.find({status: 1},{sort: {statusChanged: -1}}),
-        allIssuesCompleted: Issues.find({status: 2},{sort: {statusChanged: -1}}),
-        allIssuesCancelled: Issues.find({status: 3},{sort: {statusChanged: -1}}),
-        allIssuesNotStartedCount: Issues.find({status: 0}).count(),
-        allIssuesInProgressCount: Issues.find({status: 1}).count(),
-        allIssuesCompletedCount: Issues.find({status: 2}).count(),
-        allIssuesCancelledCount: Issues.find({status: 3}).count()
+        allIssuesNotStarted: allIssuesNotStarted,
+        allIssuesInProgress: allIssuesInProgress,
+        allIssuesCompleted: allIssuesCompleted,
+        allIssuesCancelled: allIssuesCancelled,
+        allIssuesNotStartedCount: allIssuesNotStarted.count(),
+        allIssuesInProgressCount: allIssuesInProgress.count(),
+        allIssuesCompletedCount: allIssuesCompleted.count(),
+        allIssuesCancelledCount: allIssuesCancelled.count()
       };
     },
     controller: LoggedInUserController,
@@ -156,10 +161,6 @@ Router.map(function() {
       var inProgressIssuesWithTag = Issues.find({teamId: currentTeam._id, status: 1, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}});
       var completedIssuesWithTag = Issues.find({teamId: currentTeam._id, status: 2, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}});
       var cancelledIssuesWithTag = Issues.find({teamId: currentTeam._id, status: 3, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}});
-      var notStartedIssuesWithTagCount = Issues.find({teamId: currentTeam._id, status: 0, tags: {$in: [this.params.tag]}},{sort: {rank: 1}}).count();
-      var inProgressIssuesWithTagCount = Issues.find({teamId: currentTeam._id, status: 1, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}}).count();
-      var completedIssuesWithTagCount = Issues.find({teamId: currentTeam._id, status: 2, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}}).count();
-      var cancelledIssuesWithTagCount = Issues.find({teamId: currentTeam._id, status: 3, tags: {$in: [this.params.tag]}},{sort: {statusChanged: -1}}).count();
 
       return {
         currentTeam: currentTeam,
@@ -169,10 +170,10 @@ Router.map(function() {
         inProgressIssuesWithTag: inProgressIssuesWithTag,
         completedIssuesWithTag: completedIssuesWithTag,
         cancelledIssuesWithTag: cancelledIssuesWithTag,
-        notStartedIssuesWithTagCount: notStartedIssuesWithTagCount,
-        inProgressIssuesWithTagCount: inProgressIssuesWithTagCount,
-        completedIssuesWithTagCount: completedIssuesWithTagCount,
-        cancelledIssuesWithTagCount: cancelledIssuesWithTagCount,
+        notStartedIssuesWithTagCount: notStartedIssuesWithTag.count(),
+        inProgressIssuesWithTagCount: inProgressIssuesWithTag.count(),
+        completedIssuesWithTagCount: completedIssuesWithTag.count(),
+        cancelledIssuesWithTagCount: cancelledIssuesWithTag.count(),
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})
       };
     },
@@ -322,21 +323,21 @@ Router.map(function() {
           projectId: currentProject._id, 
           status: 1
         },
-        {sort: {rank: 1}}
+        {sort: {statusChanged: -1}}
       );
       var completedIssuesInProject = Issues.find({ 
           teamId: currentTeam._id, 
           projectId: currentProject._id, 
           status: 2
         },
-        {sort: {rank: 1}}
+        {sort: {statusChanged: -1}}
       );
       var cancelledIssuesInProject = Issues.find({ 
           teamId: currentTeam._id, 
           projectId: currentProject._id, 
           status: 3
         },
-        {sort: {rank: 1}}
+        {sort: {statusChanged: -1}}
       );
 
       return {
