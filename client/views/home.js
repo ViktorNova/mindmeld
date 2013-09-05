@@ -3,39 +3,14 @@ inProgressPageCount = 5;
 completedPageCount = 5;
 cancelledPageCount = 5;
 
-Template.home.helpers();
+Template.home.helpers(Meteor.userFunctions);
 Template.teamLinks.helpers(_.extend({
   teamsIBelongTo: function() {
     return Teams.find({members: {$in:[Meteor.userId()]}});
   }
 }, Meteor.userFunctions));
 
-Template.homeBody.helpers(_.extend({
-  allIssuesNotStarted: function() {
-    return Issues.find({status: 0},{sort: {statusChanged: -1}});
-  },
-  allIssuesInProgress: function() {
-    return Issues.find({status: 1},{sort: {statusChanged: -1}});
-  },
-  allIssuesCompleted: function() {
-    return Issues.find({status: 2},{sort: {statusChanged: -1}});
-  },
-  allIssuesCancelled: function() {
-    return Issues.find({status: 3},{sort: {statusChanged: -1}});
-  },
-  allIssuesNotStartedCount: function() {
-    return Issues.find({status: 0},{sort: {statusChanged: -1}}).count();
-  },
-  allIssuesInProgressCount: function() {
-    return Issues.find({status: 1},{sort: {statusChanged: -1}}).count();
-  },
-  allIssuesCompletedCount: function() {
-    return Issues.find({status: 2},{sort: {statusChanged: -1}}).count();
-  },
-  allIssuesCancelledCount: function() {
-    return Issues.find({status: 3},{sort: {statusChanged: -1}}).count();
-  }
-},Meteor.userFunctions));
+Template.homeBody.helpers(Meteor.userFunctions);
 
 Template.issueInTable.helpers(_.extend({
   displayIndex: function() {

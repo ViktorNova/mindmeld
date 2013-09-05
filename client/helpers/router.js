@@ -11,7 +11,15 @@ Router.map(function() {
       return {
         availableTeams: availableTeams,
         invitedTeamsForUsername: TeamInvites.find({username: Meteor.user() && Meteor.user().username}),
-        invitedTeamsForUsernameCount: TeamInvites.find({username: Meteor.user() && Meteor.user().username}).count()
+        invitedTeamsForUsernameCount: TeamInvites.find({username: Meteor.user() && Meteor.user().username}).count(),
+        allIssuesNotStarted: Issues.find({status: 0},{sort: {updatedAt: -1}}),
+        allIssuesInProgress: Issues.find({status: 1},{sort: {statusChanged: -1}}),
+        allIssuesCompleted: Issues.find({status: 2},{sort: {statusChanged: -1}}),
+        allIssuesCancelled: Issues.find({status: 3},{sort: {statusChanged: -1}}),
+        allIssuesNotStartedCount: Issues.find({status: 0}).count(),
+        allIssuesInProgressCount: Issues.find({status: 1}).count(),
+        allIssuesCompletedCount: Issues.find({status: 2}).count(),
+        allIssuesCancelledCount: Issues.find({status: 3}).count()
       };
     },
     controller: LoggedInUserController,
