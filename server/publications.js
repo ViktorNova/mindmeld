@@ -35,6 +35,11 @@ Meteor.publish('userIssues', function(userId) {
   return Issues.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});
 });
 
+Meteor.publish('userComments', function(userId) {
+  var teams = Teams.find({members: {$in: [userId]}}).fetch();
+  return Comments.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});
+});
+
 Meteor.publish('usernames', function() {
   return Meteor.users.find({}, {fields: { username: 1}});
 });

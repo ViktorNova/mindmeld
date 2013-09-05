@@ -1,6 +1,7 @@
 var subscriptions = [
   Meteor.subscribe('userTeams', Meteor.userId()),
   Meteor.subscribe('userIssues', Meteor.userId()),
+  Meteor.subscribe('userComments', Meteor.userId()),
   Meteor.subscribe('userFeatures', Meteor.userId()),
   Meteor.subscribe('userProjects', Meteor.userId()),
   Meteor.subscribe('publicMembers'),

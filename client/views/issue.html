@@ -69,7 +69,7 @@
                 {{#if currentUserOwnsComment}}
                   <button data-item="{{_id}}" class="comment-close close pull-right" href="">&times;</button>
                 {{/if}}
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#commentsParent" href="#collapse{{_id}}">{{createdByUsername}} - {{momentTimeAgoCreatedAt}}</a>
+                <a class="accordion-toggle" data-toggle="collapse" data-target="#collapse{{_id}}" href="#collapse{{_id}}">{{createdByUsername}} - {{momentTimeAgoCreatedAt}}</a>
               </div>
               <div id="collapse{{_id}}" class="accordion-body collapse comment-body">
                 <div class="accordion-inner">

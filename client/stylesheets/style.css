@@ -164,6 +164,12 @@ div.span3.issueStatusGroup:not(:first-child) {
   border-bottom: 1px solid #DDD;
 }
 
+.comment-close {
+  margin-top: 9px;
+  margin-right: 14px;
+  border: solid 1px #000;
+}
+
 .content-gap {
   margin-top: 70px;
 }
