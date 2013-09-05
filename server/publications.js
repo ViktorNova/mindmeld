@@ -17,12 +17,12 @@ Meteor.publish('userProjects', function(userId) {
 Meteor.publish('teamMembers', function(userId) {
   var allTeamMembers = _.flatten(_.pluck(Teams.find({members: {$in: [userId]}}).fetch(),'members'));
   return Meteor.users.find({_id: {$in: allTeamMembers}}, 
-    {fields: { username: 1, firstName: 1, lastName: 1}});
+    {fields: { username: 1, profile: 1}});
 });
 
 Meteor.publish('publicMembers', function() {
   return Meteor.users.find({},
-    {fields: { username: 1, firstName: 1, lastName: 1}});
+    {fields: { username: 1, profile: 1}});
 });
 
 Meteor.publish('userFeatures', function(userId) {

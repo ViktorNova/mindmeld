@@ -32,7 +32,9 @@
       <div class="row-fluid">
         {{> userButtons}}
         <h1><i class="icon-user"></i> {{username}}</h1>
-        <p>{{firstName}} {{lastName}}</p>
+        {{#if profile}}
+        <p>{{profile.firstName}} {{profile.lastName}}</p>
+        {{/if}}
         {{#if isCurrentUser}}
           <p>
           {{#each emails}}
