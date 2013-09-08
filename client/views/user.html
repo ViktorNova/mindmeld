@@ -29,20 +29,44 @@
     {{else}}
     <div class="span12">
     {{/if}}
-      <div class="row-fluid">
-        {{> userButtons}}
-        <h1><i class="icon-user"></i> {{username}}</h1>
-        {{#if profile}}
-        <p>{{profile.firstName}} {{profile.lastName}}</p>
-        {{/if}}
-        {{#if isCurrentUser}}
-          <p>
-          {{#each emails}}
-            <a href="mailto:{{address}}">{{address}}</a><br/>
-          {{/each}}
-          </p>
-        {{/if}}
-      </div>
+      {{> userButtons}}
+      <h1><i class="icon-user"></i> {{username}}</h1>
+      {{#if profile}}
+        <div class="input-prepend">
+          <span class="add-on">First Name</span>
+          <input class="input-large" type="text" value="{{profile.firstName}}" readonly="readonly"></input>
+        </div>
+        <br>
+        <div class="input-prepend">
+          <span class="add-on">Last Name</span>
+          <input class="input-large" type="text" value="{{profile.lastName}}" readonly="readonly"></input>
+        </div>
+      {{/if}}
+      {{#if isCurrentUser}}
+        <p>
+        {{#each emails}}
+          <div class="input-prepend">
+            <span class="add-on">Email Address</span>
+            <input class="input-xlarge" type="text" value="{{address}}" readonly="readonly"></input>
+          </div>
+        {{/each}}
+        </p>
+      {{/if}}
+      <p><em>User created {{momentTimeAgoCreatedAt}}</em></p>
+      <h2>Team Membership</h2>
+      <table class="table table-striped">
+        {{#each profile.joinedTeamIds}}
+          <tr>
+            <td class="span5">{{joinedTeamName}}</td>
+            <td class="span1"></td>
+          </tr>
+        {{/each}}
+        {{#unless profile.joinedTeamIds}}
+        <tr>
+          <td class="span6"><em>{{username}} has not joined any teams</em></td>
+        </tr>
+        {{/unless}}
+      </table>
     </div>
   {{/with}}
 </template>

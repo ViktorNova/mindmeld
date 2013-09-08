@@ -54,6 +54,9 @@ Meteor.userFunctions = {
     return this.teamId && Teams.findOne(this.teamId) && 
     Teams.findOne(this.teamId).code;
   },
+  joinedTeamName: function() {
+    return this && Teams.findOne(this.toString()) && Teams.findOne(this.toString()).name;
+  },
   teamName: function() {
   	return this.teamId && Teams.findOne(this.teamId) &&
     Teams.findOne(this.teamId).name;

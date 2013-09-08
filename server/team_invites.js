@@ -95,7 +95,7 @@ Meteor.methods({
 
     Teams.update({_id: teamInvite.teamId},{$push: {members: Meteor.userId()}});
     TeamInvites.remove({_id: teamInviteId, receivedFrom: teamInviteFromUserId});
-
+    Meteor.users.update({_id: Meteor.user()._id},{$push: {'profile.joinedTeamIds': teamInvite.teamId}});
 
     var joinedTeam = Teams.findOne(teamInvite.teamId);
 
@@ -147,6 +147,7 @@ Meteor.methods({
 
     Teams.update({_id: teamInvite.teamId},{$push: {members: Meteor.userId()}});
     TeamInvites.remove({_id: teamInviteId, username: user.username});
+    Meteor.users.update({_id: Meteor.user()._id},{$push: {'profile.joinedTeamIds': teamInvite.teamId}});
 
     var joinedTeam = Teams.findOne(teamInvite.teamId);
 

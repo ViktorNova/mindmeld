@@ -31,6 +31,8 @@ Meteor.methods({
 
     var newTeam = Teams.findOne(teamId);
 
+    Meteor.users.update({_id: Meteor.user()._id},{$push: {'profile.joinedTeamIds': newTeam._id}});
+
     var notificationAttributes = {
       entity: 'team',
       action: 'create',
