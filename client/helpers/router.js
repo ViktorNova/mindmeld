@@ -85,9 +85,12 @@ Router.map(function() {
         usernames: Meteor.users.find({}, {fields: { username: 1}})
       }
     },
-    waitOn: Meteor.subscribe('usernames'),
+    controller: LoggedInUserController,
+    action: 'userLoadedAction',
     loadingTemplate: 'waiting',
-    template: 'emailVerified'
+    notFoundTemplate: 'notFound',
+    userFoundTemplate: 'emailVerified',
+    userNotFoundTemplate: 'unauthorized'
   });
 
   this.route('acceptEmailInvite',

@@ -28,6 +28,7 @@ Meteor.methods({
       throw new Meteor.Error(403, "Team name already exists");
 
     var teamId = Teams.insert(team);
+
     var newTeam = Teams.findOne(teamId);
 
     var notificationAttributes = {

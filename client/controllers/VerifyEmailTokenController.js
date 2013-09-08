@@ -20,22 +20,10 @@ VerifyEmailTokenController = RouteController.extend({
         if (redir) {
           SessionAmplify.set('redir', null);
           window.location.replace(redir);
+        } else {
+          window.location.replace(Router.path('emailVerified'));
         }
       });
-    } else {
-      routeContext.render({
-        userHeader: { 
-          to: 'header', 
-          data: function() {
-            return {
-              otherMembers: null,
-              username: Meteor.user().username
-            }
-          }
-        }
-      });
-      routeContext.render('emailVerified');
-      return;
     }
   }
 });
