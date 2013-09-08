@@ -93,9 +93,9 @@ Meteor.methods({
     if (!teamInvite)
       throw new Meteor.Error(403, "No team invite found matching those parameters");
 
-    Teams.update({_id: teamInvite.teamId},{$push: {members: Meteor.userId()}});
+    Teams.update({_id: teamInvite.teamId},{$addToSet: {members: Meteor.userId()}});
     TeamInvites.remove({_id: teamInviteId, receivedFrom: teamInviteFromUserId});
-    Meteor.users.update({_id: Meteor.user()._id},{$push: {'profile.joinedTeamIds': teamInvite.teamId}});
+    Meteor.users.update({_id: Meteor.user()._id},{$addToSet: {'profile.joinedTeamIds': teamInvite.teamId}});
 
     var joinedTeam = Teams.findOne(teamInvite.teamId);
 
@@ -145,9 +145,9 @@ Meteor.methods({
     if (!teamInvite)
       throw new Meteor.Error(403, "No team invite found matching those parameters");
 
-    Teams.update({_id: teamInvite.teamId},{$push: {members: Meteor.userId()}});
+    Teams.update({_id: teamInvite.teamId},{$addToSet: {members: Meteor.userId()}});
     TeamInvites.remove({_id: teamInviteId, username: user.username});
-    Meteor.users.update({_id: Meteor.user()._id},{$push: {'profile.joinedTeamIds': teamInvite.teamId}});
+    Meteor.users.update({_id: Meteor.user()._id},{$addToSet: {'profile.joinedTeamIds': teamInvite.teamId}});
 
     var joinedTeam = Teams.findOne(teamInvite.teamId);
 

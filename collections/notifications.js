@@ -6,7 +6,7 @@ Meteor.methods({
     if (!userId)
       throw new Meteor.Error(401, "You need to login to dismiss a notification");
 
-    Notifications.update({_id: notificationId},{$push: { readBy: userId}});
+    Notifications.update({_id: notificationId},{$addToSet: { readBy: userId}});
   },
   createTeamNotification: function(notificationAttributes) {
     var user = Meteor.user();
