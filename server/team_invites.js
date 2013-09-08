@@ -17,7 +17,7 @@ Team name: " + teamName + "\n\n\
 Accepting means that you will become a member of the team, and you can participate in issue tracking.\n\
 To accept, please follow the link below. If you already have a Mindmeld account, you'll be prompted to sign in first.\n\
 If you don't, you can create a free account before accepting the invitation.\n\n\
-http://mindmeld.io/accept-email-invite?teamInviteId=" + teamInviteId + "&teamInviteFromUserId=" + receivedFromUserId + "\n\n\
+" + Meteor.absoluteUrl('accept-email-invite?teamInviteId=' + teamInviteId + '&teamInviteFromUserId=' + receivedFromUserId,{secure: true}) + "\n\n\
 Happy Issue Tracking!\n";
 }
 
