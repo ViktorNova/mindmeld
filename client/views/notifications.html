@@ -18,19 +18,19 @@
       <a href="{{pathFor 'user' createdByUsernameParams}}">{{createdByUsername}}</a> {{pastTense action oldStatus newStatus}} {{entity}} 
       {{#if isComment}} to {{/if}}
       {{#if isTeam}}
-      <a href="{{pathFor 'team' asTeamParams}}#{{_id}}">
+      <a href="{{pathFor 'team' asTeamParams}}">
       {{/if}}
       {{#if isProject}}
-      <a href="{{pathFor 'project' asProjectParams}}#{{_id}}">
+      <a href="{{pathFor 'project' asProjectParams}}">
       {{/if}}
       {{#if isFeature}}
-      <a href="{{pathFor 'feature' asFeatureParams}}#{{_id}}">
+      <a href="{{pathFor 'feature' asFeatureParams}}">
       {{/if}}
       {{#if isIssue}}
-      <a href="{{pathFor 'issue' asIssueParams}}#{{_id}}">
+      <a href="{{pathFor 'issue' asIssueParams}}">
       {{/if}}
       {{#if isComment}}
-      <a href="{{pathFor 'issue' asIssueParams}}#{{commentId}}">
+      <a href="{{pathFor 'issue' asIssueParams}}">
       {{/if}}
         {{name}}
       </a> <em>{{momentTimeAgoCreatedAt}}</em></p>
