@@ -10,11 +10,24 @@ Template.issueForm.rendered = function() {
   var formTags = _.pluck(dataContext.data.tags.fetch(),'tag');
 
   $(document).ready(function() { 
-    $('#tags').select2({width: "100%", tags:formTags});
+    $('#tags')
+      .select2({width: "100%", tags:formTags})
+      .on('change',function(e) {
+        Meteor.userFunctions.logFormEditWithParams('tags',e.val, dataContext.data.currentTeam._id, Router.current().path);
+      });
   });
 };
 
 Template.issueForm.events({
+  'blur #name-input': function(event) {
+    Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
+  },
+  'blur #detail': function(event) {
+    Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
+  },
+  'keydown #tags': function(event) {
+    Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
+  },
 	'click #create': function(event) {
 		event.preventDefault();
 

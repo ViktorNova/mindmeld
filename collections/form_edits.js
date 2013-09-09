@@ -1,0 +1,1 @@
+FormEdits = new Meteor.Collection('formEdits');

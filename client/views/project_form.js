@@ -3,6 +3,12 @@ Template.editProject.helpers(Meteor.userFunctions);
 Template.projectForm.helpers(Meteor.userFunctions);
 
 Template.projectForm.events({
+  'blur #name-input': function(event) {
+    Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
+  },
+  'blur #detail': function(event) {
+    Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
+  },
   'click #create': function(event) {
     event.preventDefault();
 

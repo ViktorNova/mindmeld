@@ -1,4 +1,22 @@
 Meteor.userFunctions = {
+  logFormEdit: function(event, path) {
+    var formEditAttributes = {
+      element: event.target.id,
+      value: event.target.value,
+      teamId: this.teamId,
+      path: path
+    };
+    Meteor.call('logFormEdit', formEditAttributes);
+  },
+  logFormEditWithParams: function(element, value, teamId, path) {
+    var formEditAttributes = {
+      element: element,
+      value: value,
+      teamId: teamId,
+      path: path
+    };
+    Meteor.call('logFormEdit', formEditAttributes);
+  },
   teamParams: function() {
     return {
       teamCode: this.code

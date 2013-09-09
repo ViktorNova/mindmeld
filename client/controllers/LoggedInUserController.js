@@ -9,6 +9,7 @@ var subscriptions = [
   Meteor.subscribe('publicTeams'),
   Meteor.subscribe('teamMembers', Meteor.userId()),
   Meteor.subscribe('teamMovements', Meteor.userId()),
+  Meteor.subscribe('teamFormEdits', Meteor.userId()),
   Meteor.subscribe('userNotifications', Meteor.userId()),
   Meteor.subscribe('ownUsernameTeamInvites', Meteor.user() && Meteor.user().username),
   Meteor.subscribe('ownEmailTeamInvites', Meteor.user() && Meteor.user().emails[0].address),

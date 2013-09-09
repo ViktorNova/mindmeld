@@ -10,6 +10,9 @@ Template.issueBody.rendered = function() {
 }
 
 Template.issueBody.events({
+  'blur #newComment': function(event) {
+    Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
+  },
   'click #startIssue': function(event) {
     event.preventDefault();
     var issueId = $(document).find('[name=_id]').val();
@@ -17,8 +20,8 @@ Template.issueBody.events({
     Meteor.call('startIssue', issueId);
 
     var projectIssues = Issues.find({ 
-      teamId: Session.get('currentTeamId'), 
-      projectId: Session.get('currentProjectId'), 
+      teamId: dataContext.data.currentTeam._id, 
+      projectId: dataContext.data.currentProject._id,
       status: 0, 
       rank: {$exists: true} },
     {sort: {rank: 1}});
@@ -88,6 +91,7 @@ Template.issueBody.events({
         return;
       }
       $(document).find('[name=newComment]').val('');
+      Meteor.userFunctions.logFormEditWithParams('newComment','',dataContext.data.currentTeam._id, Router.current().path);
     });
   },
   'click .comment-close': function(event) {

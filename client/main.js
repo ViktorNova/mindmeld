@@ -7,9 +7,30 @@ Deps.autorun(function() {
         header.scrollIntoView();
         $('#prependedDropdownButton')
           .animate({backgroundColor: 'yellow'})
-          .animate({backgroundColor: 'white'}, function() {
-            Router.go(movement.path);
-          });
+          .animate({backgroundColor: 'white'});
+        Router.go(movement.path);
+      }
+    }
+  }
+
+  var formEdit = FormEdits.findOne({userId: SessionAmplify.get('following')});
+  if (formEdit) {
+    if (Router.current() && Router.current().path == formEdit.path) {
+      var element = $('#' + formEdit.element);
+      if (element) {
+        console.log(element);
+        if (element[0].id == 'tags') {
+          element.select2('val',formEdit.value);
+          return;
+        }
+        if (element.is("select")) {
+          element.select2("val",formEdit.value);
+        } else {
+          element
+            .animate({backgroundColor: 'yellow'})
+            .animate({backgroundColor: 'white'})
+            .val(formEdit.value);
+        }
       }
     }
   }

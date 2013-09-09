@@ -18,6 +18,19 @@ Template.featureForm.rendered = function() {
 }
 
 Template.featureForm.events({
+  'blur #name-input': function(event) {
+    Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
+  },
+  'click #ownedByUserId': function(event) {
+    Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
+  },
+  'blur #detail': function(event) {
+    Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
+  },
+
+
+
+
   'click #create': function(event) {
     event.preventDefault();
 

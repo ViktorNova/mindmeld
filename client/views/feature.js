@@ -1,15 +1,6 @@
 Template.feature.helpers(Meteor.userFunctions);
 Template.featureButtons.helpers(Meteor.userFunctions);
-Template.issueLinks.helpers(_.extend({
-  allIssues: function() {
-    var issues = Issues.find({
-      teamId: Session.get('currentTeamId'),
-      projectId: Session.get('currentProjectId'),
-      featureId: Session.get('currentFeatureId')
-    },{sort: {statusChanged: -1}});
-    return issues;
-  }
-}, Meteor.userFunctions));
+Template.issueLinks.helpers(Meteor.userFunctions);
 
 Template.featureBody.helpers(Meteor.userFunctions);
 
