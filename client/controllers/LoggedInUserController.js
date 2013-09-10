@@ -1,22 +1,28 @@
+Meteor.bindUserSubscriptions = function() {
+  Meteor.userSubscriptions = [
+    Meteor.subscribe('userTeams', Meteor.userId()),
+    Meteor.subscribe('userIssues', Meteor.userId()),
+    Meteor.subscribe('userComments', Meteor.userId()),
+    Meteor.subscribe('userFeatures', Meteor.userId()),
+    Meteor.subscribe('userProjects', Meteor.userId()),
+    Meteor.subscribe('publicMembers'),
+    Meteor.subscribe('userTags', Meteor.userId()),
+    Meteor.subscribe('publicTeams'),
+    Meteor.subscribe('teamMembers', Meteor.userId()),
+    Meteor.subscribe('teamMovements', Meteor.userId()),
+    Meteor.subscribe('teamFormEdits', Meteor.userId()),
+    Meteor.subscribe('userNotifications', Meteor.userId()),
+    Meteor.subscribe('ownUsernameTeamInvites', Meteor.user() && Meteor.user().username),
+    Meteor.subscribe('ownEmailTeamInvites', Meteor.user() && Meteor.user().emails[0].address),
+    Meteor.subscribe('teamInvites', Meteor.userId())
+  ];
+}
+
+Meteor.bindUserSubscriptions();
+
 LoggedInUserController = RouteController.extend({
   waitOn: function() {
-    return [
-      Meteor.subscribe('userTeams', Meteor.userId()),
-      Meteor.subscribe('userIssues', Meteor.userId()),
-      Meteor.subscribe('userComments', Meteor.userId()),
-      Meteor.subscribe('userFeatures', Meteor.userId()),
-      Meteor.subscribe('userProjects', Meteor.userId()),
-      Meteor.subscribe('publicMembers'),
-      Meteor.subscribe('userTags', Meteor.userId()),
-      Meteor.subscribe('publicTeams'),
-      Meteor.subscribe('teamMembers', Meteor.userId()),
-      Meteor.subscribe('teamMovements', Meteor.userId()),
-      Meteor.subscribe('teamFormEdits', Meteor.userId()),
-      Meteor.subscribe('userNotifications', Meteor.userId()),
-      Meteor.subscribe('ownUsernameTeamInvites', Meteor.user() && Meteor.user().username),
-      Meteor.subscribe('ownEmailTeamInvites', Meteor.user() && Meteor.user().emails[0].address),
-      Meteor.subscribe('teamInvites', Meteor.userId())
-    ];
+    return Meteor.userSubscriptions;
   },
   userLoadedAction: function() {
 

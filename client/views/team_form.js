@@ -29,6 +29,7 @@ Template.teamForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
+        Meteor.bindUserSubscriptions();
         Router.go('team', {teamCode: team.code});
       }
     });
@@ -50,6 +51,7 @@ Template.teamForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
+        Meteor.bindUserSubscriptions();        
         Router.go('team', {teamCode: team.code});
       }
     });
