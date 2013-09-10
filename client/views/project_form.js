@@ -50,8 +50,6 @@ Template.projectForm.events({
       detail: $(document).find('[name=detail]').val()
     }
 
-    var dataContext = this;
-
     Meteor.call('editProject', project, function(error, project) {
       if (error) {
         Meteor.userFunctions.addError(error.reason);
