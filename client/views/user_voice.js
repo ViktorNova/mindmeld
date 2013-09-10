@@ -10,11 +10,12 @@ Template.userVoice.rendered = function() {
 
   setTimeout(function() {
     UserVoice.push(['showTab', 'classic_widget', {
-      mode: 'feedback',
+      mode: 'full',
       primary_color: '#978057',
       link_color: '#007dbf',
+      default_mode: 'feedback',
       forum_id: 221775,
-      tab_label: 'Feedback',
+      tab_label: 'Feedback & Support',
       tab_color: '#978057',
       tab_position: 'middle-right',
       tab_inverted: false

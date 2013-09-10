@@ -3,30 +3,33 @@
     <div class="navbar-inner">
       <div id="header" class="container">
         <a class="brand" href="{{pathFor 'home'}}">Mindmeld</a>
-          {{#if otherMembers}}
-          <form class="navbar-search pull-left">
-            <div class="input-prepend nav">
-              <div class="btn-group">
-                <button class="btn dropdown-toggle" data-toggle="dropdown">
-                  Following
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="follow" data-bind="" href="#">Nobody</a></li>
-                  <li class="divider"></li>
-                   {{#each otherMembers}}
-                   <li><a class="follow" data-bind="{{_id}}" href="">{{username}}</a></li>
-                  {{/each}}                  
-                </ul>
-              </div>
-              <input class="span2" id="prependedDropdownButton" type="text" value="{{followingUsername}}"/>
+        <ul class="nav">
+          <li><a href="http://blog.mindmeld.io">Blog</a></li>
+        </ul>
+        {{#if otherMembers}}
+        <form class="navbar-search pull-left">
+          <div class="input-prepend nav">
+            <div class="btn-group">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                Following
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="follow" data-bind="" href="#">Nobody</a></li>
+                <li class="divider"></li>
+                 {{#each otherMembers}}
+                 <li><a class="follow" data-bind="{{_id}}" href="">{{username}}</a></li>
+                {{/each}}                  
+              </ul>
             </div>
-          </form>
-          {{/if}}
-          <ul class="nav pull-right">
-            <li><a href="{{pathFor 'user' usernameParams}}">{{username}}</a></li>
-            <li><a id="signOut" href="{{pathFor 'signOut'}}">Sign Out</a></li>
-          </ul>
+            <input class="span2" id="prependedDropdownButton" type="text" value="{{followingUsername}}"/>
+          </div>
+        </form>
+        {{/if}}
+        <ul class="nav pull-right">
+          <li><a href="{{pathFor 'user' usernameParams}}">{{username}}</a></li>
+          <li><a id="signOut" href="{{pathFor 'signOut'}}">Sign Out</a></li>
+        </ul>
       </div>
     </div>
   </header>
@@ -37,6 +40,10 @@
     <div class="navbar-inner">
       <div class="container">
         <a class="brand" href="{{pathFor 'home'}}">Mindmeld</a>
+        <ul class="nav">
+          <li><a href="http://blog.mindmeld.io">Blog</a></li>
+          <li><a href="https://mindmeld.uservoice.com">Support</a></li>
+        </ul>
       </div>
     </div>
   </header>
