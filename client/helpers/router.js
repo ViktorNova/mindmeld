@@ -148,7 +148,6 @@ Router.map(function() {
           teamCode: this.params.teamCode, 
           availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
           teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
-          teamMovements: Movements.find({teamId: currentTeam._id}),
           teamTags: Tags.find({teamId: currentTeam._id }, {sort: {count: -1}}),
           notifications: notifications,
           notificationsCount: notifications.count()
@@ -308,7 +307,7 @@ Router.map(function() {
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
       var notifications = generateNotifications(currentTeam);
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       return {
         action: 'create',
@@ -334,7 +333,7 @@ Router.map(function() {
     path: '/:teamCode/:projectCode',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
       if (!currentProject)
@@ -408,7 +407,7 @@ Router.map(function() {
     path: '/:teamCode/:projectCode/edit',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
       if (!currentProject)
@@ -445,7 +444,7 @@ Router.map(function() {
     path: '/:teamCode/:projectCode/feature/create',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
       if (!currentProject)
@@ -478,7 +477,7 @@ Router.map(function() {
     path: '/:teamCode/:projectCode/:featureCode',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
       
@@ -523,7 +522,7 @@ Router.map(function() {
     path: '/:teamCode/:projectCode/:featureCode/edit',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
       if (!currentProject)
@@ -568,7 +567,7 @@ this.route('createIssue',
   path: '/:teamCode/:projectCode/:featureCode/issue/create',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
       if (!currentProject)
@@ -617,7 +616,7 @@ this.route('createIssue',
     path: '/:teamCode/:projectCode/:featureCode/:issueCode',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
       if (!currentProject)
@@ -657,7 +656,7 @@ this.route('createIssue',
     path: '/:teamCode/:projectCode/:featureCode/:issueCode/edit',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
-      if (!currentTeam)
+      if (!currentTeam || !currentTeam.members)
         return null;
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
       if (!currentProject)

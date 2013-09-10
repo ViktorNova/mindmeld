@@ -1,4 +1,7 @@
 Deps.autorun(function() {
+
+  Meteor.subscribe('userMovements', Meteor.userId(), SessionAmplify.get('following'));
+
   var movement = Movements.findOne({userId: SessionAmplify.get('following')});
   if (movement) {
     if (Router.current() && (Router.current().path != movement.path)) {
@@ -12,6 +15,10 @@ Deps.autorun(function() {
       }
     }
   }
+
+  Meteor.subscribe('userFollowers', Meteor.userId());
+
+  Meteor.subscribe('userFormEdits', Meteor.userId(), SessionAmplify.get('following'));
 
   var formEdit = FormEdits.findOne({userId: SessionAmplify.get('following')});
   if (formEdit) {

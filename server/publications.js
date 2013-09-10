@@ -10,10 +10,8 @@ Meteor.publish('publicTeams', function() {
 });
 
 Meteor.publish('userProjects', function(userId) {
-  // var teams = Teams.find({members: {$in: [userId]}}).fetch();
-  // return Projects.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});
-  return Projects.find({teamId: {$in: _.pluck(Teams.find({members: {$in: [userId]}}).fetch(), '_id')}},{sort: {updatedAt: -1}});
-
+  var teams = Teams.find({members: {$in: [userId]}}).fetch();
+  return Projects.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});
 });
 
 Meteor.publish('teamMembers', function(userId) {
@@ -69,12 +67,16 @@ Meteor.publish('userNotifications', function(userId) {
   return Notifications.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});  
 });
 
-Meteor.publish('teamMovements', function(userId) {
-  var teams = Teams.find({members: {$in: [userId]}}).fetch();
-  return Movements.find({teamId: {$in: _.pluck(teams, '_id')}});
+Meteor.publish('userMovements', function(loggedInUserId, followingUserId) {
+  var teams = Teams.find({members: {$in: [loggedInUserId]}}).fetch();
+  return Movements.find({teamId: {$in: _.pluck(teams, '_id')},userId: followingUserId});
 });
 
-Meteor.publish('teamFormEdits', function(userId) {
-  var teams = Teams.find({members: {$in: [userId]}}).fetch();
-  return FormEdits.find({teamId: {$in: _.pluck(teams, '_id')}});
+Meteor.publish('userFormEdits', function(loggedInUserId, followingUserId) {
+  var teams = Teams.find({members: {$in: [loggedInUserId]}}).fetch();
+  return FormEdits.find({teamId: {$in: _.pluck(teams, '_id')},userId: followingUserId});
 });
+
+Meteor.publish('userFollowers', function(userId) {
+  return Follows.find({followingUserId: userId});
+})

@@ -15,6 +15,7 @@ Template.acceptEmailInvite.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       }
+      Meteor.bindUserSubscriptions();
       Router.go('team', {teamCode: teamCode});
     });
   },

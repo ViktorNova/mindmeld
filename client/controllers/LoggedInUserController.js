@@ -9,12 +9,13 @@ Meteor.bindUserSubscriptions = function() {
     Meteor.subscribe('userTags', Meteor.userId()),
     Meteor.subscribe('publicTeams'),
     Meteor.subscribe('teamMembers', Meteor.userId()),
-    Meteor.subscribe('teamMovements', Meteor.userId()),
-    Meteor.subscribe('teamFormEdits', Meteor.userId()),
+    // Meteor.subscribe('teamMovements', Meteor.userId()),
+    // Meteor.subscribe('teamFormEdits', Meteor.userId()),
     Meteor.subscribe('userNotifications', Meteor.userId()),
     Meteor.subscribe('ownUsernameTeamInvites', Meteor.user() && Meteor.user().username),
     Meteor.subscribe('ownEmailTeamInvites', Meteor.user() && Meteor.user().emails[0].address),
-    Meteor.subscribe('teamInvites', Meteor.userId())
+    Meteor.subscribe('teamInvites', Meteor.userId()),
+    Meteor.subscribe('userFollowers', Meteor.userId())
   ];
 }
 
@@ -31,8 +32,8 @@ LoggedInUserController = RouteController.extend({
     if (Meteor.loggingIn())
       return;
 
+    var routeData = this.data();
     if (Meteor.user()) {
-      var routeData = this.data();
       if (routeData && routeData.currentTeam) {
         var movementAttributes = {
           teamId: routeData.currentTeam._id,
@@ -46,7 +47,11 @@ LoggedInUserController = RouteController.extend({
           data: function() {
             var otherMembers = null;
             if (routeData && routeData.currentTeam && routeData.currentTeam.members) {
-              otherMembers = Meteor.users.find({_id: {$in: _.without(routeData.currentTeam.members,Meteor.userId())}});
+              var otherMemberIds = _.without(routeData.currentTeam.members,Meteor.userId());
+              var followers = Follows.find({followingUserId: Meteor.userId()}).fetch();
+              var followerIds = _.pluck(followers,'userId');
+              otherMemberIds = _.difference(otherMemberIds, followerIds);
+              otherMembers = Meteor.users.find({_id: {$in: otherMemberIds}});
             }
             return {
               otherMembers: otherMembers,

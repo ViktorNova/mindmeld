@@ -1,0 +1,1 @@
+Follows = new Meteor.Collection('follows');
