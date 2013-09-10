@@ -1,5 +1,17 @@
 Template.userHeader.helpers(Meteor.userFunctions);
 
+Template.userHeader.rendered = function() {
+    $(document).ready(function() {
+      $(document).scrollTop(0);
+    });
+}
+
+Template.publicHeader.rendered  = function() {
+    $(document).ready(function() {
+      $(document).scrollTop(0);
+    });
+}
+
 Template.userHeader.events({
   'click #signOut': function(event) {
     SessionAmplify.set('following',null);

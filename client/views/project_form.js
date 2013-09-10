@@ -7,6 +7,7 @@ var dataContext;
 Template.projectForm.rendered = function() {
 
   dataContext = this;
+
 }
 
 Template.projectForm.events({
