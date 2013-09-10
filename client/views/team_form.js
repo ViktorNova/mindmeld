@@ -1,6 +1,9 @@
 Template.teamForm.helpers(Meteor.userFunctions);
 
+var dataContext;
+
 Template.teamForm.rendered = function() {
+  dataContext = this;
   $(document).ready(function() { 
     $('#name-input').focus(function() {
       $('#name-control-group').removeClass('error');
@@ -57,6 +60,6 @@ Template.teamForm.events({
   },
   'click #cancel-edit': function(event) {
     event.preventDefault();
-    Router.go('team', {teamCode: this.teamCode});
+    Router.go('team', {teamCode: dataContext.data.teamCode});
   }
 });

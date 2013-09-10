@@ -113,8 +113,9 @@ Meteor.methods({
     if (!validFeature)
       throw new Meteor.Error(403, "Could not find a matching feature that you are authorized to delete");
 
-    Features.remove( { _id: featureId });
-    Issues.remove( { featureId: featureId });
-    Notifications.remove( { featureId: featureId });
+    Notifications.remove({featureId: featureId});
+    Comments.remove({featureId: featureId});
+    Issues.remove({featureId: featureId});
+    Features.remove({_id: featureId});
   }
 });

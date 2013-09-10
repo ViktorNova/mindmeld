@@ -18,8 +18,7 @@ Deps.autorun(function() {
     if (Router.current() && Router.current().path == formEdit.path) {
       var element = $('#' + formEdit.element);
       if (element) {
-        console.log(element);
-        if (element[0].id == 'tags') {
+        if (element.length > 0 && element[0].id == 'tags') {
           element.select2('val',formEdit.value);
           return;
         }

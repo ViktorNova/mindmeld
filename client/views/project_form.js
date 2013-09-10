@@ -2,6 +2,13 @@ Template.createProject.helpers(Meteor.userFunctions);
 Template.editProject.helpers(Meteor.userFunctions);
 Template.projectForm.helpers(Meteor.userFunctions);
 
+var dataContext;
+
+Template.projectForm.rendered = function() {
+
+  dataContext = this;
+}
+
 Template.projectForm.events({
   'blur #name-input': function(event) {
     Meteor.userFunctions.logFormEdit.call(this, event, Router.current().path);
@@ -21,14 +28,12 @@ Template.projectForm.events({
       detail: $(document).find('[name=detail]').val()
     }
 
-    var dataContext = this;
-
     Meteor.call('createProject', project, function(error, project) {
       if (error) {
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Router.go('project', {teamCode: dataContext.teamCode, projectCode: project.code});
+        Router.go('project', {teamCode: dataContext.data.teamCode, projectCode: project.code});
       }
     });
   },
@@ -52,16 +57,16 @@ Template.projectForm.events({
         Meteor.userFunctions.addError(error.reason);
         return;
       } else {
-        Router.go('project', {teamCode: dataContext.teamCode, projectCode: project.code});
+        Router.go('project', {teamCode: dataContext.data.teamCode, projectCode: project.code});
       }
     });
   },
   'click #cancel-create': function(event) {
     event.preventDefault();
-    Router.go('team', {teamCode: this.teamCode});
+    Router.go('team', {teamCode: dataContext.data.teamCode});
   },
   'click #cancel-edit': function(event) {
     event.preventDefault();
-    Router.go('project', {teamCode: this.teamCode, projectCode: this.projectCode});
+    Router.go('project', {teamCode: dataContext.data.teamCode, projectCode: dataContext.data.projectCode});
   }
 });

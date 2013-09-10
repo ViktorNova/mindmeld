@@ -10,8 +10,10 @@ Meteor.publish('publicTeams', function() {
 });
 
 Meteor.publish('userProjects', function(userId) {
-  var teams = Teams.find({members: {$in: [userId]}}).fetch();
-  return Projects.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});
+  // var teams = Teams.find({members: {$in: [userId]}}).fetch();
+  // return Projects.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});
+  return Projects.find({teamId: {$in: _.pluck(Teams.find({members: {$in: [userId]}}).fetch(), '_id')}},{sort: {updatedAt: -1}});
+
 });
 
 Meteor.publish('teamMembers', function(userId) {

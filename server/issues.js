@@ -141,8 +141,8 @@ Meteor.methods({
       Meteor.call('tagDecrement',validIssue.teamId, validIssue._id, tag);
     });
 
-    Notifications.remove( { issueId: issueId });
-
-    Issues.remove( { _id: issueId });
+    Notifications.remove({issueId: issueId});
+    Comments.remove({issueId: issueId})
+    Issues.remove({_id: issueId});
   }
 });

@@ -99,9 +99,10 @@ Meteor.methods({
     if (!validProject)
       throw new Meteor.Error(403, "Could not find a matching project that you are authorized to delete");
 
-    Projects.remove( { _id: projectId });
-    Features.remove( { projectId: projectId });
-    Issues.remove( { projectId: projectId });
-    Notifications.remove( { projectId: projectId });
+    Notifications.remove({projectId: projectId});
+    Comments.remove({projectId: projectId});
+    Issues.remove({ projectId: projectId});
+    Features.remove({projectId: projectId});
+    Projects.remove({_id: projectId});
   }
 });

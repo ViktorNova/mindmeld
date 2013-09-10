@@ -21,34 +21,40 @@ Template.notification.helpers(_.extend(
       return this.entity == "comment";
     },
     asTeamParams: function() {
+      var team = Teams.findOne(this.teamId);
       return {
-        teamCode: Teams.findOne(this.teamId).code
+        teamCode: team && team.code || ""
       }
     },
     asProjectParams: function() {
-      var obj = {
-        teamCode: Teams.findOne(this.teamId) && Teams.findOne(this.teamId).code,
-        projectCode: Projects.findOne(this.projectId) && Projects.findOne(this.projectId).code
-      };
+      var team = Teams.findOne(this.teamId);
+      var project = Projects.findOne(this.projectId);
       return {
-        teamCode: Teams.findOne(this.teamId) && Teams.findOne(this.teamId).code,
-        projectCode: Projects.findOne(this.projectId) && Projects.findOne(this.projectId).code
+        teamCode: team && team.code || "",
+        projectCode: project && project.code || ""
       }
     },
     asFeatureParams: function() {
+      var team = Teams.findOne(this.teamId);
+      var project = Projects.findOne(this.projectId);
+      var feature = Features.findOne(this.featureId);
       return {
-        teamCode: Teams.findOne(this.teamId).code,
-        projectCode: Projects.findOne(this.projectId).code,
-        featureCode: Features.findOne(this.featureId).code
+        teamCode: team && team.code || "",
+        projectCode: project && project.code || "",
+        featureCode: feature && feature.code || ""
       }
     },
     asIssueParams: function() {
+      var team = Teams.findOne(this.teamId);
+      var project = Projects.findOne(this.projectId);
+      var feature = Features.findOne(this.featureId);
+      var issue = Issues.findOne(this.issueId);
       return {
-        teamCode: Teams.findOne(this.teamId).code,
-        projectCode: Projects.findOne(this.projectId).code,
-        featureCode: Features.findOne(this.featureId).code,
-        issueCode: Issues.findOne(this.issueId).code
-      };
+        teamCode: team && team.code || "",
+        projectCode: project && project.code || "",
+        featureCode: feature && feature.code || "",
+        issueCode: issue && issue.code || ""
+      }
     }
   },
   Meteor.userFunctions)

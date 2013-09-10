@@ -1,3 +1,14 @@
+function generateNotifications(currentTeam, currentProject, currentFeature, currentIssue) {
+  var findParameters = _.compactObject({
+    teamId: currentTeam && currentTeam._id,
+    projectId: currentProject && currentProject._id,
+    featureId: currentFeature && currentFeature._id,
+    issueId: currentIssue && currentIssue._id,
+    readBy: {$nin: [ Meteor.userId() ]}
+  });
+  return Notifications.find(findParameters, {sort: { createdAt: -1 }});
+}
+
 Router.configure({
   layout: 'layout'
 });
@@ -11,7 +22,8 @@ Router.map(function() {
       var allIssuesNotStarted = Issues.find({status: 0},{sort: {updatedAt: -1}});
       var allIssuesInProgress = Issues.find({status: 1},{sort: {statusChanged: -1}});
       var allIssuesCompleted = Issues.find({status: 2},{sort: {statusChanged: -1}});
-      var allIssuesCancelled = Issues.find({status: 3},{sort: {statusChanged: -1}})
+      var allIssuesCancelled = Issues.find({status: 3},{sort: {statusChanged: -1}});
+      var notifications = generateNotifications();
 
       return {
         availableTeams: availableTeams,
@@ -24,7 +36,9 @@ Router.map(function() {
         allIssuesNotStartedCount: allIssuesNotStarted.count(),
         allIssuesInProgressCount: allIssuesInProgress.count(),
         allIssuesCompletedCount: allIssuesCompleted.count(),
-        allIssuesCancelledCount: allIssuesCancelled.count()
+        allIssuesCancelledCount: allIssuesCancelled.count(),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       };
     },
     controller: LoggedInUserController,
@@ -125,6 +139,7 @@ Router.map(function() {
     path: '/:teamCode',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
+      var notifications = generateNotifications(currentTeam);
       if (!currentTeam)
         return null;
       if (currentTeam.members) {
@@ -134,7 +149,9 @@ Router.map(function() {
           availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
           teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
           teamMovements: Movements.find({teamId: currentTeam._id}),
-          teamTags: Tags.find({teamId: currentTeam._id }, {sort: {count: -1}})
+          teamTags: Tags.find({teamId: currentTeam._id }, {sort: {count: -1}}),
+          notifications: notifications,
+          notificationsCount: notifications.count()
         };
       } else {
         return {
@@ -193,9 +210,12 @@ Router.map(function() {
   {
     path: '/team/create',
     data: function() {
+      var notifications = generateNotifications();
       return {
         action: 'create',
-        currentTeam: {}
+        currentTeam: {},
+       notifications: notifications,
+        notificationsCount: notifications.count() 
       };
     },
     controller: LoggedInUserController,
@@ -213,12 +233,15 @@ Router.map(function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
       if (!currentTeam || !currentTeam.members)
         return null;
+      var notifications = generateNotifications(currentTeam);
       return {
         action: 'edit',
         currentTeam: currentTeam,
         teamCode: this.params.teamCode,
         availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
-        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       };
     },
     controller: LoggedInUserController,
@@ -236,6 +259,7 @@ Router.map(function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
       if (!currentTeam || !currentTeam.members)
         return null;
+      var notifications = generateNotifications(currentTeam);
       return {
         currentTeam: currentTeam,
         teamCode: this.params.teamCode, 
@@ -243,7 +267,9 @@ Router.map(function() {
         teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
         teamInvites: TeamInvites.find({teamId: currentTeam._id }),
         teamInvitesWithEmail: TeamInvites.find({email: {$exists: true}, teamId: currentTeam._id}),
-        teamInvitesWithUsername: TeamInvites.find({username: {$exists: true}, teamId: currentTeam._id})
+        teamInvitesWithUsername: TeamInvites.find({username: {$exists: true}, teamId: currentTeam._id}),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       };
     },
     controller: LoggedInUserController,
@@ -259,10 +285,13 @@ Router.map(function() {
     path: '/users/:username',
     data: function() {
       var user = Meteor.users.findOne({username: this.params.username});
+      var notifications = generateNotifications();
       if (!user)
         return null;
       return {
-        user: user
+        user: user,
+        notifications: notifications,
+        notificationsCount: notifications.count()
       };
     },
     controller: LoggedInUserController,
@@ -278,6 +307,7 @@ Router.map(function() {
     path: '/:teamCode/project/create',
     data: function() {
       var currentTeam = Teams.findOne({code: this.params.teamCode});
+      var notifications = generateNotifications(currentTeam);
       if (!currentTeam)
         return null;
       return {
@@ -286,7 +316,9 @@ Router.map(function() {
         teamCode: this.params.teamCode,
         currentProject: {teamId: currentTeam._id},
         availableProjects: Projects.find({teamId: currentTeam._id},{sort: {statusChanged: -1}}),
-        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       };
     },
     controller: LoggedInUserController,
@@ -342,6 +374,7 @@ Router.map(function() {
         },
         {sort: {statusChanged: -1}}
       );
+      var notifications = generateNotifications(currentTeam, currentProject);
 
       return {
         currentTeam: currentTeam,
@@ -357,7 +390,9 @@ Router.map(function() {
         inProgressIssuesInProjectCount: inProgressIssuesInProject.count(),
         completedIssuesInProjectCount: completedIssuesInProject.count(),
         cancelledIssuesInProjectCount: cancelledIssuesInProject.count(),
-        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})                
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       }
     },
     controller: LoggedInUserController,
@@ -384,6 +419,7 @@ Router.map(function() {
         },
         {sort: {statusChanged: -1}}
       );
+      var notifications = generateNotifications(currentTeam, currentProject);      
       return {
         action: 'edit',
         currentTeam: currentTeam,
@@ -391,7 +427,9 @@ Router.map(function() {
         currentProject: currentProject,
         projectCode: this.params.projectCode,
         availableFeatures: availableFeatures,
-        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       }
     },
     controller: LoggedInUserController,
@@ -412,6 +450,7 @@ Router.map(function() {
       var currentProject = Projects.findOne({teamId: currentTeam._id, code: this.params.projectCode});
       if (!currentProject)
         return null;
+      var notifications = generateNotifications(currentTeam, currentProject);
 
       return {
         action: 'create',
@@ -421,7 +460,9 @@ Router.map(function() {
         projectCode: this.params.projectCode,
         currentFeature: {teamId: currentTeam._id, projectId: currentProject._id},
         availableFeatures: Features.find({teamId: currentTeam._id, projectId: currentProject._id},{sort: {statusChanged: -1}}),
-        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       };
     },
     controller: LoggedInUserController,
@@ -454,6 +495,7 @@ Router.map(function() {
         },
         {sort: {updatedAt: -1}
       });
+      var notifications = generateNotifications(currentTeam, currentProject, currentFeature);
 
       return {
         currentTeam : currentTeam,
@@ -463,7 +505,9 @@ Router.map(function() {
         currentFeature: currentFeature,
         featureCode: this.params.featureCode,
         availableIssues: availableIssues,
-        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       }
     },
     controller: LoggedInUserController,
@@ -495,6 +539,7 @@ Router.map(function() {
         },
         {sort: {updatedAt: -1}
       });
+      var notifications = generateNotifications(currentTeam, currentProject, currentFeature);
 
       return {
         action: 'edit',
@@ -505,7 +550,9 @@ Router.map(function() {
         currentFeature: currentFeature,
         featureCode: this.params.featureCode,
         availableIssues: availableIssues,
-        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       }
     },
     controller: LoggedInUserController,
@@ -539,6 +586,7 @@ this.route('createIssue',
         },
         {sort: {updatedAt: -1}
       });
+      var notifications = generateNotifications(currentTeam, currentProject, currentFeature);
 
       return {
         action: 'create',
@@ -551,7 +599,9 @@ this.route('createIssue',
         currentIssue: {teamId: currentTeam._id, projectId: currentProject._id, featureId: currentFeature._id},
         availableIssues: availableIssues,
         tags: tags,
-        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}})        
+        teamMembers: currentTeam.members && Meteor.users.find({_id: {$in: currentTeam.members}}),
+        notifications: notifications,
+        notificationsCount: notifications.count()
       }
     },
     controller: LoggedInUserController,
@@ -579,7 +629,7 @@ this.route('createIssue',
       if (!currentIssue)
         return null;
 
-      var notifications = Notifications.find({teamId: currentTeam._id});
+      var notifications = generateNotifications(currentTeam, currentProject, currentFeature, currentIssue);
 
       return {
         currentTeam : currentTeam,
@@ -590,7 +640,8 @@ this.route('createIssue',
         featureCode: this.params.featureCode,
         currentIssue: currentIssue,
         issueCode: this.params.issueCode,
-        notifications: notifications
+        notifications: notifications,
+        notificationsCount: notifications.count()
       }
     },
     controller: LoggedInUserController,
@@ -619,6 +670,7 @@ this.route('createIssue',
         return null;
 
       var tags = Tags.find({teamId: currentTeam._id});
+      var notifications = generateNotifications(currentTeam, currentProject, currentFeature, currentIssue);
 
       return {
         action: 'edit',
@@ -630,7 +682,9 @@ this.route('createIssue',
         featureCode: this.params.featureCode,
         currentIssue: currentIssue,
         issueCode: this.params.issueCode,
-        tags: tags
+        tags: tags,
+        notifications: notifications,
+        notificationsCount: notifications.count()
       }
     },
     controller: LoggedInUserController,

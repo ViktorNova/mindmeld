@@ -19,54 +19,50 @@ Meteor.userFunctions = {
   },
   teamParams: function() {
     return {
-      teamCode: this.code
+      teamCode: this.code || ""
     }
   },
   projectParams: function() {
+    var team = Teams.findOne(this.teamId);
     return {
-      teamCode: Teams.findOne(this.teamId).code,
-      projectCode: this.code
+      teamCode: team && team.code || "",
+      projectCode: this.code || ""
     };
   },
   featureParams: function() {
+    var team = Teams.findOne(this.teamId);
+    var project = Projects.findOne(this.projectId);
     return {
-      teamCode: Teams.findOne(this.teamId).code,
-      projectCode: Projects.findOne(this.projectId).code,
-      featureCode: this.code
-    }
+      teamCode: team && team.code || "",
+      projectCode: project && project.code || "",
+      featureCode: this.code || ""
+    };
   },
   issueParams: function() {
+    var team = Teams.findOne(this.teamId);
+    var project = Projects.findOne(this.projectId);
+    var feature = Features.findOne(this.featureId);
     return {
-      teamCode: Teams.findOne(this.teamId).code,
-      projectCode: Projects.findOne(this.projectId).code,
-      featureCode: Features.findOne(this.featureId).code,
-      issueCode: this.code
+      teamCode: team && team.code || "",
+      projectCode: project && project.code || "",
+      featureCode: feature && feature.code || "",
+      issueCode: this.code || ""
     }
   },
   tagParams: function() {
+    var team = Teams.findOne(this.teamId);
     return {
-      teamCode: Teams.findOne(this.teamId).code,
-      tag: this.tag
+      teamCode: team && team.code || "",
+      tag: this.tag || ""
     }
   },
   usernameParams: function() {
     return {
-      username: this.username
+      username: this.username || ""
     }
   },
   addError: function(reason) {
     $('#error-notification').append('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' + reason + '</div>');
-  },
-  notifications: function() {
-    var findParameters = _.compactObject({
-      teamId: this.currentTeam && this.currentTeam._id,
-      projectId: this.currentProject && this.currentProject._id,
-      featureId: this.currentFeature && this.currentFeature._id,
-      issueId: this.currentIssue && this.currentIssue._id,
-      readBy: {$nin: [ Meteor.userId() ]}
-    });
-    return Notifications.find(findParameters, {sort: { createdAt: -1 }, reactive: true}
-    );
   },
   teamCode: function() {
     return this.teamId && Teams.findOne(this.teamId) && 
