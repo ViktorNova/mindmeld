@@ -27,6 +27,9 @@ Meteor.methods({
     if (Teams.findOne({upperCaseCode: team.upperCaseCode}))
       throw new Meteor.Error(403, "Team name already exists");
 
+    if (_.contains(Meteor.reservedWords, team.upperCaseCode))
+      throw new Meteor.Error(403, "Team name is reserved, and can't be used");
+
     var teamId = Teams.insert(team);
 
     var newTeam = Teams.findOne(teamId);

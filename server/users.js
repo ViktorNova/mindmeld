@@ -68,6 +68,10 @@ Meteor.methods({
     if (signupUser.email.length > 256)
       throw new Meteor.Error(403, "Email must not be greater than 256 characters.");
 
+    if (_.contains(Meteor.reservedWords, signupUser.username.toUpperCase()))
+      throw new Meteor.Error(403, "Username " + signupUser.username + " is reserved, and can't be used");
+
+
     var userId = Accounts.createUser({
       username: signupUser.username, 
       email: signupUser.email, 
