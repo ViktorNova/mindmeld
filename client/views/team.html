@@ -68,7 +68,7 @@
                   <tr>
                       <td><a href="{{pathFor 'user' usernameParams}}">{{username}}</a></td>
                       <td>{{profile.firstName}}&nbsp;{{profile.lastName}}</td>
-                      <td><div class="text-center"><button type="button" class="btn remove-user" data-userid="{{_id}}" {{disableButtonIf userIsTeamOwner}}><i class="icon-remove"></i> Remove</button></div></td>
+                      <td><div class="text-center"><button data-target="#deleteModal{{_id}}" data-toggle="modal" class="btn" {{disableButtonIf userIsTeamOwner}}><i class="icon-ban-circle"></i> Remove</button></div></td>
                   </tr>
                   {{/each}}
                 {{else}}
@@ -77,6 +77,24 @@
                 </tr>
                 {{/if}}
               </table>
+
+              {{#each teamMembers}}
+
+              <div id="deleteModal{{_id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="deleteModalLabel">Remove this user?</h3>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure you want to remove this user?</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i> Cancel</button>
+                  <button type="button" data-dismiss="modal" class="btn remove-user primary" data-userid="{{_id}}" {{disableButtonIf userIsTeamOwner}}><i class="icon-ban-circle"></i> Remove</button>
+                </div>
+              </div>
+
+            {{/each}}
             </div>
             <div class="span6">
               <h2><i class="icon-tags"></i> Tags by Count</h2>
