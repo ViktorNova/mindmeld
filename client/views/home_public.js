@@ -1,5 +1,11 @@
 Template.homePublic.helpers();
 
+Template.homePublic.rendered = function() {
+  $(document).ready(function() {
+    $('.carousel').carousel({interval: 10000});
+  });
+}
+
 Template.homePublic.events({
   'click #subscribe': function(event) {
     event.preventDefault();

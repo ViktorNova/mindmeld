@@ -79,7 +79,7 @@
         <div class="span3 issueStatusGroup">
           <h3>Not Started <span class="label label-important">{{notStartedIssuesInProjectCount}}</span></h3>
           {{#each notStartedIssuesInProject}}
-            <div class="item">
+            <div class="issue">
               {{featureName}}<br />
               <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
               <strong>{{ownedByUsername}}</strong>
@@ -89,7 +89,7 @@
         <div class="span3 issueStatusGroup">
           <h3>In Progress <span class="label label-info">{{inProgressIssuesInProjectCount}}</span></h3>
           {{#each inProgressIssuesInProject}}
-            <div class="item">
+            <div class="issue">
               {{featureName}}<br />
               <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
               <strong>{{ownedByUsername}}</strong>
@@ -99,7 +99,7 @@
         <div class="span3 issueStatusGroup">
           <h3>Completed <span class="label label-success">{{completedIssuesInProjectCount}}</span></h3>
           {{#each completedIssuesInProject}}
-            <div class="item">
+            <div class="issue">
               {{featureName}}<br />
               <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
               <strong>{{ownedByUsername}}</strong>
@@ -109,7 +109,7 @@
         <div class="span3 issueStatusGroup">
           <h3>Cancelled <span class="label label-warning">{{cancelledIssuesInProjectCount}}</span></h3>
           {{#each cancelledIssuesInProject}}
-            <div class="item">
+            <div class="issue">
               <a href="{{pathFor 'issue' issueParams}}">{{name}}</a><br />
               <strong>{{ownedByUsername}}</strong>
             </div>
