@@ -18,6 +18,9 @@ Meteor.methods({
       updatedAt: new Date()
     });
 
+    if (team.code.length < 3)
+      throw new Meteor.Error(403, "Team name is invalid");
+
     if (team.name.length < 3 || team.name.length > 30)
       throw new Meteor.Error(403, "Team name must be between 3 and 30 characters");
 

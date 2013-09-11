@@ -28,6 +28,9 @@ Meteor.methods({
     if (!Teams.findOne({_id: issue.teamId, members: {$in:[issue.ownedByUserId]}}))
       throw new Meteor.Error(403, "The owner specified was not found in the team specified");
 
+    if (issue.code.length < 3)
+      throw new Meteor.Error(403, "Issue name is invalid");
+
     if (issue.name.length < 3 || issue.name.length > 50)
       throw new Meteor.Error(403, "Issue name must be between 3 and 50 characters");
 

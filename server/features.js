@@ -18,6 +18,9 @@ Meteor.methods({
     if (!Teams.findOne({_id: feature.teamId, members: {$in:[feature.ownedByUserId]}}))
       throw new Meteor.Error(403, "The owner specified was not found in the team specified");
 
+    if (feature.code.length < 3)
+      throw new Meteor.Error(403, "Feature name is invalid");
+
     if (feature.name.length < 3 || feature.name.length > 50)
       throw new Meteor.Error(403, "Feature name must be between 3 and 50 characters");
 

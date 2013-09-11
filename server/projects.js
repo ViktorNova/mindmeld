@@ -15,6 +15,9 @@ Meteor.methods({
     if (!Teams.findOne({_id: project.teamId, members: {$in:[Meteor.userId()]}}))
       throw new Meteor.Error(403, "The team specified could not be found");
 
+    if (project.code.length < 3)
+      throw new Meteor.Error(403, "Project name is invalid");
+
     if (project.name.length < 3 || project.name.length > 30)
       throw new Meteor.Error(403, "Project name must be between 3 and 30 characters");
 
