@@ -19,10 +19,10 @@ Router.map(function() {
     path: '/',
     data: function() {
       var availableTeams = Teams.find({members: {$in: [Meteor.userId()]}});
-      var allIssuesNotStarted = Issues.find({status: 0},{sort: {updatedAt: -1}});
-      var allIssuesInProgress = Issues.find({status: 1},{sort: {statusChanged: -1}});
-      var allIssuesCompleted = Issues.find({status: 2},{sort: {statusChanged: -1}});
-      var allIssuesCancelled = Issues.find({status: 3},{sort: {statusChanged: -1}});
+      var allIssuesNotStarted = Issues.find({status: 0, ownedByUserId: Meteor.userId()},{sort: {updatedAt: -1}});
+      var allIssuesInProgress = Issues.find({status: 1, ownedByUserId: Meteor.userId()},{sort: {statusChanged: -1}});
+      var allIssuesCompleted = Issues.find({status: 2, ownedByUserId: Meteor.userId()},{sort: {statusChanged: -1}});
+      var allIssuesCancelled = Issues.find({status: 3, ownedByUserId: Meteor.userId()},{sort: {statusChanged: -1}});
       var notifications = generateNotifications();
 
       return {

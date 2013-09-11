@@ -5,7 +5,7 @@ Meteor.methods({
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to delete a issue");
-    var issue = Issues.findOne();
+    var issue = Issues.findOne(issueId);
     if (!issue)
       throw new Meteor.Error(500, "No matching issue was found");
     var feature = Features.findOne(issue.featureId);
@@ -34,7 +34,7 @@ Meteor.methods({
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to delete a issue");
-    var issue = Issues.findOne();
+    var issue = Issues.findOne(issueId);
     if (!issue)
       throw new Meteor.Error(500, "No matching issue was found");
     var feature = Features.findOne(issue.featureId);
@@ -68,7 +68,7 @@ Meteor.methods({
     var user = Meteor.user();
     if (!user)
       throw new Meteor.Error(401, "You need to login to delete a issue");
-    var issue = Issues.findOne();
+    var issue = Issues.findOne(issueId);
     if (!issue)
       throw new Meteor.Error(500, "No matching issue was found");
     var feature = Features.findOne(issue.featureId);
@@ -116,24 +116,5 @@ Meteor.methods({
     _.each(issueIds, function(issueId, index) {
       Issues.update({teamId: teamId, projectId: projectId, _id: issueId},{$set: {rank: index + 1}});
     });
-  },
-  removeIssueInRankings: function(issue) {
-    var user = Meteor.user();
-    if (!user)
-      throw new Meteor.Error(401, "You need to login to insert an issue in rankings");
-
-    var teamId = issue.teamId;
-    if (!teamId)
-      throw new Meteor.Error(500, "Issue did not have a teamId");
-
-    var projectId = issue.projectId;
-    if (!projectId)
-      throw new Meteor.Error(500, "Issue did not have a projectId");
-
-    var existingProject = Issues.findOne({teamId: teamId, projectId: projectId});
-    if (!existingProject)
-      throw new Meteor.Error(500, "No project matching that projectId found");
-
-    Issues.update({ teamId: teamId, projectId: projectId}, {$pull: {issueIds: issue._id}});
   }
 });

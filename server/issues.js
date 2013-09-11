@@ -138,14 +138,22 @@ Meteor.methods({
     if (!validIssue)
       throw new Meteor.Error(403, "Could not find a matching issue that you are authorized to delete");
 
-    Meteor.call('removeIssueInRankings', validIssue);
-
     _.each(validIssue.tags, function(tag) {
-      Meteor.call('tagDecrement',validIssue.teamId, validIssue._id, tag);
+      Meteor.call('tagDecrement',validIssue.teamId, tag);
     });
 
     Notifications.remove({issueId: issueId});
     Comments.remove({issueId: issueId})
     Issues.remove({_id: issueId});
+
+    var relatedIssues = Issues.find({
+      teamId: validIssue.teamId, 
+      projectId: validIssue.projectId,
+      status: 0, 
+      rank: {$exists: true}
+    }).fetch();
+
+    var relatedIssueIds = _.pluck(relatedIssues,'_id');
+    Meteor.call('reorderIssueRankings', relatedIssueIds, validIssue.teamId, validIssue.projectId);
   }
 });
