@@ -20,10 +20,10 @@ Meteor.publish('teamMembers', function(userId) {
     {fields: { username: 1, createdAt: 1, profile: 1}});
 });
 
-Meteor.publish('publicMembers', function() {
-  return Meteor.users.find({},
-    {fields: { username: 1, createdAt: 1, profile: 1}});
-});
+// Meteor.publish('publicMembers', function() {
+//   return Meteor.users.find({},
+//     {fields: { username: 1, createdAt: 1, profile: 1}});
+// });
 
 Meteor.publish('userFeatures', function(userId) {
   var teams = Teams.find({members: {$in: [userId]}}).fetch();
@@ -40,9 +40,9 @@ Meteor.publish('userComments', function(userId) {
   return Comments.find({teamId: {$in: _.pluck(teams, '_id')}},{sort: {updatedAt: -1}});
 });
 
-Meteor.publish('usernames', function() {
-  return Meteor.users.find({}, {fields: { username: 1}});
-});
+// Meteor.publish('usernames', function() {
+//   return Meteor.users.find({}, {fields: { username: 1}});
+// });
 
 Meteor.publish('teamInvites', function(userId) {
   var teams = Teams.find({members: {$in: [userId]}}).fetch();

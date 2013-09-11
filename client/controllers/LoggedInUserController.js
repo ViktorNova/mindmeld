@@ -5,7 +5,7 @@ Meteor.bindUserSubscriptions = function() {
     Meteor.subscribe('userComments', Meteor.userId()),
     Meteor.subscribe('userFeatures', Meteor.userId()),
     Meteor.subscribe('userProjects', Meteor.userId()),
-    Meteor.subscribe('publicMembers'),
+    //Meteor.subscribe('publicMembers'),
     Meteor.subscribe('userTags', Meteor.userId()),
     Meteor.subscribe('publicTeams'),
     Meteor.subscribe('teamMembers', Meteor.userId()),

@@ -70,10 +70,10 @@ Router.map(function() {
     path: '/signup',
     data: function() {
       return {
-        usernames: Meteor.users.find({}, {fields: { username: 1}})
+  //      usernames: Meteor.users.find({}, {fields: { username: 1}})
       }
     },
-    waitOn: Meteor.subscribe('usernames'),
+//    waitOn: Meteor.subscribe('usernames'),
     loadingTemplate: 'waiting',
     controller: SignUpController,
     action: 'userLoadedAction'

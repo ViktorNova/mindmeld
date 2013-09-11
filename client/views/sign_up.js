@@ -40,17 +40,11 @@ Template.signUp.rendered = function() {
   $(document).ready(function() {
     $('form#signup').parsley({
       validators: {
-        username: function(username) {
-          if (username.length < 3)
-            return true;
-          return !Meteor.users.findOne({username: username});
-        },
         validchars: function(username) {
           return /^[a-z0-9]{3,30}$/.test(username);
         }
       },
       messages: {
-        username: "The username already exists",
         validchars: "3-30 lowercase alphanumeric characters."
       },
       successClass: 'success',
