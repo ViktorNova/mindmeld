@@ -27,6 +27,7 @@ Router.map(function() {
 
       return {
         availableTeams: availableTeams,
+        availableTeamsCount: availableTeams.count(),
         invitedTeamsForUsername: TeamInvites.find({username: Meteor.user() && Meteor.user().username}),
         invitedTeamsForUsernameCount: TeamInvites.find({username: Meteor.user() && Meteor.user().username}).count(),
         allIssuesNotStarted: allIssuesNotStarted,
